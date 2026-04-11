@@ -11,6 +11,18 @@ public class Guests {
     //Room Prefrence lama n3ml el Room class
 
 
+    public Guests(String userName, String adress, double balance, Date dateOfBirth, String passWord) {
+        this.userName = userName;
+        this.adress = adress;
+        Balance = balance;
+        this.dateOfBirth = dateOfBirth;
+        this.passWord = passWord;
+    }
+
+    public Guests() {
+    }
+
+
     public String getUserName() {
         return userName;
     }
