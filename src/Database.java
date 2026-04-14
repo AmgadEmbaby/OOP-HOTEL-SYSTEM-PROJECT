@@ -7,6 +7,9 @@
  *
  * @author Reda
  */
+import java.util.*;
+
 public class Database {
-    
+  public static  ArrayList<Guests> Guestlist= new ArrayList<>();
+
 }
