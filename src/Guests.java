@@ -14,8 +14,8 @@ public class Guests {
     Scanner input = new Scanner(System.in);
 
 
-    enum Gender{
-        male,female;
+    enum Gender {
+        male, female;
 
     }
 
@@ -71,6 +71,7 @@ public class Guests {
     public void setAddress(String address) {
         this.address = address;
     }
+
     public Gender getGender() {
         return gender;
     }
@@ -79,22 +80,21 @@ public class Guests {
         this.gender = gender;
     }
 
-    public void Register(){
+    public void Register() {
         Guests.Gender tempGender = null;
         System.out.println("Welcome to the our hotels app!!! ");
         System.out.print("Please enter your desired username: ");
         System.out.print("Enter your gender: ");
         String InputTempGender = input.nextLine();
-        if(InputTempGender.equalsIgnoreCase("male")){
+        if (InputTempGender.equalsIgnoreCase("male")) {
             tempGender = Guests.Gender.male;
-        }
-        else{
+        } else {
             tempGender = Guests.Gender.female;
         }
         // VALIDATION FOR INPUT HERE TO BE USED LATER
-       String tempUsername =input.nextLine();
+        String tempUsername = input.nextLine();
         System.out.print("Enter your date of birth: ");
-       // String tempDOB = input.next
+        // String tempDOB = input.next
         System.out.print("Enter your password: ");
         String tempPassword = input.nextLine();
         System.out.print("Enter your address: ");
@@ -106,6 +106,5 @@ public class Guests {
         //public Guests(String userName, String address, double balance, Date dateOfBirth, String passWord, Gender gender)
 
 
-
-
+    }
 }
