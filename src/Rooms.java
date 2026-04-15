@@ -5,7 +5,6 @@ public class Rooms {
     private static int RoomCount = 0;
     private int RoomFloor;
     private RoomType roomtype;
-    private double PricePerNight;
     private boolean IsAvailable;
     private String RequiredAmenity;
     private double TotalAmenityCost = 0;
@@ -24,13 +23,6 @@ public class Rooms {
         RoomNumber = roomNumber;
     }
 
-    public double getPricePerNight() {
-        return PricePerNight;
-    }
-
-    public void setPricePerNight(double pricePerNight) {
-        PricePerNight = pricePerNight;
-    }
 
     public int getRoomFloor() {
         return RoomFloor;
@@ -83,6 +75,31 @@ public class Rooms {
     public double getTotalAmenityCost() {
         return TotalAmenityCost;
     }
+
+
+    public RoomType getRoomtype() {
+        return roomtype;
+    }
+
+    public void setRoomtype(RoomType roomtype) {
+        this.roomtype = roomtype;
+    }
+
+
+    public void CanStay(int NumberOfGuests) {
+        if (IsAvailable) {
+            if (NumberOfGuests <= roomtype.getCapacity()) {
+                System.out.println("This room has the capacity for this number of guests.");
+            } else {
+                System.out.println("This room's capacity is not enough , please check another room.");
+            }
+        }
+    }
+
+
+
+
+
 }
 
 

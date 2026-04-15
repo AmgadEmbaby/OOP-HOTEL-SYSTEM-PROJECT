@@ -1,10 +1,20 @@
-public class RoomType extends Rooms {
-private String roomtype;
+public class RoomType {
+private String TypeName;
 private int NumberOfBeds;
-private int capacity;
+private int Capacity;
+private String RoomDescription;
+private double PricePerNight;
 
+    public String getTypeName() {
+        return TypeName;
+    }
 
+    public void setTypeName(String typeName) {
+        TypeName = typeName;
+    }
 
+    public RoomType() {
+    }
 
     public int getNumberOfBeds() {
         return NumberOfBeds;
@@ -15,14 +25,35 @@ private int capacity;
     }
 
     public int getCapacity() {
-        return capacity;
+        return Capacity;
     }
 
     public void setCapacity(int capacity) {
-        this.capacity = capacity;
+        Capacity = capacity;
     }
 
-    public RoomType() {
+    public String getRoomDescription() {
+        return RoomDescription;
+    }
+
+    public void setRoomDescription(String roomDescription) {
+        RoomDescription = roomDescription;
+    }
+
+    public double getPricePerNight() {
+        return PricePerNight;
+    }
+
+    public void setPricePerNight(double pricePerNight) {
+        PricePerNight = pricePerNight;
+    }
+
+
+    public RoomType(String typeName, int numberOfBeds,int capacity,double pricePerNight) {
+        TypeName = typeName;
+        NumberOfBeds = numberOfBeds;
+        Capacity=capacity;
+        PricePerNight=pricePerNight;
     }
 
 }
