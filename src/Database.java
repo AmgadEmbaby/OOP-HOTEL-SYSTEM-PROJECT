@@ -14,11 +14,11 @@ public class Database {
 
 
 
-  public ArrayList<Guests> getGuestList(){
+  public static ArrayList<Guests> getGuestList(){
     return guestList;
   }
 
-  public ArrayList<Rooms> getRroomList(){
+  public static ArrayList<Rooms> getRoomList(){
     return roomList;
   }
 }
