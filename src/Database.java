@@ -14,9 +14,12 @@ public class Database {
 
   private static  ArrayList<Reservations> reservationsList= new ArrayList<>();
 
+  private static  ArrayList<Amenity> amenitiesList= new ArrayList<>();
+
 
 
   public static ArrayList<Guests> getGuestList(){
+
     return guestList;
   }
 
@@ -29,6 +32,12 @@ public class Database {
 
     return reservationsList;
 }
+
+
+  public static ArrayList<Amenity> getamenitiesList(){
+
+    return amenitiesList;
+  }
 
 
 
