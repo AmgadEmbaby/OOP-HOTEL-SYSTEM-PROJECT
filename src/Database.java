@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-/**
- *
- * @author Reda
- */
+
+import java.util.*;
+
 public class Database {
-    
+  public static  ArrayList<Guests> Guestlist= new ArrayList<>();
+
 }
