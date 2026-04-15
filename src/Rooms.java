@@ -6,7 +6,6 @@ public class Rooms {
     private int RoomFloor;
     private RoomType roomtype;
     private boolean IsAvailable;
-    private String RequiredAmenity;
     private double TotalAmenityCost = 0;
     ArrayList<Amenity> amenities = new ArrayList<>();
 
