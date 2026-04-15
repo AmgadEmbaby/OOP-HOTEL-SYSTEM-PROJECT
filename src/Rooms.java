@@ -95,6 +95,25 @@ public class Rooms {
         }
     }
 
+public void DisplayRoomInfo(){
+        System.out.println("-----------------------------");
+        System.out.println("       ROOM INFORMATION      ");
+        System.out.println("-----------------------------");
+
+        System.out.println("Room Number: "+ RoomNumber);
+        System.out.println("Room Floor: "+RoomFloor);
+        System.out.println("Status: " + (IsAvailable ? "Available" : "Occupied"));
+        System.out.println("Room Type: "+roomtype.getTypeName());
+        System.out.println("Room Description: "+roomtype.getRoomDescription());
+        System.out.println("Maximum Capacity: "+roomtype.getCapacity());
+        System.out.println("Price Per Night: "+roomtype.getPricePerNight());
+        System.out.print("Amenities in the room: ");
+        for(Amenity amenity:amenities){
+            System.out.print(amenity + " , ");
+        }
+        System.out.println("/n");
+        System.out.println("Total Amenities Cost: "+ TotalAmenityCost);
+    }
 
 
 
