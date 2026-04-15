@@ -71,10 +71,7 @@ public abstract class Staff {
 
     public void viewRooms(){
         for(Rooms r: Database.getRoomList()){
-            System.out.println( "Room Number: " + r.getRoomNumber());
-            System.out.println( "Room Floor: " + r.getRoomFloor());
-            System.out.println( "Room Type: " + r.getRoomtype().getTypeName());
-
+            r.DisplayRoomInfo();
 
         }
     }
