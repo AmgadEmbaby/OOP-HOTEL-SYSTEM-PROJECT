@@ -106,7 +106,6 @@ public class Guests {
         String tempAddress = input.nextLine();
         System.out.print("Enter your balance: ");
         int tempBalance = input.nextInt();
-
         this.userName = tempUsername;
         this.address = tempAddress;
         this.Balance = tempBalance;
