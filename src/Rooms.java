@@ -112,7 +112,7 @@ public void DisplayRoomInfo(){
             System.out.print(amenity + " , ");
         }
         System.out.println("/n");
-        System.out.println("Total Amenities Cost: "+ TotalAmenityCost);
+        System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
     }
 
 
