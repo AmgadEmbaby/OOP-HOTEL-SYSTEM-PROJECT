@@ -68,7 +68,21 @@ public abstract class Staff {
     }
 
 
-    //--------ADD THE VIEW ROOMS AND VIEW RESERVATIONS--------//
+
+    public void viewRooms(){
+        for(Rooms r: Database.getRoomList()){
+            System.out.println( "Room Number: " + r.getRoomNumber());
+            System.out.println( "Room Floor: " + r.getRoomFloor());
+            System.out.println( "Room Type: " + r.getRoomtype().getTypeName());
+
+
+        }
+    }
+
+
+    //--------ADD THE VIEW RESERVATIONS--------//
+
+
 
 
 
