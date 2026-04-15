@@ -7,11 +7,18 @@
 import java.util.*;
 
 public class Database {
-  private static  ArrayList<Guests> guestlist= new ArrayList<>();
+  private static  ArrayList<Guests> guestList= new ArrayList<>();
 
-  public ArrayList<Guests> getguestlist(){
-    return guestlist;
+  private static  ArrayList<Rooms> roomList= new ArrayList<>();
+
+
+
+
+  public ArrayList<Guests> getGuestList(){
+    return guestList;
   }
 
-
+  public ArrayList<Rooms> getRroomList(){
+    return roomList;
+  }
 }
