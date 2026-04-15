@@ -40,6 +40,152 @@ public class Amenity {
     public static double PrivatePoolCost=375;
     public static double LateCheckOutCost=15;
 
+    public void setWifi(boolean wifi) {
+        this.wifi = wifi;
+    }
+
+    public void setHousekeeping(boolean housekeeping) {
+        this.housekeeping = housekeeping;
+    }
+
+    public void setLaundryService(boolean laundryService) {
+        LaundryService = laundryService;
+    }
+
+    public void setMinibar(boolean minibar) {
+        this.minibar = minibar;
+    }
+
+    public void setRoomDigitalSafe(boolean roomDigitalSafe) {
+        RoomDigitalSafe = roomDigitalSafe;
+    }
+
+    public void setBreakfastInBed(boolean breakfastInBed) {
+        BreakfastInBed = breakfastInBed;
+    }
+
+    public void setAddExtraBed(boolean addExtraBed) {
+        AddExtraBed = addExtraBed;
+    }
+
+    public void setExtraPillows(boolean extraPillows) {
+        ExtraPillows = extraPillows;
+    }
+
+    public void setExtraToiletries(boolean extraToiletries) {
+        ExtraToiletries = extraToiletries;
+    }
+
+    public void setExtraTowels(boolean extraTowels) {
+        ExtraTowels = extraTowels;
+    }
+
+    public void setBathSet(boolean bathSet) {
+        BathSet = bathSet;
+    }
+
+    public void setSewingKit(boolean sewingKit) {
+        SewingKit = sewingKit;
+    }
+
+    public void setCoffeeMachine(boolean coffeeMachine) {
+        CoffeeMachine = coffeeMachine;
+    }
+
+    public void setBluetoothSpeaker(boolean bluetoothSpeaker) {
+        BluetoothSpeaker = bluetoothSpeaker;
+    }
+
+    public void setJacuzzi(boolean jacuzzi) {
+        this.jacuzzi = jacuzzi;
+    }
+
+    public void setSpa(boolean spa) {
+        this.spa = spa;
+    }
+
+    public void setPrivatePool(boolean privatePool) {
+        PrivatePool = privatePool;
+    }
+
+    public void setLateCheckOut(boolean lateCheckOut) {
+        LateCheckOut = lateCheckOut;
+    }
+
+    public boolean isWifi() {
+        return wifi;
+    }
+
+    public boolean isLaundryService() {
+        return LaundryService;
+    }
+
+    public boolean isHousekeeping() {
+        return housekeeping;
+    }
+
+    public boolean isMinibar() {
+        return minibar;
+    }
+
+    public boolean isRoomDigitalSafe() {
+        return RoomDigitalSafe;
+    }
+
+    public boolean isBreakfastInBed() {
+        return BreakfastInBed;
+    }
+
+    public boolean isAddExtraBed() {
+        return AddExtraBed;
+    }
+
+    public boolean isExtraPillows() {
+        return ExtraPillows;
+    }
+
+    public boolean isExtraToiletries() {
+        return ExtraToiletries;
+    }
+
+    public boolean isExtraTowels() {
+        return ExtraTowels;
+    }
+
+    public boolean isBathSet() {
+        return BathSet;
+    }
+
+    public boolean isSewingKit() {
+        return SewingKit;
+    }
+
+    public boolean isCoffeeMachine() {
+        return CoffeeMachine;
+    }
+
+    public boolean isBluetoothSpeaker() {
+        return BluetoothSpeaker;
+    }
+
+    public boolean isJacuzzi() {
+        return jacuzzi;
+    }
+
+    public boolean isSpa() {
+        return spa;
+    }
+
+    public boolean isPrivatePool() {
+        return PrivatePool;
+    }
+
+    public boolean isLateCheckOut() {
+        return LateCheckOut;
+    }
+
     public Amenity() {
     }
+
 }
+
