@@ -82,7 +82,12 @@ public abstract class Staff {
     }
 
 
+    public void viewAmenities(){
+        for(Amenity a: Database.getamenitiesList()){
+            a.displayAmenities();
 
+        }
+    }
 
 
 }
