@@ -104,8 +104,7 @@ public class validation {
                 }
 
                 return dateOfBirth;
-            }
-            catch(Exception datenonexistent){
+            } catch(Exception datenonexistent){
                 System.out.println("Invalid date. Try again.");
             }
         }
@@ -115,9 +114,21 @@ public class validation {
 
 
      public static Guests.Gender validGender(){
-                return gender!=null; // if gender = null returns false
+               // return gender!=null; // if gender = null returns false
+         Scanner input = new Scanner(System.in);
+
+         while (true){
+             System.out.print("enter gender (MALE / FEMALE)")
+             String genderString = input.nextLine().toUpperCase();
+
+            try {
+                return Guests.Gender.valueOf(genderString);  // enum.valueOf() , throws excseption
+            } catch(IllegalArgumentException invalidEnum){
+                System.out.println("Invalid gender, please try again.");
+             }
+         }
     }
-    // try catch
+
 
 
 
