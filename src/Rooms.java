@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Rooms {
     private static int RoomNumber = 1;
     private static int RoomCount = 0;
-    private int ActualRoomNumber;
+    private final int ActualRoomNumber;
     private int RoomFloor;
     private RoomType roomtype;
     private boolean IsAvailable;
@@ -25,15 +25,13 @@ public class Rooms {
 
     }
 
+    public void setAvailable(boolean available) {
+        IsAvailable = available;
+    }
 
     public  int getRoomNumber() {
         return this.ActualRoomNumber;
     }
-
-    public void setRoomNumber(int roomNumber) {
-        this.ActualRoomNumber= roomNumber;
-    }
-
 
     public int getRoomFloor() {
         return RoomFloor;
@@ -75,6 +73,7 @@ public class Rooms {
     }
 
     public void CalculateTotalAmenityCost() {
+        TotalAmenityCost =0;
         for (Amenity amenity : amenities) {
             if(amenity.isAvailable()){
                 TotalAmenityCost += amenity.getAmenityCost();
@@ -121,9 +120,9 @@ public void DisplayRoomInfo(){
         System.out.println("Price Per Night: "+roomtype.getPricePerNight());
         System.out.print("Amenities in the room: ");
         for(Amenity amenity:amenities){
-            System.out.print(amenity + " , ");
+            System.out.print(amenity.getAmenityName() + " , ");
         }
-        System.out.println("/n");
+        System.out.println("\n");
         System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
     }
 
