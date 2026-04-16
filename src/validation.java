@@ -118,7 +118,7 @@ public class validation {
          Scanner input = new Scanner(System.in);
 
          while (true){
-             System.out.print("enter gender (MALE / FEMALE)")
+             System.out.print("enter gender (MALE / FEMALE) ")
              String genderString = input.nextLine().toUpperCase();
 
             try {
