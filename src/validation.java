@@ -217,7 +217,7 @@ public static int validWorkingHours(){
 
     //Room validation
 
-    // variables msh 7a2ee2eya:
+    // variables msh 7a2ee2eya: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //roomPrice, workingHours
 
     //TODO:
@@ -275,6 +275,21 @@ public static int validWorkingHours(){
     //user id corresponds reservation
     //reserv exists
     //not expired
+
+    //invoice and payment, TBD!
+
+    //ADMIN
+    //TODO
+    //cant manage if not exist
+    //cant delete if in use
+    //receptionist limits
+
+
+    //IN MEMORY VALIDATION
+    //TODO
+    //object valid b4 adding
+    //no null
+    //no duplicate guest or room
 
 
 }
