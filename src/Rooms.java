@@ -75,6 +75,7 @@ public class Rooms {
     }
 
     public void CalculateTotalAmenityCost() {
+        TotalAmenityCost =0;
         for (Amenity amenity : amenities) {
             if(amenity.isAvailable()){
                 TotalAmenityCost += amenity.getAmenityCost();
@@ -121,9 +122,9 @@ public void DisplayRoomInfo(){
         System.out.println("Price Per Night: "+roomtype.getPricePerNight());
         System.out.print("Amenities in the room: ");
         for(Amenity amenity:amenities){
-            System.out.print(amenity + " , ");
+            System.out.print(amenity.getAmenityName() + " , ");
         }
-        System.out.println("/n");
+        System.out.println("\n");
         System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
     }
 

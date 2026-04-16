@@ -113,4 +113,8 @@ public class Guests {
         this.passWord = tempPassword;
         this.gender = tempGender;
     }
+
+    public void showAvilableRooms(){
+
+    }
 }
