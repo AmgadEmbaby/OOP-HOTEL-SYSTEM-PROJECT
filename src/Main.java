@@ -14,6 +14,10 @@ public class Main {
         System.out.println("Address:       " + test.getAddress());
         System.out.println("Balance:       " + test.getBalance());
         System.out.println("----------------------------------");
+
+        for (Rooms room : Database.getRoomList()) {
+
+            room.DisplayRoomInfo();}
     }
 }
 
