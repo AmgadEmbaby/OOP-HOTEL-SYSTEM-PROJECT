@@ -118,7 +118,7 @@ public class validation {
          Scanner input = new Scanner(System.in);
 
          while (true){
-             System.out.print("enter gender (male / female) ");
+             System.out.print("Enter gender (male / female) ");
              String genderString = input.nextLine().toLowerCase();
 
             try {
@@ -183,7 +183,33 @@ public class validation {
     }
 
 
+public static int validWorkingHours(){
+        Scanner input = new Scanner(System.in);
+        int workingHours;
 
+        while(true){
+            System.out.print("Enter working hours between 0 and 50: ");
+
+            if (!input.hasNextInt()) { //check for letter to prevent crash
+                System.out.println("Invalid input. Enter a number.");
+                input.next(); // clearing previous input
+                continue;
+            }
+
+            workingHours = input.nextInt();
+
+            if(workingHours < 0 ){
+                System.out.println("Working hours can't be negative. Please enter valid number.");
+                continue;
+            } else if (workingHours > 50) {
+                System.out.println("Working hours exceed limit. Please enter valid number.");
+                continue;
+            }
+
+            return workingHours;
+        }
+
+    }
 
 
 
