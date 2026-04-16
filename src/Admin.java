@@ -15,11 +15,18 @@ public class Admin extends Staff{
         return null;
     }
 
-    //update functions
-    public void updateAvailability(Rooms room, boolean available, int roomNumber){
-      findRoom(roomNumber);
+    //update (assuming only the availability can be updated)
+    public void updateAvailability( boolean available, int roomNumber){
+      Rooms room= findRoom(roomNumber);
+      room.setAvailable(available);
 
+    }
 
+    //delete
+    public void deleteRoom( int roomNumber){
+      Rooms room= findRoom(roomNumber);
+     //SHOULD I ADD I ROOM DOESNT EQUAL NULL??
+        Database.getRoomList().remove(room);
     }
 
 
