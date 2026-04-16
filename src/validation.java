@@ -118,8 +118,8 @@ public class validation {
          Scanner input = new Scanner(System.in);
 
          while (true){
-             System.out.print("enter gender (MALE / FEMALE) ");
-             String genderString = input.nextLine().toUpperCase();
+             System.out.print("enter gender (male / female) ");
+             String genderString = input.nextLine().toLowerCase();
 
             try {
                 return Guests.Gender.valueOf(genderString);  // enum.valueOf() , throws excseption
