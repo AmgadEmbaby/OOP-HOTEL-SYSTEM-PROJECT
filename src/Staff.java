@@ -77,7 +77,12 @@ public abstract class Staff {
     }
 
 
-    //--------ADD THE VIEW RESERVATIONS--------//
+    public void viewReservations(){
+        for(Reservations r: Database.getReservationsList()){
+            r.displayReservation();
+
+        }
+    }
 
 
 
