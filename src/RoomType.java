@@ -107,4 +107,16 @@ private double suitePrice=465;
        }
     }
 
+    public void displayRoomType() {
+        System.out.println("--- ROOM TYPE DETAILS ---");
+        System.out.println("Name: " + TypeName);
+        System.out.println("Beds: " + NumberOfBeds);
+        System.out.println("Capacity: " + this.Capacity);
+        System.out.println("RoomDescription: " + RoomDescription);
+        System.out.println("PricePerNight: " + PricePerNight);
+        System.out.println("---------------------------");
+    }
 }
+
+
+
