@@ -7,30 +7,35 @@ public class Reservations {
     private ReservationStatus status;
 
     public Reservations(Guests guest, Rooms room, LocalDate in, LocalDate out) throws Exception {
-        if (!checkout.isAfter(checkin)) {
+        if (!out.isAfter(in)) {
             throw new Exception("Check-out must be after check-in.");
         }
         this.guest = guest;
         this.room = room;
         this.checkin = in;
         this.checkout = out;
-        this.status=ReservationStatus.pending;
+        this.status=ReservationStatus.PENDING;
     }
 
-    public enum ReservationStatus{
-        pending ,
-        confirmed,
-        cancelled,
-        completed
+    public enum ReservationStatus {
+        PENDING, CONFIRMED, CANCELLED, COMPLETED
     }
 
-    public void setStatus(ReservationStatus status) {
-        this.status = status;
+
+    public void confirmReservation() {
+        this.status = ReservationStatus.CONFIRMED;
+        this.room.setStatus(Rooms.RoomStatus.RESERVED);
     }
 
-    public void setRoom(Rooms room) {
-        this.room = room;
+    public void cancelReservation() {
+        this.status = ReservationStatus.CANCELLED;
+        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
     }
+
+    public void checkInGuest() {
+        this.room.setStatus(Rooms.RoomStatus.OCCUPIED);
+    }
+
 
     public void setCheckOut(LocalDate newOutDate) throws Exception {
         if (!newOutDate.isAfter(this.checkin)) {
@@ -39,23 +44,23 @@ public class Reservations {
         this.checkout = newOutDate;
     }
 
-    public Guests getGuest() {
-        return guest;
-    }
+    public Guests getGuest() { return guest; }
 
-    public Rooms getRoom() {
-        return room;
-    }
+    public Rooms getRoom() { return room;}
 
-    public LocalDate getCheckin() {
-        return checkin;
-    }
+    public LocalDate getCheckin() { return checkin;}
 
-    public ReservationStatus getStatus() {
-        return status;
-    }
+    public ReservationStatus getStatus() { return status;}
 
-    public LocalDate getCheckout() {
-        return checkout;
+    public LocalDate getCheckout() {return checkout;}
+
+    public void viewReservation() {
+        System.out.println("--- RESERVATION DETAILS ---");
+        System.out.println("Guest: " + guest.getName());
+        System.out.println("Room: " + room.getRoomNumber());
+        System.out.println("Status: " + this.status);
+        System.out.println("Dates: " + checkin + " to " + checkout);
+        System.out.println("Physical Room State: " + room.getStatus());
+        System.out.println("---------------------------");
     }
 }
