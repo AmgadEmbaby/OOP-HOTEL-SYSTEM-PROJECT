@@ -59,10 +59,7 @@ public abstract class Staff {
     //methods
     public void viewGuests(){
         for(Guests g: Database.getGuestList()){
-            System.out.println( "Username: " + g.getUserName());
-            System.out.println( "Address: " + g.getAdress());
-            System.out.println( "Gender: " + g.getGender());
-            System.out.println( "Balance: " + g.getBalance());
+            g.displayGuestInfo();
 
         }
     }

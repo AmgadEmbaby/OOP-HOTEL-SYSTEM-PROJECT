@@ -117,4 +117,18 @@ public class Guests {
     public void showAvilableRooms(){
 
     }
+
+    public void displayGuestInfo(){
+        System.out.println("--- RESERVATION DETAILS ---");
+        System.out.println("User Name: " + userName);
+        System.out.println("Birth Date: " + dateOfBirth);
+        System.out.println("Balance: " + Balance);
+        System.out.println("Address: " + address);
+        System.out.println("Gender: " + gender);
+        System.out.println("---------------------------");
+
+    }
+
+
+
 }
