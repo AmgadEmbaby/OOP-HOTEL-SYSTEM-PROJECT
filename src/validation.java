@@ -211,6 +211,54 @@ public static int validWorkingHours(){
 
     }
 
+    //To do:
+    //username exists in arr of users, pass matches, need array of user and pass
+
+
+
+    //Room validation
+
+    // variables msh 7a2ee2eya:
+    //roomPrice, workingHours
+
+    //To do:
+    //validate username and pass existing in array , need array
+    // validate room ID not duplicate from array of rooms, need array
+    // valid Room type from enum
+    // only one room type per room
+    //amenities in this room not empty
+
+
+    //room price more than 0
+    public static double validRoomPrice (){
+        Scanner input = new Scanner(System.in);
+        double roomPrice;
+
+        while(true){
+            System.out.print("Enter Price: ");
+
+            if (!input.hasNextDouble()) { //check for letter prevent crash
+                System.out.println("Invalid input. Enter a number.");
+                input.next(); // clearing prev input
+                continue;
+            }
+
+
+            roomPrice = input.nextDouble();
+
+            if(roomPrice <= 0 ){
+                System.out.println("Price is too low. Please enter valid Price.");
+                continue;
+            }
+
+            return roomPrice;
+
+        }
+
+    }
+
+
+
 
 
 }
