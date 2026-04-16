@@ -16,8 +16,9 @@ public class Admin extends Staff{
     }
 
     //update functions
-    public void updatePrice(Rooms room, int price, int roomNumber){
+    public void updateAvailability(Rooms room, boolean available, int roomNumber){
       findRoom(roomNumber);
+
 
     }
 
