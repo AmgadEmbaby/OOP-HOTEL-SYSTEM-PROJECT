@@ -2,7 +2,7 @@
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class validation {
+public class Validation {
 
         String[] existingUsers; // EDIT LAMA ARRAY YET3EMEL
 
@@ -132,8 +132,6 @@ public class validation {
 
 
 
-
-
     public static String validAddress (){
             Scanner input = new Scanner(System.in);
             String address;
@@ -211,8 +209,10 @@ public static int validWorkingHours(){
 
     }
 
-    //Login Validation, TODO:
-    //username exists in arr of users, pass matches,, need array of user and pass
+    //Login Validation,
+    // TODO:
+    //  username exists in arr of users, pass matches,, need array of user and pass
+
 
 
     //Room validation
@@ -221,13 +221,10 @@ public static int validWorkingHours(){
     //roomPrice, workingHours
 
     //TODO:
-    //validate username and pass existing in array , need array
     // validate room ID not duplicate from array of rooms, need array
-    // valid Room type from enum
+    // valid Room type
     // only one room type per room
-    //amenities in this room not empty
-
-
+    // amenities in this room not empty
 
 
     //room price more than 0
