@@ -16,9 +16,9 @@ public class Admin extends Staff{
     }
 
     //update (assuming only the availability can be updated)
-    public void updateAvailability( boolean available, int roomNumber){
+    public void updateAvailability(Rooms.RoomStatus status, int roomNumber){
       Rooms room= findRoom(roomNumber);
-      room.setAvailable(available);
+      room.setStatus(status);
 
     }
 
