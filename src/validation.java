@@ -211,9 +211,8 @@ public static int validWorkingHours(){
 
     }
 
-    //To do:
-    //username exists in arr of users, pass matches, need array of user and pass
-
+    //Login Validation, TODO:
+    //username exists in arr of users, pass matches,, need array of user and pass
 
 
     //Room validation
@@ -221,12 +220,14 @@ public static int validWorkingHours(){
     // variables msh 7a2ee2eya:
     //roomPrice, workingHours
 
-    //To do:
+    //TODO:
     //validate username and pass existing in array , need array
     // validate room ID not duplicate from array of rooms, need array
     // valid Room type from enum
     // only one room type per room
     //amenities in this room not empty
+
+
 
 
     //room price more than 0
@@ -258,7 +259,22 @@ public static int validWorkingHours(){
     }
 
 
+    // Rserevation
+    //TODO
+    //logged in to reserve
+    //room exists & not booked
+    // balance >= price
+    //Date not in the past + present to future
 
+    // while reserved
+    //TODO
+    //prevent someone else booking
+
+    //cancel reservation
+    //TODO
+    //user id corresponds reservation
+    //reserv exists
+    //not expired
 
 
 }
