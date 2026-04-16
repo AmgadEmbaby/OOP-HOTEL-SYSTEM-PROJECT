@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Rooms {
     private static int RoomNumber = 1;
     private static int RoomCount = 0;
-    private int ActualRoomNumber;
+    private final int ActualRoomNumber;
     private int RoomFloor;
     private RoomType roomtype;
     private boolean IsAvailable;
@@ -25,15 +25,13 @@ public class Rooms {
 
     }
 
+    public void setAvailable(boolean available) {
+        IsAvailable = available;
+    }
 
     public  int getRoomNumber() {
         return this.ActualRoomNumber;
     }
-
-    public void setRoomNumber(int roomNumber) {
-        this.ActualRoomNumber= roomNumber;
-    }
-
 
     public int getRoomFloor() {
         return RoomFloor;
