@@ -119,7 +119,7 @@ public class Guests {
     }
 
     public void displayGuestInfo(){
-        System.out.println("--- RESERVATION DETAILS ---");
+        System.out.println("--- GUESTS DETAILS ---");
         System.out.println("User Name: " + userName);
         System.out.println("Birth Date: " + dateOfBirth);
         System.out.println("Balance: " + Balance);
