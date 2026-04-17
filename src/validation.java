@@ -211,7 +211,7 @@ public static int validWorkingHours(){
 
     //Login Validation,
     // TODO:
-    //  username exists in arr of users, pass matches,, need array of user and pass
+    //  username exists in arr of users, pass matches
 
 
 
@@ -222,7 +222,25 @@ public static int validWorkingHours(){
 
     //TODO:
     // validate room ID not duplicate from array of rooms, need array
-    // valid Room type
+
+    // validate Room type
+    public static RoomType validRoomType() {
+
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter room type (single / double / suite): ");
+            String myType = input.nextLine().toLowerCase();
+            if (myType.equals("single") ||
+                    myType.equals("double") ||
+                    myType.equals("suite")) {
+
+                return new RoomType(myType); //CREATE NEW RoomType object with what i entered
+            }
+            System.out.println("Invalid room type, try again.");
+        }
+    }
+
+    //TODO
     // only one room type per room
     // amenities in this room not empty
 
