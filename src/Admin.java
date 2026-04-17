@@ -1,62 +1,47 @@
 public class Admin extends Staff{
  //------------------------- create,update,delete functions for rooms------------------
     //create
-    public void addRoom(Rooms room){
+    public void createRoom( int roomFloor, String roomTypeName){
+        Rooms room= new Rooms( roomFloor,roomTypeName );
         Database.getRoomList().add(room);
-    }    //the room is created in the main and added only by the admin
+    }    //the input is taken in the main(milestone 1) and added to the list by the admin only
 
-    //helper func
-    public Rooms findRoom(int roomNumber){
-        for(Rooms r: Database.getRoomList()){
-            if(r.getRoomNumber()==roomNumber ){
-                return r;
-            }
-        }
-        return null;
-    }
+
 
     //update (assuming only the availability can be updated)
     public void updateAvailability(Rooms.RoomStatus status, int roomNumber){
-      Rooms room= findRoom(roomNumber);
+      Rooms room= Database.findRoom(roomNumber);
       room.setStatus(status);
 
     }
 
     //delete
     public void deleteRoom( int roomNumber){
-      Rooms room= findRoom(roomNumber);
+      Rooms room= Database.findRoom(roomNumber);
      //SHOULD I ADD I ROOM DOESNT EQUAL NULL??
         Database.getRoomList().remove(room);
     }
 
     //------------------------- create,update,delete functions for amenities ------------------
     //create
-    public void addAmenity(Amenity amenity){
+    public void createAmenity( String AmenityName, double AmenityCost){
+       Amenity amenity= new Amenity(AmenityName,AmenityCost );
         Database.getamenitiesList().add(amenity);
     }
 
-    //helper
-    public Amenity findAmenity(String amenityName)
-    {
-        for(Amenity a: Database.getamenitiesList()){
-            if(amenityName.equalsIgnoreCase(a.getAmenityName()) ){
-                return a;
-            }
-        }
-        return null;
-    }
+
 
     //update
-    public void updateAmenityCost (int price, String amenityName)
+    public void updateAmenityCost (double price, String amenityName)
     {
-        Amenity amenity= findAmenity(amenityName);
+        Amenity amenity= Database.findAmenity(amenityName);
         amenity.setAmenityCost(price);
 
     }
 
     public void updateAmenityAvailability (boolean availability, String amenityName)
     {
-        Amenity amenity= findAmenity(amenityName);
+        Amenity amenity= Database.findAmenity(amenityName);
         amenity.setAvailable(availability);
 
     }
@@ -64,13 +49,34 @@ public class Admin extends Staff{
     //delete
     public void deleteAmenity ( String amenityName)
     {
-        Amenity amenity= findAmenity(amenityName);
+        Amenity amenity= Database.findAmenity(amenityName);
         Database.getamenitiesList().remove(amenity);
 
     }
 
+    //------------------------- create,update,delete functions for room types ------------------
 
+//create
+    public void addRoomType(String typeName, int numberOfBeds, int capacity, String roomDescription, double pricePerNight){
+        RoomType roomType= new RoomType( typeName,  numberOfBeds,  capacity,  roomDescription,  pricePerNight);
+        Database.getAvailableRoomTypesList().add(roomType);
 
+    }
+
+//update
+    public void updateRoomTypePrice(double price, String roomTypeName){
+       RoomType roomType= Database.findRoomType(roomTypeName);
+       roomType.setPricePerNight(price);
+
+    }
+
+    //delete
+    public void deleteRoomType ( String roomTypeName)
+    {
+        RoomType roomType= Database.findRoomType(roomTypeName);
+        Database.getAvailableRoomTypesList().remove(roomType);
+
+    }
 
 
 }
