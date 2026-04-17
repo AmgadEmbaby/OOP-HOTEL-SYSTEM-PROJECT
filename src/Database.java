@@ -86,6 +86,17 @@ public class Database {
   }
 
 
+  public static Rooms findRoomByRoomTypeName(String roomTypeName){
+    for(Rooms r: Database.getRoomList()){
+      if( roomTypeName.equalsIgnoreCase(r.getRoomtype().getTypeName()) && r.getStatus()==Rooms.RoomStatus.RESERVED ){
+        return r;
+      }
+    }
+    return null;
+  }
+
+
+
 
   public static Amenity findAmenity(String amenityName)
   {
@@ -98,7 +109,6 @@ public class Database {
   }
 
 
-  //helper
   public static RoomType findRoomType(String roomTypeName) {
     for(RoomType rt: Database.getAvailableRoomTypesList()){
       if(roomTypeName.equalsIgnoreCase(rt.getTypeName()) ){
@@ -107,5 +117,19 @@ public class Database {
     }
     return null;
   }
+
+  public static Reservations findReservation(int reservationID) {
+    for(Reservations r: Database.getReservationsList()){
+      if(reservationID == r.getReservationID() ){
+        return r;
+      }
+    }
+    return null;
+  }
+
+
+
+
+
 
 }

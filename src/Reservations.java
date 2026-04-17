@@ -5,16 +5,20 @@ public class Reservations {
     private LocalDate checkin;
     private LocalDate checkout;
     private ReservationStatus status;
+    private static int idCounter=1000;
+    private int reservationID;
 
     public Reservations(Guests guest, Rooms room, LocalDate in, LocalDate out) throws Exception {
         if (!out.isAfter(in)) {
             throw new Exception("Check-out must be after check-in.");
         }
+        this.reservationID=idCounter++;
         this.guest = guest;
         this.room = room;
         this.checkin = in;
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
+
     }
 
     public enum ReservationStatus {
@@ -53,6 +57,10 @@ public class Reservations {
     public ReservationStatus getStatus() { return status;}
 
     public LocalDate getCheckout() {return checkout;}
+
+    public int getReservationID() {
+        return reservationID;
+    }
 
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
