@@ -28,9 +28,11 @@ public class Amenity {
     }
 
     public Amenity(String amenityName , double amenityCost) {
-        AmenityName = amenityName;
-        AmenityCost=amenityCost;
+        this.AmenityName = amenityName;
+        this.AmenityCost=amenityCost;
+        this.IsAvailable=true;
     }
+
 
 
     public void displayAmenities(){
