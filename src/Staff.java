@@ -87,7 +87,14 @@ public abstract class Staff {
             a.displayAmenities();
 
         }
-    }
+    } //not written in the pdf that it's exclusive to admin only, sensible to offer for both
+
+    public void viewRoomTypeDetails(){
+        for(RoomType r: Database.getAvailableRoomTypesList()){
+            r.displayRoomType();
+
+        }
+    }//not written in the pdf that it's exclusive to admin only, sensible to offer for both
 
 
 }

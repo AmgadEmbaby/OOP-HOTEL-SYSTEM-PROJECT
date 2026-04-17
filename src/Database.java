@@ -14,7 +14,9 @@ public class Database {
 
   private static  ArrayList<Reservations> reservationsList= new ArrayList<>();
 
-  private static  ArrayList<Amenity> amenitiesList= new ArrayList<>();
+  private static  ArrayList<Amenity> availableAmenitiesList = new ArrayList<>();
+
+  private static  ArrayList<RoomType> availableRoomTypesList = new ArrayList<>();
 
 
 
@@ -36,17 +38,32 @@ public class Database {
 
   public static ArrayList<Amenity> getamenitiesList(){
 
-    return amenitiesList;
-  }
-  static {
-    // Arguments: roomfloor, roomtype, isAvailable
-    roomList.add(new Rooms(1, "SINGLE", true));
-    roomList.add(new Rooms(1, "SINGLE", true));
-    roomList.add(new Rooms(2, "DOUBLE", true));
-    roomList.add(new Rooms(2, "DOUBLE", false)); // One occupied room
-    roomList.add(new Rooms(3, "SUITE", true));
+    return availableAmenitiesList;
   }
 
+  public static ArrayList<RoomType> getAvailableRoomTypesList(){
+
+    return availableRoomTypesList;
+  }
+
+
+
+  static {
+    // Arguments: roomfloor, roomtype, isAvailable
+    roomList.add(new Rooms(1, "SINGLE"));
+    roomList.add(new Rooms(1, "SINGLE"));
+    roomList.add(new Rooms(2, "DOUBLE"));
+    roomList.add(new Rooms(2, "DOUBLE")); // One occupied room
+    roomList.add(new Rooms(3, "SUITE"));
+  }
+
+  static {
+    // Arguments: name
+    availableRoomTypesList.add(new RoomType("single"));
+    availableRoomTypesList.add(new RoomType("double"));
+    availableRoomTypesList.add(new RoomType("suite"));
+
+  }
 
 
 
