@@ -54,9 +54,9 @@ public class Reservations {
 
     public LocalDate getCheckout() {return checkout;}
 
-    public void viewReservation() {
+    public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
-        System.out.println("Guest: " + guest.getName());
+        System.out.println("Guest: " + guest.getUserName());
         System.out.println("Room: " + room.getRoomNumber());
         System.out.println("Status: " + this.status);
         System.out.println("Dates: " + checkin + " to " + checkout);

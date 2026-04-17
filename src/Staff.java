@@ -59,10 +59,7 @@ public abstract class Staff {
     //methods
     public void viewGuests(){
         for(Guests g: Database.getGuestList()){
-            System.out.println( "Username: " + g.getUserName());
-            System.out.println( "Address: " + g.getAdress());
-            System.out.println( "Gender: " + g.getGender());
-            System.out.println( "Balance: " + g.getBalance());
+            g.displayGuestInfo();
 
         }
     }
@@ -77,10 +74,27 @@ public abstract class Staff {
     }
 
 
-    //--------ADD THE VIEW RESERVATIONS--------//
+    public void viewReservations(){
+        for(Reservations r: Database.getReservationsList()){
+            r.displayReservation();
+
+        }
+    }
 
 
+    public void viewAmenities(){
+        for(Amenity a: Database.getamenitiesList()){
+            a.displayAmenities();
 
+        }
+    } //not written in the pdf that it's exclusive to admin only, sensible to offer for both
+
+    public void viewRoomTypeDetails(){
+        for(RoomType r: Database.getAvailableRoomTypesList()){
+            r.displayRoomType();
+
+        }
+    }//not written in the pdf that it's exclusive to admin only, sensible to offer for both
 
 
 }
