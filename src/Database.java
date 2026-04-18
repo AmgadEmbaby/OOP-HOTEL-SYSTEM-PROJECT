@@ -48,6 +48,11 @@ public class Database {
     return availableRoomTypesList;
   }
 
+  public static ArrayList<Invoices> getInvoicesList(){
+
+    return InvoicesList;
+  }
+
 
 
   static {
