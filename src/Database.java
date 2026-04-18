@@ -5,6 +5,8 @@
 
 
 import java.util.*;
+import java.time.*;
+
 
 public class Database {
 
@@ -122,7 +124,30 @@ public class Database {
   }
 
 
+public static int getAvailableRoomCount(String RoomTypeName, LocalDate desiredReservationDate){
+    //bnshof fe kam room b nafs el requested type  w bn3dhom
+    int roomCount =0;
+for(Rooms r: Database.getRoomList()) {
+  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) && r.getStatus() == Rooms.RoomStatus.AVAILABLE) {
+    roomCount++; //total available physical rooms of this type  in the hotel
+  }
+}
 
+  // we check if teh desired reservation date lies in a period of confirmed reservation
+  int reservedCount=0;
+  for(Reservations rs: getReservationsList()){
+    if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) && rs.getStatus()== Reservations.ReservationStatus.CONFIRMED){
+      if(desiredReservationDate.isAfter(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
+        reservedCount++;
+      }
+    }
+  }
+  return roomCount - reservedCount;
+}
+
+
+//used to ensure en mfesh duplicate bookings since el RESERVED etshal ml enum
+  // this checks for only 1 room, it should be called gowa el make reservatin method ina  for loop hat loops from check in to check out dates
 
 
 
