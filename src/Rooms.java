@@ -92,6 +92,14 @@ public class Rooms {
     }
 
 
+
+
+    public ArrayList<Amenity> getAmenities() {
+        return amenities;
+    }
+
+
+
     public RoomType getRoomtype() {
         return roomtype;
     }
