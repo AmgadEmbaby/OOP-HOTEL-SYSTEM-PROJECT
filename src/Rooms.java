@@ -5,29 +5,31 @@ public class Rooms {
     private static int RoomCount = 0;
     private final int ActualRoomNumber;
     private int RoomFloor;
+    private RoomStatus status;
     private RoomType roomtype;
-    private boolean IsAvailable;
     private double TotalAmenityCost = 0;
     ArrayList<Amenity> amenities = new ArrayList<>();
 
+    public enum RoomStatus {
+        AVAILABLE,
+        RESERVED,
+        OCCUPIED
+    }
     public Rooms() {
         RoomCount++;
         this.ActualRoomNumber = RoomNumber++;
+        this.status = RoomStatus.AVAILABLE;
     }
-    public Rooms(int roomFloor, String roomtype, boolean isAvailable) {
+    public Rooms(int roomFloor, String roomtype) {
         this.roomtype =new RoomType(roomtype);
         RoomCount++;
 
         this.ActualRoomNumber = RoomNumber++;
 
         this.RoomFloor = roomFloor;
-        this.IsAvailable = isAvailable;
-
+        this.status = RoomStatus.AVAILABLE;
     }
 
-    public void setAvailable(boolean available) {
-        IsAvailable = available;
-    }
 
     public  int getRoomNumber() {
         return this.ActualRoomNumber;
@@ -41,20 +43,22 @@ public class Rooms {
         RoomFloor = roomFloor;
     }
 
-    public void MarkAvailable() {
-        IsAvailable = true;
+    public void setStatus(RoomStatus status) {
+        this.status = status;
     }
 
-    public void MarkBooked() {
-        IsAvailable = false;
+    public RoomStatus getStatus() {
+        return this.status;
     }
 
 
-    public void RoomAvailability(boolean available) {
-        if (available) {
-            System.out.println("Room is available for booking");
+    public void RoomAvailability() {
+        if (this.status == RoomStatus.AVAILABLE) {
+            System.out.println("Room " + ActualRoomNumber + " is available for booking.");
+        } else if (this.status == RoomStatus.RESERVED) {
+            System.out.println("Room " + ActualRoomNumber + " is currently Reserved (waiting for guest).");
         } else {
-            System.out.println("Room is already booked");
+            System.out.println("Room " + ActualRoomNumber + " is already Occupied.");
         }
     }
 
@@ -97,12 +101,14 @@ public class Rooms {
 
 
     public void CanStay(int NumberOfGuests) {
-        if (IsAvailable) {
+        if (this.status == RoomStatus.AVAILABLE) {
             if (NumberOfGuests <= roomtype.getCapacity()) {
-                System.out.println("This room has the capacity for this number of guests.");
+                System.out.println("Capacity is sufficient.");
             } else {
-                System.out.println("This room's capacity is not enough , please check another room.");
+                System.out.println("Capacity exceeded.");
             }
+        } else {
+            System.out.println("Room is currently " + this.status + " and cannot be assigned.");
         }
     }
 
@@ -113,7 +119,7 @@ public void DisplayRoomInfo(){
 
         System.out.println("Room Number: "+ ActualRoomNumber);
         System.out.println("Room Floor: "+RoomFloor);
-        System.out.println("Status: " + (IsAvailable ? "Available" : "Occupied"));
+        System.out.println("Status: " + this.status);
         System.out.println("Room Type: "+roomtype.getTypeName());
         System.out.println("Room Description: "+roomtype.getRoomDescription());
         System.out.println("Maximum Capacity: "+roomtype.getCapacity());
