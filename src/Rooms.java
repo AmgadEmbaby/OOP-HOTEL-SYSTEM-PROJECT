@@ -20,15 +20,16 @@ public class Rooms {
         this.ActualRoomNumber = RoomNumber++;
         this.status = RoomStatus.AVAILABLE;
     }
-    public Rooms(int roomFloor, String roomtype) {
-        this.roomtype =new RoomType(roomtype);
+
+    public Rooms( int roomFloor, String roomTypeName) {
         RoomCount++;
-
         this.ActualRoomNumber = RoomNumber++;
-
         this.RoomFloor = roomFloor;
+        this.roomtype= Database.findRoomType(roomTypeName);
         this.status = RoomStatus.AVAILABLE;
     }
+
+
 
 
     public  int getRoomNumber() {

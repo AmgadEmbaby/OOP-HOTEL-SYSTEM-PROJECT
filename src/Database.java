@@ -14,7 +14,11 @@ public class Database {
 
   private static  ArrayList<Reservations> reservationsList= new ArrayList<>();
 
-  private static  ArrayList<Amenity> amenitiesList= new ArrayList<>();
+  private static  ArrayList<Amenity> availableAmenitiesList = new ArrayList<>();
+
+  private static  ArrayList<RoomType> availableRoomTypesList = new ArrayList<>();
+
+  private static  ArrayList<Invoices> InvoicesList = new ArrayList<>();
 
 
 
@@ -36,18 +40,72 @@ public class Database {
 
   public static ArrayList<Amenity> getamenitiesList(){
 
-    return amenitiesList;
+    return availableAmenitiesList;
   }
+
+  public static ArrayList<RoomType> getAvailableRoomTypesList(){
+
+    return availableRoomTypesList;
+  }
+
+
+
   static {
     // Arguments: roomfloor, roomtype, isAvailable
-    roomList.add(new Rooms(1, "SINGLE", true));
-    roomList.add(new Rooms(1, "SINGLE", true));
-    roomList.add(new Rooms(2, "DOUBLE", true));
-    roomList.add(new Rooms(2, "DOUBLE", false)); // One occupied room
-    roomList.add(new Rooms(3, "SUITE", true));
+    roomList.add(new Rooms(1, "SINGLE"));
+    roomList.add(new Rooms(1, "SINGLE"));
+    roomList.add(new Rooms(2, "DOUBLE"));
+    roomList.add(new Rooms(2, "DOUBLE")); // One occupied room
+    roomList.add(new Rooms(3, "SUITE"));
+  }
+
+  static {
+    // Arguments: name
+    availableRoomTypesList.add(new RoomType("Single", 1 , 1, "A room designed for one guest, it offers a small but comfortable space," +
+    "it's perfect for solo travellers like business guests or short stays.",  70));
+    availableRoomTypesList.add(new RoomType("Double", 2 , 2, "A room more spacious than the single and designed for two guest, you can change" +
+    "the two beds with one king size, it's perfect for friends or couple travelling together.",  125));
+    availableRoomTypesList.add(new RoomType("Suite", 1 , 4, "A large and luxurious room , it has s separate living area with a sofa bed " +
+            ",bedroom with a large king size bed and a small kitchen with a mini bar," +
+            "it's perfect for a small family or guests who want to have a private and luxurious stay.",  465));
+
   }
 
 
 
+
+
+  //helper functions
+  public static Rooms findRoom(int roomNumber){
+    for(Rooms r: Database.getRoomList()){
+      if(r.getRoomNumber()==roomNumber ){
+        return r;
+      }
+    }
+    return null;
+  }
+
+
+
+  public static Amenity findAmenity(String amenityName)
+  {
+    for(Amenity a: Database.getamenitiesList()){
+      if(amenityName.equalsIgnoreCase(a.getAmenityName()) ){
+        return a;
+      }
+    }
+    return null;
+  }
+
+
+  //helper
+  public static RoomType findRoomType(String roomTypeName) {
+    for(RoomType rt: Database.getAvailableRoomTypesList()){
+      if(roomTypeName.equalsIgnoreCase(rt.getTypeName()) ){
+        return rt;
+      }
+    }
+    return null;
+  }
 
 }
