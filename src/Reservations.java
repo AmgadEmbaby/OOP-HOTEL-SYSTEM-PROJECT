@@ -14,7 +14,7 @@ public class Reservations {
         }
         this.reservationID=idCounter++;
         this.guest = guest;
-        this.room = room;
+        this.room = null;
         this.checkin = in;
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
@@ -28,7 +28,7 @@ public class Reservations {
 
     public void confirmReservation() {
         this.status = ReservationStatus.CONFIRMED;
-        this.room.setStatus(Rooms.RoomStatus.RESERVED);
+
     }
 
     public void cancelReservation() {

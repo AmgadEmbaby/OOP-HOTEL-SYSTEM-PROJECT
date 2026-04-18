@@ -93,7 +93,7 @@ public class Database {
 
   public static Rooms findRoomByRoomTypeName(String roomTypeName){
     for(Rooms r: Database.getRoomList()){
-      if( roomTypeName.equalsIgnoreCase(r.getRoomtype().getTypeName()) && r.getStatus()==Rooms.RoomStatus.RESERVED ){
+      if( roomTypeName.equalsIgnoreCase(r.getRoomtype().getTypeName()) && r.getStatus()==Rooms.RoomStatus.AVAILABLE ){
         return r;
       }
     }

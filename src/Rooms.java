@@ -12,7 +12,6 @@ public class Rooms {
 
     public enum RoomStatus {
         AVAILABLE,
-        RESERVED,
         OCCUPIED
     }
     public Rooms() {
@@ -56,9 +55,8 @@ public class Rooms {
     public void RoomAvailability() {
         if (this.status == RoomStatus.AVAILABLE) {
             System.out.println("Room " + ActualRoomNumber + " is available for booking.");
-        } else if (this.status == RoomStatus.RESERVED) {
-            System.out.println("Room " + ActualRoomNumber + " is currently Reserved (waiting for guest).");
-        } else {
+        }
+         else {
             System.out.println("Room " + ActualRoomNumber + " is already Occupied.");
         }
     }
