@@ -1,15 +1,13 @@
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Validation {
 
-        String[] existingUsers; // EDIT LAMA ARRAY YET3EMEL
+       // ------------------------General----------------------------------------------------------------------------
 
-
-
-        static String validUsername(String[] existingUsers){
-// edit array name 7asab your array name
+        static String getValidUsername(ArrayList<Guests> guestList){
 
             Scanner input = new Scanner(System.in);
             String userName;
@@ -42,8 +40,8 @@ public class Validation {
 
                 //no duplicates
                 boolean validNotDuplicate = true;
-                for (int i = 0; i < existingUsers.length; i++) {
-                    if (userName.equals(existingUsers[i])) { //if found in array
+                for (Guests guest : guestList) {
+                    if (userName.equals(guest.getUserName())) { //if found in Guests
                         validNotDuplicate = false;
                         break;
                     }
@@ -60,7 +58,7 @@ public class Validation {
 
 
 
-        public static String validPassword(){
+        public static String getValidPassword(){
 
             //mot empty, no less than 8
 
@@ -82,7 +80,7 @@ public class Validation {
 
 
 
-   public static LocalDate validBirthdate() {
+   public static LocalDate getValidBirthdate() {
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -113,7 +111,7 @@ public class Validation {
 
 
 
-     public static Guests.Gender validGender(){
+     public static Guests.Gender getValidGender(){
                // return gender!=null; // if gender = null returns false
          Scanner input = new Scanner(System.in);
 
@@ -132,7 +130,7 @@ public class Validation {
 
 
 
-    public static String validAddress (){
+    public static String getValidAddress (){
             Scanner input = new Scanner(System.in);
             String address;
 
@@ -151,9 +149,7 @@ public class Validation {
 
 
 
-
-
-    public static double validBalance (){
+    public static double getValidBalance (){
            Scanner input = new Scanner(System.in);
            double balance;
 
@@ -181,7 +177,7 @@ public class Validation {
     }
 
 
-public static int validWorkingHours(){
+public static int getValidWorkingHours(){
         Scanner input = new Scanner(System.in);
         int workingHours;
 
@@ -215,16 +211,13 @@ public static int validWorkingHours(){
 
 
 
-    //Room validation
+    //------------------------------- Room validation ---------------------------------------------------------------
 
-    // variables msh 7a2ee2eya: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //roomPrice, workingHours
 
-    //TODO:
-    // validate room ID not duplicate from array of rooms, need array
+
 
     // validate Room type
-    public static RoomType validRoomType() {
+    public static RoomType getValidRoomType() {
 
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -234,7 +227,7 @@ public static int validWorkingHours(){
                     myType.equals("double") ||
                     myType.equals("suite")) {
 
-                return new RoomType(myType); //CREATE NEW RoomType object with what i entered
+                return Database.findRoomType(myType);
             }
             System.out.println("Invalid room type, try again.");
         }
@@ -246,7 +239,9 @@ public static int validWorkingHours(){
 
 
     //room price more than 0
-    public static double validRoomPrice (){
+    // variables msh 7a2ee2eya: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //roomPrice
+    public static double getValidRoomPrice (){
         Scanner input = new Scanner(System.in);
         double roomPrice;
 
@@ -274,18 +269,18 @@ public static int validWorkingHours(){
     }
 
 
-    // Rserevation
+    // --------------- Reservation ---------------------------------------------------------------------------------
     //TODO
     //logged in to reserve
     //room exists & not booked
     // balance >= price
     //Date not in the past + present to future
 
-    // while reserved
+    //--------------------- while reserved -------------------------------------------------------------------------
     //TODO
     //prevent someone else booking
 
-    //cancel reservation
+    //-------------------- cancel reservation -----------------------------------------------------------------------
     //TODO
     //user id corresponds reservation
     //reserv exists
@@ -293,14 +288,14 @@ public static int validWorkingHours(){
 
     //invoice and payment, TBD!
 
-    //ADMIN
+    //------------------ ADMIN --------------------------------------------------------------------------------------
     //TODO
     //cant manage if not exist
     //cant delete if in use
     //receptionist limits
 
 
-    //IN MEMORY VALIDATION
+    //-------------- IN MEMORY VALIDATION ----------------------------------------------------------------------------
     //TODO
     //object valid b4 adding
     //no null
