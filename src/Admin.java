@@ -4,6 +4,7 @@ public class Admin extends Staff{
     public void createRoom( int roomFloor, String roomTypeName){
         Rooms room= new Rooms( roomFloor,roomTypeName );
         Database.getRoomList().add(room);
+        System.out.println("Room created and added to database sucessfully");
     }    //the input is taken in the main(milestone 1) and added to the list by the admin only
 
 
@@ -18,8 +19,8 @@ public class Admin extends Staff{
     //delete
     public void deleteRoom( int roomNumber){
       Rooms room= Database.findRoom(roomNumber);
-     //SHOULD I ADD I ROOM DOESNT EQUAL NULL??
-        Database.getRoomList().remove(room);
+     if(room != null){
+        Database.getRoomList().remove(room);}
     }
 
     //------------------------- create,update,delete functions for amenities ------------------
@@ -27,6 +28,7 @@ public class Admin extends Staff{
     public void createAmenity( String AmenityName, double AmenityCost){
        Amenity amenity= new Amenity(AmenityName,AmenityCost );
         Database.getamenitiesList().add(amenity);
+        System.out.println("Amenity created and added to database sucessfully");
     }
 
 
@@ -57,9 +59,10 @@ public class Admin extends Staff{
     //------------------------- create,update,delete functions for room types ------------------
 
 //create
-    public void addRoomType(String typeName, int numberOfBeds, int capacity, String roomDescription, double pricePerNight){
+    public void createRoomType(String typeName, int numberOfBeds, int capacity, String roomDescription, double pricePerNight){
         RoomType roomType= new RoomType( typeName,  numberOfBeds,  capacity,  roomDescription,  pricePerNight);
         Database.getAvailableRoomTypesList().add(roomType);
+        System.out.println("Room Type created and added to database sucessfully");
 
     }
 
