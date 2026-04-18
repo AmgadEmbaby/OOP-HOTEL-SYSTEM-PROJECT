@@ -2,6 +2,7 @@ import java.time.LocalDate;
 public class Reservations {
     private Guests guest;
     private Rooms room;
+    private RoomType typeDesired;
     private LocalDate checkin;
     private LocalDate checkout;
     private ReservationStatus status;
@@ -48,6 +49,10 @@ public class Reservations {
         this.checkout = newOutDate;
     }
 
+    public void setRoom(Rooms room) {
+        this.room = room;
+    }
+
     public Guests getGuest() { return guest; }
 
     public Rooms getRoom() { return room;}
@@ -60,6 +65,10 @@ public class Reservations {
 
     public int getReservationID() {
         return reservationID;
+    }
+
+    public RoomType getTypeDesired() {
+        return typeDesired;
     }
 
     public void displayReservation() {
