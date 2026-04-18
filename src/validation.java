@@ -287,11 +287,52 @@ public static int getValidWorkingHours(){
 
 
     // amenities in this room not empty
+    public static void ensureRoomHasAmenities(Rooms room){
+            Scanner input = new Scanner(System.in);
+
+            while (room.getAmenities().isEmpty()){
+                System.out.println("Room has no amenities. Please add at least one.");
+
+                System.out.print("Enter amenity name: ");
+                String name = input.nextLine();
+
+                Amenity a = Database.findAmenity(name);
+
+                if (a == null){
+                    System.out.
+                }
 
 
+
+        }
+    }
+
+
+    //ensure amenity exists in database before adding
+    public static void addValidAmenitiesToRoom(Rooms room){
+        Scanner input = new Scanner(System.in);
+
+        while (room.getAmenities().isEmpty()){
+            System.out.println("Room has no amenities. Please add at least one.");
+
+            System.out.print("Enter amenity name: ");
+            String name = input.nextLine();
+
+            Amenity a = Database.findAmenity(name);
+
+            if (a == null){
+                System.out.println("Amenity not found in system.");
+                continue;
+            }
+
+            room.getAmenities().add(a);
+            System.out.println("Amenity added successfully.");
+        }
+    }
 
 
     //room price more than 0
+
     // variables msh 7a2ee2eya: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //roomPrice
     public static double getValidRoomPrice (){
