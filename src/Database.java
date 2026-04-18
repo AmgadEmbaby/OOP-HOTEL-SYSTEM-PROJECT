@@ -31,14 +31,21 @@ public class Database {
   public static ArrayList<Reservations> getReservationsList(){
 
     return reservationsList;
-}
+  }
 
 
   public static ArrayList<Amenity> getamenitiesList(){
 
     return amenitiesList;
   }
-
+  static {
+    // Arguments: roomfloor, roomtype, isAvailable
+    roomList.add(new Rooms(1, "SINGLE", true));
+    roomList.add(new Rooms(1, "SINGLE", true));
+    roomList.add(new Rooms(2, "DOUBLE", true));
+    roomList.add(new Rooms(2, "DOUBLE", false)); // One occupied room
+    roomList.add(new Rooms(3, "SUITE", true));
+  }
 
 
 

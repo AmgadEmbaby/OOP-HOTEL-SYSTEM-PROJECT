@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Rooms {
     private static int RoomNumber = 1;
     private static int RoomCount = 0;
+    private final int ActualRoomNumber;
     private int RoomFloor;
     private RoomType roomtype;
     private boolean IsAvailable;
@@ -11,17 +12,26 @@ public class Rooms {
 
     public Rooms() {
         RoomCount++;
-        RoomNumber++;
+        this.ActualRoomNumber = RoomNumber++;
+    }
+    public Rooms(int roomFloor, String roomtype, boolean isAvailable) {
+        this.roomtype =new RoomType(roomtype);
+        RoomCount++;
+
+        this.ActualRoomNumber = RoomNumber++;
+
+        this.RoomFloor = roomFloor;
+        this.IsAvailable = isAvailable;
+
     }
 
-    public static int getRoomNumber() {
-        return RoomNumber;
+    public void setAvailable(boolean available) {
+        IsAvailable = available;
     }
 
-    public static void setRoomNumber(int roomNumber) {
-        RoomNumber = roomNumber;
+    public  int getRoomNumber() {
+        return this.ActualRoomNumber;
     }
-
 
     public int getRoomFloor() {
         return RoomFloor;
@@ -63,6 +73,7 @@ public class Rooms {
     }
 
     public void CalculateTotalAmenityCost() {
+        TotalAmenityCost =0;
         for (Amenity amenity : amenities) {
             if(amenity.isAvailable()){
                 TotalAmenityCost += amenity.getAmenityCost();
@@ -100,7 +111,7 @@ public void DisplayRoomInfo(){
         System.out.println("       ROOM INFORMATION      ");
         System.out.println("-----------------------------");
 
-        System.out.println("Room Number: "+ RoomNumber);
+        System.out.println("Room Number: "+ ActualRoomNumber);
         System.out.println("Room Floor: "+RoomFloor);
         System.out.println("Status: " + (IsAvailable ? "Available" : "Occupied"));
         System.out.println("Room Type: "+roomtype.getTypeName());
@@ -109,9 +120,9 @@ public void DisplayRoomInfo(){
         System.out.println("Price Per Night: "+roomtype.getPricePerNight());
         System.out.print("Amenities in the room: ");
         for(Amenity amenity:amenities){
-            System.out.print(amenity + " , ");
+            System.out.print(amenity.getAmenityName() + " , ");
         }
-        System.out.println("/n");
+        System.out.println("\n");
         System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
     }
 

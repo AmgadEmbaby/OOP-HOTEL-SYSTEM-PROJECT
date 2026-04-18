@@ -106,12 +106,15 @@ public class Guests {
         String tempAddress = input.nextLine();
         System.out.print("Enter your balance: ");
         int tempBalance = input.nextInt();
-
         this.userName = tempUsername;
         this.address = tempAddress;
         this.Balance = tempBalance;
         this.dateOfBirth = DOB;
         this.passWord = tempPassword;
         this.gender = tempGender;
+    }
+
+    public void showAvilableRooms(){
+
     }
 }
