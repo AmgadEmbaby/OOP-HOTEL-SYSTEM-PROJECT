@@ -207,7 +207,14 @@ public static int getValidWorkingHours(){
 
     //Login Validation,
     // TODO:
-    //  username exists in arr of users, pass matches
+    //  username exists in users, pass matches
+
+    //Login Guests
+
+    //Login Staff
+
+
+
 
 
 

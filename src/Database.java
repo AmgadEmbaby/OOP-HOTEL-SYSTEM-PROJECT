@@ -20,6 +20,8 @@ public class Database {
 
   private static  ArrayList<Invoices> InvoicesList = new ArrayList<>();
 
+  private static ArrayList<Staff> StaffList = new ArrayList<>();
+
 
 
   public static ArrayList<Guests> getGuestList(){
