@@ -53,6 +53,10 @@ public class Reservations {
         this.room = room;
     }
 
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
+    }
+
     public Guests getGuest() { return guest; }
 
     public Rooms getRoom() { return room;}
