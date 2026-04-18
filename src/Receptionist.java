@@ -13,8 +13,7 @@ public class Receptionist extends Staff{
        } else if (today.isAfter(reservation.getCheckin())) {
            System.out.println("Guest is late for their check in date");
        } else {
-           reservation.room= Database.findRoomByRoomTypeName(reservation.getRoom().getRoomtype().getTypeName());
-           reservation.getRoom().setStatus(Rooms.RoomStatus.OCCUPIED);
+
 
 
        }
