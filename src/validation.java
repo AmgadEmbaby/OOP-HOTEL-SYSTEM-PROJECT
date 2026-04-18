@@ -205,14 +205,59 @@ public static int getValidWorkingHours(){
 
     }
 
-    //Login Validation,
-    // TODO:
-    //  username exists in users, pass matches
+    //Login Validation
 
     //Login Guests
+    public static Guests loginGuest(){
+            System.out.println("Guest Login");
+            Scanner input = new Scanner(System.in);
+
+            while (true){
+                System.out.print("Enter username: ");
+                String userName = input.nextLine();
+
+                System.out.print("Enter password: ");
+                String passWord = input.nextLine();
+
+                for (Guests g : Database.getGuestList()){
+                    if (g.getUserName().equals(userName)&&
+                    g.getPassWord().equals(passWord)){
+
+                        System.out.print("Guest Login Successful.");
+                        return g;
+                    }
+
+                }
+
+                System.out.println("Invalid username or password. Try again.");
+            }
+    }
 
     //Login Staff
+    public static Staff loginStaff(){
+        System.out.println("Staff Login");
+        Scanner input = new Scanner(System.in);
 
+        while (true){
+            System.out.print("Enter username: ");
+            String userName = input.nextLine();
+
+            System.out.print("Enter password: ");
+            String passWord = input.nextLine();
+
+            for (Staff s : Database.getStaffList()){
+                if (s.getUserName().equals(userName)&&
+                        s.getPassWord().equals(passWord)){
+
+                    System.out.print("Staff Login Successful.");
+                    return s;
+                }
+
+            }
+
+            System.out.println("Invalid username or password. Try again.");
+        }
+    }
 
 
 
@@ -240,9 +285,10 @@ public static int getValidWorkingHours(){
         }
     }
 
-    //TODO
-    // only one room type per room
+
     // amenities in this room not empty
+
+
 
 
     //room price more than 0
