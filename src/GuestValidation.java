@@ -28,6 +28,24 @@ public class GuestValidation {
             }
         }
 
+    }
+
+
+
+    public static Guests validateLogin(String userName, String passWord){
+        Validator.checkStringNotEmpty(userName, "Username");
+        Validator.checkStringNotEmpty(passWord, "Password");
+
+        userName = userName.trim();
+        for (Guests g : Database.getGuestList()){
+            if (userName.equalsIgnoreCase(g.getUserName()) && passWord.equals(g.getPassWord())){
+                return g;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid username or password.");
 
     }
+
+
 }
