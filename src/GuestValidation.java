@@ -2,7 +2,7 @@ import java.util.*;
 import java.time.LocalDate;
 
 public class GuestValidation {
-    public static void registerValidation(Guests guest) {
+    public static void validateRegister(Guests guest) {
 
         Validator.checkNotNull(guest, "Guest cannot be null.");
         UserValidation.validateUsername(guest.getUserName());
