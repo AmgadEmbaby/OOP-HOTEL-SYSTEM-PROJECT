@@ -1,9 +1,13 @@
 
+
+
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Validation {
+
+
 
        // ------------------------General----------------------------------------------------------------------------
 
@@ -110,7 +114,7 @@ public class Validation {
 
 
 
-    public void setValidGender(Guests guest){
+    public static void setValidGender(Guests guest){
      //public static Guests.Gender getValidGender(){
                // return gender!=null; // if gender = null returns false
          Scanner input = new Scanner(System.in);
@@ -397,3 +401,6 @@ public static int getValidWorkingHours(){
 
 
 }
+
+
+
