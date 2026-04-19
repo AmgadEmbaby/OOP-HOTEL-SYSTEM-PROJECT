@@ -18,8 +18,15 @@ public class GuestValidation {
             throw new IllegalArgumentException("Balance cannot be negative.");
         }
 
-
-        //TODO no duplicates
+        //no duplicate usernames
+        // g is existing guest
+        //guest new guest, trying to register
+        for (Guests g : Database.getGuestList()){
+            String username = guest.getUserName().trim();
+            if (username.equalsIgnoreCase(g.getUserName())){
+                throw new IllegalArgumentException("Username already exists.");
+            }
+        }
 
 
     }
