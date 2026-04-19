@@ -44,6 +44,15 @@ public class Database {
 
     return availableAmenitiesList;
   }
+  static{
+    //Arguments: Avilable amenties from the start
+    amenitiesList.add(new Amenity("Soft drink",2));
+    amenitiesList.add(new Amenity("Jacuzzi",150));
+    amenitiesList.add(new Amenity("Wifi",10));
+    amenitiesList.add(new Amenity("Tv-subscriptions",2));
+
+  }
+
 
   public static ArrayList<RoomType> getAvailableRoomTypesList(){
 
