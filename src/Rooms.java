@@ -58,8 +58,12 @@ public class Rooms {
         }
     }
 
-    public void AddAmenity(String amenityname, double amenityprice) {
-        amenities.add(new Amenity(amenityname, amenityprice));
+    public void AddAmenity(Amenity Amenity) {
+        amenities.add(Amenity);
+
+    }
+    public void RemoveAmenity(Amenity Amenity){
+        amenities.remove(Amenity);
     }
 
     public void SetAmenity(String amenityname, boolean isavailable) {

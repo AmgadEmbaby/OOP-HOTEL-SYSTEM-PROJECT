@@ -46,6 +46,15 @@ public class Database {
     roomList.add(new Rooms(2, "DOUBLE", false)); // One occupied room
     roomList.add(new Rooms(3, "SUITE", true));
   }
+  static{
+    //Arguments: Avilable amenties from the start
+    amenitiesList.add(new Amenity("Soft drink",2));
+    amenitiesList.add(new Amenity("Jacuzzi",150));
+    amenitiesList.add(new Amenity("Wifi",10));
+    amenitiesList.add(new Amenity("Tv-subscriptions",2));
+
+  }
+
 
 
 
