@@ -110,8 +110,8 @@ public class Validation {
 
 
 
-
-     public static Guests.Gender getValidGender(){
+    public void setValidGender(Guests guest){
+     //public static Guests.Gender getValidGender(){
                // return gender!=null; // if gender = null returns false
          Scanner input = new Scanner(System.in);
 
@@ -120,7 +120,9 @@ public class Validation {
              String genderString = input.nextLine().toLowerCase();
 
             try {
-                return Guests.Gender.valueOf(genderString);  // enum.valueOf() , throws excseption
+               // return Guests.Gender.valueOf(genderString);  // enum.valueOf() , throws excseption
+                guest.setGender(Guests.Gender.valueOf(genderString));
+                return;
             } catch(IllegalArgumentException invalidEnum){
                 System.out.println("Invalid gender, please try again.");
              }
@@ -286,49 +288,44 @@ public static int getValidWorkingHours(){
     }
 
 
-    // amenities in this room not empty
+    //validate room amenities (not empty, no duplicates)
+/*
     public static void ensureRoomHasAmenities(Rooms room){
             Scanner input = new Scanner(System.in);
 
-            while (room.getAmenities().isEmpty()){
-                System.out.println("Room has no amenities. Please add at least one.");
+            while (room.getAmenities().isEmpty() ){
+                System.out.println("Room must have at least one amenity.");
+                System.out.println("Available amenities: ");
 
-                System.out.print("Enter amenity name: ");
-                String name = input.nextLine();
-
-                Amenity a = Database.findAmenity(name);
-
-                if (a == null){
-                    System.out.
+                for (Amenity a : Database.getamenitiesList()){
+                    System.out.println("- " + a.getAmenityName());
                 }
 
+                System.out.println("Enter amenity name: ");
+                String amenityName = input.nextLine();
 
 
-        }
-    }
+                Amenity a = Database.findAmenity(amenityName);
+                //check for amenity in database
+
+                if (a==null){
+                    System.out.println("Amenity doesn't exist.");
+                    continue;
+                }
+
+                if(room.getAmenities().contains(a) ){
+                    System.out.println("Amenity already added to room.");
+                    continue;
+                }
+
+                room.AddAmenity(a);
+                System.out.println("Amenity added successfully.");
 
 
-    //ensure amenity exists in database before adding
-    public static void addValidAmenitiesToRoom(Rooms room){
-        Scanner input = new Scanner(System.in);
-
-        while (room.getAmenities().isEmpty()){
-            System.out.println("Room has no amenities. Please add at least one.");
-
-            System.out.print("Enter amenity name: ");
-            String name = input.nextLine();
-
-            Amenity a = Database.findAmenity(name);
-
-            if (a == null){
-                System.out.println("Amenity not found in system.");
-                continue;
             }
-
-            room.getAmenities().add(a);
-            System.out.println("Amenity added successfully.");
-        }
     }
+
+*/
 
 
     //room price more than 0
@@ -361,6 +358,9 @@ public static int getValidWorkingHours(){
         }
 
     }
+
+
+
 
 
     // --------------- Reservation ---------------------------------------------------------------------------------
