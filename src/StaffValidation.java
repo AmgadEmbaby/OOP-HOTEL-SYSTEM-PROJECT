@@ -17,6 +17,23 @@ public class StaffValidation {
             throw new IllegalArgumentException("Working Hours cannot be negative.");
         }
 
+    }
+
+
+    public static Staff validateStaffLogin(String userName, String passWord){
+        Validator.checkStringNotEmpty(userName, "Username");
+        Validator.checkStringNotEmpty(passWord, "Password");
+
+        userName = userName.trim();
+        for (Staff s : Database.getStaffList()){
+            if (userName.equalsIgnoreCase(s.getUserName()) && passWord.equals(s.getPassWord())){
+                return s;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid username or password.");
 
     }
+
+
 }

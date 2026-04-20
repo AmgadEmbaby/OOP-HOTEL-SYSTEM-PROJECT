@@ -10,17 +10,16 @@ public class GuestValidation {
         UserValidation.validateAddress(guest.getAddress());
         UserValidation.validateDOB(guest.getDateOfBirth());
 
+        Validator.checkNumNotNegative(guest.getBalance(), "Balance");
+
         if (guest.getGender()== null) {
             throw new IllegalArgumentException("Gender must be specified");
         }
 
-        if (guest.getBalance() < 0){
-            throw new IllegalArgumentException("Balance cannot be negative.");
-        }
 
         //no duplicate usernames
         // g is existing guest
-        //guest new guest, trying to register
+        //guest is new guest, trying to register
         for (Guests g : Database.getGuestList()){
             String username = guest.getUserName().trim();
             if (username.equalsIgnoreCase(g.getUserName())){
@@ -32,7 +31,7 @@ public class GuestValidation {
 
 
 
-    public static Guests validateLogin(String userName, String passWord){
+    public static Guests validateGuestLogin(String userName, String passWord){
         Validator.checkStringNotEmpty(userName, "Username");
         Validator.checkStringNotEmpty(passWord, "Password");
 
