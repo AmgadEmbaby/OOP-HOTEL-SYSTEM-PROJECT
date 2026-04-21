@@ -45,7 +45,7 @@ public class RoomTypeValidation {
         return n;
     }
 
-    public static double valdiateAmenityCost (double cost){
+    public static double validateAmenityCost (double cost){
         Validator.checkNumPositive(cost, "Amenity cost");
         return cost;
     }

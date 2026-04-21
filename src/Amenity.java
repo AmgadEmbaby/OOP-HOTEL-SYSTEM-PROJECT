@@ -8,7 +8,7 @@ public class Amenity {
     }
 
     public void setAmenityName(String amenityName) {
-        AmenityName = amenityName;
+        AmenityName = RoomTypeValidation.validateAmenityName(amenityName);
     }
 
     public double getAmenityCost() {
@@ -16,7 +16,7 @@ public class Amenity {
     }
 
     public void setAmenityCost(double amenityCost) {
-        AmenityCost = amenityCost;
+        AmenityCost = RoomTypeValidation.validateAmenityCost(amenityCost);
     }
 
     public boolean isAvailable() {
@@ -28,8 +28,8 @@ public class Amenity {
     }
 
     public Amenity(String amenityName , double amenityCost) {
-        this.AmenityName = amenityName;
-        this.AmenityCost=amenityCost;
+        this.AmenityName = RoomTypeValidation.validateUniqueAmenity(amenityName);
+        this.AmenityCost= RoomTypeValidation.validateAmenityCost(amenityCost);
         this.IsAvailable=true;
     }
 
