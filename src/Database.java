@@ -128,7 +128,7 @@ public static int getAvailableRoomCount(String RoomTypeName, LocalDate desiredRe
     //bnshof fe kam room b nafs el requested type  w bn3dhom
     int roomCount =0;
 for(Rooms r: Database.getRoomList()) {
-  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) && r.getStatus() == Rooms.RoomStatus.AVAILABLE) {
+  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) ) {
     roomCount++; //total available physical rooms of this type  in the hotel
   }
 }
@@ -137,7 +137,7 @@ for(Rooms r: Database.getRoomList()) {
   int reservedCount=0;
   for(Reservations rs: getReservationsList()){
     if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) && rs.getStatus()== Reservations.ReservationStatus.CONFIRMED){
-      if(desiredReservationDate.isAfter(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
+      if(!desiredReservationDate.isBefore(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
         reservedCount++;
       }
     }
