@@ -20,15 +20,15 @@ public class Validator {
         }
     }
 
-    public static void checkNumPositive (double num, String fieldName){
+    public static void checkNumNotNegative (double num, String fieldName){
         if (num < 0){
-            throw new IllegalArgumentException(fieldName + "cannot be negative.");
+            throw new IllegalArgumentException(fieldName + " cannot be negative.");
         }
     }
 
-    public static void checkNumNotNegative (double num, String fieldName){
+    public static void checkNumPositive (double num, String fieldName){
         if (num <= 0){
-            throw new IllegalArgumentException(fieldName + "must be greater than 0.");
+            throw new IllegalArgumentException(fieldName + " must be greater than 0.");
         }
     }
 

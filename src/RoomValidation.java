@@ -1,23 +1,34 @@
+
+
 public class RoomValidation {
 
-//public static RoomType validateRoomTypeName(String roomtype){
-//    Validator.checkStringNotEmpty(roomtype, "Room type");
-//
-//    String r = roomtype.toLowerCase().trim();
-//
-//    MAKE IT BASED ON LIST NOT FINAL STRING
-//
-//    if (r.equals("single") ||
-//            r.equals("double") ||
-//            r.equals("suite")) {
-//
-//    }
-//
-//    return r;
-//}
+public static RoomType validateRoomTypeName(String typeName){
+
+    Validator.checkStringNotEmpty(typeName, "Room type");
+
+    String r = typeName.toLowerCase().trim();
+
+    RoomType roomType = Database.findRoomType(r);
+
+    if (roomType == null){
+        throw new IllegalArgumentException("Invalid Room type");
+    }
+
+    return roomType;
+}
 
 
-//public static{}
+
+public static int validateRoomFloor(int floor){
+    Validator.checkNumPositive( Rooms.getRoomFloor() , "Floor number");
+    return floor;
+}
+
+
+
+public static void validateAmenities(Rooms room){
+
+}
 
 
 }
