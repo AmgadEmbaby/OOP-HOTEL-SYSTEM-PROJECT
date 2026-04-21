@@ -51,8 +51,31 @@ public class ReservationsValidation {
             throw new IllegalArgumentException("Insufficient balance");
         }
 
+    }
+
+
+    public static void validateCancellation(Guests guest, Reservations reservation){
+
+        Validator.checkNotNull(reservation, "Reservation does not exist");
+
+        Validator.checkNotNull(guest, "User must be logged in");
+
+        if (! reservation.getGuest().equals(guest)){
+            throw new IllegalArgumentException("User is not authorized to cancel this reservation.");
+        }
+
+        if (reservation.getStatus() == Reservations.ReservationStatus.COMPLETED){
+            throw new IllegalArgumentException("Cannot cancel completed reservation.");
+        }
+
+        if (reservation.getStatus() == Reservations.ReservationStatus.CANCELLED){
+            throw new IllegalArgumentException("Reservation is already cancelled.");
+        }
 
 
     }
+
+
+
 
 }

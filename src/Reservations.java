@@ -44,6 +44,13 @@ public class Reservations {
         }
     }
 
+    public static void cancelReservation(Guests guest, Reservations reservation){
+
+        ReservationsValidation.validateCancellation(guest, reservation);
+        reservation.cancelReservation();
+
+    }
+
     public void checkInGuest() {
         if (this.room == null) {
             throw new IllegalArgumentException("No room assigned.");

@@ -116,6 +116,7 @@ public class Rooms {
         return false;
     }
 
+    //prevents double booking
     public void addReservation(Reservations r){  // to list of reservations of THIS ONE room
         if (isBooked(r.getCheckin(), r.getCheckout())){
             throw new IllegalArgumentException("Room Already Booked");
