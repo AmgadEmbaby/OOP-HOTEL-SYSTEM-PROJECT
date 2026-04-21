@@ -8,9 +8,7 @@ public static RoomType validateRoomTypeName(String typeName){
     Validator.checkStringNotEmpty(typeName, "Room type");
 
     String r = typeName.toLowerCase().trim();
-
     RoomType roomType = Database.findRoomType(r);
-
     if (roomType == null){
         throw new IllegalArgumentException("Invalid Room type");
     }

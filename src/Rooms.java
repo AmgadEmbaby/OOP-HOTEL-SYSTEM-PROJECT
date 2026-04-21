@@ -24,8 +24,10 @@ public class Rooms {
     public Rooms( int roomFloor, String roomTypeName) {
         RoomCount++;
         this.ActualRoomNumber = RoomNumber++;
-        this.RoomFloor = roomFloor;
-        this.roomtype= Database.findRoomType(roomTypeName);
+
+        this.RoomFloor = RoomValidation.validateRoomFloor(roomFloor);
+        this.roomtype= RoomValidation.validateRoomTypeName(roomTypeName);  //Database.findRoomType INSIDE validator function
+
         this.status = RoomStatus.AVAILABLE;
     }
 
