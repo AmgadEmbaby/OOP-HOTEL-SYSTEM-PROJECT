@@ -8,7 +8,7 @@ public class Guests {
     private String userName;
     private String passWord;
     private LocalDate dateOfBirth;
-    private double Balance;
+    private double Balance =0;
     private String address;
     private Gender gender;
     private static ArrayList<Reservations> guestReservations = new ArrayList<>();
@@ -22,10 +22,9 @@ public class Guests {
 
     }
 
-    public Guests(String userName, String address, double balance, LocalDate dateOfBirth, String passWord, Gender gender) {
+    public Guests(String userName, String address,  LocalDate dateOfBirth, String passWord, Gender gender) {
         this.userName = userName;
         this.address = address;
-        Balance = balance;
         this.dateOfBirth = dateOfBirth;
         this.passWord = passWord;
         this.gender = gender;

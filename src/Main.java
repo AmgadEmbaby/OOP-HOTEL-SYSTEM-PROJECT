@@ -28,7 +28,7 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println(test.ViewAvilableRooms(CheckIn,CheckOut));
+        System.out.println(test.ViewAvilableRooms(CheckIn2,CheckOut2));
 
 
 
