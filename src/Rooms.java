@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Rooms {
@@ -9,6 +10,7 @@ public class Rooms {
     private RoomType roomtype;
     private double TotalAmenityCost = 0;
     ArrayList<Amenity> amenities = new ArrayList<>();
+    ArrayList<Reservations> reservationsList = new ArrayList<>(); // list of reservations for this one room
 
     public enum RoomStatus {
         AVAILABLE,
@@ -100,6 +102,17 @@ public class Rooms {
 
     public ArrayList<Amenity> getAmenities() {
         return amenities;
+    }
+
+    //checkin is new reservation
+    // r.getCheckIn is existing reservation
+    public boolean isBooked (LocalDate checkin, LocalDate checkout){
+        for (Reservations r : reservationsList) {
+            if (checkin.isBefore(r.getCheckout()) && checkout.isAfter(r.getCheckin())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
