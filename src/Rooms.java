@@ -104,6 +104,7 @@ public class Rooms {
         return amenities;
     }
 
+    // ----------------------------------------- for validation ---------------------------------------------------
     //checkin is new reservation
     // r.getCheckIn is existing reservation
     public boolean isBooked (LocalDate checkin, LocalDate checkout){
@@ -115,6 +116,13 @@ public class Rooms {
         return false;
     }
 
+    public void addReservation(Reservations r){  // to list of reservations of THIS ONE room
+        if (isBooked(r.getCheckin(), r.getCheckout())){
+            throw new IllegalArgumentException("Room Already Booked");
+        }
+        reservationsList.add(r);
+    }
+// ---------------------------------------------------------------------------------------------------------------
 
 
     public RoomType getRoomtype() {
