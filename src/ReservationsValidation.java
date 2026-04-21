@@ -14,6 +14,7 @@ public class ReservationsValidation {
             throw new IllegalArgumentException("Guest is required");
         }
 
+//TODO
 
 //        if (! Guests.LOGGGEDIN() ){
 //            throw new IllegalArgumentException("User must be logged in");

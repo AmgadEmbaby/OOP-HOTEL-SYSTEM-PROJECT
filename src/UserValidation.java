@@ -33,9 +33,9 @@ public class UserValidation {
         }
 
         //TODO above 18
-        //if(){
-        // throw new IllegalArgumentException("User must be at least 18 years old.");
-        // }
+        if(DOB.plusYears(18).isAfter(LocalDate.now())){
+         throw new IllegalArgumentException("User must be at least 18 years old.");
+         }
     }
 
 
