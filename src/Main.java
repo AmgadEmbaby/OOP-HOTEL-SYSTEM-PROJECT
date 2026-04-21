@@ -19,12 +19,12 @@ public class Main {
         LocalDate CheckOut2 = LocalDate.of(2026, 6, 25);
 
         try {
-            test.makeReservation(test2,testRoom,CheckIn,CheckOut);
+            test.makeReservation(test2,testRoom.getRoomtype(),CheckIn,CheckOut);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         try {
-            test.makeReservation(test3,testRoom2,CheckIn2,CheckOut2);
+            test.makeReservation(test3,testRoom2.getRoomtype(),CheckIn2,CheckOut2);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

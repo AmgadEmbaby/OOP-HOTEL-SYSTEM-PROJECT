@@ -118,7 +118,7 @@ for(Rooms r: Database.getRoomList()) {
   // we check if teh desired reservation date lies in a period of confirmed reservation
   int reservedCount=0;
   for(Reservations rs: getReservationsList()){
-    if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) && rs.getStatus()== Reservations.ReservationStatus.CONFIRMED){
+    if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) &&( rs.getStatus()== Reservations.ReservationStatus.CONFIRMED||rs.getStatus()== Reservations.ReservationStatus.PENDING)){
       if(!desiredReservationDate.isBefore(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
         reservedCount++;
       }
