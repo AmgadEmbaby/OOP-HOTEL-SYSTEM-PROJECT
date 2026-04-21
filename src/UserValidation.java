@@ -32,7 +32,6 @@ public class UserValidation {
             throw new IllegalArgumentException("Date of birth cannot be in the future");
         }
 
-        //TODO above 18
         if(DOB.plusYears(18).isAfter(LocalDate.now())){
          throw new IllegalArgumentException("User must be at least 18 years old.");
          }

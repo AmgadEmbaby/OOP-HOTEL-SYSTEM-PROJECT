@@ -108,15 +108,23 @@ public class Guests {
         String tempAddress = input.nextLine();
         System.out.print("Enter your balance: ");
         int tempBalance = input.nextInt();
+
+
+        Guests tempGuest = new Guests (tempUsername, tempAddress, tempBalance, DOB , tempPassword, tempGender);
+        GuestValidation.validateRegister(tempGuest); //if valid, allows next
+
         this.userName = tempUsername;
         this.address = tempAddress;
         this.Balance = tempBalance;
         this.dateOfBirth = DOB;
         this.passWord = tempPassword;
         this.gender = tempGender;
+
+        Database.getGuestList().add(this); // add guest to database
+        System.out.println("Registration successful!");
     }
 
-    public void showAvilableRooms(){
+    public void showAvailableRooms(){
 
     }
 
