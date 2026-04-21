@@ -20,11 +20,11 @@ public class RoomTypeValidation {
 
     public static String validateRoomDescription(String description){
         Validator.checkStringNotEmpty(description, "Room Description");
-        return description;
+        return description.trim();
     }
 
 
-    public static int validatePricePerNight(int price){
+    public static double validatePricePerNight(double price){
         Validator.checkNumPositive(price, "Price per night");
         return price;
     }

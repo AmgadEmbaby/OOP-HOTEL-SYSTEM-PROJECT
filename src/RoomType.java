@@ -6,11 +6,11 @@ private String RoomDescription;
 private double PricePerNight;
 
     public RoomType(String typeName, int numberOfBeds, int capacity, String roomDescription, double pricePerNight) {
-        TypeName = typeName;
-        NumberOfBeds = numberOfBeds;
-        Capacity = capacity;
-        RoomDescription = roomDescription;
-        PricePerNight = pricePerNight;
+        TypeName = RoomTypeValidation.validateTypeName(typeName);
+        NumberOfBeds = RoomTypeValidation.validateBeds(numberOfBeds);
+        Capacity = RoomTypeValidation.validateCapacity(capacity);
+        RoomDescription = RoomTypeValidation.validateRoomDescription(roomDescription);
+        PricePerNight = RoomTypeValidation.validatePricePerNight(pricePerNight);
     }
 
     public String getTypeName() {
@@ -38,14 +38,14 @@ private double PricePerNight;
 
     public void setRoomDescription(String roomDescription) {
 
-        RoomDescription = roomDescription;
+        RoomDescription = RoomTypeValidation.validateRoomDescription(roomDescription);
     }
 
 
 
     public void setPricePerNight(double pricePerNight) {
 
-        PricePerNight = pricePerNight;
+        PricePerNight = RoomTypeValidation.validatePricePerNight(pricePerNight);
     }
 
 
