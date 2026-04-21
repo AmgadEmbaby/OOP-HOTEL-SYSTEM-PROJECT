@@ -20,8 +20,8 @@ public class GuestValidation {
         //no duplicate usernames
         // g is existing guest
         //guest is new guest, trying to register
+        String username = guest.getUserName().trim();
         for (Guests g : Database.getGuestList()){
-            String username = guest.getUserName().trim();
             if (username.equalsIgnoreCase(g.getUserName())){
                 throw new IllegalArgumentException("Username already exists.");
             }

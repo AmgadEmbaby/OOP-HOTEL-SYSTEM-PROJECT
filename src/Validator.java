@@ -20,7 +20,7 @@ public class Validator {
         }
     }
 
-    public static void checkNumNotNegative (double num, String fieldName){
+    public static void checkNumNotNegative (double num, String fieldName){ //allows zero
         if (num < 0){
             throw new IllegalArgumentException(fieldName + " cannot be negative.");
         }
