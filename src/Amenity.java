@@ -37,7 +37,7 @@ public class Amenity {
 
     public void displayAmenities(){
         System.out.println("Name: " + AmenityName);
-        System.out.println("Name: " + AmenityCost);
-        System.out.println("Name: " + IsAvailable);
+        System.out.println("Cost: " + AmenityCost);
+        System.out.println("Availability: " + IsAvailable);
     }
 }

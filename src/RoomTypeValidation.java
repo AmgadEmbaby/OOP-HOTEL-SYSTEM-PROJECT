@@ -29,4 +29,25 @@ public class RoomTypeValidation {
         return price;
     }
 
+
+    // -------------------------------Amenity validation---------------------------------------------------------------
+
+    public static String validateAmenityName(String name){
+        Validator.checkStringNotEmpty(name, "Amenity name");
+        return name.trim().toLowerCase();
+    }
+
+    public static String validateUniqueAmenity(String name){
+        String n = validateAmenityName(name);
+        if (Database.findAmenity(n) != null){ //found amenity in database
+            throw new IllegalArgumentException("Amenity already exists.");
+        }
+        return n;
+    }
+
+    public static double valdiateAmenityCost (double cost){
+        Validator.checkNumPositive(cost, "Amenity cost");
+        return cost;
+    }
+
 }
