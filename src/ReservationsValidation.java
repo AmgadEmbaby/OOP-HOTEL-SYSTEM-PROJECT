@@ -8,7 +8,7 @@ public class ReservationsValidation {
             Guests guest,
             Rooms room,
             LocalDate checkin,
-            LocalDate checkout)throws Exception {
+            LocalDate checkout)throws IllegalArgumentException {
 
         if (guest == null){
             throw new IllegalArgumentException("Guest is required");
@@ -44,6 +44,8 @@ public class ReservationsValidation {
             throw new IllegalArgumentException("Room already booked for selected dates.");
         }
 
+
+        //TODO
         double totalPrice = 0 ; //= ??????? where
         if (guest.getBalance() < totalPrice){
             throw new IllegalArgumentException("Insufficient balance");
