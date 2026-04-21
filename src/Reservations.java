@@ -77,6 +77,7 @@ public class Reservations {
 
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
+        System.out.println("Reservation ID: " + this.getReservationID());
         System.out.println("Guest: " + guest.getUserName());
         System.out.println("Room: " + room.getRoomNumber());
         System.out.println("Status: " + this.status);
