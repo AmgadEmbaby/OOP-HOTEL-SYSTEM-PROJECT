@@ -110,7 +110,7 @@ public static int getAvailableRoomCount(String RoomTypeName, LocalDate desiredRe
     //bnshof fe kam room b nafs el requested type  w bn3dhom
     int roomCount =0;
 for(Rooms r: Database.getRoomList()) {
-  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) &&  r.getStatus()== Rooms.RoomStatus.AVAILABLE ) {
+  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName)) {
     roomCount++; //total available physical rooms of this type  in the hotel
   }
 }

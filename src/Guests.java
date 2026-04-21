@@ -132,14 +132,15 @@ public class Guests {
     }
 
 
-    public void makeReservation(Guests Guests, Rooms room, LocalDate checkIn, LocalDate checkOut ) throws Exception {
+    public void makeReservation(Guests Guests,  LocalDate checkIn, LocalDate checkOut ) throws Exception {
         try {
-            Reservations current = new Reservations( Guests,  room,  checkIn,  checkOut );
+            Reservations current = new Reservations( Guests, checkIn,  checkOut );
             System.out.println("Your reservation ID is "+ current.getReservationID());
 
 
 
-          //  room.setStatus(Rooms.RoomStatus.OCCUPIED);
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

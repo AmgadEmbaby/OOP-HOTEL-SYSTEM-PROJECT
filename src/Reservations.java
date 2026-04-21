@@ -9,7 +9,7 @@ public class Reservations {
     private static int idCounter=1000;
     private int reservationID;
 
-    public Reservations(Guests guest, Rooms room, LocalDate in, LocalDate out) throws Exception {
+    public Reservations(Guests guest,  LocalDate in, LocalDate out) throws Exception {
         if (!out.isAfter(in)) {
             throw new Exception("Check-out must be after check-in.");
         }
