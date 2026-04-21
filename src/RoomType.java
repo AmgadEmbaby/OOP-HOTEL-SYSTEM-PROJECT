@@ -5,6 +5,12 @@ private int Capacity;
 private String RoomDescription;
 private double PricePerNight;
 
+
+    @Override
+    public String toString() {
+        return this.getTypeName();
+    }
+
     public RoomType(String typeName, int numberOfBeds, int capacity, String roomDescription, double pricePerNight) {
         TypeName = RoomTypeValidation.validateTypeName(typeName);
         NumberOfBeds = RoomTypeValidation.validateBeds(numberOfBeds);

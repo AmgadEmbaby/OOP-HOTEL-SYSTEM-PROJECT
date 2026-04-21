@@ -2,19 +2,24 @@ import java.time.LocalDate;
 public class Reservations {
     private Guests guest;
     private Rooms room;
+    private RoomType typeDesired;
     private LocalDate checkin;
     private LocalDate checkout;
     private ReservationStatus status;
+    private static int idCounter=1000;
+    private int reservationID;
 
     public Reservations(Guests guest, Rooms room, LocalDate in, LocalDate out) throws Exception {
         if (!out.isAfter(in)) {
             throw new Exception("Check-out must be after check-in.");
         }
+        this.reservationID=idCounter++;
         this.guest = guest;
-        this.room = room;
+        this.room = null;
         this.checkin = in;
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
+
     }
 
     public enum ReservationStatus {
@@ -24,7 +29,7 @@ public class Reservations {
 
     public void confirmReservation() {
         this.status = ReservationStatus.CONFIRMED;
-        this.room.setStatus(Rooms.RoomStatus.RESERVED);
+
     }
 
     public void cancelReservation() {
@@ -44,6 +49,14 @@ public class Reservations {
         this.checkout = newOutDate;
     }
 
+    public void setRoom(Rooms room) {
+        this.room = room;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
+    }
+
     public Guests getGuest() { return guest; }
 
     public Rooms getRoom() { return room;}
@@ -53,6 +66,14 @@ public class Reservations {
     public ReservationStatus getStatus() { return status;}
 
     public LocalDate getCheckout() {return checkout;}
+
+    public int getReservationID() {
+        return reservationID;
+    }
+
+    public RoomType getTypeDesired() {
+        return typeDesired;
+    }
 
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
