@@ -1,6 +1,7 @@
+import javax.swing.*;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Guests {
 
@@ -10,7 +11,8 @@ public class Guests {
     private double Balance;
     private String address;
     private Gender gender;
-    //Room Prefrence lama n3ml el Room class
+    private static ArrayList<Reservations> guestReservations = new ArrayList<>();
+
 
     Scanner input = new Scanner(System.in);
 
@@ -126,6 +128,62 @@ public class Guests {
         System.out.println("Address: " + address);
         System.out.println("Gender: " + gender);
         System.out.println("---------------------------");
+
+    }
+
+
+    public void makeReservation(Guests Guests, Rooms room, LocalDate checkIn, LocalDate checkOut ) throws Exception {
+        try {
+            Reservations current = new Reservations( Guests,  room,  checkIn,  checkOut );
+            System.out.println("Your reservation ID is "+ current.getReservationID());
+
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
+        List<RoomType> AvliableRoomtype= Database.getAvailableRoomTypesList();
+        Map<RoomType, Integer> availabilityResults = new HashMap<>();
+        Boolean Avilable = true;
+        int minNo ;
+
+
+        for(RoomType type : AvliableRoomtype) {
+            LocalDate tempDate = CheckIn;
+            String roomTypeName;
+            roomTypeName = type.getTypeName();
+            Avilable = true;
+            minNo = Database.getAvailableRoomCount(roomTypeName, tempDate);
+
+            while (tempDate.isBefore(Checkout) && Avilable==true) {
+
+                int RoomsAvilable= Database.getAvailableRoomCount(roomTypeName,tempDate);
+                minNo = Math.min(minNo,RoomsAvilable);
+                if(RoomsAvilable> 0){
+
+                   tempDate= tempDate.plusDays(1);
+
+                }else{
+                    System.out.println("No " + type.getTypeName()+ " Rooms are available");
+                    Avilable = false;
+                }
+
+
+            }
+            if(Avilable== true){
+
+                availabilityResults.put(type, minNo);
+
+            }
+
+        }
+            return availabilityResults;
+
+
+
 
     }
 

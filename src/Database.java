@@ -46,10 +46,10 @@ public class Database {
   }
   static{
     //Arguments: Avilable amenties from the start
-    amenitiesList.add(new Amenity("Soft drink",2));
-    amenitiesList.add(new Amenity("Jacuzzi",150));
-    amenitiesList.add(new Amenity("Wifi",10));
-    amenitiesList.add(new Amenity("Tv-subscriptions",2));
+    availableAmenitiesList.add(new Amenity("Soft drink",2));
+    availableAmenitiesList.add(new Amenity("Jacuzzi",150));
+    availableAmenitiesList.add(new Amenity("Wifi",10));
+    availableAmenitiesList.add(new Amenity("Tv-subscriptions",2));
 
   }
 
@@ -63,33 +63,6 @@ public class Database {
 
     return InvoicesList;
   }
-
-
-
-  static {
-    // Arguments: roomfloor, roomtype, isAvailable
-    roomList.add(new Rooms(1, "SINGLE"));
-    roomList.add(new Rooms(1, "SINGLE"));
-    roomList.add(new Rooms(2, "DOUBLE"));
-    roomList.add(new Rooms(2, "DOUBLE")); // One occupied room
-    roomList.add(new Rooms(3, "SUITE"));
-  }
-
-  static {
-    // Arguments: name
-    availableRoomTypesList.add(new RoomType("Single", 1 , 1, "A room designed for one guest, it offers a small but comfortable space," +
-    "it's perfect for solo travellers like business guests or short stays.",  70));
-    availableRoomTypesList.add(new RoomType("Double", 2 , 2, "A room more spacious than the single and designed for two guest, you can change" +
-    "the two beds with one king size, it's perfect for friends or couple travelling together.",  125));
-    availableRoomTypesList.add(new RoomType("Suite", 1 , 4, "A large and luxurious room , it has s separate living area with a sofa bed " +
-            ",bedroom with a large king size bed and a small kitchen with a mini bar," +
-            "it's perfect for a small family or guests who want to have a private and luxurious stay.",  465));
-
-  }
-
-
-
-
 
   //helper functions
   public static Rooms findRoom(int roomNumber){
@@ -137,7 +110,7 @@ public static int getAvailableRoomCount(String RoomTypeName, LocalDate desiredRe
     //bnshof fe kam room b nafs el requested type  w bn3dhom
     int roomCount =0;
 for(Rooms r: Database.getRoomList()) {
-  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) && r.getStatus() == Rooms.RoomStatus.AVAILABLE) {
+  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) ) {
     roomCount++; //total available physical rooms of this type  in the hotel
   }
 }
@@ -157,6 +130,30 @@ for(Rooms r: Database.getRoomList()) {
 
 //used to ensure en mfesh duplicate bookings since el RESERVED etshal ml enum
   // this checks for only 1 room, it should be called gowa el make reservatin method ina  for loop hat loops from check in to check out dates
+
+
+
+  static {
+    // Arguments: name
+    availableRoomTypesList.add(new RoomType("Single", 1 , 1, "A room designed for one guest, it offers a small but comfortable space," +
+            "it's perfect for solo travellers like business guests or short stays.",  70));
+    availableRoomTypesList.add(new RoomType("Double", 2 , 2, "A room more spacious than the single and designed for two guest, you can change" +
+            "the two beds with one king size, it's perfect for friends or couple travelling together.",  125));
+    availableRoomTypesList.add(new RoomType("Suite", 1 , 4, "A large and luxurious room , it has s separate living area with a sofa bed " +
+            ",bedroom with a large king size bed and a small kitchen with a mini bar," +
+            "it's perfect for a small family or guests who want to have a private and luxurious stay.",  465));
+
+  }
+
+  static {
+    // Arguments: roomfloor, roomtype, isAvailable
+    roomList.add(new Rooms(1, "SINGLE"));
+    roomList.add(new Rooms(1, "SINGLE"));
+    roomList.add(new Rooms(2, "DOUBLE"));
+    roomList.add(new Rooms(2, "DOUBLE"));
+    roomList.add(new Rooms(3, "SUITE"));
+  }
+
 
 
 
