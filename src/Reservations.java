@@ -39,7 +39,7 @@ public class Reservations {
     public void cancelReservation() {
         this.status = ReservationStatus.CANCELLED;
 
-        if (this.room != null) {
+        if (this.room != null && this.room.getStatus()== Rooms.RoomStatus.OCCUPIED) {
             this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
         }
     }
