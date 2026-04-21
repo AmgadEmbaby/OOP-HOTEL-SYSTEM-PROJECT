@@ -1,23 +1,40 @@
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hotel System Initialized!");
 
-
+        Scanner input = new Scanner(System.in);
         Guests test = new Guests();
-        test.Register();
+        Guests test2 = new Guests();
+        Guests test3 = new Guests();
+        Rooms testRoom = Database.getRoomList().get(0);
+        Rooms testRoom2 = Database.getRoomList().get(1);
+        LocalDate CheckIn = LocalDate.of(2026, 4, 21);
+        LocalDate CheckOut = LocalDate.of(2026, 4, 25);
 
-        System.out.println("\n--- Guest Registration Details ---");
-        System.out.println("Username:      " + test.getUserName());
-        System.out.println("Password:      " + test.getPassWord()); // Usually kept hidden, but fine for testing!
-        System.out.println("Gender:        " + test.getGender());
-        System.out.println("Date of Birth: " + test.getDateOfBirth());
-        System.out.println("Address:       " + test.getAddress());
-        System.out.println("Balance:       " + test.getBalance());
-        System.out.println("----------------------------------");
+        LocalDate CheckIn2 = LocalDate.of(2026, 6, 21);
+        LocalDate CheckOut2 = LocalDate.of(2026, 6, 25);
 
-        for (Rooms room : Database.getRoomList()) {
+        try {
+            test.makeReservation(test2,testRoom,CheckIn,CheckOut);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            test.makeReservation(test3,testRoom2,CheckIn2,CheckOut2);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(test.ViewAvilableRooms(CheckIn,CheckOut));
 
-            room.DisplayRoomInfo();}
+
+
+
+
+
     }
 }
 
