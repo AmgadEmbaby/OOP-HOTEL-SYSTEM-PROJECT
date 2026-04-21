@@ -148,7 +148,7 @@ for(Rooms r: Database.getRoomList()) {
   static {
     // Arguments: roomfloor, roomtype, isAvailable
     roomList.add(new Rooms(1, "SINGLE"));
-    roomList.add(new Rooms(1, "SUITE"));
+    roomList.add(new Rooms(1, "DOUBLE"));
     roomList.add(new Rooms(2, "DOUBLE"));
     roomList.add(new Rooms(2, "DOUBLE"));
     roomList.add(new Rooms(3, "SUITE"));

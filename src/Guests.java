@@ -139,7 +139,7 @@ public class Guests {
 
 
 
-            room.setStatus(Rooms.RoomStatus.OCCUPIED);
+          //  room.setStatus(Rooms.RoomStatus.OCCUPIED);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
