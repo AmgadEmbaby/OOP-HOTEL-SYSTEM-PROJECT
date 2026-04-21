@@ -45,7 +45,7 @@ public class Reservations {
     }
 
     public void checkInGuest() {
-        if (this.room != null) {
+        if (this.room == null) {
             throw new IllegalArgumentException("No room assigned.");
         }
         this.room.setStatus(Rooms.RoomStatus.OCCUPIED);
