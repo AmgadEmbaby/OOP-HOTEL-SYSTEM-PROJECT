@@ -131,9 +131,9 @@ public class Guests {
     }
 
 
-    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut ) throws Exception {
+    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut, Invoices.PaymentMethod method ) throws Exception {
         try {
-            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut );
+            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut, method  );
             System.out.println("Your reservation ID is "+ current.getReservationID());
             Database.getReservationsList().add(current);
 
