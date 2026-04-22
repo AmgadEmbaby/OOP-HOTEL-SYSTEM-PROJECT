@@ -62,10 +62,31 @@ public class Rooms {
         }
     }
 
-    public void AddAmenity(Amenity Amenity) {
-        amenities.add(Amenity);
+    public void AddAmenity(Amenity amenity, Reservations res) {
+        amenities.add(amenity);
 
+        CalculateTotalAmenityCost();
+
+        //Create the Invoice for this service
+        try {
+            // We use ROOM_SERVICE type because it's an extra charge during the stay
+            Invoices amenityInvoice = new Invoices(
+                    amenity.getAmenityCost(),
+                    res.getMethod(),
+                    res,
+                    Invoices.InvoiceType.ROOM_SERVICE,
+                    Invoices.InvoiceStatus.UNPAID // Guest pays this at checkout
+            );
+
+            Database.getInvoicesList().add(amenityInvoice);
+            System.out.println("Amenity " + amenity.getAmenityName() + " added. Invoice generated.");
+
+        } catch (InvalidPaymentException e) {
+            System.out.println("Could not process amenity charge: " + e.getMessage());
+        }
     }
+
+
     public void RemoveAmenity(Amenity Amenity){
         amenities.remove(Amenity);
     }
@@ -139,7 +160,7 @@ public void DisplayRoomInfo(){
 
 
 
-}
+
 
 
 
