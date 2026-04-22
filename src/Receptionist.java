@@ -66,6 +66,25 @@ public class Receptionist extends Staff {
             }
         }
 
+        public void releaseLateRooms() {
+            LocalDate today = LocalDate.now();
+
+            for (Reservations res : Database.getReservationsList()) {
+                if (res.getMethod() == Invoices.PaymentMethod.ONLINE &&
+                        res.getStatus() == Reservations.ReservationStatus.CONFIRMED &&
+                        today.isAfter(res.getCheckin())) {
+
+                    if (res.getRoom() != null) {
+                        res.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+                    }
+
+                    res.setStatus(Reservations.ReservationStatus.CANCELLED);
+
+                    System.out.println("Online reservation " + res.getReservationID() + " released. Guest failed to show up.");
+                }
+            }
+        }
+
     public void handleNoShow(int reservationID) {
         Reservations res = Database.findReservation(reservationID);
         LocalDate today = LocalDate.now();
