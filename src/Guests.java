@@ -22,7 +22,7 @@ public class Guests {
 
     }
 
-    public Guests(String userName, String address,  LocalDate dateOfBirth, String passWord, Gender gender) {
+    public Guests(String userName, String address, double balance, LocalDate dateOfBirth, String passWord, Gender gender) {
         this.userName = userName;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
@@ -157,7 +157,7 @@ public class Guests {
 
 
         Guests tempGuest = new Guests (tempUsername, tempAddress, tempBalance, DOB , tempPassword, tempGender);
-        GuestValidation.validateRegister(tempGuest); // if valid, allows next
+                GuestValidation.validateRegister(tempGuest); // if valid, allows next
 
         this.userName = tempUsername;
         this.address = tempAddress;
