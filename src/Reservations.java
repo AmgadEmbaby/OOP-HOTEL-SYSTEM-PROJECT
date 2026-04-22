@@ -89,6 +89,19 @@ public class Reservations {
         return 0.0; // No fine
     }
 
+    public double calculateCancellationFee() {
+        LocalDate today = LocalDate.now();
+
+        // Policy: Free cancellation if done at least 2 days before check-in
+        if (today.isBefore(this.checkin.minusDays(1))) {
+            return 0.0;
+        }
+
+        // Late cancellation penalty: 50% of the room price for one night
+        return this.typeDesired.getPricePerNight() * 0.5;
+    }
+
+
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
         System.out.println("Reservation ID: " + this.getReservationID());
