@@ -65,4 +65,19 @@ public class Receptionist extends Staff {
             System.out.println("Reservation ID not found");
         }
     }
+
+    public void handleNoShow(int reservationID) {
+        Reservations res = Database.findReservation(reservationID);
+        LocalDate today = LocalDate.now();
+
+        if (res != null && today.isAfter(res.getCheckin()) && res.getStatus() == Reservations.ReservationStatus.PENDING) {
+
+            if (res.getMethod() != Invoices.PaymentMethod.ONLINE) {
+                double penalty = res.getTypeDesired().getPricePerNight() * 0.5;
+                res.getGuest().setBalance(res.getGuest().getBalance() - penalty);
+            }
+
+            res.setStatus(Reservations.ReservationStatus.CANCELLED);
+        }
+    }
 }

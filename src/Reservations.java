@@ -8,8 +8,9 @@ public class Reservations {
     private ReservationStatus status;
     private static int idCounter=1000;
     private int reservationID;
+    private Invoices.PaymentMethod method;
 
-    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out) throws Exception {
+    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method) throws Exception {
         if (!out.isAfter(in)) {
             throw new Exception("Check-out must be after check-in.");
         }
@@ -20,6 +21,7 @@ public class Reservations {
         this.checkin = in;
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
+        this.method = method;
 
     }
 
@@ -67,6 +69,8 @@ public class Reservations {
     public ReservationStatus getStatus() { return status;}
 
     public LocalDate getCheckout() {return checkout;}
+
+    public Invoices.PaymentMethod getMethod() {return method;}
 
     public int getReservationID() {
         return reservationID;
