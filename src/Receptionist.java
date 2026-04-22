@@ -25,6 +25,7 @@ public class Receptionist extends Staff {
                             && r.getStatus() == Rooms.RoomStatus.AVAILABLE) {
                         reservation.setRoom(r);
                         r.setStatus(Rooms.RoomStatus.OCCUPIED);
+
                         System.out.println("room number " + r.getRoomNumber());
                         System.out.println("Guest checkin successful");
                         return;
@@ -73,13 +74,18 @@ public class Receptionist extends Staff {
         }
     }
 
+    public void handleNoShow(int reservationID) {
+        Reservations res = Database.findReservation(reservationID);
+        LocalDate today = LocalDate.now();
 
-    public void payAtCheckin(int reservationID, String choice ){
-        Reservations r =Database.findReservation(reservationID);
-        if(r.getStatus() == Reservations.ReservationStatus.PENDING){
+        if (res != null && today.isAfter(res.getCheckin()) && res.getStatus() == Reservations.ReservationStatus.PENDING) {
 
+            if (res.getMethod() != Invoices.PaymentMethod.ONLINE) {
+                double penalty = res.getTypeDesired().getPricePerNight() * 0.5;
+                res.getGuest().setBalance(res.getGuest().getBalance() - penalty);
+            }
+
+            res.setStatus(Reservations.ReservationStatus.CANCELLED);
         }
-
     }
-
 }

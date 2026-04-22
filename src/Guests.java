@@ -1,16 +1,18 @@
+import javax.swing.*;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Guests {
 
     private String userName;
     private String passWord;
     private LocalDate dateOfBirth;
-    private double Balance;
+    private double Balance =0;
     private String address;
     private Gender gender;
-    //Room Prefrence lama n3ml el Room class
+    private static ArrayList<Reservations> guestReservations = new ArrayList<>();
+
 
     Scanner input = new Scanner(System.in);
 
@@ -20,10 +22,9 @@ public class Guests {
 
     }
 
-    public Guests(String userName, String address, double balance, LocalDate dateOfBirth, String passWord, Gender gender) {
+    public Guests(String userName, String address,  LocalDate dateOfBirth, String passWord, Gender gender) {
         this.userName = userName;
         this.address = address;
-        Balance = balance;
         this.dateOfBirth = dateOfBirth;
         this.passWord = passWord;
         this.gender = gender;
@@ -126,6 +127,65 @@ public class Guests {
         System.out.println("Address: " + address);
         System.out.println("Gender: " + gender);
         System.out.println("---------------------------");
+
+    }
+
+
+    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut, Invoices.PaymentMethod method ) throws Exception {
+        try {
+            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut, method  );
+            System.out.println("Your reservation ID is "+ current.getReservationID());
+            Database.getReservationsList().add(current);
+
+
+
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
+        List<RoomType> AvliableRoomtype= Database.getAvailableRoomTypesList();
+        Map<RoomType, Integer> availabilityResults = new HashMap<>();
+        Boolean Avilable = true;
+        int minNo ;
+
+
+        for(RoomType type : AvliableRoomtype) {
+            LocalDate tempDate = CheckIn;
+            String roomTypeName;
+            roomTypeName = type.getTypeName();
+            Avilable = true;
+            minNo = Database.getAvailableRoomCount(roomTypeName, tempDate);
+
+            while (tempDate.isBefore(Checkout) && Avilable==true) {
+
+                int RoomsAvilable= Database.getAvailableRoomCount(roomTypeName,tempDate);
+                minNo = Math.min(minNo,RoomsAvilable);
+                if(RoomsAvilable> 0){
+
+                   tempDate= tempDate.plusDays(1);
+
+                }else{
+                    System.out.println("No " + type.getTypeName()+ " Rooms are available");
+                    Avilable = false;
+                }
+
+
+            }
+            if(Avilable== true){
+
+                availabilityResults.put(type, minNo);
+
+            }
+
+        }
+            return availabilityResults;
+
+
+
 
     }
 
