@@ -111,7 +111,7 @@ public class Guests {
 
 
         Guests tempGuest = new Guests (tempUsername, tempAddress, tempBalance, DOB , tempPassword, tempGender);
-        GuestValidation.validateRegister(tempGuest); //if valid, allows next
+        GuestValidation.validateRegister(tempGuest); // if valid, allows next
 
         this.userName = tempUsername;
         this.address = tempAddress;

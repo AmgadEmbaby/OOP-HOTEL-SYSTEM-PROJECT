@@ -71,6 +71,7 @@ public class Admin extends Staff{
         Amenity amenity= Database.findAmenity(amenityName);
 
         DatabaseValidation.validateAmenityExists(amenity);
+        DatabaseValidation.validateAmenityNotUsed(amenityName);
 
         Database.getamenitiesList().remove(amenity);
 
@@ -107,6 +108,7 @@ public class Admin extends Staff{
         RoomType roomType= Database.findRoomType(roomTypeName);
 
         DatabaseValidation.validateRoomTypeExists(roomType);
+        DatabaseValidation.validateRoomTypeNotUsed(roomTypeName);
 
         Database.getAvailableRoomTypesList().remove(roomType);
 

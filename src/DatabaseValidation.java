@@ -29,6 +29,18 @@ public class DatabaseValidation {
         Validator.checkNumPositive(cost, "Amenity cost");
     }
 
+    public static void validateAmenityNotUsed(String ammenityName){ //by any room
+        for (Rooms room : Database.getRoomList()){
+            for (Amenity a : room.getAmenities()) { //INSIDE ROOM
+
+                if (a.getAmenityName().equalsIgnoreCase(ammenityName)){
+                    throw new IllegalArgumentException("Cannot delete amenity when currently being used in room");
+                }
+            }
+        }
+
+    }
+
 //----------------------------- Roomtype ----------------------------------------------------------------------
     public static void validateRoomTypeExists(RoomType roomtype){
         Validator.checkNotNull(roomtype, "Room type not found.");
@@ -48,4 +60,28 @@ public class DatabaseValidation {
     }
 
 
+    public static void validateRoomTypeNotUsed(String typeName){ //by any room or reservation
+
+        for (Rooms r : Database.getRoomList()){
+            if (r.getRoomtype().getTypeName().equalsIgnoreCase(typeName)){
+                throw new IllegalArgumentException("Cannot delete room type when used in existing rooms.");
+            }
+        }
+
+        for (Reservations rs : Database.getReservationsList()){
+            if (rs.getTypeDesired().getTypeName().equalsIgnoreCase(typeName)){
+                throw new IllegalArgumentException("Cannot delete room type when used in existing reservations.");
+            }
+        }
+
+    }
+
+
+
+
+
+
 }
+
+
+
