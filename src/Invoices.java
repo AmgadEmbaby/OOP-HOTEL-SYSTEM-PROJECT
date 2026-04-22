@@ -55,6 +55,8 @@ public class Invoices implements Payable {
     }
 
     public void setPaymentmethod(PaymentMethod paymentmethod) {
+
+        Validator.checkNotNull(paymentmethod, "Payment method cannot be null.");
         this.paymentmethod = paymentmethod;
     }
 
@@ -63,6 +65,8 @@ public class Invoices implements Payable {
     }
 
     public void setPaymentdate(LocalDate paymentdate) {
+
+        Validator.checkNotNull(paymentdate, "Payment date cannot be null.");
         this.paymentdate = paymentdate;
     }
 
