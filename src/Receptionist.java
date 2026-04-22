@@ -13,13 +13,20 @@ public class Receptionist extends Staff {
             } else if (today.isAfter(reservation.getCheckin())) {
                 System.out.println("Guest is late for their check in date");
             } else {
+
+
+                if( reservation.getStatus()==Reservations.ReservationStatus.PENDING){
+
+                }
+
+
                 for (Rooms r : Database.getRoomList()) {
                     if (r.getRoomtype().getTypeName().equalsIgnoreCase(reservation.getTypeDesired().getTypeName())
                             && r.getStatus() == Rooms.RoomStatus.AVAILABLE) {
                         reservation.setRoom(r);
                         r.setStatus(Rooms.RoomStatus.OCCUPIED);
-                        System.out.println("Guest checkin successful");
                         System.out.println("room number " + r.getRoomNumber());
+                        System.out.println("Guest checkin successful");
                         return;
                     }
                 } //VALIDATION??
@@ -65,4 +72,14 @@ public class Receptionist extends Staff {
             System.out.println("Reservation ID not found");
         }
     }
+
+
+    public void payAtCheckin(int reservationID, String choice ){
+        Reservations r =Database.findReservation(reservationID);
+        if(r.getStatus() == Reservations.ReservationStatus.PENDING){
+
+        }
+
+    }
+
 }
