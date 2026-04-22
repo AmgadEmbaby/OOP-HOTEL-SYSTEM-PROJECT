@@ -37,7 +37,10 @@ public class Reservations {
 
     public void cancelReservation() {
         this.status = ReservationStatus.CANCELLED;
-        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
+
+        if (this.room != null) {
+            this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
+        }
     }
 
     public void checkInGuest() {
@@ -88,6 +91,15 @@ public class Reservations {
         }
         return 0.0; // No fine
     }
+
+
+
+    public double getStayPrice() {
+        long days = java.time.temporal.ChronoUnit.DAYS.between(checkin, checkout);
+        if (days <= 0) days = 1; // Charge at least one night
+        return days * typeDesired.getPricePerNight();
+    }
+
 
     public double calculateCancellationFee() {
         LocalDate today = LocalDate.now();

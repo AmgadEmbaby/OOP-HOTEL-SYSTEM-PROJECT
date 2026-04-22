@@ -85,44 +85,23 @@ public class Guests {
     public void cancelBooking(int reservationID) {
         Reservations res = Database.findReservation(reservationID);
 
-        if (res != null && (res.getStatus() == Reservations.ReservationStatus.PENDING ||
-                res.getStatus() == Reservations.ReservationStatus.CONFIRMED)) {
-
-            double fee = res.calculateCancellationFee();
-
-            if (res.getMethod() == Invoices.PaymentMethod.ONLINE) {
-
-                double refund = res.getTypeDesired().getPricePerNight() - fee;
-                this.setBalance(this.getBalance() + refund);
-
-                if (fee > 0) {
-                    System.out.println("Late cancellation. 50% penalty kept. Refunded: $" + refund);
-                } else {
-                    System.out.println("Early cancellation. Full refund of $" + refund + " processed.");
-                }
-            }
-            else {
-              .
-                if (fee > 0) {
-                    this.setBalance(this.getBalance() - fee);
-                    System.out.println("Late cancellation fee of $" + fee + " charged to your account.");
-                } else {
-                    System.out.println("Early cancellation. No fees applied.");
-                }
-            }
-
-            res.setStatus(Reservations.ReservationStatus.CANCELLED);
-
-            // If the receptionist had already assigned a room number, make it available
-            if (res.getRoom() != null) {
-                res.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
-            }
-
-            System.out.println("Reservation " + reservationID + " is now CANCELLED.");
-
-        } else {
-            System.out.println("Error: Reservation not found or cannot be cancelled at this stage.");
+        if (res == null || res.getStatus() == Reservations.ReservationStatus.COMPLETED ||
+                res.getStatus() == Reservations.ReservationStatus.CANCELLED) {
+            System.out.println("Error: Reservation cannot be cancelled.");
+            return;
         }
+
+        double fee = res.calculateCancellationFee();
+
+        if (res.getMethod() == Invoices.PaymentMethod.ONLINE) {
+            double refund = res.getTypeDesired().getPricePerNight() - fee;
+            this.setBalance(this.getBalance() + refund);
+        } else if (fee > 0) {
+            this.setBalance(this.getBalance() - fee);
+        }
+
+        res.cancelReservation();
+        System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
 
@@ -181,11 +160,22 @@ public class Guests {
     public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut ) throws Exception {
         try {
             Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut );
+            double finalPrice = current.getStayPrice();
+            Invoices.InvoiceStatus initialStatus = (method == Invoices.PaymentMethod.ONLINE)
+                    ? Invoices.InvoiceStatus.PAID
+                    : Invoices.InvoiceStatus.UNPAID;
+
+            Invoices bookingInvoice = new Invoices(
+                   finalPrice,
+                    method,
+                    current,
+                    Invoices.InvoiceType.BOOKING,
+                    initialStatus
+            );
+
+            Database.getInvoicesList().add(bookingInvoice);
             System.out.println("Your reservation ID is "+ current.getReservationID());
             Database.getReservationsList().add(current);
-
-
-
 
 
         } catch (Exception e) {
