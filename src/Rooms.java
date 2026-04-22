@@ -16,6 +16,7 @@ public class Rooms {
         AVAILABLE,
         OCCUPIED
     }
+
     public Rooms() {
         RoomCount++;
         this.ActualRoomNumber = RoomNumber++;

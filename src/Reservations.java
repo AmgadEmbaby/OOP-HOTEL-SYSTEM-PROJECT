@@ -9,18 +9,14 @@ public class Reservations {
     private static int idCounter=1000;
     private int reservationID;
 
-    public Reservations(Guests guest, Rooms room, LocalDate in, LocalDate out) {
-        //throws Exception {
-        //  if (!out.isAfter(in)) {
-        //     throw new Exception("Check-out must be after check-in.");
-        //   }
-
-        ReservationsValidation.validateReservation(guest, room, in, out);
-
+    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out) throws Exception {
+        if (!out.isAfter(in)) {
+            throw new Exception("Check-out must be after check-in.");
+        }
+        this.typeDesired= roomType;
         this.reservationID=idCounter++;
         this.guest = guest;
-        //this.room = null;
-        this.room = room;
+        this.room = null;
         this.checkin = in;
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
@@ -39,23 +35,10 @@ public class Reservations {
 
     public void cancelReservation() {
         this.status = ReservationStatus.CANCELLED;
-
-        if (this.room != null && this.room.getStatus()== Rooms.RoomStatus.OCCUPIED) {
-            this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
-        }
-    }
-
-    public static void cancelReservation(Guests guest, Reservations reservation){
-
-        ReservationsValidation.validateCancellation(guest, reservation);
-        reservation.cancelReservation();
-
+        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
     }
 
     public void checkInGuest() {
-        if (this.room == null) {
-            throw new IllegalArgumentException("No room assigned.");
-        }
         this.room.setStatus(Rooms.RoomStatus.OCCUPIED);
     }
 

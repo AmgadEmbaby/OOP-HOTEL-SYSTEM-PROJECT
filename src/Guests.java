@@ -8,7 +8,7 @@ public class Guests {
     private String userName;
     private String passWord;
     private LocalDate dateOfBirth;
-    private double Balance;
+    private double Balance =0;
     private String address;
     private Gender gender;
     private static ArrayList<Reservations> guestReservations = new ArrayList<>();
@@ -22,10 +22,9 @@ public class Guests {
 
     }
 
-    public Guests(String userName, String address, double balance, LocalDate dateOfBirth, String passWord, Gender gender) {
+    public Guests(String userName, String address,  LocalDate dateOfBirth, String passWord, Gender gender) {
         this.userName = userName;
         this.address = address;
-        Balance = balance;
         this.dateOfBirth = dateOfBirth;
         this.passWord = passWord;
         this.gender = gender;
@@ -140,14 +139,16 @@ public class Guests {
     }
 
 
-    public void makeReservation(Guests Guests, Rooms room, LocalDate checkIn, LocalDate checkOut ) throws Exception {
+    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut ) throws Exception {
         try {
-            Reservations current = new Reservations( Guests,  room,  checkIn,  checkOut );
+            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut );
             System.out.println("Your reservation ID is "+ current.getReservationID());
+            Database.getReservationsList().add(current);
 
 
 
-            room.setStatus(Rooms.RoomStatus.OCCUPIED);
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

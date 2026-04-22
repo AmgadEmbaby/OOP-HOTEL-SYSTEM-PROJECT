@@ -118,7 +118,7 @@ public static int getAvailableRoomCount(String RoomTypeName, LocalDate desiredRe
     //bnshof fe kam room b nafs el requested type  w bn3dhom
     int roomCount =0;
 for(Rooms r: Database.getRoomList()) {
-  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName) &&  r.getStatus()== Rooms.RoomStatus.AVAILABLE ) {
+  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName)) {
     roomCount++; //total available physical rooms of this type  in the hotel
   }
 }
@@ -126,8 +126,8 @@ for(Rooms r: Database.getRoomList()) {
   // we check if teh desired reservation date lies in a period of confirmed reservation
   int reservedCount=0;
   for(Reservations rs: getReservationsList()){
-    if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) && rs.getStatus()== Reservations.ReservationStatus.CONFIRMED){
-      if(desiredReservationDate.isAfter(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
+    if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) &&( rs.getStatus()== Reservations.ReservationStatus.CONFIRMED||rs.getStatus()== Reservations.ReservationStatus.PENDING)){
+      if(!desiredReservationDate.isBefore(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
         reservedCount++;
       }
     }
@@ -156,7 +156,7 @@ for(Rooms r: Database.getRoomList()) {
   static {
     // Arguments: roomfloor, roomtype, isAvailable
     roomList.add(new Rooms(1, "SINGLE"));
-    roomList.add(new Rooms(1, "SUITE"));
+    roomList.add(new Rooms(1, "DOUBLE"));
     roomList.add(new Rooms(2, "DOUBLE"));
     roomList.add(new Rooms(2, "DOUBLE"));
     roomList.add(new Rooms(3, "SUITE"));
