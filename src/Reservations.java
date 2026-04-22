@@ -56,7 +56,7 @@ public class Reservations {
 
     public void viewReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
-        System.out.println("Guest: " + guest.getName());
+        System.out.println("Guest: " + guest.getUserName());
         System.out.println("Room: " + room.getRoomNumber());
         System.out.println("Status: " + this.status);
         System.out.println("Dates: " + checkin + " to " + checkout);
