@@ -45,6 +45,7 @@ public class Reservations {
 
         this.status = ReservationStatus.CANCELLED;
 
+
         if (this.room != null) {
             this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
         }
