@@ -32,7 +32,7 @@ public class Rooms {
 
         this.status = RoomStatus.AVAILABLE;
 
-        RoomValidation.validateRoom(this);
+        //RoomValidation.validateRoom(this);
     }
 
 
@@ -48,8 +48,7 @@ public class Rooms {
 
     public void setRoomFloor(int roomFloor) {
 
-        this.RoomFloor = roomFloor;
-        RoomValidation.validateRoom(this);
+        this.RoomFloor = RoomValidation.validateRoomFloor(roomFloor);
 
     }
 
@@ -72,6 +71,8 @@ public class Rooms {
     }
 
     public void AddAmenity(Amenity Amenity) {
+        Validator.checkNotNull(Amenity,"Amenity cannot be null" );
+
         amenities.add(Amenity);
 
     }
@@ -137,8 +138,9 @@ public class Rooms {
     }
 
     public void setRoomtype(RoomType roomtype) {
+
+        Validator.checkNotNull(roomtype, "Roomtype cannot be null");
         this.roomtype = roomtype;
-        RoomValidation.validateRoom(this);
     }
 
 
