@@ -82,6 +82,53 @@ public class Guests {
         this.gender = gender;
     }
 
+    public void cancelBooking(int reservationID) {
+        Reservations res = Database.findReservation(reservationID);
+
+        if (res != null && (res.getStatus() == Reservations.ReservationStatus.PENDING ||
+                res.getStatus() == Reservations.ReservationStatus.CONFIRMED)) {
+
+            double fee = res.calculateCancellationFee();
+
+            if (res.getMethod() == Invoices.PaymentMethod.ONLINE) {
+
+                double refund = res.getTypeDesired().getPricePerNight() - fee;
+                this.setBalance(this.getBalance() + refund);
+
+                if (fee > 0) {
+                    System.out.println("Late cancellation. 50% penalty kept. Refunded: $" + refund);
+                } else {
+                    System.out.println("Early cancellation. Full refund of $" + refund + " processed.");
+                }
+            }
+            else {
+              .
+                if (fee > 0) {
+                    this.setBalance(this.getBalance() - fee);
+                    System.out.println("Late cancellation fee of $" + fee + " charged to your account.");
+                } else {
+                    System.out.println("Early cancellation. No fees applied.");
+                }
+            }
+
+            res.setStatus(Reservations.ReservationStatus.CANCELLED);
+
+            // If the receptionist had already assigned a room number, make it available
+            if (res.getRoom() != null) {
+                res.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+            }
+
+            System.out.println("Reservation " + reservationID + " is now CANCELLED.");
+
+        } else {
+            System.out.println("Error: Reservation not found or cannot be cancelled at this stage.");
+        }
+    }
+
+
+
+
+
     public void Register() {
         Guests.Gender tempGender = null;
         System.out.println("Welcome to the our hotels app!!! ");

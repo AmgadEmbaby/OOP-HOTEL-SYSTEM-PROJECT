@@ -8,17 +8,12 @@ public class Reservations {
     private ReservationStatus status;
     private static int idCounter=1000;
     private int reservationID;
+    private Invoices.PaymentMethod method;
 
-    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out) {
-
-//            throws Exception {
-//
-//        if (!out.isAfter(in)) {
-//            throw new Exception("Check-out must be after check-in.");
-//        }
-
-        ReservationsValidation.validateReservation(guest, in, out);
-
+    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method) throws Exception {
+        if (!out.isAfter(in)) {
+            throw new Exception("Check-out must be after check-in.");
+        }
         this.typeDesired= roomType;
         this.reservationID=idCounter++;
         this.guest = guest;
@@ -26,11 +21,12 @@ public class Reservations {
         this.checkin = in;
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
+        this.method = method;
 
     }
 
     public enum ReservationStatus {
-        PENDING, CONFIRMED, CANCELLED, COMPLETED
+     PENDING, CONFIRMED, CANCELLED, COMPLETED
     }
 
 
@@ -40,15 +36,8 @@ public class Reservations {
     }
 
     public void cancelReservation() {
-
-        ReservationsValidation.validateCancellation(guest, this);
-
         this.status = ReservationStatus.CANCELLED;
-
-
-        if (this.room != null) {
-            this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
-        }
+        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
     }
 
     public void checkInGuest() {
@@ -64,7 +53,6 @@ public class Reservations {
     }
 
     public void setRoom(Rooms room) {
-        ReservationsValidation.validateRoomAssignment(room, this.checkin, this.checkout);
         this.room = room;
     }
 
@@ -82,6 +70,8 @@ public class Reservations {
 
     public LocalDate getCheckout() {return checkout;}
 
+    public Invoices.PaymentMethod getMethod() {return method;}
+
     public int getReservationID() {
         return reservationID;
     }
@@ -89,6 +79,28 @@ public class Reservations {
     public RoomType getTypeDesired() {
         return typeDesired;
     }
+
+    public double calculateCheckoutFine(LocalDate actualDate) {
+        if (actualDate.isBefore(this.checkout)) {
+            return 70.0; // Early checkout fine
+        } else if (actualDate.isAfter(this.checkout)) {
+            return 100.0; // Late checkout fine
+        }
+        return 0.0; // No fine
+    }
+
+    public double calculateCancellationFee() {
+        LocalDate today = LocalDate.now();
+
+        // Policy: Free cancellation if done at least 2 days before check-in
+        if (today.isBefore(this.checkin.minusDays(1))) {
+            return 0.0;
+        }
+
+        // Late cancellation penalty: 50% of the room price for one night
+        return this.typeDesired.getPricePerNight() * 0.5;
+    }
+
 
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
