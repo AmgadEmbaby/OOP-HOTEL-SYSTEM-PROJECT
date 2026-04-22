@@ -31,6 +31,8 @@ public class Rooms {
         this.roomtype= RoomValidation.validateRoomTypeName(roomTypeName);  //Database.findRoomType INSIDE validator function
 
         this.status = RoomStatus.AVAILABLE;
+
+        RoomValidation.validateRoom(this);
     }
 
 
@@ -45,7 +47,10 @@ public class Rooms {
     }
 
     public void setRoomFloor(int roomFloor) {
-        RoomFloor = roomFloor;
+
+        this.RoomFloor = roomFloor;
+        RoomValidation.validateRoom(this);
+
     }
 
     public void setStatus(RoomStatus status) {
@@ -133,6 +138,7 @@ public class Rooms {
 
     public void setRoomtype(RoomType roomtype) {
         this.roomtype = roomtype;
+        RoomValidation.validateRoom(this);
     }
 
 
