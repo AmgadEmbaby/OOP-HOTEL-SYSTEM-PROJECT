@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -82,6 +80,10 @@ public class Guests {
         this.gender = gender;
     }
 
+    public  ArrayList<Reservations> getGuestReservations() {
+        return guestReservations;
+    }
+
     public void cancelBooking(int reservationID) {
         Reservations res = Database.findReservation(reservationID);
 
@@ -141,9 +143,7 @@ public class Guests {
         this.gender = tempGender;
     }
 
-    public void showAvilableRooms(){
 
-    }
 
     public void displayGuestInfo(){
         System.out.println("--- GUESTS DETAILS ---");
@@ -157,9 +157,9 @@ public class Guests {
     }
 
 
-    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut ) throws Exception {
+    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut,Invoices.PaymentMethod method ) throws Exception {
         try {
-            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut );
+            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut,method );
             double finalPrice = current.getStayPrice();
             Invoices.InvoiceStatus initialStatus = (method == Invoices.PaymentMethod.ONLINE)
                     ? Invoices.InvoiceStatus.PAID
@@ -220,6 +220,35 @@ public class Guests {
 
         }
             return availabilityResults;
+
+
+
+
+    }
+
+    public Boolean  cancelReservation(int reservationId){
+
+
+        for(Reservations r : this.getGuestReservations()) {
+
+            if(r.getReservationID() == reservationId){
+
+                if(r.getStatus()==Reservations.ReservationStatus.CANCELLED){
+                    System.out.println("Failed, the Room with reservation ID "+ reservationId + " is already cancelled");
+                    return false;
+                }
+                else{
+                    r.cancelReservation();
+                    System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
+                    return true;
+                }
+
+            }
+
+        }
+        System.out.println("Failed, The room with ID"+ reservationId+ " is not in your account!" );
+        return false;
+
 
 
 
