@@ -80,6 +80,15 @@ public class Reservations {
         return typeDesired;
     }
 
+    public double calculateCheckoutFine(LocalDate actualDate) {
+        if (actualDate.isBefore(this.checkout)) {
+            return 70.0; // Early checkout fine
+        } else if (actualDate.isAfter(this.checkout)) {
+            return 100.0; // Late checkout fine
+        }
+        return 0.0; // No fine
+    }
+
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");
         System.out.println("Reservation ID: " + this.getReservationID());
