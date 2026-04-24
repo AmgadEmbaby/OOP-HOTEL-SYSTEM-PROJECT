@@ -21,18 +21,16 @@ public class Rooms {
         this.status = RoomStatus.AVAILABLE;
     }
 
-    public Rooms( int roomFloor, String roomTypeName) {
+    public Rooms(int roomFloor, String roomTypeName) {
         RoomCount++;
         this.ActualRoomNumber = RoomNumber++;
         this.RoomFloor = roomFloor;
-        this.roomtype= Database.findRoomType(roomTypeName);
+        this.roomtype = Database.findRoomType(roomTypeName);
         this.status = RoomStatus.AVAILABLE;
     }
 
 
-
-
-    public  int getRoomNumber() {
+    public int getRoomNumber() {
         return this.ActualRoomNumber;
     }
 
@@ -56,8 +54,7 @@ public class Rooms {
     public void RoomAvailability() {
         if (this.status == RoomStatus.AVAILABLE) {
             System.out.println("Room " + ActualRoomNumber + " is available for booking.");
-        }
-         else {
+        } else {
             System.out.println("Room " + ActualRoomNumber + " is already Occupied.");
         }
     }
@@ -87,7 +84,7 @@ public class Rooms {
     }
 
 
-    public void RemoveAmenity(Amenity Amenity){
+    public void RemoveAmenity(Amenity Amenity) {
         amenities.remove(Amenity);
     }
 
@@ -102,9 +99,9 @@ public class Rooms {
     }
 
     public void CalculateTotalAmenityCost() {
-        TotalAmenityCost =0;
+        TotalAmenityCost = 0;
         for (Amenity amenity : amenities) {
-            if(amenity.isAvailable()){
+            if (amenity.isAvailable()) {
                 TotalAmenityCost += amenity.getAmenityCost();
             }
 
@@ -137,27 +134,27 @@ public class Rooms {
         }
     }
 
-public void DisplayRoomInfo(){
+    public void DisplayRoomInfo() {
         System.out.println("-----------------------------");
         System.out.println("       ROOM INFORMATION      ");
         System.out.println("-----------------------------");
 
-        System.out.println("Room Number: "+ ActualRoomNumber);
-        System.out.println("Room Floor: "+RoomFloor);
+        System.out.println("Room Number: " + ActualRoomNumber);
+        System.out.println("Room Floor: " + RoomFloor);
         System.out.println("Status: " + this.status);
-        System.out.println("Room Type: "+roomtype.getTypeName());
-        System.out.println("Room Description: "+roomtype.getRoomDescription());
-        System.out.println("Maximum Capacity: "+roomtype.getCapacity());
-        System.out.println("Price Per Night: "+roomtype.getPricePerNight());
+        System.out.println("Room Type: " + roomtype.getTypeName());
+        System.out.println("Room Description: " + roomtype.getRoomDescription());
+        System.out.println("Maximum Capacity: " + roomtype.getCapacity());
+        System.out.println("Price Per Night: " + roomtype.getPricePerNight());
         System.out.print("Amenities in the room: ");
-        for(Amenity amenity:amenities){
+        for (Amenity amenity : amenities) {
             System.out.print(amenity.getAmenityName() + " , ");
         }
         System.out.println("\n");
-        System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
+        System.out.println("Total Amenities Cost: $ " + TotalAmenityCost);
     }
 
-
+}
 
 
 
