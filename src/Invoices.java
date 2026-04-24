@@ -9,12 +9,18 @@ public class Invoices implements Payable {
     private PaymentMethod paymentmethod;
     private LocalDate paymentdate;
     private Reservations reservation;
+    private InvoiceType type;
+    private InvoiceStatus status;
 
     public enum PaymentMethod{
         CASH , CREDIT_CARD , ONLINE
     }
 
-    public Invoices(double totalamount, PaymentMethod paymentmethod , Reservations reservation)
+    public enum InvoiceType { BOOKING, PENALTY, REFUND, ROOM_SERVICE }
+
+    public enum InvoiceStatus { PAID, UNPAID, CANCELLED }
+
+    public Invoices(double totalamount, PaymentMethod paymentmethod , Reservations reservation , InvoiceType type , InvoiceStatus status)
             throws InvalidPaymentException {
 
             if (totalamount < 0) {
@@ -24,15 +30,20 @@ public class Invoices implements Payable {
         this.reservation=reservation;
         this.totalamount = totalamount;
         this.paymentmethod = paymentmethod;
+        this.type=type;
+        this.status=status;
         this.paymentdate = LocalDate.now();
         this.invoiceId = "INV-" + idCounter;
+
         idCounter++;// Sets the date to today
     }
 
 
+
     @Override
     public double CalculateTotal() {
-        return this.totalamount;
+        double tax = this.totalamount * 0.14;
+        return this.totalamount + tax;
     }
 
     public String getInvoiceId() {
@@ -70,12 +81,31 @@ public class Invoices implements Payable {
         return reservation;
     }
 
+    public InvoiceType getType() {
+        return type;
+    }
+
+    public void setType(InvoiceType type) {
+        this.type = type;
+    }
+
+    public InvoiceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(InvoiceStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "Invoice { " +
-                "amount=" + totalamount +
-                ", method=" + paymentmethod +
-                ", date=" + paymentdate +
-                '}';
+        return "***************************\n" +
+                "INVOICE ID: " + invoiceId + "\n" +
+                "Type:       " + type + "\n" +
+                "Status:     " + status + "\n" +
+                "Date:       " + paymentdate + "\n" +
+                "Method:     " + paymentmethod + "\n" +
+                "Total:      $" + totalamount + "\n" +
+                "***************************";
     }
 }

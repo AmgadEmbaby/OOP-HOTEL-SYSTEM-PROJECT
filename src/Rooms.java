@@ -12,9 +12,9 @@ public class Rooms {
 
     public enum RoomStatus {
         AVAILABLE,
-        RESERVED,
         OCCUPIED
     }
+
     public Rooms() {
         RoomCount++;
         this.ActualRoomNumber = RoomNumber++;
@@ -56,15 +56,39 @@ public class Rooms {
     public void RoomAvailability() {
         if (this.status == RoomStatus.AVAILABLE) {
             System.out.println("Room " + ActualRoomNumber + " is available for booking.");
-        } else if (this.status == RoomStatus.RESERVED) {
-            System.out.println("Room " + ActualRoomNumber + " is currently Reserved (waiting for guest).");
-        } else {
+        }
+         else {
             System.out.println("Room " + ActualRoomNumber + " is already Occupied.");
         }
     }
 
-    public void AddAmenity(String amenityname, double amenityprice) {
-        amenities.add(new Amenity(amenityname, amenityprice));
+    public void AddAmenity(Amenity amenity, Reservations res) {
+        amenities.add(amenity);
+
+        CalculateTotalAmenityCost();
+
+        //Create the Invoice for this service
+        try {
+            // We use ROOM_SERVICE type because it's an extra charge during the stay
+            Invoices amenityInvoice = new Invoices(
+                    amenity.getAmenityCost(),
+                    res.getMethod(),
+                    res,
+                    Invoices.InvoiceType.ROOM_SERVICE,
+                    Invoices.InvoiceStatus.UNPAID // Guest pays this at checkout
+            );
+
+            Database.getInvoicesList().add(amenityInvoice);
+            System.out.println("Amenity " + amenity.getAmenityName() + " added. Invoice generated.");
+
+        } catch (InvalidPaymentException e) {
+            System.out.println("Could not process amenity charge: " + e.getMessage());
+        }
+    }
+
+
+    public void RemoveAmenity(Amenity Amenity){
+        amenities.remove(Amenity);
     }
 
     public void SetAmenity(String amenityname, boolean isavailable) {
@@ -136,7 +160,7 @@ public void DisplayRoomInfo(){
 
 
 
-}
+
 
 
 
