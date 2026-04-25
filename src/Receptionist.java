@@ -42,15 +42,16 @@ public class Receptionist extends Staff {
 
 
 
-        public void checkout(int reservationID) {
+        public void checkout(int reservationID,Invoices.PaymentMethod method) {
             System.out.println("Please enter reservation ID");
             Reservations reservation = Database.findReservation(reservationID);
             LocalDate today = LocalDate.now();
 
             if (reservation != null) {
-                if (reservation.getRoom() != null) {
-                    // This clears the snacks/services list and creates the "Paid" invoice
-                    processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
+                if (reservation.getRoom() != null ) {
+                    if (method == Invoices.PaymentMethod.CASH || method == Invoices.PaymentMethod.CREDIT_CARD) {
+                        processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
+                    }
                 }
                 double fine = reservation.calculateCheckoutFine(today);
 
