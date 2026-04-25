@@ -284,10 +284,6 @@ public class Guests {
         System.out.println("Failed, The room with ID"+ reservationId+ " is not in your account!" );
         return false;
 
-
-
-
-
     }
 
 
