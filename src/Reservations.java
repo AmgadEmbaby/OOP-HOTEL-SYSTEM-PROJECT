@@ -37,7 +37,10 @@ public class Reservations {
 
     public void cancelReservation() {
         this.status = ReservationStatus.CANCELLED;
-        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
+
+        if (this.room != null) {
+            this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
+        }
     }
 
     public void checkInGuest() {
@@ -79,6 +82,37 @@ public class Reservations {
     public RoomType getTypeDesired() {
         return typeDesired;
     }
+
+    public double calculateCheckoutFine(LocalDate actualDate) {
+        if (actualDate.isBefore(this.checkout)) {
+            return 70.0; // Early checkout fine
+        } else if (actualDate.isAfter(this.checkout)) {
+            return 100.0; // Late checkout fine
+        }
+        return 0.0; // No fine
+    }
+
+
+
+    public double getStayPrice() {
+        long days = java.time.temporal.ChronoUnit.DAYS.between(checkin, checkout);
+        if (days <= 0) days = 1; // Charge at least one night
+        return days * typeDesired.getPricePerNight();
+    }
+
+
+    public double calculateCancellationFee() {
+        LocalDate today = LocalDate.now();
+
+        // Policy: Free cancellation if done at least 2 days before check-in
+        if (today.isBefore(this.checkin.minusDays(1))) {
+            return 0.0;
+        }
+
+        // Late cancellation penalty: 50% of the room price for one night
+        return this.typeDesired.getPricePerNight() * 0.5;
+    }
+
 
     public void displayReservation() {
         System.out.println("--- RESERVATION DETAILS ---");

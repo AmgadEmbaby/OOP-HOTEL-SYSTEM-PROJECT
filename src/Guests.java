@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -11,6 +9,7 @@ public class Guests {
     private double Balance =0;
     private String address;
     private Gender gender;
+    private boolean loginStatues;
     private static ArrayList<Reservations> guestReservations = new ArrayList<>();
 
 
@@ -36,6 +35,14 @@ public class Guests {
 
     public String getUserName() {
         return userName;
+    }
+
+    public boolean isLoginStatues() {
+        return loginStatues;
+    }
+
+    public void setLoginStatues(boolean loginStatues) {
+        this.loginStatues = loginStatues;
     }
 
     public void setUserName(String userName) {
@@ -82,6 +89,61 @@ public class Guests {
         this.gender = gender;
     }
 
+    public  ArrayList<Reservations> getGuestReservations() {
+        return guestReservations;
+    }
+
+    public void cancelBooking(int reservationID) {
+        Reservations res = Database.findReservation(reservationID);
+
+        if (res == null || res.getStatus() == Reservations.ReservationStatus.COMPLETED ||
+                res.getStatus() == Reservations.ReservationStatus.CANCELLED) {
+            System.out.println("Error: Reservation cannot be cancelled.");
+            return;
+        }
+
+        double fee = res.calculateCancellationFee();
+
+        if (res.getMethod() == Invoices.PaymentMethod.ONLINE) {
+            double refund = res.getTypeDesired().getPricePerNight() - fee;
+            this.setBalance(this.getBalance() + refund);
+        } else if (fee > 0) {
+            this.setBalance(this.getBalance() - fee);
+        }
+
+        res.cancelReservation();
+        System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
+    }
+
+    public static Boolean login(String username, String passWord){
+        boolean loginStatues = false;
+        boolean usernameFound = false;
+        boolean passwordFound= false;
+
+        for(Guests guests:Database.getGuestList()){
+
+            if(guests.getUserName().equalsIgnoreCase(username)){
+                usernameFound = true;
+                if(guests.getPassWord().equalsIgnoreCase(passWord)){
+                    passwordFound = true;
+                    System.out.println("Password found");
+                    loginStatues = true;
+                    return loginStatues;
+                }
+
+            }
+        }
+            if(!usernameFound){
+                System.out.println("Username not found in the system plz re eneter  ");
+            }
+            else if(!passwordFound){
+                System.out.println("Password entered is incorrect ");
+            }
+            return loginStatues;
+    }
+
+
+
     public void Register() {
         Guests.Gender tempGender = null;
         System.out.println("Welcome to the our hotels app!!! ");
@@ -113,6 +175,7 @@ public class Guests {
         this.dateOfBirth = DOB;
         this.passWord = tempPassword;
         this.gender = tempGender;
+        Database.addGuests(this);
     }
 
     public void showAvilableRooms(){
@@ -131,14 +194,25 @@ public class Guests {
     }
 
 
-    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut, Invoices.PaymentMethod method ) throws Exception {
+    public void makeReservation(Guests Guests, RoomType roomType, LocalDate checkIn, LocalDate checkOut,Invoices.PaymentMethod method ) throws Exception {
         try {
-            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut, method  );
+            Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut,method );
+            double finalPrice = current.getStayPrice();
+            Invoices.InvoiceStatus initialStatus = (method == Invoices.PaymentMethod.ONLINE)
+                    ? Invoices.InvoiceStatus.PAID
+                    : Invoices.InvoiceStatus.UNPAID;
+
+            Invoices bookingInvoice = new Invoices(
+                   finalPrice,
+                    method,
+                    current,
+                    Invoices.InvoiceType.BOOKING,
+                    initialStatus
+            );
+
+            Database.getInvoicesList().add(bookingInvoice);
             System.out.println("Your reservation ID is "+ current.getReservationID());
             Database.getReservationsList().add(current);
-
-
-
 
 
         } catch (Exception e) {
@@ -183,6 +257,35 @@ public class Guests {
 
         }
             return availabilityResults;
+
+
+
+
+    }
+
+    public Boolean  cancelReservation(int reservationId){
+
+
+        for(Reservations r : this.getGuestReservations()) {
+
+            if(r.getReservationID() == reservationId){
+
+                if(r.getStatus()==Reservations.ReservationStatus.CANCELLED){
+                    System.out.println("Failed, the Room with reservation ID "+ reservationId + " is already cancelled");
+                    return false;
+                }
+                else{
+                    r.cancelReservation();
+                    System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
+                    return true;
+                }
+
+            }
+
+        }
+        System.out.println("Failed, The room with ID"+ reservationId+ " is not in your account!" );
+        return false;
+
 
 
 
