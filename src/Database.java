@@ -24,6 +24,10 @@ public class Database {
 
 
 
+  public static void addGuests(Guests guest){
+    guestList.add(guest);
+  }
+
   public static ArrayList<Guests> getGuestList(){
 
     return guestList;

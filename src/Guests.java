@@ -9,6 +9,7 @@ public class Guests {
     private double Balance =0;
     private String address;
     private Gender gender;
+    private boolean loginStatues;
     private static ArrayList<Reservations> guestReservations = new ArrayList<>();
 
 
@@ -34,6 +35,14 @@ public class Guests {
 
     public String getUserName() {
         return userName;
+    }
+
+    public boolean isLoginStatues() {
+        return loginStatues;
+    }
+
+    public void setLoginStatues(boolean loginStatues) {
+        this.loginStatues = loginStatues;
     }
 
     public void setUserName(String userName) {
@@ -106,7 +115,32 @@ public class Guests {
         System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
+    public static Boolean login(String username, String passWord){
+        boolean loginStatues = false;
+        boolean usernameFound = false;
+        boolean passwordFound= false;
 
+        for(Guests guests:Database.getGuestList()){
+
+            if(guests.getUserName().equalsIgnoreCase(username)){
+                usernameFound = true;
+                if(guests.getPassWord().equalsIgnoreCase(passWord)){
+                    passwordFound = true;
+                    System.out.println("Password found");
+                    loginStatues = true;
+                    return loginStatues;
+                }
+
+            }
+        }
+            if(!usernameFound){
+                System.out.println("Username not found in the system plz re eneter  ");
+            }
+            else if(!passwordFound){
+                System.out.println("Password entered is incorrect ");
+            }
+            return loginStatues;
+    }
 
 
 
@@ -141,6 +175,7 @@ public class Guests {
         this.dateOfBirth = DOB;
         this.passWord = tempPassword;
         this.gender = tempGender;
+        Database.addGuests(this);
     }
 
 
