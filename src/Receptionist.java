@@ -3,7 +3,7 @@ public class Receptionist extends Staff {
 
 
     public void checkIn(int reservationID) {
-        System.out.println("Please enter reservation ID");
+
         Reservations reservation = Database.findReservation(reservationID);
         LocalDate today = LocalDate.now();
         int choice;
