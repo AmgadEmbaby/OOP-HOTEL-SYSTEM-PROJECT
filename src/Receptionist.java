@@ -43,7 +43,7 @@ public class Receptionist extends Staff {
                                 System.out.println("Payment settled at front desk for Invoice: " + inv.getInvoiceId());
                             }
                         }
-                        System.out.println("Guest checkin successful");
+
                         System.out.println("room number " + r.getRoomNumber());
                         System.out.println("Guest checkin successful");
                         return;
@@ -60,30 +60,29 @@ public class Receptionist extends Staff {
     }
 
 
-    public void checkout(int reservationID) {
-
-        Reservations reservation = Database.findReservation(reservationID);
-        LocalDate today = LocalDate.now();
-
-        if (reservation != null) {
-
-            if (today.isBefore(reservation.getCheckout())) {
-                System.out.println("Guest is early for their check out date");
-                System.out.println("The money you paid will not be refunded ");
-                System.out.println("Proceeding with checkout...");
-
-            } else if (today.isAfter(reservation.getCheckout())) {
-                System.out.println("Guest is late for their check out date");
-
-                return;
-
-            }
 
 
-                reservation.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+        public void checkout(int reservationID,Invoices.PaymentMethod method) {
+
+            Reservations reservation = Database.findReservation(reservationID);
+            LocalDate today = LocalDate.now();
+
+            if (reservation != null) {
+                if (reservation.getRoom() != null ) {
+                    if (method == Invoices.PaymentMethod.CASH || method == Invoices.PaymentMethod.CREDIT_CARD) {
+                        processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
+                    }
+                }
+
+
+
+
+                if (reservation.getRoom() != null) {
+                    reservation.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+                }
+
                 reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
-
-
+                System.out.println("Guest checkout successful.");
 
         } else {
             System.out.println("Reservation ID not found");
@@ -160,5 +159,51 @@ public class Receptionist extends Staff {
                 res.setStatus(Reservations.ReservationStatus.CANCELLED);
             }
         }
+    }public void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) {
+        //  Find the room
+        Rooms room = Database.findRoom(roomNumber);
+
+        //  Calculate what they owe for snacks/services
+        double amount = room.getTotalAmenityCost();
+
+        if (amount > 0) {
+            try {
+                //  Find the guest's reservation
+                Reservations activeRes = null;
+                for (Reservations res : Database.getReservationsList()) {
+                    if (res.getRoom() != null && res.getRoom().getRoomNumber() == roomNumber) {
+                        activeRes = res;
+                        break;
+                    }
+                }
+
+                // 4. Create the invoice
+                Invoices invoice = new Invoices(
+                        amount,
+                        method,
+                        activeRes,
+                        Invoices.InvoiceType.ROOM_SERVICE,
+                        Invoices.InvoiceStatus.PAID
+                );
+
+                // save it to the invoice list and reset room bill to 0
+                Database.getInvoicesList().add(invoice);
+               // room.getAmenities().clear();
+
+                System.out.println("Payment Successful via " + method);
+                System.out.println("Total collected (with tax): " + invoice.CalculateTotal());
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Nothing to pay for this room.");
+        }
     }
+
+
+
+
+
+
 }

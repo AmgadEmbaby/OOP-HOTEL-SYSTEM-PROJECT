@@ -93,6 +93,14 @@ public class Guests {
         return guestReservations;
     }
 
+
+    public void AddTobalance(int value){
+        this.setBalance(this.getBalance()+ value);
+    }
+
+
+
+
     public void cancelBooking(int reservationID) {
         Reservations res = Database.findReservation(reservationID);
 
@@ -111,7 +119,7 @@ public class Guests {
             this.setBalance(this.getBalance() - fee);
         }
 
-        res.cancelReservation();
+        res.cancelReservations();
         System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
@@ -198,9 +206,20 @@ public class Guests {
         try {
             Reservations current = new Reservations( Guests, roomType, checkIn,  checkOut,method );
             double finalPrice = current.getStayPrice();
-            Invoices.InvoiceStatus initialStatus = (method == Invoices.PaymentMethod.ONLINE)
-                    ? Invoices.InvoiceStatus.PAID
-                    : Invoices.InvoiceStatus.UNPAID;
+            Invoices.InvoiceStatus initialStatus;
+            if (method == Invoices.PaymentMethod.ONLINE) {
+                if(this.getBalance()> finalPrice){
+                    this.setBalance(this.getBalance()-finalPrice);
+                    initialStatus = Invoices.InvoiceStatus.PAID;
+                }
+                else{
+                    System.out.print("Insufficient balance plz recharge your balance then try again");
+                    return;
+                }
+
+            } else {
+                initialStatus = Invoices.InvoiceStatus.UNPAID;
+            }
 
             Invoices bookingInvoice = new Invoices(
                    finalPrice,
@@ -275,7 +294,7 @@ public class Guests {
                     return false;
                 }
                 else{
-                    r.cancelReservation();
+                    r.cancelReservations();
                     System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
                     return true;
                 }
@@ -285,10 +304,6 @@ public class Guests {
         }
         System.out.println("Failed, The room with ID"+ reservationId+ " is not in your account!" );
         return false;
-
-
-
-
 
     }
 

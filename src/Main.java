@@ -1,40 +1,53 @@
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Scanner;
+import java.util.Map; // Added missing import
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hotel System Initialized!");
+        System.out.println("--- Hotel System Initialized ---");
 
-        Scanner input = new Scanner(System.in);
-        Guests test = new Guests();
-        Guests test2 = new Guests();
-        Guests test3 = new Guests();
-        Rooms testRoom = Database.getRoomList().get(0);
-        Rooms testRoom2 = Database.getRoomList().get(1);
-        LocalDate CheckIn = LocalDate.of(2026, 4, 21);
-        LocalDate CheckOut = LocalDate.of(2026, 4, 25);
+        // 1. Create Guests
+        Guests guest1 = new Guests("Nour", "Cairo", LocalDate.of(2000, 5, 10), "pass123", Guests.Gender.female);
+        Guests guest2 = new Guests("Halla", "Alexandria", LocalDate.of(1999, 3, 15), "pass456", Guests.Gender.female);
 
-        LocalDate CheckIn2 = LocalDate.of(2026, 6, 21);
-        LocalDate CheckOut2 = LocalDate.of(2026, 6, 25);
+        Database.getGuestList().add(guest1);
+        Database.getGuestList().add(guest2);
+
+        LocalDate checkIn = LocalDate.of(2026, 4, 25);
+        LocalDate checkOut = LocalDate.of(2026, 4, 28);
 
         try {
-            test.makeReservation(test2,testRoom.getRoomtype(),CheckIn,CheckOut, Invoices.PaymentMethod.ONLINE);
+            // 3. Make a Reservation
+            System.out.println("\n[Action] Guest 1 is booking a room...");
+
+            // IMPORTANT: Ensure "Single" matches what is in your Database static block exactly
+            RoomType desiredType = Database.getAvailableRoomTypesList().get(0);
+
+            guest1.makeReservation(guest1, desiredType, checkIn, checkOut, Invoices.PaymentMethod.ONLINE);
+
+            System.out.println("\n[Check] Checking availability for the same period:");
+            Map<RoomType, Integer> availability = guest1.ViewAvilableRooms(checkIn, checkOut);
+
+            for (Map.Entry<RoomType, Integer> entry : availability.entrySet()) {
+                System.out.println(entry.getKey().getTypeName() + ": " + entry.getValue());
+            }
+
+            System.out.println("\n[Action] Receptionist checking in the guest...");
+            Receptionist receptionist = new Receptionist();
+
+            if (!Database.getReservationsList().isEmpty()) {
+                int resID = Database.getReservationsList().get(0).getReservationID();
+                receptionist.checkIn(resID);
+            }
+
+            // 6. Final Status View
+            System.out.println("\n--- Final System State ---");
+            receptionist.viewRooms();
+            receptionist.viewReservations();
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Error in logic: " + e.getMessage());
+            e.printStackTrace();
         }
-        try {
-            test.makeReservation(test3,testRoom2.getRoomtype(),CheckIn2,CheckOut2,Invoices.PaymentMethod.ONLINE);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(test.ViewAvilableRooms(CheckIn2,CheckOut2));
-
-
-
-
-
-
     }
 }
-

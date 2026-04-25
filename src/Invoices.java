@@ -34,10 +34,8 @@ public class Invoices implements Payable {
         this.status=status;
         this.paymentdate = LocalDate.now();
         this.invoiceId = "INV-" + idCounter;
-
         idCounter++;// Sets the date to today
     }
-
 
 
     @Override
