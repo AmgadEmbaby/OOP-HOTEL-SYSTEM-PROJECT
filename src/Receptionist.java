@@ -62,27 +62,27 @@ public class Receptionist extends Staff {
 
 
 
-        public void checkout(int reservationID,Invoices.PaymentMethod method) {
 
-            Reservations reservation = Database.findReservation(reservationID);
-            LocalDate today = LocalDate.now();
+    public void checkout(int reservationID,Invoices.PaymentMethod method) {
 
-            if (reservation != null) {
-                if (reservation.getRoom() != null ) {
-                    if (method == Invoices.PaymentMethod.CASH || method == Invoices.PaymentMethod.CREDIT_CARD) {
-                        processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
-                    }
+        Reservations reservation = Database.findReservation(reservationID);
+        LocalDate today = LocalDate.now();
+
+        if (reservation != null) {
+            if (reservation.getRoom() != null ) {
+                if (method == Invoices.PaymentMethod.CASH || method == Invoices.PaymentMethod.CREDIT_CARD) {
+                    processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
                 }
+            }
 
 
 
+            if (reservation.getRoom() != null) {
+                reservation.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+            }
 
-                if (reservation.getRoom() != null) {
-                    reservation.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
-                }
-
-                reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
-                System.out.println("Guest checkout successful.");
+            reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
+            System.out.println("Guest checkout successful.");
 
         } else {
             System.out.println("Reservation ID not found");
