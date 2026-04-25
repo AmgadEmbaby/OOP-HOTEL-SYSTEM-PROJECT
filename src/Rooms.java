@@ -53,6 +53,8 @@ public class Rooms {
     }
 
     public void setStatus(RoomStatus status) {
+
+        Validator.checkNotNull(status, "Status cannot be null");
         this.status = status;
     }
 
@@ -72,6 +74,7 @@ public class Rooms {
 
     public void AddAmenity(Amenity Amenity) {
         Validator.checkNotNull(Amenity,"Amenity cannot be null" );
+        RoomValidation.validateAmenities(this);
 
         amenities.add(Amenity);
 
@@ -81,6 +84,7 @@ public class Rooms {
     }
 
     public void SetAmenity(String amenityname, boolean isavailable) {
+        Validator.checkStringNotEmpty(amenityname, "Amenity name");
         for (Amenity amenity : amenities) {
             if (amenity.getAmenityName().equals(amenityname)) {
                 amenity.setAvailable(isavailable);
