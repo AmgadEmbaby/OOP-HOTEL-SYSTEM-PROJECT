@@ -173,7 +173,7 @@ public class Receptionist extends Staff {
 
                 // save it to the invoice list and reset room bill to 0
                 Database.getInvoicesList().add(invoice);
-                room.getAmenities().clear();
+               // room.getAmenities().clear();
 
                 System.out.println("Payment Successful via " + method);
                 System.out.println("Total collected (with tax): " + invoice.CalculateTotal());

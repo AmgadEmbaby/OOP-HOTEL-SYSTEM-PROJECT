@@ -23,7 +23,7 @@ public class Main {
             // IMPORTANT: Ensure "Single" matches what is in your Database static block exactly
             RoomType desiredType = Database.getAvailableRoomTypesList().get(0);
 
-            guest1.makeReservation(guest1, desiredType, checkIn, checkOut);
+            guest1.makeReservation(guest1, desiredType, checkIn, checkOut, Invoices.PaymentMethod.ONLINE);
 
             System.out.println("\n[Check] Checking availability for the same period:");
             Map<RoomType, Integer> availability = guest1.ViewAvilableRooms(checkIn, checkOut);

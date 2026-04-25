@@ -35,7 +35,7 @@ public class Reservations {
 
     }
 
-    public void cancelReservation() {
+    public void cancelReservations() {
         this.status = ReservationStatus.CANCELLED;
 
         if (this.room != null) {
@@ -127,8 +127,8 @@ public class Reservations {
 
     public void viewReservationDetails() {
         System.out.println("\n========== RESERVATION SUMMARY ==========");
-        System.out.println("GUEST:    " + this.guest.getGuest());
-        System.out.println("ROOM:     " + this.room.getRoomNumber() + " (" + this.room.getRoomType() + ")");
+        System.out.println("GUEST:    " + this.guest.getUserName());
+        System.out.println("ROOM:     " + this.room.getRoomNumber() + " (" + this.room.getRoomtype() + ")");
         System.out.println("DATES:    " + this.checkin + " to " + this.checkout);
         System.out.println("STATUS:   " + this.status);
         System.out.println("=========================================\n");
@@ -142,8 +142,8 @@ public class Reservations {
 
         this.status = ReservationStatus.CANCELLED;
 
-        this.room.setStatus(Rooms.IsAvalaible);
+        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
 
-        System.out.println("Reservation for " + this.guest.getName() + " has been cancelled.");
+        System.out.println("Reservation for " + this.guest.getUserName() + " has been cancelled.");
     }
 }
