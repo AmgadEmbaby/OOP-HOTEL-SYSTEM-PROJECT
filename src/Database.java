@@ -87,9 +87,9 @@ public class Database {
   }
 
 
-  public static RoomType findRoomType(String roomTypeName) {
-    for(RoomType rt: Database.getAvailableRoomTypesList()){
-      if(roomTypeName.equalsIgnoreCase(rt.getTypeName()) ){
+  public static RoomType findRoomType(String name) {
+    for (RoomType rt : availableRoomTypesList) {
+      if (rt.getTypeName().equalsIgnoreCase(name)) {
         return rt;
       }
     }
@@ -147,11 +147,11 @@ for(Rooms r: Database.getRoomList()) {
 
   static {
     // Arguments: roomfloor, roomtype, isAvailable
-    roomList.add(new Rooms(1, "SINGLE"));
-    roomList.add(new Rooms(1, "DOUBLE"));
-    roomList.add(new Rooms(2, "DOUBLE"));
-    roomList.add(new Rooms(2, "DOUBLE"));
-    roomList.add(new Rooms(3, "SUITE"));
+    roomList.add(new Rooms(1, "Single"));
+    roomList.add(new Rooms(1, "Double"));
+    roomList.add(new Rooms(2, "Double"));
+    roomList.add(new Rooms(2, "suite"));
+    roomList.add(new Rooms(3, "suite"));
   }
 
 
