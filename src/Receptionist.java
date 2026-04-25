@@ -74,7 +74,7 @@ public class Receptionist extends Staff {
 
             } else if (today.isAfter(reservation.getCheckout())) {
                 System.out.println("Guest is late for their check out date");
-                System.out.println("You have to extend your reservation online first");
+
                 return;
 
             }
