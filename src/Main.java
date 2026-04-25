@@ -13,7 +13,6 @@ public class Main {
         Database.getGuestList().add(guest1);
         Database.getGuestList().add(guest2);
 
-        // 2. Define Dates (Matching today's date for check-in)
         LocalDate checkIn = LocalDate.of(2026, 4, 25);
         LocalDate checkOut = LocalDate.of(2026, 4, 28);
 
@@ -26,16 +25,13 @@ public class Main {
 
             guest1.makeReservation(guest1, desiredType, checkIn, checkOut);
 
-            // 4. Verify Availability
             System.out.println("\n[Check] Checking availability for the same period:");
             Map<RoomType, Integer> availability = guest1.ViewAvilableRooms(checkIn, checkOut);
 
-            // Print availability clearly
             for (Map.Entry<RoomType, Integer> entry : availability.entrySet()) {
                 System.out.println(entry.getKey().getTypeName() + ": " + entry.getValue());
             }
 
-            // 5. Staff Interaction (Receptionist)
             System.out.println("\n[Action] Receptionist checking in the guest...");
             Receptionist receptionist = new Receptionist();
 
