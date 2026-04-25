@@ -159,6 +159,20 @@ for(Rooms r: Database.getRoomList()) {
   }
 
 
+  public static boolean isRoomAvailableForDates(Rooms room, LocalDate start, LocalDate end) {
+    for (Reservations r : Database.getReservationsList()) {
+      //search for this specific room in the future reservations to make sure it's free
+      if (r.getRoom() != null && r.getRoom().equals(room) &&
+              (r.getStatus() == Reservations.ReservationStatus.CONFIRMED ||
+                      r.getStatus() == Reservations.ReservationStatus.PENDING)) {
 
+        // checking for date overlap
+        if (!(end.isBefore(r.getCheckin()) || start.isAfter(r.getCheckout()) || start.equals(r.getCheckout()))) {
+          return false; // There is a clash
+        }
+      }
+    }
+    return true;
+  }
 
 }
