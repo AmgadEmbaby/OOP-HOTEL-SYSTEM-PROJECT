@@ -42,11 +42,17 @@ public class Receptionist extends Staff {
 
 
 
-        public void checkout(int reservationID) {
+        public void checkout(int reservationID,Invoices.PaymentMethod method) {
+            System.out.println("Please enter reservation ID");
             Reservations reservation = Database.findReservation(reservationID);
             LocalDate today = LocalDate.now();
 
             if (reservation != null) {
+                if (reservation.getRoom() != null ) {
+                    if (method == Invoices.PaymentMethod.CASH || method == Invoices.PaymentMethod.CREDIT_CARD) {
+                        processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
+                    }
+                }
                 double fine = reservation.calculateCheckoutFine(today);
 
                 if (fine > 0) {
@@ -138,5 +144,51 @@ public class Receptionist extends Staff {
                 res.setStatus(Reservations.ReservationStatus.CANCELLED);
             }
         }
+    }public void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) {
+        //  Find the room
+        Rooms room = Database.findRoom(roomNumber);
+
+        //  Calculate what they owe for snacks/services
+        double amount = room.getTotalAmenityCost();
+
+        if (amount > 0) {
+            try {
+                //  Find the guest's reservation
+                Reservations activeRes = null;
+                for (Reservations res : Database.getReservationsList()) {
+                    if (res.getRoom() != null && res.getRoom().getRoomNumber() == roomNumber) {
+                        activeRes = res;
+                        break;
+                    }
+                }
+
+                // 4. Create the invoice
+                Invoices invoice = new Invoices(
+                        amount,
+                        method,
+                        activeRes,
+                        Invoices.InvoiceType.ROOM_SERVICE,
+                        Invoices.InvoiceStatus.PAID
+                );
+
+                // save it to the invoice list and reset room bill to 0
+                Database.getInvoicesList().add(invoice);
+                room.getAmenities().clear();
+
+                System.out.println("Payment Successful via " + method);
+                System.out.println("Total collected (with tax): " + invoice.CalculateTotal());
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Nothing to pay for this room.");
+        }
     }
+
+
+
+
+
+
 }

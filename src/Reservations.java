@@ -124,4 +124,26 @@ public class Reservations {
         System.out.println("Physical Room State: " + room.getStatus());
         System.out.println("---------------------------");
     }
+
+    public void viewReservationDetails() {
+        System.out.println("\n========== RESERVATION SUMMARY ==========");
+        System.out.println("GUEST:    " + this.guest.getGuest());
+        System.out.println("ROOM:     " + this.room.getRoomNumber() + " (" + this.room.getRoomType() + ")");
+        System.out.println("DATES:    " + this.checkin + " to " + this.checkout);
+        System.out.println("STATUS:   " + this.status);
+        System.out.println("=========================================\n");
+    }
+
+    public void cancelReservation() throws Exception {
+        // Real-world rule: You can't cancel a stay that is already finished!
+        if (this.status == ReservationStatus.COMPLETED) {
+            throw new Exception("Error: Cannot cancel a completed reservation.");
+        }
+
+        this.status = ReservationStatus.CANCELLED;
+
+        this.room.setStatus(Rooms.IsAvalaible);
+
+        System.out.println("Reservation for " + this.guest.getName() + " has been cancelled.");
+    }
 }
