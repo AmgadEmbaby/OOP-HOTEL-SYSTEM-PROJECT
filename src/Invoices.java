@@ -21,12 +21,17 @@ public class Invoices implements Payable {
                 // This is the custom exception requested in the project brief
                 throw new InvalidPaymentException("Hotel Rule: Total amount cannot be negative.");
             }
+
+
         this.reservation=reservation;
         this.totalamount = totalamount;
         this.paymentmethod = paymentmethod;
         this.paymentdate = LocalDate.now();
         this.invoiceId = "INV-" + idCounter;
         idCounter++;// Sets the date to today
+
+        Guests guest = reservation.getGuest();
+        ReservationsValidation.validateInvoice(guest, this);
     }
 
 

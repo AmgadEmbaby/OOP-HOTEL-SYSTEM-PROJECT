@@ -20,6 +20,8 @@ public class ReservationsValidation {
 //            throw new IllegalArgumentException("User must be logged in");
 //        }
 
+
+//------------------------------------------moved---------------------------------------------
 //        if (room == null){
 //            throw new IllegalArgumentException("Room does not exist");
 //        }
@@ -44,13 +46,22 @@ public class ReservationsValidation {
 //            throw new IllegalArgumentException("Room already booked for selected dates.");
 //        }
 
-        //TODO
-//        double totalPrice = Invoices.ca ; //= ??????? where
-//        if (guest.getBalance() < totalPrice){
-//            throw new IllegalArgumentException("Insufficient balance");
-//        }
 
     }
+
+public static void validateInvoice(Guests guest, Invoices invoice){
+
+    Validator.checkNotNull(guest, "Guest is required.");
+    Validator.checkNotNull(invoice, "Invoice is required.");
+
+    //TODO
+    double totalPrice = invoice.CalculateTotal();
+
+    if (guest.getBalance() < totalPrice){
+        throw new IllegalArgumentException("Insufficient balance");
+    }
+}
+
 
 
     public static void validateRoomAssignment(Rooms room, LocalDate checkin, LocalDate checkout) {

@@ -16,6 +16,7 @@ public class Reservations {
 //            throw new Exception("Check-out must be after check-in.");
 //        }
 
+
         ReservationsValidation.validateReservation(guest, in, out);
 
         this.typeDesired= roomType;
@@ -26,6 +27,10 @@ public class Reservations {
         this.checkout = out;
         this.status=ReservationStatus.PENDING;
         this.method = method;
+
+
+
+
 
     }
 
