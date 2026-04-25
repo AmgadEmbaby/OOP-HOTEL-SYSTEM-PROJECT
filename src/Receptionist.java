@@ -53,13 +53,7 @@ public class Receptionist extends Staff {
                         processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
                     }
                 }
-                double fine = reservation.calculateCheckoutFine(today);
 
-                if (fine > 0) {
-                    double currentBalance = reservation.getGuest().getBalance();
-                    reservation.getGuest().setBalance(currentBalance + fine);
-                    System.out.println("Checkout policy activated. Fine of $" + fine + " applied.");
-                }
 
 
                 if (reservation.getRoom() != null) {
