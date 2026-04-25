@@ -293,5 +293,46 @@ public class Guests {
     }
 
 
+    public void extendReservation(int reservationID, int extraDays) {
+        Reservations res = Database.findReservation(reservationID);
+
+        if (res == null || res.getStatus() == Reservations.ReservationStatus.CANCELLED) {
+            System.out.println("You cannot extend a non-existent or cancelled reservation.");
+            return;
+        }
+
+        LocalDate currentCheckout = res.getCheckout();
+        LocalDate newCheckout = currentCheckout.plusDays(extraDays);
+        String typeNeeded = res.getTypeDesired().getTypeName();
+        Rooms currentRoom = res.getRoom();
+
+        // 1. Try to keep the same room
+        if (Database.isRoomAvailableForDates(currentRoom, currentCheckout, newCheckout)) {
+            res.processExtension(extraDays, currentRoom, newCheckout);
+            return; //exit the function if current room is found
+        }
+
+        // 2. If same room isn't available, search for others
+        System.out.println("Your current room is booked. Searching for other " + typeNeeded + " rooms...");
+        Rooms alternativeRoom = null;
+
+        for (Rooms r : Database.getRoomList()) {
+            if (r.getRoomtype().getTypeName().equalsIgnoreCase(typeNeeded)) {
+                if (Database.isRoomAvailableForDates(r, currentCheckout, newCheckout)) {
+                    alternativeRoom = r;
+                    break;
+                }
+            }
+        }
+
+        if (alternativeRoom != null) {
+            System.out.println("Room " + alternativeRoom.getRoomNumber() + " is available! Moving you there.");
+            res.processExtension(extraDays, alternativeRoom, newCheckout);
+        } else {
+            System.out.println("Sorry, no rooms of type " + typeNeeded + " are available for extension.");
+        }
+    }
+
+
 
 }
