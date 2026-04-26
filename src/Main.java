@@ -50,12 +50,14 @@ public class Main {
                         choiceInt = AuthMenu.numberScanner();
                     }
                     if(choiceInt==1){
-                        System.out.print("Enter your username:");
-                        String username = input.nextLine();
-                        System.out.print("Enter your Password: ");
-                        String password = input.nextLine();
+
                         boolean logiStatus = false;
+                        currentGuests= null;
                         while(currentGuests == null) {
+                            System.out.print("Enter your username:");
+                            String username = input.nextLine();
+                            System.out.print("Enter your Password: ");
+                            String password = input.nextLine();
                              currentGuests=Guests.login(username, password);
                         }
                     }
