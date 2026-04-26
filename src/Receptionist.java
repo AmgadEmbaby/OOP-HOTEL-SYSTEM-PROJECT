@@ -9,7 +9,7 @@ public class Receptionist extends Staff {
         if (reservation != null) {
             if (today.isBefore(reservation.getCheckin())) {
                 System.out.println("Guest is early for their check in date");
-            } else if (today.isAfter(reservation.getCheckin())) {
+            } else if (today.isAft er(reservation.getCheckin())) {
                 System.out.println("Guest is late for their check in date");
             } else {
                 for (Rooms r : Database.getRoomList()) {
@@ -144,7 +144,9 @@ public class Receptionist extends Staff {
                 res.setStatus(Reservations.ReservationStatus.CANCELLED);
             }
         }
-    }public void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) {
+
+    }
+    public void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) {
         //  Find the room
         Rooms room = Database.findRoom(roomNumber);
 
