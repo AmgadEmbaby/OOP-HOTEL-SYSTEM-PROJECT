@@ -457,9 +457,29 @@ public class Guests {
 
 
 
+    }
 
 
 
+
+
+
+    public void orderAmenity(int reservationID, String amenityName) {
+
+        Reservations res = Database.findReservation(reservationID);
+
+        Amenity item = Database.findAmenity(amenityName);
+
+        if (res != null && item != null) {
+            if (res.getRoom() != null) {
+                res.getRoom().getAmenities().add(item);
+                System.out.println("Success: " + amenityName + " added to Reservation #" + reservationID);
+            } else {
+                System.out.println("Error: This reservation doesn't have a room assigned yet.");
+            }
+        } else {
+            System.out.println("Error: Reservation or Amenity not found.");
+        }
     }
 
 
