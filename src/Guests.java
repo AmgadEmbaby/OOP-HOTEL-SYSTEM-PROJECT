@@ -348,6 +348,30 @@ public class Guests {
         }
     }
 
+//this acts as "virtual checkout" or a precheckout before physically checking out at the receptionist desk
+    public void requestCheckout(int reservationID, Invoices.PaymentMethod preferredPayment){
+
+        Reservations res = Database.findReservation(reservationID);
+
+        if (res == null || res.getStatus() != Reservations.ReservationStatus.CONFIRMED) {
+            System.out.println("No active stay found for this ID.");
+            return;}
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
 
 
 }

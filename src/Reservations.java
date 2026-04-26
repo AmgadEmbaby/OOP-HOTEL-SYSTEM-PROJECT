@@ -8,6 +8,7 @@ public class Reservations {
     private ReservationStatus status;
     private static int idCounter=1000;
     private int reservationID;
+    private boolean isCheckedIn=false;
     private Invoices.PaymentMethod method;
 
     public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method) throws Exception {
@@ -23,6 +24,10 @@ public class Reservations {
         this.status=ReservationStatus.PENDING;
         this.method = method;
 
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.isCheckedIn = checkedIn;
     }
 
     public void setCheckout(LocalDate checkout) {
