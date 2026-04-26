@@ -169,21 +169,24 @@ public class Main {
                                     boolean roomFound = false;
 
                                     while (!roomFound) {
-                                        for (RoomType r : Database.getAvailableRoomTypesList()) {
-                                            if (r.getTypeName().equalsIgnoreCase(temp)) {
-                                                roomFound = true;
-                                                System.out.println("Room type found!");
-                                                tempRoomType = r;
-                                                break;
+                                        try {
+//                                            for (RoomType r : Database.getAvailableRoomTypesList()) {
+//                                                if (r.getTypeName().equalsIgnoreCase(temp)) {
+                                            tempRoomType = RoomValidation.validateRoomTypeName(temp); //logic alr in validation methoid
+                                            roomFound = true;
+                                            System.out.println("Room type found!");
+//                                                    tempRoomType = r;
+//                                                    break;
+//                                                }
+                                            }catch(IllegalArgumentException e){
+
+                                            // If we finished checking all rooms and didn't find it, ask again
+//                                            if (!roomFound) {
+                                                System.out.println("Invalid Roomtype. Please re-enter:");
+                                                temp = input.nextLine();
                                             }
                                         }
 
-                                        // If we finished checking all rooms and didn't find it, ask again
-                                        if (!roomFound) {
-                                            System.out.println("Invalid Roomtype. Please re-enter:");
-                                            temp = input.nextLine();
-                                        }
-                                    }
 
                                     Invoices.PaymentMethod finalmethod = null;
                                     System.out.println("Please enter the method of Payment (Cash, Online, Credit)");
