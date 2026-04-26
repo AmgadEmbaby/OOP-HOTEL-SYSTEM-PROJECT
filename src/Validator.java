@@ -1,46 +1,54 @@
+import java.time.LocalDate;
 import java.util.*;
 
 public class Validator {
 
-    public static <T> void checkNotNull(T obj, String outputMessage){
-        if (obj == null){
+    public static <T> void checkNotNull(T obj, String outputMessage) {
+        if (obj == null) {
             throw new IllegalArgumentException(outputMessage);
         }
     }
 
-    public static void checkStringNotEmpty(String value, String fieldName){
-        if (value == null || value.trim().isEmpty()){
+    public static void checkStringNotEmpty(String value, String fieldName) {
+        if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException(fieldName + " cannot be empty.");
         }
     }
 
-    public static <T> void checkDuplicates(List<T> list, T obj, String outputMessage){
-        if (list.contains(obj)){
+    public static <T> void checkDuplicates(List<T> list, T obj, String outputMessage) {
+        if (list.contains(obj)) {
             throw new IllegalArgumentException(outputMessage);
         }
     }
 
-    public static void checkNumNotNegative (double num, String fieldName){ //allows zero
-        if (num < 0){
+    public static void checkNumNotNegative(double num, String fieldName) { //allows zero
+        if (num < 0) {
             throw new IllegalArgumentException(fieldName + " cannot be negative.");
         }
     }
 
-    public static void checkNumPositive (double num, String fieldName){
-        if (num <= 0){
+    public static void checkNumPositive(double num, String fieldName) {
+        if (num <= 0) {
             throw new IllegalArgumentException(fieldName + " must be greater than 0.");
         }
     }
 
 
-    public static void checkNumberOnly(int num){
+    public static void checkNumberOnly(int num) {
         Validator.checkNotNull(num, "Number cannot be empty.");
 
-        if (! Character.isDigit(num)){
+        if (!Character.isDigit(num)) {
             throw new IllegalArgumentException("Input must contain number only.");
         }
     }
 
+    public static void generalDateValidation(LocalDate dateGeneral) {
+        Validator.checkNotNull(dateGeneral, "Date is required");
 
+//        if (dateGeneral.isAfter(LocalDate.now())) {
+//            throw new IllegalArgumentException("Date cannot be in the future");
+//        }
+
+    }
 
 }
