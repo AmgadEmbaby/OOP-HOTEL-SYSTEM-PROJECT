@@ -13,8 +13,8 @@ public class Main {
         Database.getGuestList().add(guest1);
         Database.getGuestList().add(guest2);
 
-        LocalDate checkIn = LocalDate.of(2026, 4, 25);
-        LocalDate checkOut = LocalDate.of(2026, 4, 28);
+        LocalDate checkIn = LocalDate.of(2026, 4, 27);
+        LocalDate checkOut = LocalDate.of(2026, 4, 29);
 
         try {
             // 3. Make a Reservation

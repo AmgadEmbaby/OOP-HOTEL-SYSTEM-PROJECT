@@ -22,6 +22,8 @@ public class Database {
 
   private static  ArrayList<Invoices> InvoicesList = new ArrayList<>();
 
+  private static ArrayList<Staff> staffList = new ArrayList<>();
+
 
 
   public static void addGuests(Guests guest){
@@ -32,6 +34,12 @@ public class Database {
 
     return guestList;
   }
+
+  public static ArrayList<Staff> getStaffList(){
+
+    return staffList;
+  }
+
 
   public static ArrayList<Rooms> getRoomList(){
     return roomList;
