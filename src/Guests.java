@@ -390,6 +390,111 @@ public class Guests {
         }
     }
 
+//THIS METHOD acts as "virtual checkout" or a precheckout before physically checking out at the receptionist desk
+    public void requestCheckout(int reservationID, Invoices.PaymentMethod preferredPayment) {
+
+        Reservations res = Database.findReservation(reservationID);
+
+        if (res == null || res.getStatus() != Reservations.ReservationStatus.CONFIRMED) {
+            System.out.println("No active stay found for this ID.");
+            return;
+        }
+
+        if (res.getRoom() != null) {
+            res.getRoom().CalculateTotalAmenityCost();
+        }
+
+
+        if (res.getRoom().getTotalAmenityCost() > 0) {
+
+            Receptionist.processRoomServicePayment(res.getRoom(), res, preferredPayment);
+
+
+            res.getRoom().getAmenities().clear();
+        }
+
+
+        double amountToPayNow = Database.calculateReservationTotal(reservationID);
+
+
+        if (preferredPayment == Invoices.PaymentMethod.ONLINE && amountToPayNow > 0) {
+            if (this.getBalance() >= amountToPayNow) {
+
+
+                for (Invoices inv : this.getGuestInvoices()) {
+                    if (inv.getReservation().getReservationID() == reservationID &&
+                            inv.getStatus() == Invoices.InvoiceStatus.UNPAID) {
+
+
+                        this.onlinePaymentForTheOngoingInvoices(inv.getInvoiceId());
+                    }
+                }
+
+
+            } else {
+                // If online fails, we don't finish checkout!
+                System.out.println("FAILED: Insufficient balance. Please pay at the front desk.");
+                return;
+            }
+        }
+        else if (amountToPayNow > 0) {
+            System.out.println("PENDING: Guest must pay $" + amountToPayNow + " in person via " + preferredPayment);
+            return;
+
+        }
+
+        res.setCheckedIn(false);
+        System.out.println(" Checkout request Successful. Please drop your key at the Reception Desk.");
+
+
+
+
+        double finalDebt = Database.calculateReservationTotal(reservationID);
+
+        if (finalDebt <= 0) {
+
+            res.setCheckedIn(false);
+            System.out.println("Checkout successful. Room " + res.getRoom().getRoomNumber() + " is now available.");
+        } else {
+
+            System.out.println("CHECKOUT BLOCKED: Guest still owes $" + finalDebt + ". Payment required.");
+        }
+
+
+
+    }
+
+
+
+
+
+
+    public void orderAmenity(int reservationID, String amenityName) {
+
+        Reservations res = Database.findReservation(reservationID);
+
+        Amenity item = Database.findAmenity(amenityName);
+
+        if (res != null && item != null) {
+            if (res.getRoom() != null) {
+                res.getRoom().getAmenities().add(item);
+                System.out.println("Success: " + amenityName + " added to Reservation #" + reservationID);
+            } else {
+                System.out.println("Error: This reservation doesn't have a room assigned yet.");
+            }
+        } else {
+            System.out.println("Error: Reservation or Amenity not found.");
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 }
