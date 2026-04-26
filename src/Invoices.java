@@ -35,6 +35,11 @@ public class Invoices implements Payable {
         this.paymentdate = LocalDate.now();
         this.invoiceId = "INV-" + idCounter;
         idCounter++;// Sets the date to today
+        addInvoiceToGuestsArray();
+    }
+
+    public void addInvoiceToGuestsArray(){
+        this.reservation.getGuest().addNewInvoiceForTheGuestList(this);
     }
 
 
