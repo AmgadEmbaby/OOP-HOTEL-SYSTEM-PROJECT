@@ -103,9 +103,63 @@ public class Main {
                                     tempDateOut = LocalDate.of(tempYear2,tempMonth2,tempDay2);
                                     System.out.println(Guests.ViewAvilableRooms(tempDateCheckIn,tempDateOut));
                                     break;
+
+
                                 case 2:
-                                    // Make Reservations
+                                    LocalDate checkIn = null;
+                                    LocalDate checkOut = null;
+
+                                    while (true) {
+                                        try {
+                                            System.out.print("Enter check-in date (DD MM YYYY): ");
+                                            int d1 = input.nextInt();
+                                            int m1 = input.nextInt();
+                                            int y1 = input.nextInt();
+                                            input.nextLine();
+
+                                            checkIn = LocalDate.of(y1, m1, d1);
+
+                                            System.out.print("Enter check-out date (DD MM YYYY): ");
+                                            int d2 = input.nextInt();
+                                            int m2 = input.nextInt();
+                                            int y2 = input.nextInt();
+                                            input.nextLine();
+
+                                            checkOut = LocalDate.of(y2, m2, d2);
+
+                                            ReservationsValidation.validateReservation(currentGuests, checkIn, checkOut);
+
+                                            // if wesel le hena then valid
+                                            break;
+
+                                        } catch (IllegalArgumentException e) {
+                                            System.out.println("Error: " + e.getMessage());
+                                        } catch (Exception e) {
+                                            System.out.println("Invalid input format. Please try again.");
+                                            input.nextLine(); // clear buffer
+                                        }
+                                    }
+
+                                    // validation tmam, so do other processes delwaaty
+                                    try {
+                                        RoomType type = Database.getAvailableRoomTypesList().get(0);
+
+                                        currentGuests.makeReservation(
+                                                currentGuests,
+                                                type,
+                                                checkIn,
+                                                checkOut,
+                                                Invoices.PaymentMethod.ONLINE
+                                        );
+
+                                        System.out.println("Reservation successful!");
+
+                                    } catch (Exception e) {
+                                        System.out.println("Something went wrong: " + e.getMessage());
+                                    }
+
                                     break;
+
                                 case 3:
                                     // View Reservations
                                     break;
