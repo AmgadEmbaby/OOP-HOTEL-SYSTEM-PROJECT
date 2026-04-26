@@ -35,6 +35,9 @@ public class Invoices implements Payable {
         this.paymentdate = LocalDate.now();
         this.invoiceId = "INV-" + idCounter;
         idCounter++;// Sets the date to today
+
+        Guests guest = reservation.getGuest();
+        ReservationsValidation.validateInvoice(guest, this);
         addInvoiceToGuestsArray();
     }
 
@@ -69,6 +72,8 @@ public class Invoices implements Payable {
     }
 
     public void setPaymentmethod(PaymentMethod paymentmethod) {
+
+        Validator.checkNotNull(paymentmethod, "Payment method cannot be null.");
         this.paymentmethod = paymentmethod;
     }
 
@@ -77,6 +82,8 @@ public class Invoices implements Payable {
     }
 
     public void setPaymentdate(LocalDate paymentdate) {
+
+        Validator.checkNotNull(paymentdate, "Payment date cannot be null.");
         this.paymentdate = paymentdate;
     }
 
@@ -102,13 +109,10 @@ public class Invoices implements Payable {
 
     @Override
     public String toString() {
-        return "***************************\n" +
-                "INVOICE ID: " + invoiceId + "\n" +
-                "Type:       " + type + "\n" +
-                "Status:     " + status + "\n" +
-                "Date:       " + paymentdate + "\n" +
-                "Method:     " + paymentmethod + "\n" +
-                "Total:      $" + totalamount + "\n" +
-                "***************************";
+        return "Invoice { " +
+                "amount=" + totalamount +
+                ", method=" + paymentmethod +
+                ", date=" + paymentdate +
+                '}';
     }
 }

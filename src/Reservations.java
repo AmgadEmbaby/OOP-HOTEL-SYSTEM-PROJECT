@@ -10,10 +10,15 @@ public class Reservations {
     private int reservationID;
     private Invoices.PaymentMethod method;
 
-    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method) throws Exception {
-        if (!out.isAfter(in)) {
-            throw new Exception("Check-out must be after check-in.");
-        }
+    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method){
+//            throws Exception {
+//        if (!out.isAfter(in)) {
+//            throw new Exception("Check-out must be after check-in.");
+//        }
+
+
+        ReservationsValidation.validateReservation(guest, in, out);
+
         this.typeDesired= roomType;
         this.reservationID=idCounter++;
         this.guest = guest;
@@ -39,7 +44,8 @@ public class Reservations {
 
     }
 
-    public void cancelReservations() {
+    public void cancelReservation() {
+        ReservationsValidation.validateCancellation(guest, this);
         this.status = ReservationStatus.CANCELLED;
 
         if (this.room != null) {
@@ -60,6 +66,7 @@ public class Reservations {
     }
 
     public void setRoom(Rooms room) {
+        ReservationsValidation.validateRoomAssignment(room, this.checkin, this.checkout);
         this.room = room;
     }
 
@@ -87,16 +94,14 @@ public class Reservations {
         return typeDesired;
     }
 
-
-
-
-
-    public double getStayPrice() {
-        long days = java.time.temporal.ChronoUnit.DAYS.between(checkin, checkout);
-        if (days <= 0) days = 1; // Charge at least one night
-        return days * typeDesired.getPricePerNight();
+    public double calculateCheckoutFine(LocalDate actualDate) {
+        if (actualDate.isBefore(this.checkout)) {
+            return 70.0; // Early checkout fine
+        } else if (actualDate.isAfter(this.checkout)) {
+            return 100.0; // Late checkout fine
+        }
+        return 0.0; // No fine
     }
-
 
     public double calculateCancellationFee() {
         LocalDate today = LocalDate.now();
