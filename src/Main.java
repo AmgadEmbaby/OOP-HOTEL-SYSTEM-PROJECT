@@ -103,7 +103,8 @@ public class Main {
                                     tempDateOut = LocalDate.of(tempYear2,tempMonth2,tempDay2);
                                     System.out.println(Guests.ViewAvilableRooms(tempDateCheckIn,tempDateOut));
                                     break;
-                                case 2:
+
+
                                 case 2:
                                     LocalDate checkIn = null;
                                     LocalDate checkOut = null;
