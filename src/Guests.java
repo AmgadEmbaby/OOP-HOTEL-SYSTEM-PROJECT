@@ -9,7 +9,7 @@ public class Guests {
     private double Balance =0;
     private String address;
     private Gender gender;
-    private boolean loginStatues;
+    private boolean loginStatues = false;
     private  ArrayList<Reservations> guestReservations = new ArrayList<>();
     private  ArrayList<Invoices> guestInvoices  = new ArrayList<>();
 
@@ -29,6 +29,8 @@ public class Guests {
         this.passWord = passWord;
         this.gender = gender;
     }
+
+
 
     public Guests() {
     }
@@ -160,7 +162,7 @@ public class Guests {
         System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
-    public static Boolean login(String username, String passWord){
+    public static Guests login(String username, String passWord){
         boolean loginStatues = false;
         boolean usernameFound = false;
         boolean passwordFound= false;
@@ -173,7 +175,9 @@ public class Guests {
                     passwordFound = true;
                     System.out.println("Password found");
                     loginStatues = true;
-                    return loginStatues;
+                    guests.setLoginStatues(true);
+                    return guests;
+
                 }
 
             }
@@ -184,7 +188,8 @@ public class Guests {
             else if(!passwordFound){
                 System.out.println("Password entered is incorrect ");
             }
-            return loginStatues;
+            loginStatues = false;
+            return null;
     }
 
 

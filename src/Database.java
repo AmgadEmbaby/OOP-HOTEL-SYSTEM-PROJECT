@@ -164,6 +164,9 @@ for(Rooms r: Database.getRoomList()) {
     roomList.add(new Rooms(2, "Double"));
     roomList.add(new Rooms(2, "suite"));
     roomList.add(new Rooms(3, "suite"));
+    //Dummy data for the main run :)
+
+
   }
 
 
