@@ -91,23 +91,41 @@ public class Main {
                                     Guestlogged = false;
                                     break;
                                 case 1:
+                                    LocalDate tempDateCheckIn = null;
+                                    LocalDate tempDateOut = null;
 
-                                    System.out.print("Dear guest please enter the check in date DD/MM/YYYY: ");
-                                    int tempDay = input.nextInt();
-                                    int tempMonth = input.nextInt();
-                                    int tempYear = input.nextInt();
-                                    input.nextLine();
-                                    LocalDate tempDateCheckIn ;
-                                    tempDateCheckIn = LocalDate.of(tempYear,tempMonth,tempDay);
-                                    System.out.print("Dear guest please enter the check in date DD/MM/YYYY: ");
-                                    int tempDay2 = input.nextInt();
-                                    int tempMonth2 = input.nextInt();
-                                    int tempYear2 = input.nextInt();
-                                    input.nextLine();
-                                    LocalDate tempDateOut ;
-                                    tempDateOut = LocalDate.of(tempYear2,tempMonth2,tempDay2);
-                                    System.out.println(Guests.ViewAvilableRooms(tempDateCheckIn,tempDateOut));
+                                    while (true) {
+
+                                        try {
+
+                                            System.out.print("Dear guest please enter the check in date DD/MM/YYYY: ");
+                                            int tempDay = input.nextInt();
+                                            int tempMonth = input.nextInt();
+                                            int tempYear = input.nextInt();
+                                            input.nextLine();
+                                            //LocalDate tempDateCheckIn;
+                                            tempDateCheckIn = LocalDate.of(tempYear, tempMonth, tempDay);
+                                            System.out.print("Dear guest please enter the check in date DD/MM/YYYY: ");
+                                            int tempDay2 = input.nextInt();
+                                            int tempMonth2 = input.nextInt();
+                                            int tempYear2 = input.nextInt();
+                                            input.nextLine();
+                                            //LocalDate tempDateOut;
+                                            tempDateOut = LocalDate.of(tempYear2, tempMonth2, tempDay2);
+
+                                            ReservationsValidation.validateReservation(currentGuests, tempDateCheckIn, tempDateOut);
+                                            break;
+
+                                        } catch (IllegalArgumentException e) {
+                                            System.out.println(e.getMessage());
+                                        } catch (Exception e) {
+                                            System.out.println("Invalid input. Try again.");
+                                            input.nextLine();
+                                        }
+
+                                    System.out.println(Guests.ViewAvilableRooms(tempDateCheckIn, tempDateOut));
                                     break;
+                            }
                                 case 2:
                                     System.out.println("Processing reservation...");
                                     LocalDate checkIn = null;
