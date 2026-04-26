@@ -54,12 +54,15 @@ public class Main {
 
                         boolean logiStatus = false;
                         currentGuests= null;
-                        while(currentGuests == null) {
+                        while(currentGuests == null) try {
                             System.out.print("Enter your username:");
                             String username = input.nextLine();
                             System.out.print("Enter your Password: ");
                             String password = input.nextLine();
-                             currentGuests=Guests.login(username, password);
+                            // currentGuests=Guests.login(username, password);
+                            currentGuests = GuestValidation.validateGuestLogin(username, password);
+                        } catch (IllegalArgumentException e){
+                            System.out.println("Login failed: " + e.getMessage());
                         }
                         System.out.println("Logged in successfully");
                         Guestloop= true ;
