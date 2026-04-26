@@ -98,6 +98,7 @@ public class Receptionist extends Staff {
 
             System.out.println("Reservation ID not found");
         }
+        reservation.getRoom().getAmenities().clear();
     }
 
 
