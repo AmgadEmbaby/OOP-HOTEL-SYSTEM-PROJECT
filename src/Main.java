@@ -193,7 +193,7 @@ public class Main {
                                     break;
 
                                 case 3:
-                                    // View Reservations
+                                    System.out.println(currentGuests.getGuestReservations());
                                     break;
                                 case 4:
                                     // Cancel Reservation
@@ -218,12 +218,13 @@ public class Main {
 
 
 
+                    } else if (choiceInt==2) {
+                        currentGuests.Register();
+
                     }
 
 
-
-
-            }
+                }
 
 
 
