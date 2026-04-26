@@ -183,4 +183,24 @@ for(Rooms r: Database.getRoomList()) {
     return true;
   }
 
+
+
+
+  public static double calculateReservationTotal(int resID) {
+    double grandTotal = 0;
+
+    for (Invoices inv : InvoicesList) {
+
+      if (inv.getReservation().getReservationID() == resID &&
+              inv.getStatus() == Invoices.InvoiceStatus.UNPAID) {
+
+
+        grandTotal += inv.CalculateTotal();
+      }
+    }
+    return grandTotal; // this returns the final sum of all Invoices + Taxes
+  }
+
+
+
 }
