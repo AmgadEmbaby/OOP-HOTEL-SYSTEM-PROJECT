@@ -69,9 +69,19 @@ public class Receptionist extends Staff {
         Reservations reservation = Database.findReservation(reservationID);
         LocalDate today = LocalDate.now();
 
+        if (reservation != null) {
+
+        if (reservation.isCheckedIn()) {
+            System.out.println("The Guest should initiate checkout from their app first");
+            return;
+        }
+
+
+
+
         double amountToPay = Database.calculateReservationTotal(reservationID);
 
-        if (reservation != null) {
+
 
             if (amountToPay > 0) {
                 System.out.println("Final amount to pay at desk: $" + amountToPay);
@@ -86,19 +96,22 @@ public class Receptionist extends Staff {
                 }
             }
 
-            // This now runs for EVERYONE (whether they paid $0 or $100)
+
             if (reservation.getRoom() != null) {
                 reservation.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+                reservation.getRoom().getAmenities().clear();
+                reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
+                System.out.println("Guest checkout successful.");
+
             }
 
-            reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
-            System.out.println("Guest checkout successful.");
+
 
         } else {
 
             System.out.println("Reservation ID not found");
         }
-        reservation.getRoom().getAmenities().clear();
+
     }
 
 
