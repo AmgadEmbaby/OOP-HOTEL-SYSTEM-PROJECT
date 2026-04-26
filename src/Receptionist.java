@@ -45,6 +45,7 @@ public class Receptionist extends Staff {
                         }
 
                         System.out.println("room number " + r.getRoomNumber());
+                        reservation.setCheckedIn(true);
                         System.out.println("Guest checkin successful");
                         return;
                     }
