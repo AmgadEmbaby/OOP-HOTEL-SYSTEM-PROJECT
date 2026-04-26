@@ -12,6 +12,8 @@ public class Invoices implements Payable {
     private InvoiceType type;
     private InvoiceStatus status;
 
+
+
     public enum PaymentMethod{
         CASH , CREDIT_CARD , ONLINE
     }

@@ -96,6 +96,7 @@ public class Guests {
         return guestReservations;
     }
 
+
     public ArrayList<Invoices> getGuestInvoices() {
         return guestInvoices;
     }

@@ -76,9 +76,10 @@ public class Main {
                             System.out.println("5-Pay Invoice");
                             System.out.println("6-Notify the receptionist for checking out");
                             System.out.println("7-Recharge balance");
+                            System.out.println("8-View ongoing invoices");
                             System.out.println("0- to logout and return to the previous menu");
                             choiceInt = AuthMenu.numberScanner();
-                            while(choiceInt<0||choiceInt>6){
+                            while(choiceInt<0||choiceInt>9){
                                 System.out.println("Invalid option please re eneter");
                                 choiceInt = AuthMenu.numberScanner();
                             }
@@ -196,14 +197,57 @@ public class Main {
                                     System.out.println(currentGuests.getGuestReservations());
                                     break;
                                 case 4:
-                                    // Cancel Reservation
+                                    System.out.print("Please enter the ID of the reservation that will get cancelled");
+                                    int tempID = input.nextInt();
+                                    input.nextLine();
+                                    currentGuests.cancelBooking(tempID);
+                                    System.out.println("cancelled successfully");
                                     break;
                                 case 5:
-                                    // Pay Invoice
+                                    System.out.println("Please enter the ID of the invoice that you would like to pay");
+                                    String tempInvoiceId = input.nextLine();
+                                    currentGuests.onlinePaymentForTheOngoingInvoices(tempInvoiceId);
                                     break;
                                 case 6:
-                                    // Notify receptionist
+
+                                    System.out.println("Please enter the id of the reservation you are checking out from");
+                                    tempID = input.nextInt();
+                                    input.nextLine();
+                                    System.out.println("Please enter the method of Payment (Cash, Online, Credit)");
+                                    tempMethod = input.nextLine();
+                                    validMethod = false;
+                                    finalmethod = null;
+                                    while (!validMethod) {
+                                        if (tempMethod.equalsIgnoreCase("CASH")) {
+                                            finalmethod = Invoices.PaymentMethod.CASH;
+                                            validMethod = true;
+                                        } else if (tempMethod.equalsIgnoreCase("ONLINE")) {
+                                            finalmethod = Invoices.PaymentMethod.ONLINE;
+                                            validMethod = true;
+                                        } else if (tempMethod.equalsIgnoreCase("CREDIT")) {
+                                            finalmethod = Invoices.PaymentMethod.CREDIT_CARD;
+                                            validMethod = true;
+                                        } else {
+                                            System.out.println("Invalid method entered. Please re-enter:");
+                                            finalmethod = null;
+                                            tempMethod = input.nextLine();
+                                        }
+                                    }
+
+                                    currentGuests.requestCheckout(tempID,finalmethod);
                                     break;
+                                case 7:
+                                    System.out.println("Enter the amount you want to incrase your balance with");
+                                    int tempinc = input.nextInt();
+                                    while(tempinc <0){
+                                        System.out.println("You cant enter a negative number plz reneter");
+                                        tempinc = input.nextInt();
+                                    }
+
+                                    currentGuests.AddTobalance(tempinc);
+
+                                case 8:
+                                    currentGuests.getGuestInvoices();
                                 default:
                                     System.out.println("Invalid choice.");
                             }
