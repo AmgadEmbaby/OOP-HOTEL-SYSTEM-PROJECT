@@ -281,7 +281,7 @@ public class Guests {
         }
     }
 
-    public Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
+    public static Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
         List<RoomType> AvliableRoomtype= Database.getAvailableRoomTypesList();
         Map<RoomType, Integer> availabilityResults = new HashMap<>();
         Boolean Avilable = true;

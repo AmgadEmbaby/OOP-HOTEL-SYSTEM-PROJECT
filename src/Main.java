@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.Map; // Added missing import
@@ -60,6 +61,77 @@ public class Main {
                             String password = input.nextLine();
                              currentGuests=Guests.login(username, password);
                         }
+                        System.out.println("Logged in successfully");
+                        Guestloop= true ;
+                        Guestlogged = true;
+                        currentGuests.displayGuestInfo();
+
+                        while(Guestloop){
+                            System.out.println("Enter the number of what you want to do next");
+                            System.out.println("1-View available rooms");
+                            System.out.println("2-Make Reservations");
+                            System.out.println("3-View Reservations");
+                            System.out.println("4-Cancel Reservation");
+                            System.out.println("5-Pay Invoice");
+                            System.out.println("6-Notify the receptionist for checking out");
+                            System.out.println("0- to logout and return to the previous menu");
+                            choiceInt = AuthMenu.numberScanner();
+                            while(choiceInt<0||choiceInt>6){
+                                System.out.println("Invalid option please re eneter");
+                                choiceInt = AuthMenu.numberScanner();
+                            }
+                            switch (choiceInt) {
+                                case 0:
+                                    Guestloop = false;
+                                    Guestlogged = false;
+                                    break;
+                                case 1:
+
+                                    System.out.print("Dear guest please enter the check in date DD/MM/YYYY: ");
+                                    int tempDay = input.nextInt();
+                                    int tempMonth = input.nextInt();
+                                    int tempYear = input.nextInt();
+                                    input.nextLine();
+                                    LocalDate tempDateCheckIn ;
+                                    tempDateCheckIn = LocalDate.of(tempYear,tempMonth,tempDay);
+                                    System.out.print("Dear guest please enter the check in date DD/MM/YYYY: ");
+                                    int tempDay2 = input.nextInt();
+                                    int tempMonth2 = input.nextInt();
+                                    int tempYear2 = input.nextInt();
+                                    input.nextLine();
+                                    LocalDate tempDateOut ;
+                                    tempDateOut = LocalDate.of(tempYear2,tempMonth2,tempDay2);
+                                    System.out.println(Guests.ViewAvilableRooms(tempDateCheckIn,tempDateOut));
+                                    break;
+                                case 2:
+                                    // Make Reservations
+                                    break;
+                                case 3:
+                                    // View Reservations
+                                    break;
+                                case 4:
+                                    // Cancel Reservation
+                                    break;
+                                case 5:
+                                    // Pay Invoice
+                                    break;
+                                case 6:
+                                    // Notify receptionist
+                                    break;
+                                default:
+                                    System.out.println("Invalid choice.");
+                            }
+
+
+
+
+
+
+
+                        }
+
+
+
                     }
 
 
