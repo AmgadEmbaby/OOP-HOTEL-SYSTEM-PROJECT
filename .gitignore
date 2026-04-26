@@ -28,3 +28,11 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/nbproject/
+
+# NetBeans junk
+nbproject/
+build.xml
+manifest.mf
+build/
+dist/
