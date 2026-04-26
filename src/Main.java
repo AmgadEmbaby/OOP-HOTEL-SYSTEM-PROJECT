@@ -82,9 +82,10 @@ public class Main {
                             System.out.println("8-View ongoing invoices");
                             System.out.println("0- to logout and return to the previous menu");
                             choiceInt = AuthMenu.numberScanner();
-                            while(choiceInt<0||choiceInt>9){
+                            while(choiceInt<0&&choiceInt>9){
                                 System.out.println("Invalid option please re eneter");
                                 choiceInt = AuthMenu.numberScanner();
+                                input.nextLine();
                             }
                             switch (choiceInt) {
                                 case 0:
@@ -260,6 +261,7 @@ public class Main {
                                 case 7:
                                     System.out.println("Enter the amount you want to incrase your balance with");
                                     int tempinc = input.nextInt();
+                                    input.nextLine();
                                     while(tempinc <0){
                                         System.out.println("You cant enter a negative number plz reneter");
                                         tempinc = input.nextInt();
@@ -268,9 +270,9 @@ public class Main {
                                     currentGuests.AddTobalance(tempinc);
 
                                 case 8:
-                                    currentGuests.getGuestInvoices();
-                                default:
-                                    System.out.println("Invalid choice.");
+                                    System.out.println("Getting Guest's invoices...");
+                                    System.out.println(currentGuests.getGuestInvoices());
+
                             }
 
 
