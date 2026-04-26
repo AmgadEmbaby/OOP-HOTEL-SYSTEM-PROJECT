@@ -434,10 +434,32 @@ public class Guests {
         }
         else if (amountToPayNow > 0) {
             System.out.println("PENDING: Guest must pay $" + amountToPayNow + " in person via " + preferredPayment);
+            return;
 
         }
+
         res.setCheckedIn(false);
-        System.out.println("System Checkout Successful. Please drop your key at the Reception Desk.");
+        System.out.println(" Checkout request Successful. Please drop your key at the Reception Desk.");
+
+
+
+
+        double finalDebt = Database.calculateReservationTotal(reservationID);
+
+        if (finalDebt <= 0) {
+
+            res.setCheckedIn(false);
+            System.out.println("Checkout successful. Room " + res.getRoom().getRoomNumber() + " is now available.");
+        } else {
+
+            System.out.println("CHECKOUT BLOCKED: Guest still owes $" + finalDebt + ". Payment required.");
+        }
+
+
+
+
+
+
     }
 
 
