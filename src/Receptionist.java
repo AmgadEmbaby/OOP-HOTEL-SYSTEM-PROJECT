@@ -71,10 +71,10 @@ public class Receptionist extends Staff {
 
         if (reservation != null) {
 
-        if (reservation.isCheckedIn()) {
-            System.out.println("The Guest should initiate checkout from their app first");
-            return;
-        }
+//        if (reservation.isCheckedIn()) {
+//            System.out.println("The Guest should initiate checkout from their app first");
+//            return;
+//        }
 
 
 
