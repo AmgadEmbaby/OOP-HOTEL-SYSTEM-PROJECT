@@ -293,6 +293,9 @@ public class Main {
 
 
                 } else if (choice.equalsIgnoreCase("Receptionist")) {
+                    System.out.println("What do you want to do ");
+                    boolean receptionistLoop = true;
+
                     
                 }
 
