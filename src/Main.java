@@ -1,10 +1,11 @@
+import javax.xml.crypto.Data;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.Map; // Added missing import
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Guests guest1 = new Guests("Nour", "Cairo", LocalDate.of(2000, 5, 10), "pass123", Guests.Gender.female);
         Guests guest2 = new Guests("Halla", "Alexandria", LocalDate.of(1999, 3, 15), "pass456", Guests.Gender.female);
         Database.getGuestList().add(guest1);
@@ -77,6 +78,7 @@ public class Main {
                             System.out.println("4-Cancel Reservation");
                             System.out.println("5-Pay Invoice");
                             System.out.println("6-Notify the receptionist for checking out");
+                            System.out.println("7-Recharge balance");
                             System.out.println("0- to logout and return to the previous menu");
                             choiceInt = AuthMenu.numberScanner();
                             while(choiceInt<0||choiceInt>6){
@@ -106,11 +108,11 @@ public class Main {
                                     tempDateOut = LocalDate.of(tempYear2,tempMonth2,tempDay2);
                                     System.out.println(Guests.ViewAvilableRooms(tempDateCheckIn,tempDateOut));
                                     break;
-
-
                                 case 2:
+                                    System.out.println("Processing reservation...");
                                     LocalDate checkIn = null;
                                     LocalDate checkOut = null;
+
 
                                     while (true) {
                                         try {
@@ -119,7 +121,6 @@ public class Main {
                                             int m1 = input.nextInt();
                                             int y1 = input.nextInt();
                                             input.nextLine();
-
                                             checkIn = LocalDate.of(y1, m1, d1);
 
                                             System.out.print("Enter check-out date (DD MM YYYY): ");
@@ -127,44 +128,75 @@ public class Main {
                                             int m2 = input.nextInt();
                                             int y2 = input.nextInt();
                                             input.nextLine();
-
                                             checkOut = LocalDate.of(y2, m2, d2);
 
                                             ReservationsValidation.validateReservation(currentGuests, checkIn, checkOut);
-
-                                            // if wesel le hena then valid
                                             break;
 
                                         } catch (IllegalArgumentException e) {
                                             System.out.println("Error: " + e.getMessage());
                                         } catch (Exception e) {
                                             System.out.println("Invalid input format. Please try again.");
-                                            input.nextLine(); // clear buffer
+                                            input.nextLine();
                                         }
                                     }
 
-                                    // validation tmam, so do other processes delwaaty
-                                    try {
-                                        RoomType type = Database.getAvailableRoomTypesList().get(0);
 
-                                        currentGuests.makeReservation(
-                                                currentGuests,
-                                                type,
-                                                checkIn,
-                                                checkOut,
-                                                Invoices.PaymentMethod.ONLINE
-                                        );
+                                    System.out.println("Please enter the desired roomtype from the following roomtypes");
+                                    System.out.println(Database.getAvailableRoomTypesList());
+                                    RoomType tempRoomType = null;
+                                    String temp = input.nextLine();
+                                    boolean roomFound = false;
 
-                                        System.out.println("Reservation successful!");
+                                    while (!roomFound) {
+                                        for (RoomType r : Database.getAvailableRoomTypesList()) {
+                                            if (r.getTypeName().equalsIgnoreCase(temp)) {
+                                                roomFound = true;
+                                                System.out.println("Room type found!");
+                                                tempRoomType = r;
+                                                break;
+                                            }
+                                        }
 
-                                    } catch (Exception e) {
-                                        System.out.println("Something went wrong: " + e.getMessage());
+                                        // If we finished checking all rooms and didn't find it, ask again
+                                        if (!roomFound) {
+                                            System.out.println("Invalid Roomtype. Please re-enter:");
+                                            temp = input.nextLine();
+                                        }
                                     }
 
+                                    Invoices.PaymentMethod finalmethod = null;
+                                    System.out.println("Please enter the method of Payment (Cash, Online, Credit)");
+                                    String tempMethod = input.nextLine();
+                                    boolean validMethod = false;
+
+                                    while (!validMethod) {
+                                        if (tempMethod.equalsIgnoreCase("CASH")) {
+                                            finalmethod = Invoices.PaymentMethod.CASH;
+                                            validMethod = true;
+                                        } else if (tempMethod.equalsIgnoreCase("ONLINE")) {
+                                            finalmethod = Invoices.PaymentMethod.ONLINE;
+                                            validMethod = true;
+                                        } else if (tempMethod.equalsIgnoreCase("CREDIT")) {
+                                            finalmethod = Invoices.PaymentMethod.CREDIT_CARD;
+                                            validMethod = true;
+                                        } else {
+                                            System.out.println("Invalid method entered. Please re-enter:");
+                                            tempMethod = input.nextLine();
+                                        }
+                                    }
+
+                                    try {
+                                        currentGuests.makeReservation(currentGuests, tempRoomType, checkIn, checkOut, finalmethod);
+                                        System.out.println("Reservation successful!");
+                                    } catch (Exception e) {
+
+                                        System.out.println("Something went wrong: " + e.getMessage());
+                                    }
                                     break;
 
                                 case 3:
-                                    // View Reservations
+                                    System.out.println(currentGuests.getGuestReservations());
                                     break;
                                 case 4:
                                     // Cancel Reservation
@@ -189,12 +221,13 @@ public class Main {
 
 
 
+                    } else if (choiceInt==2) {
+                        currentGuests.Register();
+
                     }
 
 
-
-
-            }
+                }
 
 
 

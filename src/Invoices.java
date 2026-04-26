@@ -37,7 +37,7 @@ public class Invoices implements Payable {
         idCounter++;// Sets the date to today
 
         Guests guest = reservation.getGuest();
-        ReservationsValidation.validateInvoice(guest, this);
+        ReservationsValidation.validateInvoice(guest, this,paymentmethod);
         addInvoiceToGuestsArray();
     }
 
