@@ -153,6 +153,7 @@ public class Rooms {
         System.out.println("\n");
         System.out.println("Total Amenities Cost: $ " + TotalAmenityCost);
     }
+}
 
 }
 

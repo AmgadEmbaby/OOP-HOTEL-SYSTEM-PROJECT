@@ -25,6 +25,10 @@ public class Reservations {
 
     }
 
+    public void setCheckout(LocalDate checkout) {
+        this.checkout = checkout;
+    }
+
     public enum ReservationStatus {
      PENDING, CONFIRMED, CANCELLED, COMPLETED
     }
@@ -35,7 +39,7 @@ public class Reservations {
 
     }
 
-    public void cancelReservation() {
+    public void cancelReservations() {
         this.status = ReservationStatus.CANCELLED;
 
         if (this.room != null) {
@@ -83,14 +87,7 @@ public class Reservations {
         return typeDesired;
     }
 
-    public double calculateCheckoutFine(LocalDate actualDate) {
-        if (actualDate.isBefore(this.checkout)) {
-            return 70.0; // Early checkout fine
-        } else if (actualDate.isAfter(this.checkout)) {
-            return 100.0; // Late checkout fine
-        }
-        return 0.0; // No fine
-    }
+
 
 
 
@@ -123,5 +120,58 @@ public class Reservations {
         System.out.println("Dates: " + checkin + " to " + checkout);
         System.out.println("Physical Room State: " + room.getStatus());
         System.out.println("---------------------------");
+    }
+
+    public void processExtension(int days, Rooms room, LocalDate newDate) {
+        double pricePerNight = this.getTypeDesired().getPricePerNight();
+        double totalExtraCost = days * pricePerNight;
+
+        if (this.getGuest().getBalance() >= totalExtraCost) {
+            this.getGuest().setBalance(this.getGuest().getBalance() - totalExtraCost);
+            this.setRoom(room);
+            this.setCheckout(newDate);
+
+            try {
+                Invoices extensionInv = new Invoices(
+                        totalExtraCost,
+                        Invoices.PaymentMethod.ONLINE,
+                        this,
+                        Invoices.InvoiceType.BOOKING,
+                        Invoices.InvoiceStatus.PAID
+                );
+                Database.getInvoicesList().add(extensionInv);
+                System.out.println("Extension Successful! New checkout: " + newDate);
+            } catch (InvalidPaymentException e) {
+                System.out.println("Error creating invoice: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Extension Failed: Insufficient balance. Need $" + totalExtraCost);
+        }
+    }
+
+
+
+
+
+    public void viewReservationDetails() {
+        System.out.println("\n========== RESERVATION SUMMARY ==========");
+        System.out.println("GUEST:    " + this.guest.getUserName());
+        System.out.println("ROOM:     " + this.room.getRoomNumber() + " (" + this.room.getRoomtype() + ")");
+        System.out.println("DATES:    " + this.checkin + " to " + this.checkout);
+        System.out.println("STATUS:   " + this.status);
+        System.out.println("=========================================\n");
+    }
+
+    public void cancelReservation() throws Exception {
+        // Real-world rule: You can't cancel a stay that is already finished!
+        if (this.status == ReservationStatus.COMPLETED) {
+            throw new Exception("Error: Cannot cancel a completed reservation.");
+        }
+
+        this.status = ReservationStatus.CANCELLED;
+
+        this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
+
+        System.out.println("Reservation for " + this.guest.getUserName() + " has been cancelled.");
     }
 }
