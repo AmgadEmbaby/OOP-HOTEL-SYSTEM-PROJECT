@@ -36,7 +36,7 @@ public class Receptionist extends Staff {
                         reservation.setRoom(r);
                         r.setStatus(Rooms.RoomStatus.OCCUPIED);
                         for (Invoices inv : Database.getInvoicesList()) {
-                            if (inv.getReservation().getReservationID() == reservationID &&
+                            if (inv.getReservation().getReservationID() == reservationID && inv.getType() == Invoices.InvoiceType.BOOKING &&
                                     inv.getStatus() == Invoices.InvoiceStatus.UNPAID) {
 
                                 inv.setStatus(Invoices.InvoiceStatus.PAID);
@@ -45,6 +45,7 @@ public class Receptionist extends Staff {
                         }
 
                         System.out.println("room number " + r.getRoomNumber());
+                        reservation.setCheckedIn(true);
                         System.out.println("Guest checkin successful");
                         return;
                     }
@@ -63,31 +64,57 @@ public class Receptionist extends Staff {
 
 
 
-    public void checkout(int reservationID,Invoices.PaymentMethod method) {
+    public void checkout(int reservationID, Invoices.PaymentMethod method) {
 
         Reservations reservation = Database.findReservation(reservationID);
         LocalDate today = LocalDate.now();
 
         if (reservation != null) {
-            if (reservation.getRoom() != null ) {
-                if (method == Invoices.PaymentMethod.CASH || method == Invoices.PaymentMethod.CREDIT_CARD) {
-                    processRoomServicePayment(reservation.getRoom().getRoomNumber(), method);
+
+        if (reservation.isCheckedIn()) {
+            System.out.println("The Guest should initiate checkout from their app first");
+            return;
+        }
+
+
+
+
+        double amountToPay = Database.calculateReservationTotal(reservationID);
+
+
+
+            if (amountToPay > 0) {
+                System.out.println("Final amount to pay at desk: $" + amountToPay);
+
+                for (Invoices inv : Database.getInvoicesList()) {
+                    if (inv.getReservation().getReservationID() == reservationID &&
+                            inv.getStatus() == Invoices.InvoiceStatus.UNPAID) {
+
+                        inv.setStatus(Invoices.InvoiceStatus.PAID);
+                        inv.setPaymentmethod(method);
+                    }
                 }
             }
 
 
-
             if (reservation.getRoom() != null) {
                 reservation.getRoom().setStatus(Rooms.RoomStatus.AVAILABLE);
+                reservation.getRoom().getAmenities().clear();
+                reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
+                System.out.println("Guest checkout successful.");
+
             }
 
-            reservation.setStatus(Reservations.ReservationStatus.COMPLETED);
-            System.out.println("Guest checkout successful.");
+
 
         } else {
+
             System.out.println("Reservation ID not found");
         }
+
     }
+
+
 
         public void releaseLateRooms() {
             LocalDate today = LocalDate.now();
@@ -159,7 +186,44 @@ public class Receptionist extends Staff {
                 res.setStatus(Reservations.ReservationStatus.CANCELLED);
             }
         }
-    }public void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) {
+    }
+
+
+
+    public static void processRoomServicePayment(Rooms room, Reservations res, Invoices.PaymentMethod method) {
+        double amount = room.getTotalAmenityCost();
+
+        if (amount > 0) {
+            try {
+                // We wrap this in try-catch because the Invoices constructor
+                // might throw an error if the data is invalid.
+                Invoices snackInvoice = new Invoices(
+                        amount,
+                        method,
+                        res,
+                        Invoices.InvoiceType.ROOM_SERVICE,
+                        Invoices.InvoiceStatus.UNPAID
+                );
+
+                Database.getInvoicesList().add(snackInvoice);
+
+
+                System.out.println(" invoice created successfully.");
+
+            } catch (Exception e) {
+
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+
+
+
+
+
+
+    /*public static void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) {
         //  Find the room
         Rooms room = Database.findRoom(roomNumber);
 
@@ -199,7 +263,7 @@ public class Receptionist extends Staff {
         } else {
             System.out.println("Nothing to pay for this room.");
         }
-    }
+    }*/
 
 
 
