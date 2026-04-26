@@ -33,4 +33,14 @@ public class Validator {
     }
 
 
+    public static void checkNumberOnly(int num){
+        Validator.checkNotNull(num, "Number cannot be empty.");
+
+        if (! Character.isDigit(num)){
+            throw new IllegalArgumentException("Input must contain number only.");
+        }
+    }
+
+
+
 }
