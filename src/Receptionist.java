@@ -30,7 +30,7 @@ public class Receptionist extends Staff {
             }
 
             if (reservation.getStatus() == Reservations.ReservationStatus.CONFIRMED) {
-                for (Rooms r : Database.getRoomList()) {
+                for (Rooms  r : Database.getRoomList()) {
                     if (r.getRoomtype().getTypeName().equalsIgnoreCase(reservation.getTypeDesired().getTypeName())
                             && r.getStatus() == Rooms.RoomStatus.AVAILABLE) {
                         reservation.setRoom(r);

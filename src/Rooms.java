@@ -74,10 +74,8 @@ public class Rooms {
 
         amenities.add(Amenity);
 
-        } catch (InvalidPaymentException e) {
-            System.out.println("Could not process amenity charge: " + e.getMessage());
         }
-    }
+
     public void RemoveAmenity(Amenity Amenity){
         amenities.remove(Amenity);
     }
@@ -109,7 +107,6 @@ public class Rooms {
 
 
 
-
     public ArrayList<Amenity> getAmenities() {
         return amenities;
     }
@@ -133,7 +130,8 @@ public class Rooms {
         }
         reservationsList.add(r);
     }
-// ---------------------------------------------------------------------------------------------------------------
+
+
 
 
     public RoomType getRoomtype() {
@@ -141,8 +139,6 @@ public class Rooms {
     }
 
     public void setRoomtype(RoomType roomtype) {
-
-        Validator.checkNotNull(roomtype, "Roomtype cannot be null");
         this.roomtype = roomtype;
     }
 
@@ -172,18 +168,17 @@ public void DisplayRoomInfo(){
         System.out.println("Maximum Capacity: "+roomtype.getCapacity());
         System.out.println("Price Per Night: "+roomtype.getPricePerNight());
         System.out.print("Amenities in the room: ");
-        for (Amenity amenity : amenities) {
+        for(Amenity amenity:amenities){
             System.out.print(amenity.getAmenityName() + " , ");
         }
         System.out.println("\n");
-        System.out.println("Total Amenities Cost: $ " + TotalAmenityCost);
+        System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
     }
+
+
+
+
 }
-
-
-
-
-
 
 
 

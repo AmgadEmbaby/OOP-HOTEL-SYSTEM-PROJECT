@@ -156,7 +156,7 @@ public class Guests {
             this.setBalance(this.getBalance() - fee);
         }
 
-        res.cancelReservations();
+        res.cancelReservation();
         System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
@@ -331,7 +331,7 @@ public class Guests {
                     return false;
                 }
                 else{
-                    r.cancelReservations();
+                    r.cancelReservation();
                     System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
                     return true;
                 }
