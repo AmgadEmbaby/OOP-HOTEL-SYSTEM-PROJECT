@@ -274,6 +274,7 @@ public class Guests {
             Database.getInvoicesList().add(bookingInvoice);
             System.out.println("Your reservation ID is "+ current.getReservationID());
             Database.getReservationsList().add(current);
+            this.guestReservations.add(current);
 
 
         } catch (Exception e) {
