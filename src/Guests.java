@@ -10,7 +10,8 @@ public class Guests {
     private String address;
     private Gender gender;
     private boolean loginStatues;
-    private static ArrayList<Reservations> guestReservations = new ArrayList<>();
+    private  ArrayList<Reservations> guestReservations = new ArrayList<>();
+    private  ArrayList<Invoices> guestInvoices  = new ArrayList<>();
 
 
     Scanner input = new Scanner(System.in);
@@ -93,6 +94,42 @@ public class Guests {
         return guestReservations;
     }
 
+    public ArrayList<Invoices> getGuestInvoices() {
+        return guestInvoices;
+    }
+
+    public void setGuestInvoices(ArrayList<Invoices> guestInvoices) {
+        this.guestInvoices = guestInvoices;
+    }
+    public void addNewInvoiceForTheGuestList(Invoices invoices){
+        this.getGuestInvoices().add(invoices);
+    }
+
+
+    public void ShowOnGoingInvoices(){
+        for(Invoices invoices: this.getGuestInvoices()){
+            if(invoices.getStatus()== Invoices.InvoiceStatus.UNPAID){
+                System.out.println("The Invoice with ID:"+invoices.getInvoiceId()+" is still unpaid");
+
+            }
+        }
+    }
+
+
+    public void onlinePaymentForTheOngoingInvoices(String invoiceID){
+        for(Invoices invoices:this.getGuestInvoices()){
+            if(invoices.getInvoiceId().equalsIgnoreCase(invoiceID)){
+                if(invoices.getStatus()== Invoices.InvoiceStatus.UNPAID && invoices.getPaymentmethod() == Invoices.PaymentMethod.ONLINE && this.getBalance() > invoices.getTotalamount() ){
+                    System.out.println("Processing online payment...");
+                    System.out.println("Sufficient balance in account ");
+                    this.setBalance(this.getBalance()-invoices.getTotalamount());
+                    System.out.println("payment Successful");
+
+                }
+
+            }
+        }
+    }
 
     public void AddTobalance(int value){
         this.setBalance(this.getBalance()+ value);
