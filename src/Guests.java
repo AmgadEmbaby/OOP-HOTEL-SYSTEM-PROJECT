@@ -386,29 +386,64 @@ public class Guests {
     }
 
 //THIS METHOD acts as "virtual checkout" or a precheckout before physically checking out at the receptionist desk
-    public void requestCheckout(int reservationID, Invoices.PaymentMethod preferredPayment){
+    public void requestCheckout(int reservationID, Invoices.PaymentMethod preferredPayment) {
 
         Reservations res = Database.findReservation(reservationID);
 
         if (res == null || res.getStatus() != Reservations.ReservationStatus.CONFIRMED) {
             System.out.println("No active stay found for this ID.");
-            return;}
+            return;
+        }
 
         if (res.getRoom() != null) {
             res.getRoom().CalculateTotalAmenityCost();
         }
 
 
+        if (res.getRoom().getTotalAmenityCost() > 0) {
+
+            Receptionist.processRoomServicePayment(res.getRoom(), res, preferredPayment);
 
 
+            res.getRoom().getAmenities().clear();
+        }
 
 
+        double amountToPayNow = Database.calculateReservationTotal(reservationID);
 
 
+        if (preferredPayment == Invoices.PaymentMethod.ONLINE && amountToPayNow > 0) {
+            if (this.getBalance() >= amountToPayNow) {
 
 
+                for (Invoices inv : this.getGuestInvoices()) {
+                    if (inv.getReservation().getReservationID() == reservationID &&
+                            inv.getStatus() == Invoices.InvoiceStatus.UNPAID) {
 
+
+                        this.onlinePaymentForTheOngoingInvoices(inv.getInvoiceId());
+                    }
+                }
+
+
+            } else {
+                // If online fails, we don't finish checkout!
+                System.out.println("FAILED: Insufficient balance. Please pay at the front desk.");
+                return;
+            }
+        }
+        else if (amountToPayNow > 0) {
+            System.out.println("PENDING: Guest must pay $" + amountToPayNow + " in person via " + preferredPayment);
+
+        }
+        res.setCheckedIn(false);
+        System.out.println("System Checkout Successful. Please drop your key at the Reception Desk.");
     }
+
+
+
+
+
 
 
 

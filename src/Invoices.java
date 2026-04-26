@@ -46,7 +46,7 @@ public class Invoices implements Payable {
     }
 
 
-    @Override
+    @Override// this method takes the amount in an invoice and adds taxes to it
     public double CalculateTotal() {
         double tax = this.totalamount * 0.14;
         return this.totalamount + tax;
