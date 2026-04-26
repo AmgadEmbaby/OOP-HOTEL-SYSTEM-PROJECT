@@ -282,22 +282,16 @@ public class Main {
 
 
                         }
-
-
-
+                        
                     } else if (choiceInt==2) {
                         currentGuests.Register();
 
                     }
 
 
+                } else if (choice.equalsIgnoreCase("Receptionist")) {
+                    
                 }
-
-
-
-
-
-
 
 
             }
