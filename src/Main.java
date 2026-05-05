@@ -60,7 +60,7 @@ public class Main {
                             String username = input.nextLine();
                             System.out.print("Enter your Password: ");
                             String password = input.nextLine();
-                            // currentGuests=Guests.login(username, password);
+                            // currentGuests1=Guests.login(username, password);
                             currentGuests = GuestValidation.validateGuestLogin(username, password);
                         } catch (IllegalArgumentException e){
                             System.out.println("Login failed: " + e.getMessage());
@@ -222,11 +222,10 @@ public class Main {
                                     System.out.println(currentGuests.getGuestReservations());
                                     break;
                                 case 4:
-                                    System.out.print("Please enter the ID of the reservation that will get cancelled");
+                                    System.out.print("Please enter the ID of the reservation that will get cancelled: ");
                                     int tempID = input.nextInt();
                                     input.nextLine();
-                                    currentGuests.cancelBooking(tempID);
-                                    System.out.println("cancelled successfully");
+                                    currentGuests.cancelReservation(tempID);
                                     break;
                                 case 5:
                                     System.out.println("Please enter the ID of the invoice that you would like to pay");

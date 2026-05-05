@@ -340,6 +340,7 @@ public class Guests {
                 else{
                     r.cancelReservation();
                     System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
+                    guestReservations.remove(r);
                     return true;
                 }
 
