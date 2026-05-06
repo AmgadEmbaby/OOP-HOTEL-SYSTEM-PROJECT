@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>DatabaseValidation.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+DatabaseValidation.java</font>
+</center></td></tr></table>
+<pre><span class="s0">public class </span><span class="s1">DatabaseValidation </span><span class="s2">{</span>
+
+
+
+    <span class="s3">//---------------------------- Room -------------------------------------------------------------------------</span>
+    <span class="s0">public static void </span><span class="s1">validateRoomExists</span><span class="s2">(</span><span class="s1">Rooms room</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNotNull</span><span class="s2">(</span><span class="s1">room</span><span class="s2">, </span><span class="s4">&quot;Room does not exist&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">validateRoomTypeExists</span><span class="s2">(</span><span class="s1">String typeName</span><span class="s2">) { </span><span class="s3">//b4 assigning to room</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findRoomType</span><span class="s2">(</span><span class="s1">typeName</span><span class="s2">) == </span><span class="s0">null</span><span class="s2">){</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Room type not found.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s3">//------------------------- Amenity -------------------------------------------------------------------------</span>
+    <span class="s0">public static void </span><span class="s1">validateAmenityExists</span><span class="s2">(</span><span class="s1">Amenity amenity</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNotNull</span><span class="s2">(</span><span class="s1">amenity</span><span class="s2">, </span><span class="s4">&quot;Amenity not found&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">validateUniqueAmenity</span><span class="s2">(</span><span class="s1">String amenityName</span><span class="s2">) { </span><span class="s3">//b4 adding to list of all amenities</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findAmenity</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">) != </span><span class="s0">null</span><span class="s2">){</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Amenity already exists in system.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">validateAmenityData</span><span class="s2">(</span><span class="s1">String amenityName</span><span class="s2">, </span><span class="s0">double </span><span class="s1">cost</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkStringNotEmpty</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">, </span><span class="s4">&quot;Amenity name&quot;</span><span class="s2">);</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">cost</span><span class="s2">, </span><span class="s4">&quot;Amenity cost&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">validateAmenityNotUsed</span><span class="s2">(</span><span class="s1">String ammenityName</span><span class="s2">){ </span><span class="s3">//by any room</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Rooms room </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getRoomList</span><span class="s2">()){</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Amenity a </span><span class="s2">: </span><span class="s1">room</span><span class="s2">.</span><span class="s1">getAmenities</span><span class="s2">()) { </span><span class="s3">//INSIDE ROOM</span>
+
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">a</span><span class="s2">.</span><span class="s1">getAmenityName</span><span class="s2">().</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s1">ammenityName</span><span class="s2">)){</span>
+                    <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Cannot delete amenity when currently being used in room&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+    <span class="s2">}</span>
+
+<span class="s3">//----------------------------- Roomtype ----------------------------------------------------------------------</span>
+    <span class="s0">public static void </span><span class="s1">validateRoomTypeExists</span><span class="s2">(</span><span class="s1">RoomType roomtype</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNotNull</span><span class="s2">(</span><span class="s1">roomtype</span><span class="s2">, </span><span class="s4">&quot;Room type not found.&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">validateUniqueRoomType</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) { </span><span class="s3">//b4 adding to list of all amenities</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findRoomType</span><span class="s2">(</span><span class="s1">name</span><span class="s2">) != </span><span class="s0">null</span><span class="s2">){</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Room type already exists in system.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">validateRoomTypeData</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s0">int </span><span class="s1">beds</span><span class="s2">, </span><span class="s0">int </span><span class="s1">capacity</span><span class="s2">, </span><span class="s0">double </span><span class="s1">price</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkStringNotEmpty</span><span class="s2">(</span><span class="s1">name</span><span class="s2">,</span><span class="s4">&quot;Room type&quot;</span><span class="s2">);</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">beds</span><span class="s2">, </span><span class="s4">&quot;Beds&quot;</span><span class="s2">);</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">capacity</span><span class="s2">,</span><span class="s4">&quot;Capacity&quot;</span><span class="s2">);</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">price</span><span class="s2">, </span><span class="s4">&quot;Price&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public static void </span><span class="s1">validateRoomTypeNotUsed</span><span class="s2">(</span><span class="s1">String typeName</span><span class="s2">){ </span><span class="s3">//by any room or reservation</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Rooms r </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getRoomList</span><span class="s2">()){</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">r</span><span class="s2">.</span><span class="s1">getRoomtype</span><span class="s2">().</span><span class="s1">getTypeName</span><span class="s2">().</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s1">typeName</span><span class="s2">)){</span>
+                <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Cannot delete room type when used in existing rooms.&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Reservations rs </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getReservationsList</span><span class="s2">()){</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">rs</span><span class="s2">.</span><span class="s1">getTypeDesired</span><span class="s2">().</span><span class="s1">getTypeName</span><span class="s2">().</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s1">typeName</span><span class="s2">)){</span>
+                <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Cannot delete room type when used in existing reservations.&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+    <span class="s2">}</span>
+
+
+
+
+
+
+<span class="s2">}</span>
+
+
+
+</pre>
+</body>
+</html>
