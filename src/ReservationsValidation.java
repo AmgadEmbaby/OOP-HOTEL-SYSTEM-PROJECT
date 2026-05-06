@@ -1,4 +1,3 @@
-import java.util.*;
 import java.time.LocalDate;
 
 
@@ -8,7 +7,8 @@ public class ReservationsValidation {
             Guests guest,
 //            Rooms room,
             LocalDate checkin,
-            LocalDate checkout)throws IllegalArgumentException {
+            LocalDate checkout
+            )throws IllegalArgumentException {
 
         if (guest == null){
             throw new IllegalArgumentException("Guest is required");
@@ -49,7 +49,7 @@ public class ReservationsValidation {
 
     }
 
-public static void validateInvoice(Guests guest, Invoices invoice){
+public static void validateInvoice(Guests guest, Invoices invoice,Invoices.PaymentMethod paymentMethodForReservation){
 
     Validator.checkNotNull(guest, "Guest is required.");
     Validator.checkNotNull(invoice, "Invoice is required.");
@@ -57,8 +57,8 @@ public static void validateInvoice(Guests guest, Invoices invoice){
     //TODO
     double totalPrice = invoice.CalculateTotal();
 
-    if (guest.getBalance() < totalPrice){
-        throw new IllegalArgumentException("Insufficient balance");
+    if (guest.getBalance() < totalPrice && (paymentMethodForReservation == Invoices.PaymentMethod.ONLINE)){
+        throw new IllegalArgumentException("Insufficient balance, the required balance is " + totalPrice);
     }
 }
 

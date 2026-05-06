@@ -12,6 +12,8 @@ public class Invoices implements Payable {
     private InvoiceType type;
     private InvoiceStatus status;
 
+
+
     public enum PaymentMethod{
         CASH , CREDIT_CARD , ONLINE
     }
@@ -37,7 +39,7 @@ public class Invoices implements Payable {
         idCounter++;// Sets the date to today
 
         Guests guest = reservation.getGuest();
-        ReservationsValidation.validateInvoice(guest, this);
+        ReservationsValidation.validateInvoice(guest, this,paymentmethod);
         addInvoiceToGuestsArray();
     }
 

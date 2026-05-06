@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Invoices.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Invoices.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Invoices </span><span class="s0">implements </span><span class="s1">Payable </span><span class="s2">{</span>
+
+    <span class="s0">private static int </span><span class="s1">idCounter </span><span class="s2">= </span><span class="s3">1000</span><span class="s2">;</span>
+
+    <span class="s0">private </span><span class="s1">String invoiceId</span><span class="s2">;</span>
+    <span class="s0">private double </span><span class="s1">totalamount</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">PaymentMethod paymentmethod</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">LocalDate paymentdate</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Reservations reservation</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">InvoiceType type</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">InvoiceStatus status</span><span class="s2">;</span>
+
+
+
+    <span class="s0">public enum </span><span class="s1">PaymentMethod</span><span class="s2">{</span>
+        <span class="s1">CASH </span><span class="s2">, </span><span class="s1">CREDIT_CARD </span><span class="s2">, </span><span class="s1">ONLINE</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public enum </span><span class="s1">InvoiceType </span><span class="s2">{ </span><span class="s1">BOOKING</span><span class="s2">, </span><span class="s1">PENALTY</span><span class="s2">, </span><span class="s1">REFUND</span><span class="s2">, </span><span class="s1">ROOM_SERVICE </span><span class="s2">}</span>
+
+    <span class="s0">public enum </span><span class="s1">InvoiceStatus </span><span class="s2">{ </span><span class="s1">PAID</span><span class="s2">, </span><span class="s1">UNPAID</span><span class="s2">, </span><span class="s1">CANCELLED </span><span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Invoices</span><span class="s2">(</span><span class="s0">double </span><span class="s1">totalamount</span><span class="s2">, </span><span class="s1">PaymentMethod paymentmethod </span><span class="s2">, </span><span class="s1">Reservations reservation </span><span class="s2">, </span><span class="s1">InvoiceType type </span><span class="s2">, </span><span class="s1">InvoiceStatus status</span><span class="s2">)</span>
+            <span class="s0">throws </span><span class="s1">InvalidPaymentException </span><span class="s2">{</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">totalamount </span><span class="s2">&lt; </span><span class="s3">0</span><span class="s2">) {</span>
+                <span class="s4">// This is the custom exception requested in the project brief</span>
+                <span class="s0">throw new </span><span class="s1">InvalidPaymentException</span><span class="s2">(</span><span class="s5">&quot;Hotel Rule: Total amount cannot be negative.&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">reservation</span><span class="s2">=</span><span class="s1">reservation</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">totalamount </span><span class="s2">= </span><span class="s1">totalamount</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">paymentmethod </span><span class="s2">= </span><span class="s1">paymentmethod</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">type</span><span class="s2">=</span><span class="s1">type</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status</span><span class="s2">=</span><span class="s1">status</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">paymentdate </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">now</span><span class="s2">();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">invoiceId </span><span class="s2">= </span><span class="s5">&quot;INV-&quot; </span><span class="s2">+ </span><span class="s1">idCounter</span><span class="s2">;</span>
+        <span class="s1">idCounter</span><span class="s2">++;</span><span class="s4">// Sets the date to today</span>
+
+        <span class="s1">Guests guest </span><span class="s2">= </span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">();</span>
+        <span class="s1">ReservationsValidation</span><span class="s2">.</span><span class="s1">validateInvoice</span><span class="s2">(</span><span class="s1">guest</span><span class="s2">, </span><span class="s0">this</span><span class="s2">,</span><span class="s1">paymentmethod</span><span class="s2">);</span>
+        <span class="s1">addInvoiceToGuestsArray</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">addInvoiceToGuestsArray</span><span class="s2">(){</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">().</span><span class="s1">addNewInvoiceForTheGuestList</span><span class="s2">(</span><span class="s0">this</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s1">@Override</span><span class="s4">// this method takes the amount in an invoice and adds taxes to it</span>
+    <span class="s0">public double </span><span class="s1">CalculateTotal</span><span class="s2">() {</span>
+        <span class="s0">double </span><span class="s1">tax </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">totalamount </span><span class="s2">* </span><span class="s3">0.14</span><span class="s2">;</span>
+        <span class="s0">return this</span><span class="s2">.</span><span class="s1">totalamount </span><span class="s2">+ </span><span class="s1">tax</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getInvoiceId</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">invoiceId</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public double </span><span class="s1">getTotalamount</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">totalamount</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTotalAmount</span><span class="s2">(</span><span class="s0">double </span><span class="s1">totalamount</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">totalamount </span><span class="s2">&lt; </span><span class="s3">0</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s5">&quot;Total amount cannot be negative.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">totalamount </span><span class="s2">= </span><span class="s1">totalamount</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">PaymentMethod getPaymentmethod</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">paymentmethod</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setPaymentmethod</span><span class="s2">(</span><span class="s1">PaymentMethod paymentmethod</span><span class="s2">) {</span>
+
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNotNull</span><span class="s2">(</span><span class="s1">paymentmethod</span><span class="s2">, </span><span class="s5">&quot;Payment method cannot be null.&quot;</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">paymentmethod </span><span class="s2">= </span><span class="s1">paymentmethod</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">LocalDate getPaymentdate</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">paymentdate</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setPaymentdate</span><span class="s2">(</span><span class="s1">LocalDate paymentdate</span><span class="s2">) {</span>
+
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNotNull</span><span class="s2">(</span><span class="s1">paymentdate</span><span class="s2">, </span><span class="s5">&quot;Payment date cannot be null.&quot;</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">paymentdate </span><span class="s2">= </span><span class="s1">paymentdate</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Reservations getReservation</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">reservation</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">InvoiceType getType</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">type</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setType</span><span class="s2">(</span><span class="s1">InvoiceType type</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">type </span><span class="s2">= </span><span class="s1">type</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">InvoiceStatus getStatus</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">status</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">InvoiceStatus status</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status </span><span class="s2">= </span><span class="s1">status</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s5">&quot;Invoice { &quot; </span><span class="s2">+</span>
+                <span class="s5">&quot;amount=&quot; </span><span class="s2">+ </span><span class="s1">totalamount </span><span class="s2">+</span>
+                <span class="s5">&quot;, method=&quot; </span><span class="s2">+ </span><span class="s1">paymentmethod </span><span class="s2">+</span>
+                <span class="s5">&quot;, date=&quot; </span><span class="s2">+ </span><span class="s1">paymentdate </span><span class="s2">+</span>
+                <span class="s5">'}'</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

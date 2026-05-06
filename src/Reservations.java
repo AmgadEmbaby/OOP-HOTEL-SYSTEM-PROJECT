@@ -11,6 +11,13 @@ public class Reservations {
     private boolean isCheckedIn=false;
     private Invoices.PaymentMethod method;
 
+    @Override
+    public String toString() {
+        return "Reservation ID: " + this.reservationID;
+        // Note: Change 'this.reservationID' if your variable is named slightly differently,
+        // or use 'this.getReservationID()'
+    }
+
     public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method){
 //            throws Exception {
 //        if (!out.isAfter(in)) {

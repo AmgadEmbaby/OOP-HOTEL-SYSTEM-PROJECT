@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>RoomTypeValidation.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+RoomTypeValidation.java</font>
+</center></td></tr></table>
+<pre><span class="s0">public class </span><span class="s1">RoomTypeValidation </span><span class="s2">{</span>
+
+
+    <span class="s0">public static </span><span class="s1">String validateTypeName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkStringNotEmpty</span><span class="s2">(</span><span class="s1">name</span><span class="s2">, </span><span class="s3">&quot;Room type&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">name</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">().</span><span class="s1">toLowerCase</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public static int </span><span class="s1">validateBeds</span><span class="s2">(</span><span class="s0">int </span><span class="s1">beds</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">beds</span><span class="s2">, </span><span class="s3">&quot;Number of beds&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">beds</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static int </span><span class="s1">validateCapacity</span><span class="s2">(</span><span class="s0">int </span><span class="s1">capacity</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">capacity</span><span class="s2">, </span><span class="s3">&quot;Capacity&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">capacity</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public static </span><span class="s1">String validateRoomDescription</span><span class="s2">(</span><span class="s1">String description</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkStringNotEmpty</span><span class="s2">(</span><span class="s1">description</span><span class="s2">, </span><span class="s3">&quot;Room Description&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">description</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public static double </span><span class="s1">validatePricePerNight</span><span class="s2">(</span><span class="s0">double </span><span class="s1">price</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">price</span><span class="s2">, </span><span class="s3">&quot;Price per night&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">price</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+    <span class="s4">// -------------------------------Amenity validation---------------------------------------------------------------</span>
+
+    <span class="s0">public static </span><span class="s1">String validateAmenityName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkStringNotEmpty</span><span class="s2">(</span><span class="s1">name</span><span class="s2">, </span><span class="s3">&quot;Amenity name&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">name</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">().</span><span class="s1">toLowerCase</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static </span><span class="s1">String validateUniqueAmenity</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">){</span>
+        <span class="s1">String n </span><span class="s2">= </span><span class="s1">validateAmenityName</span><span class="s2">(</span><span class="s1">name</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findAmenity</span><span class="s2">(</span><span class="s1">n</span><span class="s2">) != </span><span class="s0">null</span><span class="s2">){ </span><span class="s4">//found amenity in database</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s3">&quot;Amenity already exists.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">n</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static double </span><span class="s1">validateAmenityCost </span><span class="s2">(</span><span class="s0">double </span><span class="s1">cost</span><span class="s2">){</span>
+        <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">cost</span><span class="s2">, </span><span class="s3">&quot;Amenity cost&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">cost</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

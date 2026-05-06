@@ -1,0 +1,231 @@
+<html>
+<head>
+<title>Database.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Database.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template 
+ */</span>
+
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.*;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">time</span><span class="s3">.*;</span>
+
+
+<span class="s2">public class </span><span class="s1">Database </span><span class="s3">{</span>
+
+  <span class="s2">private static  </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Guests</span><span class="s3">&gt; </span><span class="s1">guestList</span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+  <span class="s2">private static  </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Rooms</span><span class="s3">&gt; </span><span class="s1">roomList</span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+  <span class="s2">private static  </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Reservations</span><span class="s3">&gt; </span><span class="s1">reservationsList</span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+  <span class="s2">private static  </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Amenity</span><span class="s3">&gt; </span><span class="s1">availableAmenitiesList </span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+  <span class="s2">private static  </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">RoomType</span><span class="s3">&gt; </span><span class="s1">availableRoomTypesList </span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+  <span class="s2">private static  </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Invoices</span><span class="s3">&gt; </span><span class="s1">InvoicesList </span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+  <span class="s2">private static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Staff</span><span class="s3">&gt; </span><span class="s1">staffList </span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+
+
+
+  <span class="s2">public static void </span><span class="s1">addGuests</span><span class="s3">(</span><span class="s1">Guests guest</span><span class="s3">){</span>
+    <span class="s1">guestList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s1">guest</span><span class="s3">);</span>
+  <span class="s3">}</span>
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Guests</span><span class="s3">&gt; </span><span class="s1">getGuestList</span><span class="s3">(){</span>
+
+    <span class="s2">return </span><span class="s1">guestList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Staff</span><span class="s3">&gt; </span><span class="s1">getStaffList</span><span class="s3">(){</span>
+
+    <span class="s2">return </span><span class="s1">staffList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Rooms</span><span class="s3">&gt; </span><span class="s1">getRoomList</span><span class="s3">(){</span>
+    <span class="s2">return </span><span class="s1">roomList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Reservations</span><span class="s3">&gt; </span><span class="s1">getReservationsList</span><span class="s3">(){</span>
+
+    <span class="s2">return </span><span class="s1">reservationsList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Amenity</span><span class="s3">&gt; </span><span class="s1">getamenitiesList</span><span class="s3">(){</span>
+
+    <span class="s2">return </span><span class="s1">availableAmenitiesList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+  <span class="s2">static</span><span class="s3">{</span>
+    <span class="s0">//Arguments: Avilable amenties from the start</span>
+    <span class="s1">availableAmenitiesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Amenity</span><span class="s3">(</span><span class="s4">&quot;Soft drink&quot;</span><span class="s3">,</span><span class="s5">2</span><span class="s3">));</span>
+    <span class="s1">availableAmenitiesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Amenity</span><span class="s3">(</span><span class="s4">&quot;Jacuzzi&quot;</span><span class="s3">,</span><span class="s5">150</span><span class="s3">));</span>
+    <span class="s1">availableAmenitiesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Amenity</span><span class="s3">(</span><span class="s4">&quot;Wifi&quot;</span><span class="s3">,</span><span class="s5">10</span><span class="s3">));</span>
+    <span class="s1">availableAmenitiesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Amenity</span><span class="s3">(</span><span class="s4">&quot;Tv-subscriptions&quot;</span><span class="s3">,</span><span class="s5">2</span><span class="s3">));</span>
+
+  <span class="s3">}</span>
+
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">RoomType</span><span class="s3">&gt; </span><span class="s1">getAvailableRoomTypesList</span><span class="s3">(){</span>
+
+    <span class="s2">return </span><span class="s1">availableRoomTypesList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+  <span class="s2">public static </span><span class="s1">ArrayList</span><span class="s3">&lt;</span><span class="s1">Invoices</span><span class="s3">&gt; </span><span class="s1">getInvoicesList</span><span class="s3">(){</span>
+
+    <span class="s2">return </span><span class="s1">InvoicesList</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+  <span class="s0">//helper functions</span>
+  <span class="s2">public static </span><span class="s1">Rooms findRoom</span><span class="s3">(</span><span class="s2">int </span><span class="s1">roomNumber</span><span class="s3">){</span>
+    <span class="s2">for</span><span class="s3">(</span><span class="s1">Rooms r</span><span class="s3">: </span><span class="s1">Database</span><span class="s3">.</span><span class="s1">getRoomList</span><span class="s3">()){</span>
+      <span class="s2">if</span><span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getRoomNumber</span><span class="s3">()==</span><span class="s1">roomNumber </span><span class="s3">){</span>
+        <span class="s2">return </span><span class="s1">r</span><span class="s3">;</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+    <span class="s2">return null</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+
+  <span class="s2">public static </span><span class="s1">Amenity findAmenity</span><span class="s3">(</span><span class="s1">String amenityName</span><span class="s3">)</span>
+  <span class="s3">{</span>
+    <span class="s2">for</span><span class="s3">(</span><span class="s1">Amenity a</span><span class="s3">: </span><span class="s1">Database</span><span class="s3">.</span><span class="s1">getamenitiesList</span><span class="s3">()){</span>
+      <span class="s2">if</span><span class="s3">(</span><span class="s1">amenityName</span><span class="s3">.</span><span class="s1">equalsIgnoreCase</span><span class="s3">(</span><span class="s1">a</span><span class="s3">.</span><span class="s1">getAmenityName</span><span class="s3">()) ){</span>
+        <span class="s2">return </span><span class="s1">a</span><span class="s3">;</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+    <span class="s2">return null</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+  <span class="s2">public static </span><span class="s1">RoomType findRoomType</span><span class="s3">(</span><span class="s1">String name</span><span class="s3">) {</span>
+    <span class="s2">for </span><span class="s3">(</span><span class="s1">RoomType rt </span><span class="s3">: </span><span class="s1">availableRoomTypesList</span><span class="s3">) {</span>
+      <span class="s2">if </span><span class="s3">(</span><span class="s1">rt</span><span class="s3">.</span><span class="s1">getTypeName</span><span class="s3">().</span><span class="s1">equalsIgnoreCase</span><span class="s3">(</span><span class="s1">name</span><span class="s3">)) {</span>
+        <span class="s2">return </span><span class="s1">rt</span><span class="s3">;</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+    <span class="s2">return null</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+  <span class="s2">public static </span><span class="s1">Reservations findReservation</span><span class="s3">(</span><span class="s2">int </span><span class="s1">reservationID</span><span class="s3">) {</span>
+    <span class="s2">for</span><span class="s3">(</span><span class="s1">Reservations r</span><span class="s3">: </span><span class="s1">Database</span><span class="s3">.</span><span class="s1">getReservationsList</span><span class="s3">()){</span>
+      <span class="s2">if</span><span class="s3">(</span><span class="s1">reservationID </span><span class="s3">== </span><span class="s1">r</span><span class="s3">.</span><span class="s1">getReservationID</span><span class="s3">() ){</span>
+        <span class="s2">return </span><span class="s1">r</span><span class="s3">;</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+    <span class="s2">return null</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+<span class="s2">public static int </span><span class="s1">getAvailableRoomCount</span><span class="s3">(</span><span class="s1">String RoomTypeName</span><span class="s3">, </span><span class="s1">LocalDate desiredReservationDate</span><span class="s3">){</span>
+    <span class="s0">//bnshof fe kam room b nafs el requested type  w bn3dhom</span>
+    <span class="s2">int </span><span class="s1">roomCount </span><span class="s3">=</span><span class="s5">0</span><span class="s3">;</span>
+<span class="s2">for</span><span class="s3">(</span><span class="s1">Rooms r</span><span class="s3">: </span><span class="s1">Database</span><span class="s3">.</span><span class="s1">getRoomList</span><span class="s3">()) {</span>
+  <span class="s2">if </span><span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getRoomtype</span><span class="s3">().</span><span class="s1">getTypeName</span><span class="s3">().</span><span class="s1">equalsIgnoreCase</span><span class="s3">(</span><span class="s1">RoomTypeName</span><span class="s3">)) {</span>
+    <span class="s1">roomCount</span><span class="s3">++; </span><span class="s0">//total available physical rooms of this type  in the hotel</span>
+  <span class="s3">}</span>
+<span class="s3">}</span>
+
+  <span class="s0">// we check if teh desired reservation date lies in a period of confirmed reservation</span>
+  <span class="s2">int </span><span class="s1">reservedCount</span><span class="s3">=</span><span class="s5">0</span><span class="s3">;</span>
+  <span class="s2">for</span><span class="s3">(</span><span class="s1">Reservations rs</span><span class="s3">: </span><span class="s1">getReservationsList</span><span class="s3">()){</span>
+    <span class="s2">if</span><span class="s3">(</span><span class="s1">rs</span><span class="s3">.</span><span class="s1">getTypeDesired</span><span class="s3">().</span><span class="s1">getTypeName</span><span class="s3">().</span><span class="s1">equalsIgnoreCase</span><span class="s3">(</span><span class="s1">RoomTypeName</span><span class="s3">) &amp;&amp;( </span><span class="s1">rs</span><span class="s3">.</span><span class="s1">getStatus</span><span class="s3">()== </span><span class="s1">Reservations</span><span class="s3">.</span><span class="s1">ReservationStatus</span><span class="s3">.</span><span class="s1">CONFIRMED</span><span class="s3">||</span><span class="s1">rs</span><span class="s3">.</span><span class="s1">getStatus</span><span class="s3">()== </span><span class="s1">Reservations</span><span class="s3">.</span><span class="s1">ReservationStatus</span><span class="s3">.</span><span class="s1">PENDING</span><span class="s3">)){</span>
+      <span class="s2">if</span><span class="s3">(!</span><span class="s1">desiredReservationDate</span><span class="s3">.</span><span class="s1">isBefore</span><span class="s3">(</span><span class="s1">rs</span><span class="s3">.</span><span class="s1">getCheckin</span><span class="s3">() )&amp;&amp; </span><span class="s1">desiredReservationDate</span><span class="s3">.</span><span class="s1">isBefore</span><span class="s3">(</span><span class="s1">rs</span><span class="s3">.</span><span class="s1">getCheckout</span><span class="s3">()) ){</span>
+        <span class="s1">reservedCount</span><span class="s3">++;</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+  <span class="s3">}</span>
+  <span class="s2">return </span><span class="s1">roomCount </span><span class="s3">- </span><span class="s1">reservedCount</span><span class="s3">;</span>
+<span class="s3">}</span>
+
+
+<span class="s0">//used to ensure en mfesh duplicate bookings since el RESERVED etshal ml enum</span>
+  <span class="s0">// this checks for only 1 room, it should be called gowa el make reservatin method ina  for loop hat loops from check in to check out dates</span>
+
+
+
+  <span class="s2">static </span><span class="s3">{</span>
+    <span class="s0">// Arguments: name</span>
+    <span class="s1">availableRoomTypesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">RoomType</span><span class="s3">(</span><span class="s4">&quot;Single&quot;</span><span class="s3">, </span><span class="s5">1 </span><span class="s3">, </span><span class="s5">1</span><span class="s3">, </span><span class="s4">&quot;A room designed for one guest, it offers a small but comfortable space,&quot; </span><span class="s3">+</span>
+            <span class="s4">&quot;it's perfect for solo travellers like business guests or short stays.&quot;</span><span class="s3">,  </span><span class="s5">70</span><span class="s3">));</span>
+    <span class="s1">availableRoomTypesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">RoomType</span><span class="s3">(</span><span class="s4">&quot;Double&quot;</span><span class="s3">, </span><span class="s5">2 </span><span class="s3">, </span><span class="s5">2</span><span class="s3">, </span><span class="s4">&quot;A room more spacious than the single and designed for two guest, you can change&quot; </span><span class="s3">+</span>
+            <span class="s4">&quot;the two beds with one king size, it's perfect for friends or couple travelling together.&quot;</span><span class="s3">,  </span><span class="s5">125</span><span class="s3">));</span>
+    <span class="s1">availableRoomTypesList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">RoomType</span><span class="s3">(</span><span class="s4">&quot;Suite&quot;</span><span class="s3">, </span><span class="s5">1 </span><span class="s3">, </span><span class="s5">4</span><span class="s3">, </span><span class="s4">&quot;A large and luxurious room , it has s separate living area with a sofa bed &quot; </span><span class="s3">+</span>
+            <span class="s4">&quot;,bedroom with a large king size bed and a small kitchen with a mini bar,&quot; </span><span class="s3">+</span>
+            <span class="s4">&quot;it's perfect for a small family or guests who want to have a private and luxurious stay.&quot;</span><span class="s3">,  </span><span class="s5">465</span><span class="s3">));</span>
+
+  <span class="s3">}</span>
+
+  <span class="s2">static </span><span class="s3">{</span>
+    <span class="s0">// Arguments: roomfloor, roomtype, isAvailable</span>
+    <span class="s1">roomList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Rooms</span><span class="s3">(</span><span class="s5">1</span><span class="s3">, </span><span class="s4">&quot;Single&quot;</span><span class="s3">));</span>
+    <span class="s1">roomList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Rooms</span><span class="s3">(</span><span class="s5">1</span><span class="s3">, </span><span class="s4">&quot;Double&quot;</span><span class="s3">));</span>
+    <span class="s1">roomList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Rooms</span><span class="s3">(</span><span class="s5">2</span><span class="s3">, </span><span class="s4">&quot;Double&quot;</span><span class="s3">));</span>
+    <span class="s1">roomList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Rooms</span><span class="s3">(</span><span class="s5">2</span><span class="s3">, </span><span class="s4">&quot;suite&quot;</span><span class="s3">));</span>
+    <span class="s1">roomList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Rooms</span><span class="s3">(</span><span class="s5">3</span><span class="s3">, </span><span class="s4">&quot;suite&quot;</span><span class="s3">));</span>
+    <span class="s0">//Dummy data for the main run :)</span>
+
+
+  <span class="s3">}</span>
+
+
+  <span class="s2">public static boolean </span><span class="s1">isRoomAvailableForDates</span><span class="s3">(</span><span class="s1">Rooms room</span><span class="s3">, </span><span class="s1">LocalDate start</span><span class="s3">, </span><span class="s1">LocalDate end</span><span class="s3">) {</span>
+    <span class="s2">for </span><span class="s3">(</span><span class="s1">Reservations r </span><span class="s3">: </span><span class="s1">Database</span><span class="s3">.</span><span class="s1">getReservationsList</span><span class="s3">()) {</span>
+      <span class="s0">//search for this specific room in the future reservations to make sure it's free</span>
+      <span class="s2">if </span><span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getRoom</span><span class="s3">() != </span><span class="s2">null </span><span class="s3">&amp;&amp; </span><span class="s1">r</span><span class="s3">.</span><span class="s1">getRoom</span><span class="s3">().</span><span class="s1">equals</span><span class="s3">(</span><span class="s1">room</span><span class="s3">) &amp;&amp;</span>
+              <span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getStatus</span><span class="s3">() == </span><span class="s1">Reservations</span><span class="s3">.</span><span class="s1">ReservationStatus</span><span class="s3">.</span><span class="s1">CONFIRMED </span><span class="s3">||</span>
+                      <span class="s1">r</span><span class="s3">.</span><span class="s1">getStatus</span><span class="s3">() == </span><span class="s1">Reservations</span><span class="s3">.</span><span class="s1">ReservationStatus</span><span class="s3">.</span><span class="s1">PENDING</span><span class="s3">)) {</span>
+
+        <span class="s0">// checking for date overlap</span>
+        <span class="s2">if </span><span class="s3">(!(</span><span class="s1">end</span><span class="s3">.</span><span class="s1">isBefore</span><span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getCheckin</span><span class="s3">()) || </span><span class="s1">start</span><span class="s3">.</span><span class="s1">isAfter</span><span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getCheckout</span><span class="s3">()) || </span><span class="s1">start</span><span class="s3">.</span><span class="s1">equals</span><span class="s3">(</span><span class="s1">r</span><span class="s3">.</span><span class="s1">getCheckout</span><span class="s3">()))) {</span>
+          <span class="s2">return false</span><span class="s3">; </span><span class="s0">// There is a clash</span>
+        <span class="s3">}</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+    <span class="s2">return true</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+
+
+
+  <span class="s2">public static double </span><span class="s1">calculateReservationTotal</span><span class="s3">(</span><span class="s2">int </span><span class="s1">resID</span><span class="s3">) {</span>
+    <span class="s2">double </span><span class="s1">grandTotal </span><span class="s3">= </span><span class="s5">0</span><span class="s3">;</span>
+
+    <span class="s2">for </span><span class="s3">(</span><span class="s1">Invoices inv </span><span class="s3">: </span><span class="s1">InvoicesList</span><span class="s3">) {</span>
+
+      <span class="s2">if </span><span class="s3">(</span><span class="s1">inv</span><span class="s3">.</span><span class="s1">getReservation</span><span class="s3">().</span><span class="s1">getReservationID</span><span class="s3">() == </span><span class="s1">resID </span><span class="s3">&amp;&amp;</span>
+              <span class="s1">inv</span><span class="s3">.</span><span class="s1">getStatus</span><span class="s3">() == </span><span class="s1">Invoices</span><span class="s3">.</span><span class="s1">InvoiceStatus</span><span class="s3">.</span><span class="s1">UNPAID</span><span class="s3">) {</span>
+
+
+        <span class="s1">grandTotal </span><span class="s3">+= </span><span class="s1">inv</span><span class="s3">.</span><span class="s1">CalculateTotal</span><span class="s3">();</span>
+      <span class="s3">}</span>
+    <span class="s3">}</span>
+    <span class="s2">return </span><span class="s1">grandTotal</span><span class="s3">; </span><span class="s0">// this returns the final sum of all Invoices + Taxes</span>
+  <span class="s3">}</span>
+
+
+
+<span class="s3">}</span>
+</pre>
+</body>
+</html>
