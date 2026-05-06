@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>Reservations.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Reservations.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">Reservations </span><span class="s2">{</span>
+    <span class="s0">private </span><span class="s1">Guests guest</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Rooms room</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">RoomType typeDesired</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">LocalDate checkin</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">LocalDate checkout</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">ReservationStatus status</span><span class="s2">;</span>
+    <span class="s0">private static int </span><span class="s1">idCounter</span><span class="s2">=</span><span class="s3">1000</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">reservationID</span><span class="s2">;</span>
+    <span class="s0">private boolean </span><span class="s1">isCheckedIn</span><span class="s2">=</span><span class="s0">false</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod method</span><span class="s2">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s4">&quot;Reservation ID: &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">reservationID</span><span class="s2">;</span>
+        <span class="s5">// Note: Change 'this.reservationID' if your variable is named slightly differently,</span>
+        <span class="s5">// or use 'this.getReservationID()'</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Reservations</span><span class="s2">(</span><span class="s1">Guests guest</span><span class="s2">, </span><span class="s1">RoomType roomType</span><span class="s2">, </span><span class="s1">LocalDate in</span><span class="s2">, </span><span class="s1">LocalDate out</span><span class="s2">,</span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod method</span><span class="s2">){</span>
+<span class="s5">//            throws Exception {</span>
+<span class="s5">//        if (!out.isAfter(in)) {</span>
+<span class="s5">//            throw new Exception(&quot;Check-out must be after check-in.&quot;);</span>
+<span class="s5">//        }</span>
+
+
+        <span class="s1">ReservationsValidation</span><span class="s2">.</span><span class="s1">validateReservation</span><span class="s2">(</span><span class="s1">guest</span><span class="s2">, </span><span class="s1">in</span><span class="s2">, </span><span class="s1">out</span><span class="s2">);</span>
+
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">typeDesired</span><span class="s2">= </span><span class="s1">roomType</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">reservationID</span><span class="s2">=</span><span class="s1">idCounter</span><span class="s2">++;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">guest </span><span class="s2">= </span><span class="s1">guest</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">room </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">checkin </span><span class="s2">= </span><span class="s1">in</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">checkout </span><span class="s2">= </span><span class="s1">out</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status</span><span class="s2">=</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">PENDING</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">method </span><span class="s2">= </span><span class="s1">method</span><span class="s2">;</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setCheckedIn</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">checkedIn</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">isCheckedIn </span><span class="s2">= </span><span class="s1">checkedIn</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setCheckout</span><span class="s2">(</span><span class="s1">LocalDate checkout</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">checkout </span><span class="s2">= </span><span class="s1">checkout</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public enum </span><span class="s1">ReservationStatus </span><span class="s2">{</span>
+     <span class="s1">PENDING</span><span class="s2">, </span><span class="s1">CONFIRMED</span><span class="s2">, </span><span class="s1">CANCELLED</span><span class="s2">, </span><span class="s1">COMPLETED</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">confirmReservation</span><span class="s2">() {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status </span><span class="s2">= </span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CONFIRMED</span><span class="s2">;</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">cancelReservation</span><span class="s2">() {</span>
+        <span class="s1">ReservationsValidation</span><span class="s2">.</span><span class="s1">validateCancellation</span><span class="s2">(</span><span class="s1">guest</span><span class="s2">, </span><span class="s0">this</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status </span><span class="s2">= </span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CANCELLED</span><span class="s2">;</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">room </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">room</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">AVAILABLE</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">checkInGuest</span><span class="s2">() {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">room</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">OCCUPIED</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">setCheckOut</span><span class="s2">(</span><span class="s1">LocalDate newOutDate</span><span class="s2">) </span><span class="s0">throws </span><span class="s1">Exception </span><span class="s2">{</span>
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">newOutDate</span><span class="s2">.</span><span class="s1">isAfter</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkin</span><span class="s2">)) {</span>
+            <span class="s0">throw new </span><span class="s1">Exception</span><span class="s2">(</span><span class="s4">&quot;Error: The new check-out date is invalid.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">checkout </span><span class="s2">= </span><span class="s1">newOutDate</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setRoom</span><span class="s2">(</span><span class="s1">Rooms room</span><span class="s2">) {</span>
+        <span class="s1">ReservationsValidation</span><span class="s2">.</span><span class="s1">validateRoomAssignment</span><span class="s2">(</span><span class="s1">room</span><span class="s2">, </span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkin</span><span class="s2">, </span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkout</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">room </span><span class="s2">= </span><span class="s1">room</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">ReservationStatus status</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status </span><span class="s2">= </span><span class="s1">status</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Guests getGuest</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">guest</span><span class="s2">; }</span>
+
+    <span class="s0">public </span><span class="s1">Rooms getRoom</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">room</span><span class="s2">;}</span>
+
+    <span class="s0">public </span><span class="s1">LocalDate getCheckin</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">checkin</span><span class="s2">;}</span>
+
+    <span class="s0">public </span><span class="s1">ReservationStatus getStatus</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">status</span><span class="s2">;}</span>
+
+    <span class="s0">public </span><span class="s1">LocalDate getCheckout</span><span class="s2">() {</span><span class="s0">return </span><span class="s1">checkout</span><span class="s2">;}</span>
+
+    <span class="s0">public </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod getMethod</span><span class="s2">() {</span><span class="s0">return </span><span class="s1">method</span><span class="s2">;}</span>
+
+    <span class="s0">public int </span><span class="s1">getReservationID</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">reservationID</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">RoomType getTypeDesired</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">typeDesired</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public double </span><span class="s1">calculateCheckoutFine</span><span class="s2">(</span><span class="s1">LocalDate actualDate</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">actualDate</span><span class="s2">.</span><span class="s1">isBefore</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkout</span><span class="s2">)) {</span>
+            <span class="s0">return </span><span class="s3">70.0</span><span class="s2">; </span><span class="s5">// Early checkout fine</span>
+        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">actualDate</span><span class="s2">.</span><span class="s1">isAfter</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkout</span><span class="s2">)) {</span>
+            <span class="s0">return </span><span class="s3">100.0</span><span class="s2">; </span><span class="s5">// Late checkout fine</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s3">0.0</span><span class="s2">; </span><span class="s5">// No fine</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public double </span><span class="s1">calculateCancellationFee</span><span class="s2">() {</span>
+        <span class="s1">LocalDate today </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">now</span><span class="s2">();</span>
+
+        <span class="s5">// Policy: Free cancellation if done at least 2 days before check-in</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">today</span><span class="s2">.</span><span class="s1">isBefore</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkin</span><span class="s2">.</span><span class="s1">minusDays</span><span class="s2">(</span><span class="s3">1</span><span class="s2">))) {</span>
+            <span class="s0">return </span><span class="s3">0.0</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s5">// Late cancellation penalty: 50% of the room price for one night</span>
+        <span class="s0">return this</span><span class="s2">.</span><span class="s1">typeDesired</span><span class="s2">.</span><span class="s1">getPricePerNight</span><span class="s2">() * </span><span class="s3">0.5</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">displayReservation</span><span class="s2">() {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;--- RESERVATION DETAILS ---&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Reservation ID: &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">getReservationID</span><span class="s2">());</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Guest: &quot; </span><span class="s2">+ </span><span class="s1">guest</span><span class="s2">.</span><span class="s1">getUserName</span><span class="s2">());</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Room: &quot; </span><span class="s2">+ </span><span class="s1">room</span><span class="s2">.</span><span class="s1">getRoomNumber</span><span class="s2">());</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Status: &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">status</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Dates: &quot; </span><span class="s2">+ </span><span class="s1">checkin </span><span class="s2">+ </span><span class="s4">&quot; to &quot; </span><span class="s2">+ </span><span class="s1">checkout</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Physical Room State: &quot; </span><span class="s2">+ </span><span class="s1">room</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">());</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;---------------------------&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">processExtension</span><span class="s2">(</span><span class="s0">int </span><span class="s1">days</span><span class="s2">, </span><span class="s1">Rooms room</span><span class="s2">, </span><span class="s1">LocalDate newDate</span><span class="s2">) {</span>
+        <span class="s0">double </span><span class="s1">pricePerNight </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">getTypeDesired</span><span class="s2">().</span><span class="s1">getPricePerNight</span><span class="s2">();</span>
+        <span class="s0">double </span><span class="s1">totalExtraCost </span><span class="s2">= </span><span class="s1">days </span><span class="s2">* </span><span class="s1">pricePerNight</span><span class="s2">;</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">().</span><span class="s1">getBalance</span><span class="s2">() &gt;= </span><span class="s1">totalExtraCost</span><span class="s2">) {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">().</span><span class="s1">setBalance</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">().</span><span class="s1">getBalance</span><span class="s2">() - </span><span class="s1">totalExtraCost</span><span class="s2">);</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">setRoom</span><span class="s2">(</span><span class="s1">room</span><span class="s2">);</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">setCheckout</span><span class="s2">(</span><span class="s1">newDate</span><span class="s2">);</span>
+
+            <span class="s0">try </span><span class="s2">{</span>
+                <span class="s1">Invoices extensionInv </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Invoices</span><span class="s2">(</span>
+                        <span class="s1">totalExtraCost</span><span class="s2">,</span>
+                        <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">ONLINE</span><span class="s2">,</span>
+                        <span class="s0">this</span><span class="s2">,</span>
+                        <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceType</span><span class="s2">.</span><span class="s1">BOOKING</span><span class="s2">,</span>
+                        <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">PAID</span>
+                <span class="s2">);</span>
+                <span class="s1">Database</span><span class="s2">.</span><span class="s1">getInvoicesList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">extensionInv</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Extension Successful! New checkout: &quot; </span><span class="s2">+ </span><span class="s1">newDate</span><span class="s2">);</span>
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">InvalidPaymentException e</span><span class="s2">) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Error creating invoice: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Extension Failed: Insufficient balance. Need $&quot; </span><span class="s2">+ </span><span class="s1">totalExtraCost</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+
+
+
+    <span class="s0">public void </span><span class="s1">viewReservationDetails</span><span class="s2">() {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">========== RESERVATION SUMMARY ==========&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;GUEST:    &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">guest</span><span class="s2">.</span><span class="s1">getUserName</span><span class="s2">());</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;ROOM:     &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">room</span><span class="s2">.</span><span class="s1">getRoomNumber</span><span class="s2">() + </span><span class="s4">&quot; (&quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">room</span><span class="s2">.</span><span class="s1">getRoomtype</span><span class="s2">() + </span><span class="s4">&quot;)&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;DATES:    &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkin </span><span class="s2">+ </span><span class="s4">&quot; to &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">checkout</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;STATUS:   &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">status</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;=========================================</span><span class="s0">\n</span><span class="s4">&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">cancelReservations</span><span class="s2">() </span><span class="s0">throws </span><span class="s1">Exception </span><span class="s2">{</span>
+        <span class="s5">// Real-world rule: You can't cancel a stay that is already finished!</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">status </span><span class="s2">== </span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">COMPLETED</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">Exception</span><span class="s2">(</span><span class="s4">&quot;Error: Cannot cancel a completed reservation.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">status </span><span class="s2">= </span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CANCELLED</span><span class="s2">;</span>
+
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">room</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">AVAILABLE</span><span class="s2">);</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Reservation for &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">guest</span><span class="s2">.</span><span class="s1">getUserName</span><span class="s2">() + </span><span class="s4">&quot; has been cancelled.&quot;</span><span class="s2">);</span>
+   <span class="s2">}</span>
+
+    <span class="s0">public double </span><span class="s1">getStayPrice</span><span class="s2">() {</span>
+        <span class="s0">long </span><span class="s1">days </span><span class="s2">= </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">temporal</span><span class="s2">.</span><span class="s1">ChronoUnit</span><span class="s2">.</span><span class="s1">DAYS</span><span class="s2">.</span><span class="s1">between</span><span class="s2">(</span><span class="s1">checkin</span><span class="s2">, </span><span class="s1">checkout</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">days </span><span class="s2">&lt;= </span><span class="s3">0</span><span class="s2">) </span><span class="s1">days </span><span class="s2">= </span><span class="s3">1</span><span class="s2">; </span><span class="s5">// Charge at least one night</span>
+        <span class="s0">return </span><span class="s1">days </span><span class="s2">* </span><span class="s1">typeDesired</span><span class="s2">.</span><span class="s1">getPricePerNight</span><span class="s2">();</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

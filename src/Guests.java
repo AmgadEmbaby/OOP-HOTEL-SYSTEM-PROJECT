@@ -9,7 +9,7 @@ public class Guests {
     private double Balance =0;
     private String address;
     private Gender gender;
-    private boolean loginStatues;
+    private boolean loginStatues = false;
     private  ArrayList<Reservations> guestReservations = new ArrayList<>();
     private  ArrayList<Invoices> guestInvoices  = new ArrayList<>();
 
@@ -29,6 +29,8 @@ public class Guests {
         this.passWord = passWord;
         this.gender = gender;
     }
+
+
 
     public Guests() {
     }
@@ -93,6 +95,7 @@ public class Guests {
     public  ArrayList<Reservations> getGuestReservations() {
         return guestReservations;
     }
+
 
     public ArrayList<Invoices> getGuestInvoices() {
         return guestInvoices;
@@ -160,7 +163,7 @@ public class Guests {
         System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
-    public static Boolean login(String username, String passWord){
+    public static Guests login(String username, String passWord){
         boolean loginStatues = false;
         boolean usernameFound = false;
         boolean passwordFound= false;
@@ -173,7 +176,9 @@ public class Guests {
                     passwordFound = true;
                     System.out.println("Password found");
                     loginStatues = true;
-                    return loginStatues;
+                    guests.setLoginStatues(true);
+                    return guests;
+
                 }
 
             }
@@ -184,7 +189,8 @@ public class Guests {
             else if(!passwordFound){
                 System.out.println("Password entered is incorrect ");
             }
-            return loginStatues;
+
+            return null;
     }
 
 
@@ -269,6 +275,7 @@ public class Guests {
             Database.getInvoicesList().add(bookingInvoice);
             System.out.println("Your reservation ID is "+ current.getReservationID());
             Database.getReservationsList().add(current);
+            this.guestReservations.add(current);
 
 
         } catch (Exception e) {
@@ -276,7 +283,7 @@ public class Guests {
         }
     }
 
-    public Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
+    public static Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
         List<RoomType> AvliableRoomtype= Database.getAvailableRoomTypesList();
         Map<RoomType, Integer> availabilityResults = new HashMap<>();
         Boolean Avilable = true;
@@ -333,6 +340,7 @@ public class Guests {
                 else{
                     r.cancelReservation();
                     System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
+                    guestReservations.remove(r);
                     return true;
                 }
 

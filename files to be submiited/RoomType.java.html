@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>RoomType.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+RoomType.java</font>
+</center></td></tr></table>
+<pre><span class="s0">public class </span><span class="s1">RoomType </span><span class="s2">{</span>
+<span class="s0">private </span><span class="s1">String TypeName</span><span class="s2">;</span>
+<span class="s0">private int </span><span class="s1">NumberOfBeds</span><span class="s2">;</span>
+<span class="s0">private int </span><span class="s1">Capacity</span><span class="s2">;</span>
+<span class="s0">private </span><span class="s1">String RoomDescription</span><span class="s2">;</span>
+<span class="s0">private double </span><span class="s1">PricePerNight</span><span class="s2">;</span>
+
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return this</span><span class="s2">.</span><span class="s1">getTypeName</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">RoomType</span><span class="s2">(</span><span class="s1">String typeName</span><span class="s2">, </span><span class="s0">int </span><span class="s1">numberOfBeds</span><span class="s2">, </span><span class="s0">int </span><span class="s1">capacity</span><span class="s2">, </span><span class="s1">String roomDescription</span><span class="s2">, </span><span class="s0">double </span><span class="s1">pricePerNight</span><span class="s2">) {</span>
+        <span class="s1">TypeName </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateTypeName</span><span class="s2">(</span><span class="s1">typeName</span><span class="s2">);</span>
+        <span class="s1">NumberOfBeds </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateBeds</span><span class="s2">(</span><span class="s1">numberOfBeds</span><span class="s2">);</span>
+        <span class="s1">Capacity </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateCapacity</span><span class="s2">(</span><span class="s1">capacity</span><span class="s2">);</span>
+        <span class="s1">RoomDescription </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateRoomDescription</span><span class="s2">(</span><span class="s1">roomDescription</span><span class="s2">);</span>
+        <span class="s1">PricePerNight </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validatePricePerNight</span><span class="s2">(</span><span class="s1">pricePerNight</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getTypeName</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">TypeName</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public int </span><span class="s1">getNumberOfBeds</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">NumberOfBeds</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public int </span><span class="s1">getCapacity</span><span class="s2">() {</span>
+
+        <span class="s0">return </span><span class="s1">Capacity</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getRoomDescription</span><span class="s2">() {</span>
+
+        <span class="s0">return </span><span class="s1">RoomDescription</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public double </span><span class="s1">getPricePerNight</span><span class="s2">() {</span>
+
+        <span class="s0">return </span><span class="s1">PricePerNight</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+
+
+    <span class="s0">public void </span><span class="s1">setRoomDescription</span><span class="s2">(</span><span class="s1">String roomDescription</span><span class="s2">) {</span>
+
+        <span class="s1">RoomDescription </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateRoomDescription</span><span class="s2">(</span><span class="s1">roomDescription</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+
+    <span class="s0">public void </span><span class="s1">setPricePerNight</span><span class="s2">(</span><span class="s0">double </span><span class="s1">pricePerNight</span><span class="s2">) {</span>
+
+        <span class="s1">PricePerNight </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validatePricePerNight</span><span class="s2">(</span><span class="s1">pricePerNight</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">displayRoomType</span><span class="s2">() {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;--- ROOM TYPE DETAILS ---&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Name: &quot; </span><span class="s2">+ </span><span class="s1">TypeName</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Beds: &quot; </span><span class="s2">+ </span><span class="s1">NumberOfBeds</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Capacity: &quot; </span><span class="s2">+ </span><span class="s0">this</span><span class="s2">.</span><span class="s1">Capacity</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;RoomDescription: &quot; </span><span class="s2">+ </span><span class="s1">RoomDescription</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;PricePerNight: &quot; </span><span class="s2">+ </span><span class="s1">PricePerNight</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;---------------------------&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+
+
+</pre>
+</body>
+</html>
