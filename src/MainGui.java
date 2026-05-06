@@ -8,16 +8,15 @@ import java.net.URL;
 public class MainGui extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/StartScreen.fxml"));
         Scene scene = new Scene(root, 1000, 700);
 
-        // --- Robust CSS Loading ---
-        URL cssUrl = getClass().getResource("/styles.css");
+        // --- Correctly Loading CSS ---
+        URL cssUrl = getClass().getResource("/CSS.css");
         if (cssUrl != null) {
             scene.getStylesheets().add(cssUrl.toExternalForm());
         } else {
-            System.err.println("CRITICAL WARNING: Could not find 'styles.css'. The application will run without styling.");
-            System.err.println("Please ensure 'styles.css' is in the 'src' folder and that your IDE is configured to copy it to the output directory.");
+            System.err.println("CRITICAL WARNING: Could not find '/CSS.css' in the resources folder.");
         }
         // -------------------------
 
