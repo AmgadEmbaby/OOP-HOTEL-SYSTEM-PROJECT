@@ -42,7 +42,7 @@ public class GuestMenuController {
         try {
 
             Parent root = FXMLLoader.load(
-                    getClass().getResource("Start.fxml")
+                    getClass().getResource("StartScreen.fxml")
             );
 
             Stage stage = (Stage) ((Node) event.getSource())
@@ -57,4 +57,12 @@ public class GuestMenuController {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    private void exitApp() {
+
+        System.exit(0);
+    }
+
 }

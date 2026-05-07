@@ -17,7 +17,10 @@
         <URL value="@style.css"/>
     </stylesheets>
 
-    <!-- LEFT IMAGE -->
+
+
+
+
 
     <VBox prefWidth="500.0"
           HBox.hgrow="ALWAYS">
@@ -39,7 +42,7 @@
           styleClass="content-side"
           HBox.hgrow="ALWAYS">
 
-        <!-- TOP BAR -->
+        <!-- buttons fo2 back & exit -->
 
         <HBox alignment="TOP_RIGHT"
               maxWidth="Infinity">
@@ -48,9 +51,13 @@
                     onAction="#backToMainMenu"
                     styleClass="close-button"/>
 
+            <Button text="✕"
+                    onAction="#exitApp"
+                    styleClass="close-button"/>
+
         </HBox>
 
-        <!-- CENTER CONTENT -->
+        <!-- center content -->
 
         <VBox alignment="CENTER"
               spacing="34.0"
@@ -60,7 +67,9 @@
                 <Insets top="100.0"/>
             </padding>
 
-            <!-- TITLES -->
+
+
+            <!-- titles -->
 
             <VBox alignment="CENTER"
                   spacing="10">
@@ -79,8 +88,7 @@
 
             </VBox>
 
-            <!-- BUTTONS -->
-
+            <!-- buttons -->
             <VBox alignment="CENTER"
                   spacing="18">
 
