@@ -57,4 +57,15 @@ public class GuestMenuController {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    private void goBack(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setMaximized(false);
+        stage.setScene(new Scene(root, 1000, 600));
+        stage.show();
+    }
+
 }

@@ -1,8 +1,11 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
-public class RegisterController {
+public class RegisterController extends Navigator{
 
     @FXML
     private TextField usernameField;
@@ -94,5 +97,10 @@ public class RegisterController {
         balanceField.clear();
         dobPicker.setValue(null);
         genderBox.setValue(null);
+    }
+
+    @Override
+    public void GobackToGuestMenu(ActionEvent event) throws IOException {
+        super.GobackToGuestMenu(event);
     }
 }
