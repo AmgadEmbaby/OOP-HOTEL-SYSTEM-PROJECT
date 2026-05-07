@@ -9,7 +9,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class GuestLoginController {
+import java.io.IOException;
+
+public class GuestLoginController extends Navigator {
 
     // 1. Grab the UI elements from the FXML
     @FXML private TextField usernameField;
@@ -32,15 +34,15 @@ public class GuestLoginController {
             // ... (standard scene switching code)
 
         } catch (IllegalArgumentException e) {
-            errorLabel.setStyle("-fx-text-fill: #d6b8b8;"); // Error color from CSS
+            errorLabel.setStyle("-fx-text-fill: #d6b8b8;");
             errorLabel.setText(e.getMessage());
         }
     }
 
     @FXML
-    private void handleRegister(ActionEvent event) throws Exception {
+    private void createAcc(ActionEvent event) throws Exception {
         // Switch to the Registration Screen
-        Parent root = FXMLLoader.load(getClass().getResource("GuestRegister.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 1000, 600));
         stage.show();
@@ -49,7 +51,7 @@ public class GuestLoginController {
     @FXML
     private void goBack(ActionEvent event) throws Exception {
         // Return to Start Screen
-        Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GuestMenu.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 1000, 600));
         stage.show();

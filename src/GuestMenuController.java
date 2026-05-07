@@ -36,7 +36,7 @@ public class GuestMenuController extends Navigator {
     private void openSignIn(ActionEvent event) throws IOException {
         //navigateTo(event,"GuestLogin.fxml");
 
-        Parent root = FXMLLoader.load(getClass().getResource("Guest Login..fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Guest login..fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setMaximized(false);
         stage.setScene(new Scene(root, 1000, 600));
