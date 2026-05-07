@@ -24,6 +24,8 @@ public class Database {
 
   private static ArrayList<Staff> staffList = new ArrayList<>();
 
+  private static ArrayList<String> activityFeed = new ArrayList<>();
+
   private static Admin admin = new Admin("admin", "Halla", "admin123",   LocalDate.of(1999,5,9), Staff.Role.ADMIN,  8);     //one admin for the whole system
 
   public static Admin getAdmin() {
@@ -85,6 +87,16 @@ public class Database {
 
     return InvoicesList;
   }
+
+
+
+  public static ArrayList<String> getActivityFeed() {
+    return activityFeed;
+  }
+
+
+
+
 
   //helper functions
   public static Rooms findRoom(int roomNumber){
@@ -199,6 +211,10 @@ for(Rooms r: Database.getRoomList()) {
 
 
 
+
+
+
+
   public static double calculateReservationTotal(int resID) {
     double grandTotal = 0;
 
@@ -223,6 +239,12 @@ for(Rooms r: Database.getRoomList()) {
 
 
 
+  public static void addActivity(String message) {
+    activityFeed.add(0, message);
 
+    if (activityFeed.size() > 25) {
+      activityFeed.remove(activityFeed.size() - 1);
+    }
+  }
 
 }
