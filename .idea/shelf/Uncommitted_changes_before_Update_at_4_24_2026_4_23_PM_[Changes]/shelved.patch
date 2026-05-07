@@ -1,0 +1,16 @@
+Index: src/validation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class validation {\r\n\r\n\r\n\r\n\r\n}\r\n
+===================================================================
+diff --git a/src/validation.java b/src/validation.java
+--- a/src/validation.java	(revision bc403facd2d0780c27788469f47f514b49fb1a28)
++++ b/src/validation.java	(date 1776441959760)
+@@ -1,6 +1,2 @@
+-public class validation {
+-
+-
+-
+-
++public class Validation {
+ }
