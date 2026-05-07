@@ -8,12 +8,12 @@
 <?import javafx.scene.image.Image?>
 <HBox prefHeight="600.0" prefWidth="1000.0" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminLoginController">
     <stylesheets>
-        <URL value="@/style.css" />
+        <URL value="@style.css" />
     </stylesheets>
 
     <VBox prefWidth="500.0" HBox.hgrow="ALWAYS">
         <ImageView fitHeight="600.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="false">
-            <Image url="@/luxury hotel.jpg" />
+            <Image url="@luxury hotel.jpg" />
         </ImageView>
     </VBox>
 
