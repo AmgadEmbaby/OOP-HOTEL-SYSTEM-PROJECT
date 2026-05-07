@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Rooms {
@@ -9,6 +10,7 @@ public class Rooms {
     private RoomType roomtype;
     private double TotalAmenityCost = 0;
     ArrayList<Amenity> amenities = new ArrayList<>();
+    ArrayList<Reservations> reservationsList = new ArrayList<>(); // list of reservations for this one room
 
     public enum RoomStatus {
         AVAILABLE,
@@ -21,11 +23,13 @@ public class Rooms {
         this.status = RoomStatus.AVAILABLE;
     }
 
-    public Rooms(int roomFloor, String roomTypeName) {
+    public Rooms( int roomFloor, String roomTypeName) {
         RoomCount++;
         this.ActualRoomNumber = RoomNumber++;
-        this.RoomFloor = roomFloor;
-        this.roomtype = Database.findRoomType(roomTypeName);
+
+        this.RoomFloor = RoomValidation.validateRoomFloor(roomFloor);
+        this.roomtype= RoomValidation.validateRoomTypeName(roomTypeName);  //Database.findRoomType INSIDE validator function
+
         this.status = RoomStatus.AVAILABLE;
     }
 
@@ -39,10 +43,14 @@ public class Rooms {
     }
 
     public void setRoomFloor(int roomFloor) {
-        RoomFloor = roomFloor;
+
+        this.RoomFloor = RoomValidation.validateRoomFloor(roomFloor);
+
     }
 
     public void setStatus(RoomStatus status) {
+
+        Validator.checkNotNull(status, "Status cannot be null");
         this.status = status;
     }
 
@@ -54,41 +62,26 @@ public class Rooms {
     public void RoomAvailability() {
         if (this.status == RoomStatus.AVAILABLE) {
             System.out.println("Room " + ActualRoomNumber + " is available for booking.");
-        } else {
+        }
+         else {
             System.out.println("Room " + ActualRoomNumber + " is already Occupied.");
         }
     }
 
-    public void AddAmenity(Amenity amenity, Reservations res) {
-        amenities.add(amenity);
+    public void AddAmenity(Amenity Amenity) {
+        Validator.checkNotNull(Amenity,"Amenity cannot be null" );
+        RoomValidation.validateAmenities(this);
 
-        CalculateTotalAmenityCost();
+        amenities.add(Amenity);
 
-        //Create the Invoice for this service
-        try {
-            // We use ROOM_SERVICE type because it's an extra charge during the stay
-            Invoices amenityInvoice = new Invoices(
-                    amenity.getAmenityCost(),
-                    res.getMethod(),
-                    res,
-                    Invoices.InvoiceType.ROOM_SERVICE,
-                    Invoices.InvoiceStatus.UNPAID // Guest pays this at checkout
-            );
-
-            Database.getInvoicesList().add(amenityInvoice);
-            System.out.println("Amenity " + amenity.getAmenityName() + " added. Invoice generated.");
-
-        } catch (InvalidPaymentException e) {
-            System.out.println("Could not process amenity charge: " + e.getMessage());
         }
-    }
 
-
-    public void RemoveAmenity(Amenity Amenity) {
+    public void RemoveAmenity(Amenity Amenity){
         amenities.remove(Amenity);
     }
 
     public void SetAmenity(String amenityname, boolean isavailable) {
+        Validator.checkStringNotEmpty(amenityname, "Amenity name");
         for (Amenity amenity : amenities) {
             if (amenity.getAmenityName().equals(amenityname)) {
                 amenity.setAvailable(isavailable);
@@ -99,9 +92,9 @@ public class Rooms {
     }
 
     public void CalculateTotalAmenityCost() {
-        TotalAmenityCost = 0;
+        TotalAmenityCost =0;
         for (Amenity amenity : amenities) {
-            if (amenity.isAvailable()) {
+            if(amenity.isAvailable()){
                 TotalAmenityCost += amenity.getAmenityCost();
             }
 
@@ -111,6 +104,34 @@ public class Rooms {
     public double getTotalAmenityCost() {
         return TotalAmenityCost;
     }
+
+
+
+    public ArrayList<Amenity> getAmenities() {
+        return amenities;
+    }
+
+    // ----------------------------------------- for validation ---------------------------------------------------
+    //checkin is new reservation
+    // r.getCheckIn is existing reservation
+    public boolean isBooked (LocalDate checkin, LocalDate checkout){
+        for (Reservations r : reservationsList) {
+            if (checkin.isBefore(r.getCheckout()) && checkout.isAfter(r.getCheckin())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //prevents double booking
+    public void addReservation(Reservations r){  // to list of reservations of THIS ONE room
+        if (isBooked(r.getCheckin(), r.getCheckout())){
+            throw new IllegalArgumentException("Room Already Booked");
+        }
+        reservationsList.add(r);
+    }
+
+
 
 
     public RoomType getRoomtype() {
@@ -134,33 +155,32 @@ public class Rooms {
         }
     }
 
-    public void DisplayRoomInfo() {
+public void DisplayRoomInfo(){
         System.out.println("-----------------------------");
         System.out.println("       ROOM INFORMATION      ");
         System.out.println("-----------------------------");
 
-        System.out.println("Room Number: " + ActualRoomNumber);
-        System.out.println("Room Floor: " + RoomFloor);
+        System.out.println("Room Number: "+ ActualRoomNumber);
+        System.out.println("Room Floor: "+RoomFloor);
         System.out.println("Status: " + this.status);
-        System.out.println("Room Type: " + roomtype.getTypeName());
-        System.out.println("Room Description: " + roomtype.getRoomDescription());
-        System.out.println("Maximum Capacity: " + roomtype.getCapacity());
-        System.out.println("Price Per Night: " + roomtype.getPricePerNight());
+        System.out.println("Room Type: "+roomtype.getTypeName());
+        System.out.println("Room Description: "+roomtype.getRoomDescription());
+        System.out.println("Maximum Capacity: "+roomtype.getCapacity());
+        System.out.println("Price Per Night: "+roomtype.getPricePerNight());
         System.out.print("Amenities in the room: ");
-        for (Amenity amenity : amenities) {
+        for(Amenity amenity:amenities){
             System.out.print(amenity.getAmenityName() + " , ");
         }
         System.out.println("\n");
-        System.out.println("Total Amenities Cost: $ " + TotalAmenityCost);
+        System.out.println("Total Amenities Cost: $ "+ TotalAmenityCost);
     }
+
+
+
+
 }
 
 }
-
-
-
-
-
 
 
 

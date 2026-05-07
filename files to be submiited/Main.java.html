@@ -1,0 +1,377 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">xml</span><span class="s2">.</span><span class="s1">crypto</span><span class="s2">.</span><span class="s1">Data</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.</span><span class="s1">SQLOutput</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Map</span><span class="s2">; </span><span class="s3">// Added missing import</span>
+
+<span class="s0">public class </span><span class="s1">Main </span><span class="s2">{</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) </span><span class="s0">throws </span><span class="s1">Exception </span><span class="s2">{</span>
+        <span class="s1">Guests guest1 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Guests</span><span class="s2">(</span><span class="s4">&quot;Nour&quot;</span><span class="s2">, </span><span class="s4">&quot;Cairo&quot;</span><span class="s2">, </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s5">2000</span><span class="s2">, </span><span class="s5">5</span><span class="s2">, </span><span class="s5">10</span><span class="s2">), </span><span class="s4">&quot;pass123&quot;</span><span class="s2">, </span><span class="s1">Guests</span><span class="s2">.</span><span class="s1">Gender</span><span class="s2">.</span><span class="s1">female</span><span class="s2">);</span>
+        <span class="s1">Guests guest2 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Guests</span><span class="s2">(</span><span class="s4">&quot;Halla&quot;</span><span class="s2">, </span><span class="s4">&quot;Alexandria&quot;</span><span class="s2">, </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s5">1999</span><span class="s2">, </span><span class="s5">3</span><span class="s2">, </span><span class="s5">15</span><span class="s2">), </span><span class="s4">&quot;pass456&quot;</span><span class="s2">, </span><span class="s1">Guests</span><span class="s2">.</span><span class="s1">Gender</span><span class="s2">.</span><span class="s1">female</span><span class="s2">);</span>
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getGuestList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">guest1</span><span class="s2">);</span>
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getGuestList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">guest2</span><span class="s2">);</span>
+
+
+        <span class="s1">Scanner input </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+        <span class="s0">boolean </span><span class="s1">AppLoop </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+        <span class="s0">boolean </span><span class="s1">Guestloop  </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+        <span class="s0">boolean </span><span class="s1">Guestlogged </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+        <span class="s1">String choice</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">choiceInt</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">terminate</span><span class="s2">;</span>
+
+        <span class="s0">while</span><span class="s2">(</span><span class="s1">AppLoop </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){</span>
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;--- Hotel System Initialized ---&quot;</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Press (1) to continue (0) to terminate: &quot;</span><span class="s2">);</span>
+            <span class="s1">terminate </span><span class="s2">= </span><span class="s1">AuthMenu</span><span class="s2">.</span><span class="s1">numberScanner</span><span class="s2">();</span>
+            <span class="s0">if</span><span class="s2">(!(</span><span class="s1">terminate</span><span class="s2">==</span><span class="s5">1 </span><span class="s2">|| </span><span class="s1">terminate</span><span class="s2">==</span><span class="s5">0</span><span class="s2">)){</span>
+                <span class="s0">while</span><span class="s2">(!(</span><span class="s1">terminate</span><span class="s2">==</span><span class="s5">1 </span><span class="s2">|| </span><span class="s1">terminate</span><span class="s2">==</span><span class="s5">0</span><span class="s2">)){</span>
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Invalid option, enter again:&quot;</span><span class="s2">);</span>
+                    <span class="s1">terminate </span><span class="s2">= </span><span class="s1">AuthMenu</span><span class="s2">.</span><span class="s1">numberScanner</span><span class="s2">();</span>
+
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">terminate</span><span class="s2">==</span><span class="s5">0</span><span class="s2">){</span>
+                <span class="s1">AppLoop </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s0">else</span><span class="s2">{</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Please pick who is using this program: &quot;</span><span class="s2">);</span>
+                <span class="s1">choice </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                <span class="s0">while </span><span class="s2">(!(</span><span class="s1">choice</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;Guest&quot;</span><span class="s2">) || </span><span class="s1">choice</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;Admin&quot;</span><span class="s2">)||</span><span class="s1">choice</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;Receptionist&quot;</span><span class="s2">))){</span>
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;INVALID, please renter&quot;</span><span class="s2">);</span>
+                    <span class="s1">choice </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">choice</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;Guest&quot;</span><span class="s2">)){</span>
+                    <span class="s1">Guests currentGuests </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Guests</span><span class="s2">();</span>
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Press (1) to login, press (2) to signup: &quot;</span><span class="s2">);</span>
+                    <span class="s1">choiceInt </span><span class="s2">= </span><span class="s1">AuthMenu</span><span class="s2">.</span><span class="s1">numberScanner</span><span class="s2">();</span>
+                    <span class="s0">while</span><span class="s2">(!(</span><span class="s1">choiceInt</span><span class="s2">== </span><span class="s5">1</span><span class="s2">|| </span><span class="s1">choiceInt</span><span class="s2">==</span><span class="s5">2</span><span class="s2">)){</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Invalid, Please renter:&quot;</span><span class="s2">);</span>
+                        <span class="s1">choiceInt </span><span class="s2">= </span><span class="s1">AuthMenu</span><span class="s2">.</span><span class="s1">numberScanner</span><span class="s2">();</span>
+                    <span class="s2">}</span>
+                    <span class="s0">if</span><span class="s2">(</span><span class="s1">choiceInt</span><span class="s2">==</span><span class="s5">1</span><span class="s2">){</span>
+
+                        <span class="s0">boolean </span><span class="s1">logiStatus </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                        <span class="s1">currentGuests</span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                        <span class="s0">while</span><span class="s2">(</span><span class="s1">currentGuests </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">try </span><span class="s2">{</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Enter your username:&quot;</span><span class="s2">);</span>
+                            <span class="s1">String username </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Enter your Password: &quot;</span><span class="s2">);</span>
+                            <span class="s1">String password </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                            <span class="s3">// currentGuests=Guests.login(username, password);</span>
+                            <span class="s1">currentGuests </span><span class="s2">= </span><span class="s1">GuestValidation</span><span class="s2">.</span><span class="s1">validateGuestLogin</span><span class="s2">(</span><span class="s1">username</span><span class="s2">, </span><span class="s1">password</span><span class="s2">);</span>
+                        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IllegalArgumentException e</span><span class="s2">){</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Login failed: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+                        <span class="s2">}</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Logged in successfully&quot;</span><span class="s2">);</span>
+                        <span class="s1">Guestloop</span><span class="s2">= </span><span class="s0">true </span><span class="s2">;</span>
+                        <span class="s1">Guestlogged </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                        <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">displayGuestInfo</span><span class="s2">();</span>
+
+                        <span class="s0">while</span><span class="s2">(</span><span class="s1">Guestloop</span><span class="s2">){</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Enter the number of what you want to do next&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;1-View available rooms&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;2-Make Reservations&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;3-View Reservations&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;4-Cancel Reservation&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;5-Pay Invoice&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;6-Notify the receptionist for checking out&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;7-Recharge balance&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;8-View ongoing invoices&quot;</span><span class="s2">);</span>
+                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;0- to logout and return to the previous menu&quot;</span><span class="s2">);</span>
+                            <span class="s1">choiceInt </span><span class="s2">= </span><span class="s1">AuthMenu</span><span class="s2">.</span><span class="s1">numberScanner</span><span class="s2">();</span>
+                            <span class="s0">while</span><span class="s2">(</span><span class="s1">choiceInt</span><span class="s2">&lt;</span><span class="s5">0</span><span class="s2">&amp;&amp;</span><span class="s1">choiceInt</span><span class="s2">&gt;</span><span class="s5">9</span><span class="s2">){</span>
+                                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Invalid option please re eneter&quot;</span><span class="s2">);</span>
+                                <span class="s1">choiceInt </span><span class="s2">= </span><span class="s1">AuthMenu</span><span class="s2">.</span><span class="s1">numberScanner</span><span class="s2">();</span>
+                                <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                            <span class="s2">}</span>
+                            <span class="s0">switch </span><span class="s2">(</span><span class="s1">choiceInt</span><span class="s2">) {</span>
+                                <span class="s0">case </span><span class="s5">0</span><span class="s2">:</span>
+                                    <span class="s1">Guestloop </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                                    <span class="s1">Guestlogged </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+                                <span class="s0">case </span><span class="s5">1</span><span class="s2">:</span>
+                                    <span class="s1">LocalDate tempDateCheckIn </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                                    <span class="s1">LocalDate tempDateOut </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+
+                                    <span class="s0">while </span><span class="s2">(</span><span class="s0">true</span><span class="s2">) {</span>
+
+                                        <span class="s0">try </span><span class="s2">{</span>
+
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Dear guest please enter the check in date DD/MM/YYYY: &quot;</span><span class="s2">);</span>
+                                            <span class="s0">int </span><span class="s1">tempDay </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">tempMonth </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">tempYear </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                            <span class="s3">//LocalDate tempDateCheckIn;</span>
+                                            <span class="s1">tempDateCheckIn </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">tempYear</span><span class="s2">, </span><span class="s1">tempMonth</span><span class="s2">, </span><span class="s1">tempDay</span><span class="s2">);</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Dear guest please enter the check in date DD/MM/YYYY: &quot;</span><span class="s2">);</span>
+                                            <span class="s0">int </span><span class="s1">tempDay2 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">tempMonth2 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">tempYear2 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                            <span class="s3">//LocalDate tempDateOut;</span>
+                                            <span class="s1">tempDateOut </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">tempYear2</span><span class="s2">, </span><span class="s1">tempMonth2</span><span class="s2">, </span><span class="s1">tempDay2</span><span class="s2">);</span>
+
+                                            <span class="s1">ReservationsValidation</span><span class="s2">.</span><span class="s1">validateReservation</span><span class="s2">(</span><span class="s1">currentGuests</span><span class="s2">, </span><span class="s1">tempDateCheckIn</span><span class="s2">, </span><span class="s1">tempDateOut</span><span class="s2">);</span>
+                                            <span class="s0">break</span><span class="s2">;</span>
+
+                                        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IllegalArgumentException e</span><span class="s2">) {</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+                                        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Invalid input. Try again.&quot;</span><span class="s2">);</span>
+                                            <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                        <span class="s2">}</span>
+
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">Guests</span><span class="s2">.</span><span class="s1">ViewAvilableRooms</span><span class="s2">(</span><span class="s1">tempDateCheckIn</span><span class="s2">, </span><span class="s1">tempDateOut</span><span class="s2">));</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                                <span class="s0">case </span><span class="s5">2</span><span class="s2">:</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Processing reservation...&quot;</span><span class="s2">);</span>
+                                    <span class="s1">LocalDate checkIn </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                                    <span class="s1">LocalDate checkOut </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+
+
+                                    <span class="s0">while </span><span class="s2">(</span><span class="s0">true</span><span class="s2">) {</span>
+                                        <span class="s0">try </span><span class="s2">{</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Enter check-in date (DD MM YYYY): &quot;</span><span class="s2">);</span>
+                                            <span class="s0">int </span><span class="s1">d1 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">m1 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">y1 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                            <span class="s1">checkIn </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">y1</span><span class="s2">, </span><span class="s1">m1</span><span class="s2">, </span><span class="s1">d1</span><span class="s2">);</span>
+
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Enter check-out date (DD MM YYYY): &quot;</span><span class="s2">);</span>
+                                            <span class="s0">int </span><span class="s1">d2 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">m2 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s0">int </span><span class="s1">y2 </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                            <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                            <span class="s1">checkOut </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">y2</span><span class="s2">, </span><span class="s1">m2</span><span class="s2">, </span><span class="s1">d2</span><span class="s2">);</span>
+
+                                            <span class="s1">ReservationsValidation</span><span class="s2">.</span><span class="s1">validateReservation</span><span class="s2">(</span><span class="s1">currentGuests</span><span class="s2">, </span><span class="s1">checkIn</span><span class="s2">, </span><span class="s1">checkOut</span><span class="s2">);</span>
+                                            <span class="s0">break</span><span class="s2">;</span>
+
+                                        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IllegalArgumentException e</span><span class="s2">) {</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Error: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+                                        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Invalid input format. Please try again.&quot;</span><span class="s2">);</span>
+                                            <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                        <span class="s2">}</span>
+                                    <span class="s2">}</span>
+
+
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Please enter the desired roomtype from the following roomtypes&quot;</span><span class="s2">);</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getAvailableRoomTypesList</span><span class="s2">());</span>
+                                    <span class="s1">RoomType tempRoomType </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                                    <span class="s1">String temp </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s0">boolean </span><span class="s1">roomFound </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+                                    <span class="s0">while </span><span class="s2">(!</span><span class="s1">roomFound</span><span class="s2">) {</span>
+                                        <span class="s0">try </span><span class="s2">{</span>
+<span class="s3">//                                            for (RoomType r : Database.getAvailableRoomTypesList()) {</span>
+<span class="s3">//                                                if (r.getTypeName().equalsIgnoreCase(temp)) {</span>
+                                            <span class="s1">tempRoomType </span><span class="s2">= </span><span class="s1">RoomValidation</span><span class="s2">.</span><span class="s1">validateRoomTypeName</span><span class="s2">(</span><span class="s1">temp</span><span class="s2">); </span><span class="s3">//logic alr in validation methoid</span>
+                                            <span class="s1">roomFound </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Room type found!&quot;</span><span class="s2">);</span>
+<span class="s3">//                                                    tempRoomType = r;</span>
+<span class="s3">//                                                    break;</span>
+<span class="s3">//                                                }</span>
+                                            <span class="s2">}</span><span class="s0">catch</span><span class="s2">(</span><span class="s1">IllegalArgumentException e</span><span class="s2">){</span>
+
+                                            <span class="s3">// If we finished checking all rooms and didn't find it, ask again</span>
+<span class="s3">//                                            if (!roomFound) {</span>
+                                                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Invalid Roomtype. Please re-enter:&quot;</span><span class="s2">);</span>
+                                                <span class="s1">temp </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                            <span class="s2">}</span>
+                                        <span class="s2">}</span>
+
+
+                                    <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod finalmethod </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Please enter the method of Payment (Cash, Online, Credit)&quot;</span><span class="s2">);</span>
+                                    <span class="s1">String tempMethod </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s0">boolean </span><span class="s1">validMethod </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+                                    <span class="s0">while </span><span class="s2">(!</span><span class="s1">validMethod</span><span class="s2">) {</span>
+                                        <span class="s0">if </span><span class="s2">(</span><span class="s1">tempMethod</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;CASH&quot;</span><span class="s2">)) {</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">CASH</span><span class="s2">;</span>
+                                            <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">tempMethod</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;ONLINE&quot;</span><span class="s2">)) {</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">ONLINE</span><span class="s2">;</span>
+                                            <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">tempMethod</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;CREDIT&quot;</span><span class="s2">)) {</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">CREDIT_CARD</span><span class="s2">;</span>
+                                            <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Invalid method entered. Please re-enter:&quot;</span><span class="s2">);</span>
+                                            <span class="s1">tempMethod </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                        <span class="s2">}</span>
+                                    <span class="s2">}</span>
+
+                                    <span class="s0">try </span><span class="s2">{</span>
+                                        <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">makeReservation</span><span class="s2">(</span><span class="s1">currentGuests</span><span class="s2">, </span><span class="s1">tempRoomType</span><span class="s2">, </span><span class="s1">checkIn</span><span class="s2">, </span><span class="s1">checkOut</span><span class="s2">, </span><span class="s1">finalmethod</span><span class="s2">);</span>
+                                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Reservation successful!&quot;</span><span class="s2">);</span>
+                                    <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+
+                                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Something went wrong: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+                                    <span class="s2">}</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+
+                                <span class="s0">case </span><span class="s5">3</span><span class="s2">:</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">getGuestReservations</span><span class="s2">());</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+                                <span class="s0">case </span><span class="s5">4</span><span class="s2">:</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Please enter the ID of the reservation that will get cancelled&quot;</span><span class="s2">);</span>
+                                    <span class="s0">int </span><span class="s1">tempID </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                    <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">cancelBooking</span><span class="s2">(</span><span class="s1">tempID</span><span class="s2">);</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;cancelled successfully&quot;</span><span class="s2">);</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+                                <span class="s0">case </span><span class="s5">5</span><span class="s2">:</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Please enter the ID of the invoice that you would like to pay&quot;</span><span class="s2">);</span>
+                                    <span class="s1">String tempInvoiceId </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">onlinePaymentForTheOngoingInvoices</span><span class="s2">(</span><span class="s1">tempInvoiceId</span><span class="s2">);</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+                                <span class="s0">case </span><span class="s5">6</span><span class="s2">:</span>
+
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Please enter the id of the reservation you are checking out from&quot;</span><span class="s2">);</span>
+                                    <span class="s1">tempID </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                    <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Please enter the method of Payment (Cash, Online, Credit)&quot;</span><span class="s2">);</span>
+                                    <span class="s1">tempMethod </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                                    <span class="s1">finalmethod </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                                    <span class="s0">while </span><span class="s2">(!</span><span class="s1">validMethod</span><span class="s2">) {</span>
+                                        <span class="s0">if </span><span class="s2">(</span><span class="s1">tempMethod</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;CASH&quot;</span><span class="s2">)) {</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">CASH</span><span class="s2">;</span>
+                                            <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">tempMethod</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;ONLINE&quot;</span><span class="s2">)) {</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">ONLINE</span><span class="s2">;</span>
+                                            <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">tempMethod</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;CREDIT&quot;</span><span class="s2">)) {</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">CREDIT_CARD</span><span class="s2">;</span>
+                                            <span class="s1">validMethod </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                                        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                                            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Invalid method entered. Please re-enter:&quot;</span><span class="s2">);</span>
+                                            <span class="s1">finalmethod </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                                            <span class="s1">tempMethod </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                        <span class="s2">}</span>
+                                    <span class="s2">}</span>
+
+                                    <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">requestCheckout</span><span class="s2">(</span><span class="s1">tempID</span><span class="s2">,</span><span class="s1">finalmethod</span><span class="s2">);</span>
+                                    <span class="s0">break</span><span class="s2">;</span>
+                                <span class="s0">case </span><span class="s5">7</span><span class="s2">:</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Enter the amount you want to incrase your balance with&quot;</span><span class="s2">);</span>
+                                    <span class="s0">int </span><span class="s1">tempinc </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                    <span class="s1">input</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+                                    <span class="s0">while</span><span class="s2">(</span><span class="s1">tempinc </span><span class="s2">&lt;</span><span class="s5">0</span><span class="s2">){</span>
+                                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;You cant enter a negative number plz reneter&quot;</span><span class="s2">);</span>
+                                        <span class="s1">tempinc </span><span class="s2">= </span><span class="s1">input</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                                    <span class="s2">}</span>
+
+                                    <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">AddTobalance</span><span class="s2">(</span><span class="s1">tempinc</span><span class="s2">);</span>
+
+                                <span class="s0">case </span><span class="s5">8</span><span class="s2">:</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Getting Guest's invoices...&quot;</span><span class="s2">);</span>
+                                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">getGuestInvoices</span><span class="s2">());</span>
+
+                            <span class="s2">}</span>
+
+
+
+
+
+
+
+                        <span class="s2">}</span>
+                        
+                    <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">choiceInt</span><span class="s2">==</span><span class="s5">2</span><span class="s2">) {</span>
+                        <span class="s1">currentGuests</span><span class="s2">.</span><span class="s1">Register</span><span class="s2">();</span>
+
+                    <span class="s2">}</span>
+
+
+                <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">choice</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s4">&quot;Receptionist&quot;</span><span class="s2">)) {</span>
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;What do you want to do &quot;</span><span class="s2">);</span>
+                    <span class="s0">boolean </span><span class="s1">receptionistLoop </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+
+                    
+                <span class="s2">}</span>
+
+
+            <span class="s2">}</span>
+
+
+        <span class="s2">}</span>
+
+
+
+
+
+
+
+
+
+
+
+
+        <span class="s1">LocalDate checkIn </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s5">2026</span><span class="s2">, </span><span class="s5">4</span><span class="s2">, </span><span class="s5">27</span><span class="s2">);</span>
+        <span class="s1">LocalDate checkOut </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s5">2026</span><span class="s2">, </span><span class="s5">4</span><span class="s2">, </span><span class="s5">29</span><span class="s2">);</span>
+
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s3">// 3. Make a Reservation</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">[Action] Guest 1 is booking a room...&quot;</span><span class="s2">);</span>
+
+            <span class="s3">// IMPORTANT: Ensure &quot;Single&quot; matches what is in your Database static block exactly</span>
+            <span class="s1">RoomType desiredType </span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getAvailableRoomTypesList</span><span class="s2">().</span><span class="s1">get</span><span class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
+
+            <span class="s1">guest1</span><span class="s2">.</span><span class="s1">makeReservation</span><span class="s2">(</span><span class="s1">guest1</span><span class="s2">, </span><span class="s1">desiredType</span><span class="s2">, </span><span class="s1">checkIn</span><span class="s2">, </span><span class="s1">checkOut</span><span class="s2">, </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">ONLINE</span><span class="s2">);</span>
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">[Check] Checking availability for the same period:&quot;</span><span class="s2">);</span>
+            <span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">RoomType</span><span class="s2">, </span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">availability </span><span class="s2">= </span><span class="s1">guest1</span><span class="s2">.</span><span class="s1">ViewAvilableRooms</span><span class="s2">(</span><span class="s1">checkIn</span><span class="s2">, </span><span class="s1">checkOut</span><span class="s2">);</span>
+
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Map</span><span class="s2">.</span><span class="s1">Entry</span><span class="s2">&lt;</span><span class="s1">RoomType</span><span class="s2">, </span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">entry </span><span class="s2">: </span><span class="s1">availability</span><span class="s2">.</span><span class="s1">entrySet</span><span class="s2">()) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">entry</span><span class="s2">.</span><span class="s1">getKey</span><span class="s2">().</span><span class="s1">getTypeName</span><span class="s2">() + </span><span class="s4">&quot;: &quot; </span><span class="s2">+ </span><span class="s1">entry</span><span class="s2">.</span><span class="s1">getValue</span><span class="s2">());</span>
+            <span class="s2">}</span>
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">[Action] Receptionist checking in the guest...&quot;</span><span class="s2">);</span>
+            <span class="s1">Receptionist receptionist </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Receptionist</span><span class="s2">();</span>
+
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getReservationsList</span><span class="s2">().</span><span class="s1">isEmpty</span><span class="s2">()) {</span>
+                <span class="s0">int </span><span class="s1">resID </span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getReservationsList</span><span class="s2">().</span><span class="s1">get</span><span class="s2">(</span><span class="s5">0</span><span class="s2">).</span><span class="s1">getReservationID</span><span class="s2">();</span>
+                <span class="s1">receptionist</span><span class="s2">.</span><span class="s1">checkIn</span><span class="s2">(</span><span class="s1">resID</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+            <span class="s3">// 6. Final Status View</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">--- Final System State ---&quot;</span><span class="s2">);</span>
+            <span class="s1">receptionist</span><span class="s2">.</span><span class="s1">viewRooms</span><span class="s2">();</span>
+            <span class="s1">receptionist</span><span class="s2">.</span><span class="s1">viewReservations</span><span class="s2">();</span>
+
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Error in logic: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

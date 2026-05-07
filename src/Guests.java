@@ -9,8 +9,9 @@ public class Guests {
     private double Balance =0;
     private String address;
     private Gender gender;
-    private boolean loginStatues;
-    private static ArrayList<Reservations> guestReservations = new ArrayList<>();
+    private boolean loginStatues = false;
+    private  ArrayList<Reservations> guestReservations = new ArrayList<>();
+    private  ArrayList<Invoices> guestInvoices  = new ArrayList<>();
 
 
     Scanner input = new Scanner(System.in);
@@ -28,6 +29,8 @@ public class Guests {
         this.passWord = passWord;
         this.gender = gender;
     }
+
+
 
     public Guests() {
     }
@@ -94,6 +97,43 @@ public class Guests {
     }
 
 
+    public ArrayList<Invoices> getGuestInvoices() {
+        return guestInvoices;
+    }
+
+    public void setGuestInvoices(ArrayList<Invoices> guestInvoices) {
+        this.guestInvoices = guestInvoices;
+    }
+    public void addNewInvoiceForTheGuestList(Invoices invoices){
+        this.getGuestInvoices().add(invoices);
+    }
+
+
+    public void ShowOnGoingInvoices(){
+        for(Invoices invoices: this.getGuestInvoices()){
+            if(invoices.getStatus()== Invoices.InvoiceStatus.UNPAID){
+                System.out.println("The Invoice with ID:"+invoices.getInvoiceId()+" is still unpaid");
+
+            }
+        }
+    }
+
+
+    public void onlinePaymentForTheOngoingInvoices(String invoiceID){
+        for(Invoices invoices:this.getGuestInvoices()){
+            if(invoices.getInvoiceId().equalsIgnoreCase(invoiceID)){
+                if(invoices.getStatus()== Invoices.InvoiceStatus.UNPAID && invoices.getPaymentmethod() == Invoices.PaymentMethod.ONLINE && this.getBalance() > invoices.getTotalamount() ){
+                    System.out.println("Processing online payment...");
+                    System.out.println("Sufficient balance in account ");
+                    this.setBalance(this.getBalance()-invoices.getTotalamount());
+                    System.out.println("payment Successful");
+
+                }
+
+            }
+        }
+    }
+
     public void AddTobalance(int value){
         this.setBalance(this.getBalance()+ value);
     }
@@ -119,11 +159,11 @@ public class Guests {
             this.setBalance(this.getBalance() - fee);
         }
 
-        res.cancelReservations();
+        res.cancelReservation();
         System.out.println("Reservation " + reservationID + " cancelled. Balance updated.");
     }
 
-    public static Boolean login(String username, String passWord){
+    public static Guests login(String username, String passWord){
         boolean loginStatues = false;
         boolean usernameFound = false;
         boolean passwordFound= false;
@@ -136,7 +176,9 @@ public class Guests {
                     passwordFound = true;
                     System.out.println("Password found");
                     loginStatues = true;
-                    return loginStatues;
+                    guests.setLoginStatues(true);
+                    return guests;
+
                 }
 
             }
@@ -147,7 +189,8 @@ public class Guests {
             else if(!passwordFound){
                 System.out.println("Password entered is incorrect ");
             }
-            return loginStatues;
+
+            return null;
     }
 
 
@@ -232,6 +275,7 @@ public class Guests {
             Database.getInvoicesList().add(bookingInvoice);
             System.out.println("Your reservation ID is "+ current.getReservationID());
             Database.getReservationsList().add(current);
+            this.guestReservations.add(current);
 
 
         } catch (Exception e) {
@@ -239,7 +283,7 @@ public class Guests {
         }
     }
 
-    public Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
+    public static Map<RoomType, Integer> ViewAvilableRooms( LocalDate CheckIn, LocalDate Checkout){
         List<RoomType> AvliableRoomtype= Database.getAvailableRoomTypesList();
         Map<RoomType, Integer> availabilityResults = new HashMap<>();
         Boolean Avilable = true;
@@ -294,8 +338,9 @@ public class Guests {
                     return false;
                 }
                 else{
-                    r.cancelReservations();
+                    r.cancelReservation();
                     System.out.println("Successful,the reservation with reservation ID "+ r.getReservationID()+ " has been cancelled ");
+                    guestReservations.remove(r);
                     return true;
                 }
 
@@ -347,6 +392,111 @@ public class Guests {
             System.out.println("Sorry, no rooms of type " + typeNeeded + " are available for extension.");
         }
     }
+
+//THIS METHOD acts as "virtual checkout" or a precheckout before physically checking out at the receptionist desk
+    public void requestCheckout(int reservationID, Invoices.PaymentMethod preferredPayment) {
+
+        Reservations res = Database.findReservation(reservationID);
+
+        if (res == null || res.getStatus() != Reservations.ReservationStatus.CONFIRMED) {
+            System.out.println("No active stay found for this ID.");
+            return;
+        }
+
+        if (res.getRoom() != null) {
+            res.getRoom().CalculateTotalAmenityCost();
+        }
+
+
+        if (res.getRoom().getTotalAmenityCost() > 0) {
+
+            Receptionist.processRoomServicePayment(res.getRoom(), res, preferredPayment);
+
+
+            res.getRoom().getAmenities().clear();
+        }
+
+
+        double amountToPayNow = Database.calculateReservationTotal(reservationID);
+
+
+        if (preferredPayment == Invoices.PaymentMethod.ONLINE && amountToPayNow > 0) {
+            if (this.getBalance() >= amountToPayNow) {
+
+
+                for (Invoices inv : this.getGuestInvoices()) {
+                    if (inv.getReservation().getReservationID() == reservationID &&
+                            inv.getStatus() == Invoices.InvoiceStatus.UNPAID) {
+
+
+                        this.onlinePaymentForTheOngoingInvoices(inv.getInvoiceId());
+                    }
+                }
+
+
+            } else {
+                // If online fails, we don't finish checkout!
+                System.out.println("FAILED: Insufficient balance. Please pay at the front desk.");
+                return;
+            }
+        }
+        else if (amountToPayNow > 0) {
+            System.out.println("PENDING: Guest must pay $" + amountToPayNow + " in person via " + preferredPayment);
+            return;
+
+        }
+
+        res.setCheckedIn(false);
+        System.out.println(" Checkout request Successful. Please drop your key at the Reception Desk.");
+
+
+
+
+        double finalDebt = Database.calculateReservationTotal(reservationID);
+
+        if (finalDebt <= 0) {
+
+            res.setCheckedIn(false);
+            System.out.println("Checkout successful. Room " + res.getRoom().getRoomNumber() + " is now available.");
+        } else {
+
+            System.out.println("CHECKOUT BLOCKED: Guest still owes $" + finalDebt + ". Payment required.");
+        }
+
+
+
+    }
+
+
+
+
+
+
+    public void orderAmenity(int reservationID, String amenityName) {
+
+        Reservations res = Database.findReservation(reservationID);
+
+        Amenity item = Database.findAmenity(amenityName);
+
+        if (res != null && item != null) {
+            if (res.getRoom() != null) {
+                res.getRoom().getAmenities().add(item);
+                System.out.println("Success: " + amenityName + " added to Reservation #" + reservationID);
+            } else {
+                System.out.println("Error: This reservation doesn't have a room assigned yet.");
+            }
+        } else {
+            System.out.println("Error: Reservation or Amenity not found.");
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 

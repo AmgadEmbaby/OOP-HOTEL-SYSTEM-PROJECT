@@ -12,6 +12,8 @@ public class Invoices implements Payable {
     private InvoiceType type;
     private InvoiceStatus status;
 
+
+
     public enum PaymentMethod{
         CASH , CREDIT_CARD , ONLINE
     }
@@ -35,10 +37,18 @@ public class Invoices implements Payable {
         this.paymentdate = LocalDate.now();
         this.invoiceId = "INV-" + idCounter;
         idCounter++;// Sets the date to today
+
+        Guests guest = reservation.getGuest();
+        ReservationsValidation.validateInvoice(guest, this,paymentmethod);
+        addInvoiceToGuestsArray();
+    }
+
+    public void addInvoiceToGuestsArray(){
+        this.reservation.getGuest().addNewInvoiceForTheGuestList(this);
     }
 
 
-    @Override
+    @Override// this method takes the amount in an invoice and adds taxes to it
     public double CalculateTotal() {
         double tax = this.totalamount * 0.14;
         return this.totalamount + tax;
@@ -64,6 +74,8 @@ public class Invoices implements Payable {
     }
 
     public void setPaymentmethod(PaymentMethod paymentmethod) {
+
+        Validator.checkNotNull(paymentmethod, "Payment method cannot be null.");
         this.paymentmethod = paymentmethod;
     }
 
@@ -72,6 +84,8 @@ public class Invoices implements Payable {
     }
 
     public void setPaymentdate(LocalDate paymentdate) {
+
+        Validator.checkNotNull(paymentdate, "Payment date cannot be null.");
         this.paymentdate = paymentdate;
     }
 
@@ -97,13 +111,10 @@ public class Invoices implements Payable {
 
     @Override
     public String toString() {
-        return "***************************\n" +
-                "INVOICE ID: " + invoiceId + "\n" +
-                "Type:       " + type + "\n" +
-                "Status:     " + status + "\n" +
-                "Date:       " + paymentdate + "\n" +
-                "Method:     " + paymentmethod + "\n" +
-                "Total:      $" + totalamount + "\n" +
-                "***************************";
+        return "Invoice { " +
+                "amount=" + totalamount +
+                ", method=" + paymentmethod +
+                ", date=" + paymentdate +
+                '}';
     }
 }

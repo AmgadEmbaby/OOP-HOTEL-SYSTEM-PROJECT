@@ -8,12 +8,25 @@ public class Reservations {
     private ReservationStatus status;
     private static int idCounter=1000;
     private int reservationID;
+    private boolean isCheckedIn=false;
     private Invoices.PaymentMethod method;
 
-    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method) throws Exception {
-        if (!out.isAfter(in)) {
-            throw new Exception("Check-out must be after check-in.");
-        }
+    @Override
+    public String toString() {
+        return "Reservation ID: " + this.reservationID;
+        // Note: Change 'this.reservationID' if your variable is named slightly differently,
+        // or use 'this.getReservationID()'
+    }
+
+    public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method){
+//            throws Exception {
+//        if (!out.isAfter(in)) {
+//            throw new Exception("Check-out must be after check-in.");
+//        }
+
+
+        ReservationsValidation.validateReservation(guest, in, out);
+
         this.typeDesired= roomType;
         this.reservationID=idCounter++;
         this.guest = guest;
@@ -23,6 +36,10 @@ public class Reservations {
         this.status=ReservationStatus.PENDING;
         this.method = method;
 
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.isCheckedIn = checkedIn;
     }
 
     public void setCheckout(LocalDate checkout) {
@@ -39,7 +56,8 @@ public class Reservations {
 
     }
 
-    public void cancelReservations() {
+    public void cancelReservation() {
+        ReservationsValidation.validateCancellation(guest, this);
         this.status = ReservationStatus.CANCELLED;
 
         if (this.room != null) {
@@ -60,6 +78,7 @@ public class Reservations {
     }
 
     public void setRoom(Rooms room) {
+        ReservationsValidation.validateRoomAssignment(room, this.checkin, this.checkout);
         this.room = room;
     }
 
@@ -87,16 +106,14 @@ public class Reservations {
         return typeDesired;
     }
 
-
-
-
-
-    public double getStayPrice() {
-        long days = java.time.temporal.ChronoUnit.DAYS.between(checkin, checkout);
-        if (days <= 0) days = 1; // Charge at least one night
-        return days * typeDesired.getPricePerNight();
+    public double calculateCheckoutFine(LocalDate actualDate) {
+        if (actualDate.isBefore(this.checkout)) {
+            return 70.0; // Early checkout fine
+        } else if (actualDate.isAfter(this.checkout)) {
+            return 100.0; // Late checkout fine
+        }
+        return 0.0; // No fine
     }
-
 
     public double calculateCancellationFee() {
         LocalDate today = LocalDate.now();
@@ -162,7 +179,7 @@ public class Reservations {
         System.out.println("=========================================\n");
     }
 
-    public void cancelReservation() throws Exception {
+    public void cancelReservations() throws Exception {
         // Real-world rule: You can't cancel a stay that is already finished!
         if (this.status == ReservationStatus.COMPLETED) {
             throw new Exception("Error: Cannot cancel a completed reservation.");
@@ -173,5 +190,11 @@ public class Reservations {
         this.room.setStatus(Rooms.RoomStatus.AVAILABLE);
 
         System.out.println("Reservation for " + this.guest.getUserName() + " has been cancelled.");
+   }
+
+    public double getStayPrice() {
+        long days = java.time.temporal.ChronoUnit.DAYS.between(checkin, checkout);
+        if (days <= 0) days = 1; // Charge at least one night
+        return days * typeDesired.getPricePerNight();
     }
 }

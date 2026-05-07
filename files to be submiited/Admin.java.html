@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>Admin.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Admin.java</font>
+</center></td></tr></table>
+<pre><span class="s0">public class </span><span class="s1">Admin </span><span class="s0">extends </span><span class="s1">Staff</span><span class="s2">{</span>
+ <span class="s3">//------------------------- create,update,delete functions for rooms------------------</span>
+    <span class="s3">//create</span>
+    <span class="s0">public void </span><span class="s1">createRoom</span><span class="s2">( </span><span class="s0">int </span><span class="s1">roomFloor</span><span class="s2">, </span><span class="s1">String roomTypeName</span><span class="s2">){</span>
+
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomTypeExists</span><span class="s2">(</span><span class="s1">roomTypeName</span><span class="s2">);</span>
+
+        <span class="s1">Rooms room</span><span class="s2">= </span><span class="s0">new </span><span class="s1">Rooms</span><span class="s2">( </span><span class="s1">roomFloor</span><span class="s2">,</span><span class="s1">roomTypeName </span><span class="s2">);</span>
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getRoomList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">room</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Room created and added to database sucessfully&quot;</span><span class="s2">);</span>
+    <span class="s2">}    </span><span class="s3">//the input is taken in the main(milestone 1) and added to the list by the admin only</span>
+
+
+
+    <span class="s3">//update (assuming only the availability can be updated)</span>
+    <span class="s0">public void </span><span class="s1">updateAvailability</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus status</span><span class="s2">, </span><span class="s0">int </span><span class="s1">roomNumber</span><span class="s2">){</span>
+      <span class="s1">Rooms room</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findRoom</span><span class="s2">(</span><span class="s1">roomNumber</span><span class="s2">);</span>
+
+      <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomExists</span><span class="s2">(</span><span class="s1">room</span><span class="s2">);</span>
+
+      <span class="s1">room</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">status</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s3">//delete</span>
+    <span class="s0">public void </span><span class="s1">deleteRoom</span><span class="s2">( </span><span class="s0">int </span><span class="s1">roomNumber</span><span class="s2">){</span>
+      <span class="s1">Rooms room</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findRoom</span><span class="s2">(</span><span class="s1">roomNumber</span><span class="s2">);</span>
+
+      <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomExists</span><span class="s2">(</span><span class="s1">room</span><span class="s2">);</span>
+     <span class="s3">//if(room != null){</span>
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getRoomList</span><span class="s2">().</span><span class="s1">remove</span><span class="s2">(</span><span class="s1">room</span><span class="s2">); </span><span class="s3">//}</span>
+    <span class="s2">}</span>
+
+    <span class="s3">//------------------------- create,update,delete functions for amenities ------------------</span>
+    <span class="s3">//create</span>
+    <span class="s0">public void </span><span class="s1">createAmenity</span><span class="s2">( </span><span class="s1">String AmenityName</span><span class="s2">, </span><span class="s0">double </span><span class="s1">AmenityCost</span><span class="s2">){</span>
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateAmenityData</span><span class="s2">(</span><span class="s1">AmenityName</span><span class="s2">, </span><span class="s1">AmenityCost</span><span class="s2">);</span>
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateUniqueAmenity</span><span class="s2">(</span><span class="s1">AmenityName</span><span class="s2">);</span>
+
+        <span class="s1">Amenity amenity</span><span class="s2">= </span><span class="s0">new </span><span class="s1">Amenity</span><span class="s2">(</span><span class="s1">AmenityName</span><span class="s2">,</span><span class="s1">AmenityCost </span><span class="s2">);</span>
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getamenitiesList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">amenity</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Amenity created and added to database sucessfully&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+
+    <span class="s3">//update</span>
+    <span class="s0">public void </span><span class="s1">updateAmenityCost </span><span class="s2">(</span><span class="s0">double </span><span class="s1">price</span><span class="s2">, </span><span class="s1">String amenityName</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">Amenity amenity</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findAmenity</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">);</span>
+
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateAmenityExists</span><span class="s2">(</span><span class="s1">amenity</span><span class="s2">);</span>
+
+        <span class="s1">amenity</span><span class="s2">.</span><span class="s1">setAmenityCost</span><span class="s2">(</span><span class="s1">price</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">updateAmenityAvailability </span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">availability</span><span class="s2">, </span><span class="s1">String amenityName</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">Amenity amenity</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findAmenity</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">);</span>
+
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateAmenityExists</span><span class="s2">(</span><span class="s1">amenity</span><span class="s2">);</span>
+
+        <span class="s1">amenity</span><span class="s2">.</span><span class="s1">setAvailable</span><span class="s2">(</span><span class="s1">availability</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s3">//delete</span>
+    <span class="s0">public void </span><span class="s1">deleteAmenity </span><span class="s2">( </span><span class="s1">String amenityName</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">Amenity amenity</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findAmenity</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">);</span>
+
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateAmenityExists</span><span class="s2">(</span><span class="s1">amenity</span><span class="s2">);</span>
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateAmenityNotUsed</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">);</span>
+
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getamenitiesList</span><span class="s2">().</span><span class="s1">remove</span><span class="s2">(</span><span class="s1">amenity</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s3">//------------------------- create,update,delete functions for room types ------------------</span>
+
+<span class="s3">//create</span>
+    <span class="s0">public void </span><span class="s1">createRoomType</span><span class="s2">(</span><span class="s1">String typeName</span><span class="s2">, </span><span class="s0">int </span><span class="s1">numberOfBeds</span><span class="s2">, </span><span class="s0">int </span><span class="s1">capacity</span><span class="s2">, </span><span class="s1">String roomDescription</span><span class="s2">, </span><span class="s0">double </span><span class="s1">pricePerNight</span><span class="s2">){</span>
+
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomTypeData</span><span class="s2">(</span><span class="s1">typeName</span><span class="s2">, </span><span class="s1">numberOfBeds</span><span class="s2">, </span><span class="s1">capacity</span><span class="s2">, </span><span class="s1">pricePerNight</span><span class="s2">);</span>
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateUniqueRoomType</span><span class="s2">(</span><span class="s1">typeName</span><span class="s2">);</span>
+
+        <span class="s1">RoomType roomType</span><span class="s2">= </span><span class="s0">new </span><span class="s1">RoomType</span><span class="s2">( </span><span class="s1">typeName</span><span class="s2">,  </span><span class="s1">numberOfBeds</span><span class="s2">,  </span><span class="s1">capacity</span><span class="s2">,  </span><span class="s1">roomDescription</span><span class="s2">,  </span><span class="s1">pricePerNight</span><span class="s2">);</span>
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getAvailableRoomTypesList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">roomType</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Room Type created and added to database sucessfully&quot;</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+<span class="s3">//update</span>
+    <span class="s0">public void </span><span class="s1">updateRoomTypePrice</span><span class="s2">(</span><span class="s0">double </span><span class="s1">price</span><span class="s2">, </span><span class="s1">String roomTypeName</span><span class="s2">){</span>
+       <span class="s1">RoomType roomType</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findRoomType</span><span class="s2">(</span><span class="s1">roomTypeName</span><span class="s2">);</span>
+
+       <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomTypeExists</span><span class="s2">(</span><span class="s1">roomTypeName</span><span class="s2">);</span>
+       <span class="s1">Validator</span><span class="s2">.</span><span class="s1">checkNumPositive</span><span class="s2">(</span><span class="s1">price</span><span class="s2">, </span><span class="s4">&quot;Room Type Price&quot;</span><span class="s2">);</span>
+
+       <span class="s1">roomType</span><span class="s2">.</span><span class="s1">setPricePerNight</span><span class="s2">(</span><span class="s1">price</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s3">//delete</span>
+    <span class="s0">public void </span><span class="s1">deleteRoomType </span><span class="s2">( </span><span class="s1">String roomTypeName</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">RoomType roomType</span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findRoomType</span><span class="s2">(</span><span class="s1">roomTypeName</span><span class="s2">);</span>
+
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomTypeExists</span><span class="s2">(</span><span class="s1">roomType</span><span class="s2">);</span>
+        <span class="s1">DatabaseValidation</span><span class="s2">.</span><span class="s1">validateRoomTypeNotUsed</span><span class="s2">(</span><span class="s1">roomTypeName</span><span class="s2">);</span>
+
+        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getAvailableRoomTypesList</span><span class="s2">().</span><span class="s1">remove</span><span class="s2">(</span><span class="s1">roomType</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

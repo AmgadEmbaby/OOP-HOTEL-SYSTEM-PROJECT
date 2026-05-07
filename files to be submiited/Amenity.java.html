@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Amenity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Amenity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">public class </span><span class="s1">Amenity </span><span class="s2">{</span>
+   <span class="s0">private </span><span class="s1">String AmenityName</span><span class="s2">;</span>
+   <span class="s0">private double </span><span class="s1">AmenityCost</span><span class="s2">;</span>
+   <span class="s0">private boolean </span><span class="s1">IsAvailable</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">String getAmenityName</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">AmenityName</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setAmenityName</span><span class="s2">(</span><span class="s1">String amenityName</span><span class="s2">) {</span>
+        <span class="s1">AmenityName </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateAmenityName</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public double </span><span class="s1">getAmenityCost</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">AmenityCost</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setAmenityCost</span><span class="s2">(</span><span class="s0">double </span><span class="s1">amenityCost</span><span class="s2">) {</span>
+        <span class="s1">AmenityCost </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateAmenityCost</span><span class="s2">(</span><span class="s1">amenityCost</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">isAvailable</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">IsAvailable</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setAvailable</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">available</span><span class="s2">) {</span>
+        <span class="s1">IsAvailable </span><span class="s2">= </span><span class="s1">available</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Amenity</span><span class="s2">(</span><span class="s1">String amenityName </span><span class="s2">, </span><span class="s0">double </span><span class="s1">amenityCost</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">AmenityName </span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateUniqueAmenity</span><span class="s2">(</span><span class="s1">amenityName</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">AmenityCost</span><span class="s2">= </span><span class="s1">RoomTypeValidation</span><span class="s2">.</span><span class="s1">validateAmenityCost</span><span class="s2">(</span><span class="s1">amenityCost</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">IsAvailable</span><span class="s2">=</span><span class="s0">true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+
+    <span class="s0">public void </span><span class="s1">displayAmenities</span><span class="s2">(){</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Name: &quot; </span><span class="s2">+ </span><span class="s1">AmenityName</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Cost: &quot; </span><span class="s2">+ </span><span class="s1">AmenityCost</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Availability: &quot; </span><span class="s2">+ </span><span class="s1">IsAvailable</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

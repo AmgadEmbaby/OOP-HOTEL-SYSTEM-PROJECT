@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+
+<HBox prefHeight="600.0" prefWidth="1000.0" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Navigator">
+   <stylesheets>
+      <URL value="@style.css" />
+   </stylesheets>
+
+   <VBox prefWidth="500.0" HBox.hgrow="ALWAYS">
+      <ImageView fitHeight="600.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="false">
+         <Image url="@luxury hotel.jpg" />
+      </ImageView>
+   </VBox>
+
+   <VBox alignment="TOP_CENTER" prefWidth="500.0" styleClass="content-side" HBox.hgrow="ALWAYS">
+
+      <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+         <Button text="✕" onAction="#exitApp" styleClass="close-button" />
+      </HBox>
+
+      <VBox alignment="TOP_CENTER" spacing="34.0" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets top="100.0" />
+         </padding>
+
+         <VBox alignment="CENTER" spacing="10">
+            <Label text="THE  FIVE  SEASONS" styleClass="main-title" minWidth="-Infinity"/>
+            <Label text="Spring • Summer • Autumn • Winter • Experience" styleClass="subtitle" />
+            <Label text="Nature provides four; we provide the fifth: a season of pure luxury"
+                   wrapText="true" alignment="CENTER" styleClass="explanation-text"
+                   maxWidth="300" textAlignment="CENTER" />
+         </VBox>
+
+
+         <VBox alignment="CENTER" spacing="15.0">
+            <Button text="GUEST" onAction="#guestChoice" styleClass="role-button" prefWidth="200" />
+            <Button text="RECEPTIONIST" onAction="#ReceptionistChoice" styleClass="role-button" prefWidth="200" />
+            <Button text="ADMIN" onAction="#adminChoice" styleClass="role-button" prefWidth="200" />
+         </VBox>
+      </VBox>
+
+      <Region VBox.vgrow="ALWAYS" />
+   </VBox>
+</HBox>

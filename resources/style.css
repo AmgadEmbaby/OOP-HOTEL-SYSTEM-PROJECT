@@ -1,0 +1,355 @@
+/* THE FONT - This exact path is for Resource folders */
+@font-face {
+    font-family: "Zaslia";
+    src: url("fonts/Zaslia.otf");
+}
+
+@font-face {
+    font-family: "Cinzel";
+    src: url("fonts/Cinzel.ttf");
+}
+
+@font-face {
+    font-family: "Montserrat Light";
+    src: url("fonts/Montserrat-Light.ttf");
+}
+
+
+.root {
+    -fx-background-color: #2C3424;
+}
+
+
+.main-title {
+    -fx-font-family: "Zaslia";
+    -fx-font-size: 48px;
+    -fx-text-fill: #DADED8;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-wrap-text: false;
+    -fx-text-overrun: clip;
+}
+
+.subtitle {
+    -fx-font-family: "Montserrat Light";
+    -fx-text-fill: #768064;
+    -fx-font-size: 13px;
+    -fx-letter-spacing: 50px;
+    -fx-text-transform: uppercase;
+}
+.explanation-text {
+    -fx-text-fill: #959581;
+    -fx-font-size: 13px;
+    -fx-max-width: 280px;
+    -fx-text-alignment: center;
+    -fx-line-spacing: 5px;
+}
+
+.role-button {
+
+    -fx-background-color: transparent;
+    -fx-text-fill: #DADED8;
+    -fx-border-color: transparent transparent #768064 transparent;
+    -fx-border-width: 0 0 0.5 0;
+    -fx-padding: 16 0;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-letter-spacing: 6px;
+    -fx-font-family: "Cinzel";
+}
+
+.role-button:hover {
+    -fx-text-fill: #DADED8;
+    -fx-border-color: transparent transparent #DADED8 transparent;
+}
+
+.close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #768064;
+    -fx-font-size: 14px;
+    -fx-padding: 15 5 0 0;
+    -fx-cursor: hand;
+}
+
+.close-button:hover {
+    -fx-text-fill: #DADED8;
+}
+
+.content-side {
+    -fx-background-color: #1E2619;
+    -fx-padding: 0 40 60 40;
+    -fx-border-color: transparent transparent transparent #4C583E;
+    -fx-border-width: 0 0 0 0.8;
+}
+
+
+
+.field-label {
+    -fx-text-fill: #768064;
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 3px;
+}
+
+.login-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #768064 transparent;
+    -fx-border-width: 0 0 0.5 0;
+    -fx-text-fill: #DADED8;
+    -fx-prompt-text-fill: #4C583E;
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 13px;
+    -fx-padding: 8 0;
+    -fx-pref-width: 300px;
+}
+
+.login-field:focused {
+    -fx-border-color: transparent transparent #DADED8 transparent;
+}
+
+.error-label {
+    -fx-text-fill: #8B3A3A;
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 11px;
+}
+
+
+
+
+
+
+.sidebar {
+    -fx-background-color: #161D10;
+    -fx-min-width: 320px;
+}
+
+.sidebar-header {
+    -fx-padding: 30 20 20 20;
+    -fx-background-color: #161D10;
+}
+
+.sidebar-logo {
+    -fx-font-family: "Zaslia";
+    -fx-font-size: 28px;
+    -fx-text-fill: #DADED8;
+}
+
+.sidebar-sub {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 11px;
+    -fx-text-fill: #2C3424;
+    -fx-letter-spacing: 4px;
+    -fx-padding: 5 0 0 0;
+}
+
+.sidebar-divider {
+    -fx-background-color: #2C3424;
+}
+
+.sidebar-nav {
+    -fx-padding: 10 10 10 10;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #768064;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 13px;
+    -fx-letter-spacing: 2px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 16 25;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.nav-button:hover {
+    -fx-background-color: #2C3424;
+    -fx-text-fill: #DADED8;
+}
+
+.nav-button-active {
+    -fx-background-color: #2C3424;
+    -fx-text-fill: #DADED8;
+    -fx-border-color: transparent transparent transparent #768064;
+    -fx-border-width: 0 0 0 2;
+}
+
+.sidebar-footer {
+    -fx-padding: 0 10 20 10;
+}
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8B3A3A;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 13px;
+    -fx-letter-spacing: 2px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 16 25;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #2C1010;
+    -fx-text-fill: #ff4444;
+}
+
+.content-area {
+    -fx-background-color: #1B2216;
+}
+
+.welcome-sub {
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 16px;
+    -fx-text-fill: #768064;
+}
+
+.welcome-title {
+    -fx-font-family: "Zaslia";
+    -fx-font-size: 72px;
+    -fx-text-fill: #2C3424;
+}
+
+.gold-line {
+    -fx-background-color: #768064;
+    -fx-max-width: 400px;
+}
+
+.stat-card {
+    -fx-background-color: #EDE8DC;
+    -fx-border-color: #C5BBA8;
+    -fx-border-width: 1;
+    -fx-padding: 30;
+}
+
+.stat-label {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 9px;
+    -fx-text-fill: #768064;
+    -fx-letter-spacing: 2px;
+}
+
+.stat-number {
+    -fx-font-family: "Zaslia";
+    -fx-font-size: 48px;
+    -fx-text-fill: #2C3424;
+}
+
+.section-title {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 11px;
+    -fx-text-fill: #768064;
+    -fx-letter-spacing: 3px;
+}
+
+.action-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2C3424;
+    -fx-border-color: #768064;
+    -fx-border-width: 0.5;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 2px;
+    -fx-padding: 12 25;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #768064;
+    -fx-text-fill: #F5F0E8;
+
+
+
+
+
+    /*GUEST REGEISTER*/
+.root {
+    -fx-background-color: #1E2619;
+}
+
+    /* LEFT PANEL */
+
+    .left-panel {
+        -fx-background-color: #2C3424;
+    }
+
+    .main-title {
+        -fx-text-fill: #DADED8;
+        -fx-font-size: 36px;
+        -fx-letter-spacing: 6px;
+    }
+
+    .section-title {
+        -fx-text-fill: #DADED8;
+        -fx-font-size: 22px;
+        -fx-letter-spacing: 4px;
+    }
+
+    .subtitle {
+        -fx-text-fill: #959581;
+        -fx-font-size: 14px;
+    }
+
+    /* RIGHT PANEL */
+
+    .form-panel {
+        -fx-background-color: #1E2619;
+    }
+
+    /* INPUTS */
+
+    .luxury-field,
+    .luxury-date,
+    .luxury-combo {
+
+        -fx-background-color: transparent;
+        -fx-border-color: #4C583E;
+        -fx-border-width: 0 0 1 0;
+
+        -fx-text-fill: #DADED8;
+
+        -fx-font-size: 14px;
+
+        -fx-padding: 12 4 12 4;
+
+        -fx-pref-width: 320px;
+    }
+
+    .luxury-field:focused,
+    .luxury-date:focused,
+    .luxury-combo:focused {
+
+        -fx-border-color: #768064;
+    }
+
+    /* BUTTON */
+
+    .main-button {
+
+        -fx-background-color: transparent;
+
+        -fx-border-color: #768064;
+
+        -fx-border-width: 1;
+
+        -fx-text-fill: #DADED8;
+
+        -fx-padding: 14 40 14 40;
+
+        -fx-letter-spacing: 3px;
+    }
+
+    .main-button:hover {
+
+        -fx-border-color: #DADED8;
+    }
+
+    /* ERROR */
+
+    .error-label {
+
+        -fx-font-size: 13px;
+
+        -fx-text-fill: #d6b8b8;
+    }
+}

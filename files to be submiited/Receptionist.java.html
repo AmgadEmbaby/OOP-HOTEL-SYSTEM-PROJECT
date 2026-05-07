@@ -1,0 +1,295 @@
+<html>
+<head>
+<title>Receptionist.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Receptionist.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.*;</span>
+<span class="s0">public class </span><span class="s1">Receptionist </span><span class="s0">extends </span><span class="s1">Staff </span><span class="s2">{</span>
+
+
+    <span class="s0">public void </span><span class="s1">checkIn</span><span class="s2">(</span><span class="s0">int </span><span class="s1">reservationID</span><span class="s2">) {</span>
+
+        <span class="s1">Reservations reservation </span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findReservation</span><span class="s2">(</span><span class="s1">reservationID</span><span class="s2">);</span>
+        <span class="s1">LocalDate today </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">now</span><span class="s2">();</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">reservation </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">today</span><span class="s2">.</span><span class="s1">isBefore</span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getCheckin</span><span class="s2">())) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Guest is early, check in is scheduled for: &quot; </span><span class="s2">+ </span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getCheckin</span><span class="s2">());</span>
+                <span class="s0">return</span><span class="s2">; </span><span class="s4">//exist the entire function if  guest tries to check in early</span>
+
+            <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">today</span><span class="s2">.</span><span class="s1">isAfter</span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getCheckin</span><span class="s2">())) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Guest is late for their check in date&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Proceeding with checkin...&quot;</span><span class="s2">);</span>
+                <span class="s4">//the guest is a bit late but since i found his reservation id in the system then the reservation is still available</span>
+            <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Guest is on time WELCOME&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+            <span class="s4">//PAYMENT AT CHECK IN DESK</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">PENDING</span><span class="s2">) {</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getMethod</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">CASH</span><span class="s2">) {</span>
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Please Pay by cash to confirm you reservation&quot;</span><span class="s2">);</span>
+                <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getMethod</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">CREDIT_CARD</span><span class="s2">) {</span>
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Please Pay by credit card to confirm you reservation&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s1">reservation</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CONFIRMED</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CONFIRMED</span><span class="s2">) {</span>
+                <span class="s0">for </span><span class="s2">(</span><span class="s1">Rooms  r </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getRoomList</span><span class="s2">()) {</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">r</span><span class="s2">.</span><span class="s1">getRoomtype</span><span class="s2">().</span><span class="s1">getTypeName</span><span class="s2">().</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getTypeDesired</span><span class="s2">().</span><span class="s1">getTypeName</span><span class="s2">())</span>
+                            <span class="s2">&amp;&amp; </span><span class="s1">r</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">AVAILABLE</span><span class="s2">) {</span>
+                        <span class="s1">reservation</span><span class="s2">.</span><span class="s1">setRoom</span><span class="s2">(</span><span class="s1">r</span><span class="s2">);</span>
+                        <span class="s1">r</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">OCCUPIED</span><span class="s2">);</span>
+                        <span class="s0">for </span><span class="s2">(</span><span class="s1">Invoices inv </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getInvoicesList</span><span class="s2">()) {</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">inv</span><span class="s2">.</span><span class="s1">getReservation</span><span class="s2">().</span><span class="s1">getReservationID</span><span class="s2">() == </span><span class="s1">reservationID </span><span class="s2">&amp;&amp; </span><span class="s1">inv</span><span class="s2">.</span><span class="s1">getType</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceType</span><span class="s2">.</span><span class="s1">BOOKING </span><span class="s2">&amp;&amp;</span>
+                                    <span class="s1">inv</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">UNPAID</span><span class="s2">) {</span>
+
+                                <span class="s1">inv</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">PAID</span><span class="s2">);</span>
+                                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Payment settled at front desk for Invoice: &quot; </span><span class="s2">+ </span><span class="s1">inv</span><span class="s2">.</span><span class="s1">getInvoiceId</span><span class="s2">());</span>
+                            <span class="s2">}</span>
+                        <span class="s2">}</span>
+
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;room number &quot; </span><span class="s2">+ </span><span class="s1">r</span><span class="s2">.</span><span class="s1">getRoomNumber</span><span class="s2">());</span>
+                        <span class="s1">reservation</span><span class="s2">.</span><span class="s1">setCheckedIn</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Guest checkin successful&quot;</span><span class="s2">);</span>
+                        <span class="s0">return</span><span class="s2">;</span>
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+
+            <span class="s4">//VALIDATION??</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;ERROR: room unavailable&quot;</span><span class="s2">); </span><span class="s4">//should not happen since there is a func that checks for double booking but assuming the admin shut down a room for e.g.</span>
+
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Reservation ID not found&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+
+
+
+    <span class="s0">public void </span><span class="s1">checkout</span><span class="s2">(</span><span class="s0">int </span><span class="s1">reservationID</span><span class="s2">, </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod method</span><span class="s2">) {</span>
+
+        <span class="s1">Reservations reservation </span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findReservation</span><span class="s2">(</span><span class="s1">reservationID</span><span class="s2">);</span>
+        <span class="s1">LocalDate today </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">now</span><span class="s2">();</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">reservation </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+
+<span class="s4">//        if (reservation.isCheckedIn()) {</span>
+<span class="s4">//            System.out.println(&quot;The Guest should initiate checkout from their app first&quot;);</span>
+<span class="s4">//            return;</span>
+<span class="s4">//        }</span>
+
+
+
+
+        <span class="s0">double </span><span class="s1">amountToPay </span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">calculateReservationTotal</span><span class="s2">(</span><span class="s1">reservationID</span><span class="s2">);</span>
+
+
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">amountToPay </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Final amount to pay at desk: $&quot; </span><span class="s2">+ </span><span class="s1">amountToPay</span><span class="s2">);</span>
+
+                <span class="s0">for </span><span class="s2">(</span><span class="s1">Invoices inv </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getInvoicesList</span><span class="s2">()) {</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">inv</span><span class="s2">.</span><span class="s1">getReservation</span><span class="s2">().</span><span class="s1">getReservationID</span><span class="s2">() == </span><span class="s1">reservationID </span><span class="s2">&amp;&amp;</span>
+                            <span class="s1">inv</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">UNPAID</span><span class="s2">) {</span>
+
+                        <span class="s1">inv</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">PAID</span><span class="s2">);</span>
+                        <span class="s1">inv</span><span class="s2">.</span><span class="s1">setPaymentmethod</span><span class="s2">(</span><span class="s1">method</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">reservation</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">() != </span><span class="s0">null</span><span class="s2">) {</span>
+                <span class="s1">reservation</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">().</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">AVAILABLE</span><span class="s2">);</span>
+                <span class="s1">reservation</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">().</span><span class="s1">getAmenities</span><span class="s2">().</span><span class="s1">clear</span><span class="s2">();</span>
+                <span class="s1">reservation</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">COMPLETED</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Guest checkout successful.&quot;</span><span class="s2">);</span>
+
+            <span class="s2">}</span>
+
+
+
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Reservation ID not found&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+    <span class="s2">}</span>
+
+
+
+        <span class="s0">public void </span><span class="s1">releaseLateRooms</span><span class="s2">() {</span>
+            <span class="s1">LocalDate today </span><span class="s2">= </span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">now</span><span class="s2">();</span>
+
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Reservations res </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getReservationsList</span><span class="s2">()) {</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">res</span><span class="s2">.</span><span class="s1">getMethod</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">ONLINE </span><span class="s2">&amp;&amp;</span>
+                        <span class="s1">res</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CONFIRMED </span><span class="s2">&amp;&amp;</span>
+                        <span class="s1">today</span><span class="s2">.</span><span class="s1">isAfter</span><span class="s2">(</span><span class="s1">res</span><span class="s2">.</span><span class="s1">getCheckin</span><span class="s2">())) {</span>
+
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">res</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">() != </span><span class="s0">null</span><span class="s2">) {</span>
+                        <span class="s1">res</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">().</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">AVAILABLE</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+
+                    <span class="s1">res</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CANCELLED</span><span class="s2">);</span>
+
+                    <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Online reservation &quot; </span><span class="s2">+ </span><span class="s1">res</span><span class="s2">.</span><span class="s1">getReservationID</span><span class="s2">() + </span><span class="s3">&quot; released. Guest failed to show up.&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+
+
+    <span class="s0">public void </span><span class="s1">handleNoShow</span><span class="s2">(</span><span class="s0">int </span><span class="s1">reservationID</span><span class="s2">) {</span>
+        <span class="s1">Reservations res </span><span class="s2">= </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">findReservation</span><span class="s2">(</span><span class="s1">reservationID</span><span class="s2">);</span>
+        <span class="s1">LocalDateTime now </span><span class="s2">= </span><span class="s1">LocalDateTime</span><span class="s2">.</span><span class="s1">now</span><span class="s2">();</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">res </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s1">LocalDateTime deadline </span><span class="s2">= </span><span class="s1">res</span><span class="s2">.</span><span class="s1">getCheckin</span><span class="s2">().</span><span class="s1">atTime</span><span class="s2">(</span><span class="s5">18</span><span class="s2">, </span><span class="s5">0</span><span class="s2">);</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">now</span><span class="s2">.</span><span class="s1">isAfter</span><span class="s2">(</span><span class="s1">deadline</span><span class="s2">) &amp;&amp; </span><span class="s1">res</span><span class="s2">.</span><span class="s1">getStatus</span><span class="s2">() == </span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">PENDING</span><span class="s2">) {</span>
+
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">res</span><span class="s2">.</span><span class="s1">getMethod</span><span class="s2">() != </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod</span><span class="s2">.</span><span class="s1">ONLINE</span><span class="s2">) {</span>
+
+                    <span class="s4">// CANCEL THE ORIGINAL UNPAID BOOKING INVOICE ---</span>
+                    <span class="s0">for </span><span class="s2">(</span><span class="s1">Invoices inv </span><span class="s2">: </span><span class="s1">Database</span><span class="s2">.</span><span class="s1">getInvoicesList</span><span class="s2">()) {</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">inv</span><span class="s2">.</span><span class="s1">getReservation</span><span class="s2">().</span><span class="s1">getReservationID</span><span class="s2">() == </span><span class="s1">reservationID </span><span class="s2">&amp;&amp;</span>
+                                <span class="s1">inv</span><span class="s2">.</span><span class="s1">getType</span><span class="s2">() == </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceType</span><span class="s2">.</span><span class="s1">BOOKING</span><span class="s2">) {</span>
+
+                            <span class="s1">inv</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">CANCELLED</span><span class="s2">);</span>
+                        <span class="s2">}</span>
+                    <span class="s2">}</span>
+
+                    <span class="s4">//  Calculate the penalty</span>
+                    <span class="s0">double </span><span class="s1">penalty </span><span class="s2">= </span><span class="s1">res</span><span class="s2">.</span><span class="s1">calculateCancellationFee</span><span class="s2">();</span>
+                    <span class="s1">res</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">().</span><span class="s1">setBalance</span><span class="s2">(</span><span class="s1">res</span><span class="s2">.</span><span class="s1">getGuest</span><span class="s2">().</span><span class="s1">getBalance</span><span class="s2">() - </span><span class="s1">penalty</span><span class="s2">);</span>
+
+                    <span class="s0">try </span><span class="s2">{</span>
+                        <span class="s4">//  CREATE THE PENALTY INVOICE WITH ENUMS ---</span>
+                        <span class="s1">Invoices penaltyInvoice </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Invoices</span><span class="s2">(</span>
+                                <span class="s1">penalty</span><span class="s2">,</span>
+                                <span class="s1">res</span><span class="s2">.</span><span class="s1">getMethod</span><span class="s2">(),</span>
+                                <span class="s1">res</span><span class="s2">,</span>
+                                <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceType</span><span class="s2">.</span><span class="s1">PENALTY</span><span class="s2">,</span>
+                                <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">PAID</span>
+                        <span class="s2">);</span>
+
+                        <span class="s1">Database</span><span class="s2">.</span><span class="s1">getInvoicesList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">penaltyInvoice</span><span class="s2">);</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Penalty Invoice &quot; </span><span class="s2">+ </span><span class="s1">penaltyInvoice</span><span class="s2">.</span><span class="s1">getInvoiceId</span><span class="s2">() + </span><span class="s3">&quot; generated.&quot;</span><span class="s2">);</span>
+
+                    <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">InvalidPaymentException e</span><span class="s2">) {</span>
+                        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Error recording penalty: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+
+                <span class="s4">// Free the room and cancel the reservation</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">res</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">() != </span><span class="s0">null</span><span class="s2">) {</span>
+                    <span class="s1">res</span><span class="s2">.</span><span class="s1">getRoom</span><span class="s2">().</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Rooms</span><span class="s2">.</span><span class="s1">RoomStatus</span><span class="s2">.</span><span class="s1">AVAILABLE</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s1">res</span><span class="s2">.</span><span class="s1">setStatus</span><span class="s2">(</span><span class="s1">Reservations</span><span class="s2">.</span><span class="s1">ReservationStatus</span><span class="s2">.</span><span class="s1">CANCELLED</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+
+    <span class="s0">public static void </span><span class="s1">processRoomServicePayment</span><span class="s2">(</span><span class="s1">Rooms room</span><span class="s2">, </span><span class="s1">Reservations res</span><span class="s2">, </span><span class="s1">Invoices</span><span class="s2">.</span><span class="s1">PaymentMethod method</span><span class="s2">) {</span>
+        <span class="s0">double </span><span class="s1">amount </span><span class="s2">= </span><span class="s1">room</span><span class="s2">.</span><span class="s1">getTotalAmenityCost</span><span class="s2">();</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">amount </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">) {</span>
+            <span class="s0">try </span><span class="s2">{</span>
+                <span class="s4">// We wrap this in try-catch because the Invoices constructor</span>
+                <span class="s4">// might throw an error if the data is invalid.</span>
+                <span class="s1">Invoices snackInvoice </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Invoices</span><span class="s2">(</span>
+                        <span class="s1">amount</span><span class="s2">,</span>
+                        <span class="s1">method</span><span class="s2">,</span>
+                        <span class="s1">res</span><span class="s2">,</span>
+                        <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceType</span><span class="s2">.</span><span class="s1">ROOM_SERVICE</span><span class="s2">,</span>
+                        <span class="s1">Invoices</span><span class="s2">.</span><span class="s1">InvoiceStatus</span><span class="s2">.</span><span class="s1">UNPAID</span>
+                <span class="s2">);</span>
+
+                <span class="s1">Database</span><span class="s2">.</span><span class="s1">getInvoicesList</span><span class="s2">().</span><span class="s1">add</span><span class="s2">(</span><span class="s1">snackInvoice</span><span class="s2">);</span>
+
+
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot; invoice created successfully.&quot;</span><span class="s2">);</span>
+
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Error: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+
+
+
+
+
+    <span class="s4">/*public static void processRoomServicePayment(int roomNumber, Invoices.PaymentMethod method) { 
+        //  Find the room 
+        Rooms room = Database.findRoom(roomNumber); 
+ 
+        //  Calculate what they owe for snacks/services 
+        double amount = room.getTotalAmenityCost(); 
+ 
+        if (amount &gt; 0) { 
+            try { 
+                //  Find the guest's reservation 
+                Reservations activeRes = null; 
+                for (Reservations res : Database.getReservationsList()) { 
+                    if (res.getRoom() != null &amp;&amp; res.getRoom().getRoomNumber() == roomNumber) { 
+                        activeRes = res; 
+                        break; 
+                    } 
+                } 
+ 
+                // 4. Create the invoice 
+                Invoices invoice = new Invoices( 
+                        amount, 
+                        method, 
+                        activeRes, 
+                        Invoices.InvoiceType.ROOM_SERVICE, 
+                        Invoices.InvoiceStatus.PAID 
+                ); 
+ 
+                // save it to the invoice list and reset room bill to 0 
+                Database.getInvoicesList().add(invoice); 
+               // room.getAmenities().clear(); 
+ 
+                System.out.println(&quot;Payment Successful via &quot; + method); 
+                System.out.println(&quot;Total collected (with tax): &quot; + invoice.CalculateTotal()); 
+ 
+            } catch (Exception e) { 
+                System.out.println(&quot;Error: &quot; + e.getMessage()); 
+            } 
+        } else { 
+            System.out.println(&quot;Nothing to pay for this room.&quot;); 
+        } 
+    }*/</span>
+
+
+
+
+
+
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
