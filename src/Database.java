@@ -24,9 +24,11 @@ public class Database {
 
   private static ArrayList<Staff> staffList = new ArrayList<>();
 
-  private static Admin admin = new Admin("admin", "admin123",   LocalDate.of(1999,5,9), Staff.Role.ADMIN,  8);     //one admin for the whole system
+  private static Admin admin = new Admin("admin", "Halla", "admin123",   LocalDate.of(1999,5,9), Staff.Role.ADMIN,  8);     //one admin for the whole system
 
-
+  public static Admin getAdmin() {
+    return admin;
+  }
 
   public static void addGuests(Guests guest){
     guestList.add(guest);

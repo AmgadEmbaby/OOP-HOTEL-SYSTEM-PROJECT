@@ -6,20 +6,28 @@ public abstract class Staff {
     //attributes
     enum Role {ADMIN, RECEPTIONIST}
     private String userName;
+    private String name;
     private String passWord;
     private LocalDate dateOfBirth;
     private Role role;
     private int workingHours;
 
 
+
     //constructor
-    public Staff(String userName, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
+    public Staff(String userName, String name, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
         this.userName = userName;
+        this.name = name;
         this.passWord = passWord;
         this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.workingHours = workingHours;
     }
+
+
+
+
+
 
     //setters
     public void setUserName(String userName) {
@@ -42,9 +50,9 @@ public abstract class Staff {
         this.workingHours = workingHours;
     }
 
+    public void setName(String name) { this.name = name; }
+
     //getters
-
-
     public String getUserName() {
         return userName;
     }
@@ -64,6 +72,9 @@ public abstract class Staff {
     public int getWorkingHours() {
         return workingHours;
     }
+
+    public String getName() { return name; }
+
 
 
     //methods

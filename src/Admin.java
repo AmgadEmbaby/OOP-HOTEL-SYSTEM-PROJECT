@@ -2,9 +2,8 @@ import java.time.LocalDate;
 
 public class Admin extends Staff{
 
-
-    public Admin(String userName, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
-        super(userName, passWord, dateOfBirth, role, workingHours);
+    public Admin(String userName, String name, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
+        super(userName, name, passWord, dateOfBirth, role, workingHours);
     }
 
     //------------------------- create,update,delete functions for rooms------------------

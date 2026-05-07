@@ -1,8 +1,8 @@
 import java.time.*;
 public class Receptionist extends Staff {
 
-    public Receptionist(String userName, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
-        super(userName, passWord, dateOfBirth, role, workingHours);
+    public Receptionist(String userName, String name, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
+        super(userName, name, passWord, dateOfBirth, role, workingHours);
     }
 
     public void checkIn(int reservationID) {
