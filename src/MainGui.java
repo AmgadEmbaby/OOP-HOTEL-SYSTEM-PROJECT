@@ -7,6 +7,26 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle; // Add this import
 
 public class MainGui extends Application {
+
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+
+    public static void makeDraggable(Parent root, Stage stage) {
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
+
+
+
+
+
     @Override
     public void start(Stage stage) throws Exception {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Zaslia.otf"), 50);
@@ -20,5 +40,6 @@ public class MainGui extends Application {
 
         stage.setScene(scene);
         stage.show();
+        makeDraggable(root, stage);
     }
 }

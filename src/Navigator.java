@@ -16,8 +16,8 @@ public class Navigator {
     public void switchBakcToChoices(ActionEvent event)throws IOException{
         navigateTo(event, "StartScreen.fxml");
     }
-    public void adminChoice(ActionEvent event)throws IOException {
-        navigateTo(event, "AdminScreen.fxml");
+    public void adminChoice(ActionEvent event) throws IOException {
+        navigateTo(event, "AdminLogin.fxml");
     }
 
     public void ReceptionistChoice(ActionEvent event)throws IOException {
@@ -36,6 +36,7 @@ public class Navigator {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        MainGui.makeDraggable(root, stage);
     }
 
     public void exitApp(ActionEvent event) {

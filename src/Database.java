@@ -24,6 +24,8 @@ public class Database {
 
   private static ArrayList<Staff> staffList = new ArrayList<>();
 
+  private static Admin admin = new Admin("admin", "admin123",   LocalDate.of(1999,5,9), Staff.Role.ADMIN,  8);     //one admin for the whole system
+
 
 
   public static void addGuests(Guests guest){
@@ -64,6 +66,12 @@ public class Database {
     availableAmenitiesList.add(new Amenity("Tv-subscriptions",2));
 
   }
+
+
+
+
+
+
 
 
   public static ArrayList<RoomType> getAvailableRoomTypesList(){
@@ -203,6 +211,15 @@ for(Rooms r: Database.getRoomList()) {
     }
     return grandTotal; // this returns the final sum of all Invoices + Taxes
   }
+
+
+
+  public static boolean authenticateAdmin(String username, String password) {
+    return admin.getUserName().equals(username) &&
+            admin.getPassWord().equals(password);
+  }
+
+
 
 
 

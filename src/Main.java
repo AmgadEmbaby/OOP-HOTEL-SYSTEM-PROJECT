@@ -335,7 +335,7 @@ public class Main {
             }
 
             System.out.println("\n[Action] Receptionist checking in the guest...");
-            Receptionist receptionist = new Receptionist();
+            Receptionist receptionist = new Receptionist("receptionist", "recep123",   LocalDate.of(1999,5,9), Staff.Role.RECEPTIONIST,  8);
 
             if (!Database.getReservationsList().isEmpty()) {
                 int resID = Database.getReservationsList().get(0).getReservationID();

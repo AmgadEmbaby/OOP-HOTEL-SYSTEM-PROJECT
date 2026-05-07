@@ -1,5 +1,13 @@
+import java.time.LocalDate;
+
 public class Admin extends Staff{
- //------------------------- create,update,delete functions for rooms------------------
+
+
+    public Admin(String userName, String passWord, LocalDate dateOfBirth, Role role, int workingHours) {
+        super(userName, passWord, dateOfBirth, role, workingHours);
+    }
+
+    //------------------------- create,update,delete functions for rooms------------------
     //create
     public void createRoom( int roomFloor, String roomTypeName){
 
