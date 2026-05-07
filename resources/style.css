@@ -131,7 +131,7 @@
 .sidebar-logo {
     -fx-font-family: "Zaslia";
     -fx-font-size: 28px;
-    -fx-text-fill: #2C3424;
+    -fx-text-fill: #DADED8;
 }
 
 .sidebar-sub {
@@ -195,7 +195,7 @@
 }
 
 .content-area {
-    -fx-background-color: #F5F0E8;
+    -fx-background-color: #1B2216;
 }
 
 .welcome-sub {
