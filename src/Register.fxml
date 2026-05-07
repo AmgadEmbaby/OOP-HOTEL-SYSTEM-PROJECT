@@ -22,7 +22,7 @@
 
         <HBox alignment="CENTER">
 
-            <!-- LEFT SIDE -->
+            <!-- left -->
             <VBox prefWidth="500"
                   spacing="18"
                   alignment="CENTER_LEFT"
@@ -44,11 +44,26 @@
 
             </VBox>
 
-            <!-- RIGHT SIDE -->
+            <!-- right -->
             <VBox prefWidth="500"
                   spacing="18"
                   alignment="CENTER"
                   styleClass="form-panel">
+
+
+                <HBox alignment="TOP_RIGHT"
+                      spacing="10"
+                      maxWidth="Infinity">
+
+                    <Button text="←"
+                            onAction="#backToGuestMenu"
+                            styleClass="close-button"/>
+
+                    <Button text="✕"
+                            onAction="#exitApp"
+                            styleClass="close-button"/>
+
+                </HBox>
 
                 <padding>
                     <Insets top="60" right="80" bottom="60" left="80"/>

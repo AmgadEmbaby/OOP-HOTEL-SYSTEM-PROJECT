@@ -1,6 +1,12 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.time.LocalDate;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class RegisterController {
 
@@ -95,4 +101,26 @@ public class RegisterController {
         dobPicker.setValue(null);
         genderBox.setValue(null);
     }
+
+    @FXML
+    private void exitApp(){
+        System.exit(0);
+    }
+
+    @FXML
+    private void backToGuestMenu(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("GuestMenu.fxml") );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
