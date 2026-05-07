@@ -258,3 +258,47 @@
     -fx-background-color: #768064;
     -fx-text-fill: #F5F0E8;
 }
+
+
+//receptionist roomstatus
+
+//background
+.root-container {
+    -fx-background-color: #F5F0E8;
+
+}
+
+.fantasy-scroll-pane {
+    -fx-background-color: #F5F0E8;
+    -fx-background: #F5F0E8;
+    -fx-border-color: transparent;
+}
+
+.fantasy-title {
+    -fx-font-family: "Zaslia";
+    -fx-font-size: 48px;
+    -fx-text-fill: #DADED8;
+    -fx-effect: dropshadow(gaussian, rgba(218, 222, 216, 0.3), 10, 0.5, 0, 0);
+}
+.header-banner {
+    -fx-background-color: #2C3424;
+    -fx-padding: 50 60;
+    -fx-pref-width: 2000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);
+}
+
+//dropdowns
+.fantasy-combo {
+    -fx-background-color: #DADED8;
+    -fx-border-color: #768064;
+    -fx-border-width: 1;
+    -fx-font-family: "Cinzel";
+    -fx-padding: 5;
+}
+
+.room-box-available:hover {
+    -fx-effect: dropshadow(three-pass-box, #768064, 20, 0.5, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}

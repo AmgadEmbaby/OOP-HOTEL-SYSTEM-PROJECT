@@ -221,7 +221,149 @@ for(Rooms r: Database.getRoomList()) {
             admin.getPassWord().equals(password);
   }
 
+  static {
+    staffList.add(new Receptionist(
+            "ahmed",             // The Username
+            "ahmed mohamed",           // Full Name
+            "ahmed123*",                // The Password
+            LocalDate.of(2000, 1, 1),
+            Staff.Role.RECEPTIONIST,
+            8
+    ));
 
+    staffList.add(new Receptionist(
+            "nourhan",             // The Username
+            "nourhan ahmed*",           // Full Name
+            "nourhan123*",                // The Password
+            LocalDate.of(2000, 1, 1),
+            Staff.Role.RECEPTIONIST,
+            8
+    ));
+
+    staffList.add(new Receptionist(
+            "youssef",             // The Username
+            "youssef ali",           // Full Name
+            "youssef123*",                // The Password
+            LocalDate.of(2000, 1, 1),
+            Staff.Role.RECEPTIONIST,
+            8
+    ));
+
+
+  }
+
+
+  static {
+    // ── GUESTS ──
+    Guests guest1 = new Guests("Nour Youssef",   "123 Cairo St",   LocalDate.of(1990, 3, 15), "pass123", Guests.Gender.female);
+    Guests guest2 = new Guests("Halla Reda",      "456 Alex Rd",    LocalDate.of(1985, 7, 22), "pass456", Guests.Gender.male);
+    Guests guest3 = new Guests("Amgad Ismail",    "789 Giza Ave",   LocalDate.of(1995, 1, 10), "pass789", Guests.Gender.female);
+    Guests guest4 = new Guests("Hanna Shaker",    "321 Tanta Blvd", LocalDate.of(1988, 11, 5), "pass321", Guests.Gender.male);
+    Guests guest5 = new Guests("Mariam Sherief",  "654 Luxor St",   LocalDate.of(1992, 6, 30), "pass654", Guests.Gender.female);
+    Guests guest6 = new Guests("Omar Farouk",     "12 Nasr City",   LocalDate.of(1993, 4, 18), "pass111", Guests.Gender.male);
+    Guests guest7 = new Guests("Sara Mahmoud",    "88 Mohandessin", LocalDate.of(1997, 9, 25), "pass222", Guests.Gender.female);
+    Guests guest8 = new Guests("Karim Adel",      "5 Heliopolis",   LocalDate.of(1991, 2, 14), "pass333", Guests.Gender.male);
+
+    guestList.add(guest1);
+    guestList.add(guest2);
+    guestList.add(guest3);
+    guestList.add(guest4);
+    guestList.add(guest5);
+    guestList.add(guest6);
+    guestList.add(guest7);
+    guestList.add(guest8);
+
+    //  ROOM TYPES
+    RoomType single = findRoomType("Single");
+    RoomType doble  = findRoomType("Double");
+    RoomType suite  = findRoomType("Suite");
+
+    Rooms room101 = roomList.get(0); // Single,  Floor 1
+    Rooms room102 = roomList.get(1); // Double,  Floor 1
+    Rooms room201 = roomList.get(2); // Double,  Floor 2
+    Rooms room202 = roomList.get(3); // Suite,   Floor 2
+    Rooms room301 = roomList.get(4); // Suite,   Floor 3
+
+
+
+    // R1 — CONFIRMED, check-in today, paid online , ready for room assignment
+    Reservations r1 = new Reservations(guest1, single,
+            LocalDate.now(), LocalDate.now().plusDays(3),
+            Invoices.PaymentMethod.CREDIT_CARD);
+    r1.setStatus(Reservations.ReservationStatus.CONFIRMED);
+
+    // R2 — PENDING, check-in today, paying cash at desk , needs payment first
+    Reservations r2 = new Reservations(guest2, doble,
+            LocalDate.now(), LocalDate.now().plusDays(5),
+            Invoices.PaymentMethod.CASH);
+    // status left PENDING
+
+    // R3 — CONFIRMED, check-in in 2 days , too early
+    Reservations r3 = new Reservations(guest3, suite,
+            LocalDate.now().plusDays(2), LocalDate.now().plusDays(6),
+            Invoices.PaymentMethod.CREDIT_CARD);
+    r3.setStatus(Reservations.ReservationStatus.CONFIRMED);
+
+    // R4 — CONFIRMED, check-in today, cash , ready for room assignment
+    Reservations r4 = new Reservations(guest4, doble,
+            LocalDate.now(), LocalDate.now().plusDays(2),
+            Invoices.PaymentMethod.CASH);
+    r4.setStatus(Reservations.ReservationStatus.CONFIRMED);
+
+    // R5 — PENDING, check-in in 10 days → too early
+    Reservations r5 = new Reservations(guest5, single,
+            LocalDate.now().plusDays(10), LocalDate.now().plusDays(14),
+            Invoices.PaymentMethod.CASH);
+
+
+    // R6 — ON-TIME checkout (checkout = today) , no fine
+    Reservations r6 = new Reservations(guest6, single,
+            LocalDate.now().minusDays(3), LocalDate.now(),
+            Invoices.PaymentMethod.ONLINE);
+    r6.setStatus(Reservations.ReservationStatus.CONFIRMED);
+    r6.setRoomDirect(room101);
+    room101.setStatus(Rooms.RoomStatus.OCCUPIED);
+
+    // R7 — LATE checkout (checkout was yesterday) , 100 fine
+    Reservations r7 = new Reservations(guest7, doble,
+            LocalDate.now().minusDays(5), LocalDate.now().minusDays(1),
+            Invoices.PaymentMethod.CASH);
+      r7.setStatus(Reservations.ReservationStatus.CONFIRMED);
+    r7.setRoomDirect(room102);
+    room102.setStatus(Rooms.RoomStatus.OCCUPIED);
+
+    // R8 — EARLY checkout (checkout is 3 days from now) , $70 fine
+    Reservations r8 = new Reservations(guest8, suite,
+            LocalDate.now().minusDays(2), LocalDate.now().plusDays(3),
+            Invoices.PaymentMethod.CREDIT_CARD);
+    r8.setStatus(Reservations.ReservationStatus.CONFIRMED);
+    r8.setRoom(room202);
+    room202.setStatus(Rooms.RoomStatus.OCCUPIED);
+    room202.getAmenities().add(Database.findAmenity("Jacuzzi"));
+    room202.getAmenities().add(Database.findAmenity("Soft drink"));
+
+    reservationsList.add(r1);
+    reservationsList.add(r2);
+    reservationsList.add(r3);
+    reservationsList.add(r4);
+    reservationsList.add(r5);
+    reservationsList.add(r6);
+    reservationsList.add(r7);
+    reservationsList.add(r8);
+
+    System.out.println("========= RESERVATION IDs =========");
+    System.out.println("--- CHECK-IN CASES ---");
+    System.out.println("R1 (Confirmed, today, Single):         " + r1.getReservationID());
+    System.out.println("R2 (Pending cash, today, Double):      " + r2.getReservationID());
+    System.out.println("R3 (Confirmed, too early, Suite):      " + r3.getReservationID());
+    System.out.println("R4 (Confirmed, today, Double):         " + r4.getReservationID());
+    System.out.println("R5 (Pending, too early, Single):       " + r5.getReservationID());
+    System.out.println("--- CHECK-OUT CASES ---");
+    System.out.println("R6 (On-time, Single, no fine):         " + r6.getReservationID());
+    System.out.println("R7 (Late, Double, $100 fine):          " + r7.getReservationID());
+    System.out.println("R8 (Early, Suite+amenities, $70 fine): " + r8.getReservationID());
+    System.out.println("===================================");
+  }
 
 
 

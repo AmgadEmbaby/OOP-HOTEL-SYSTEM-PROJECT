@@ -38,11 +38,9 @@
 
          <VBox alignment="CENTER" spacing="15.0">
             <Button text="GUEST" onAction="#guestChoice" styleClass="role-button" prefWidth="200" />
-            <Button text="RECEPTIONIST" onAction="#ReceptionistChoice" styleClass="role-button" prefWidth="200" />
+            <Button fx:id="receptionistBtn" text="RECEPTIONIST" onAction="#handleReceptionistChoice" styleClass="role-button" prefWidth="200" />
             <Button text="ADMIN" onAction="#adminChoice" styleClass="role-button" prefWidth="200" />
          </VBox>
       </VBox>
-
-      <Region VBox.vgrow="ALWAYS" />
    </VBox>
 </HBox>
