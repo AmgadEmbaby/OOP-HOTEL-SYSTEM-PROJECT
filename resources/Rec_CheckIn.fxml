@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20.0" style="-fx-padding: 40;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <Label styleClass="title-label" style="-fx-font-size: 32px;" text="Guest Check-In" />
+    <Label text="Enter Reservation ID to process check-in:" styleClass="label"/>
+    <HBox spacing="15.0">
+        <TextField promptText="Reservation ID (e.g. 1001)" prefWidth="300.0"/>
+        <Button text="Find Reservation" />
+    </HBox>
+    <TableView prefHeight="300.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn text="Guest Name" prefWidth="150.0" />
+            <TableColumn text="Room Type" prefWidth="150.0" />
+            <TableColumn text="Check-In Date" prefWidth="150.0" />
+            <TableColumn text="Status" prefWidth="150.0" />
+        </columns>
+    </TableView>
+    <Button text="Confirm Check-In" prefWidth="200.0"/>
+</VBox>

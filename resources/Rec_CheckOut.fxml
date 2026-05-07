@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20.0" style="-fx-padding: 40;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <Label styleClass="title-label" style="-fx-font-size: 32px;" text="Guest Check-Out" />
+    <Label text="Enter Room Number or Reservation ID:" styleClass="label"/>
+    <HBox spacing="15.0">
+        <TextField promptText="Room Number" prefWidth="300.0"/>
+        <Button text="Load Invoice" />
+    </HBox>
+    <VBox styleClass="card-pane" spacing="10">
+        <Label text="Total Amount Due: $0.00" style="-fx-font-size: 20px; -fx-text-fill: #959581; -fx-font-weight: bold;"/>
+        <Label text="Payment Method:" />
+        <ComboBox prefWidth="200.0" promptText="Select Method..." />
+    </VBox>
+    <Button text="Process Payment &amp; Check-Out" prefWidth="250.0"/>
+</VBox>
