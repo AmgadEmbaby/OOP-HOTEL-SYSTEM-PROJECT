@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Navigator {
 
     public void guestChoice(ActionEvent event)throws IOException {
-        navigateTo(event, "Guest Login.fxml");
+        navigateTo(event, "GuestMenu.fxml");
     }
 
     public void switchBakcToChoices(ActionEvent event)throws IOException{
