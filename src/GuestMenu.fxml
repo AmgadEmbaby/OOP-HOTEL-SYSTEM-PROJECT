@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="600.0" prefWidth="1000.0" styleClass="root" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuestMenuController">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <!-- LEFT IMAGE -->
+
+    <VBox prefWidth="500.0" HBox.hgrow="ALWAYS">
+
+        <ImageView fitHeight="600.0" fitWidth="500.0" preserveRatio="false">
+
+            <Image url="@/luxury hotel.jpg" />
+
+        </ImageView>
+
+    </VBox>
+
+    <!-- RIGHT CONTENT -->
+
+    <VBox alignment="TOP_CENTER" prefWidth="500.0" styleClass="content-side" HBox.hgrow="ALWAYS">
+
+        <!-- TOP BAR -->
+
+        <HBox alignment="TOP_RIGHT" maxWidth="Infinity">
+         <Button onAction="#goBack" styleClass="close-button" text="← BACK" />
+
+        </HBox>
+
+        <!-- CENTER CONTENT -->
+
+        <VBox alignment="CENTER" spacing="34.0" VBox.vgrow="ALWAYS">
+
+            <padding>
+                <Insets top="100.0" />
+            </padding>
+
+            <!-- TITLES -->
+
+            <VBox alignment="CENTER" spacing="10">
+
+                <Label styleClass="main-title" text="GUEST PORTAL" />
+
+                <Label styleClass="subtitle" text="Reservations • Luxury • Comfort" />
+
+                <Label maxWidth="300" styleClass="explanation-text" text="Continue your experience with The Five Seasons." textAlignment="CENTER" wrapText="true" />
+
+            </VBox>
+
+            <!-- BUTTONS -->
+
+            <VBox alignment="CENTER" spacing="18">
+
+                <Button onAction="#openSignIn" prefWidth="220" styleClass="role-button" text="SIGN IN" />
+
+                <Button onAction="#openRegister" prefWidth="220" styleClass="role-button" text="REGISTER" />
+
+            </VBox>
+
+        </VBox>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+    </VBox>
+
+</HBox>

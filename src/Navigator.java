@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Navigator {
 
     public void guestChoice(ActionEvent event)throws IOException {
-        navigateTo(event, "Guest Login.fxml");
+        navigateTo(event, "GuestMenu.fxml");
     }
 
     public void switchBakcToChoices(ActionEvent event)throws IOException{
@@ -24,8 +24,12 @@ public class Navigator {
         navigateTo(event, "ReceptionistScreen.fxml");
     }
 
+    public void GobackToGuestMenu (ActionEvent event) throws IOException {
+        navigateTo(event, "GuestMenu.fxml");
+    }
 
-    private void navigateTo(ActionEvent event, String fxmlFile) throws IOException {
+
+    public void navigateTo(ActionEvent event, String fxmlFile) throws IOException {
         // Use getClass() to load the FXML relative to the current class
         Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
 
