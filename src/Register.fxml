@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<BorderPane prefHeight="700.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="RegisterController"
+            styleClass="root">
+
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+
+    <center>
+
+        <HBox alignment="CENTER">
+
+            <!-- LEFT SIDE -->
+            <VBox prefWidth="500"
+                  spacing="18"
+                  alignment="CENTER_LEFT"
+                  styleClass="left-panel">
+
+                <padding>
+                    <Insets top="60" right="60" bottom="60" left="70"/>
+                </padding>
+
+                <Label text="THE FIVE SEASONS"
+                       styleClass="main-title"/>
+
+                <Label text="REGISTER"
+                       styleClass="section-title"/>
+
+                <Label text="A season of pure luxury begins here."
+                       wrapText="true"
+                       styleClass="subtitle"/>
+
+            </VBox>
+
+            <!-- RIGHT SIDE -->
+            <VBox prefWidth="500"
+                  spacing="18"
+                  alignment="CENTER"
+                  styleClass="form-panel">
+
+                <padding>
+                    <Insets top="60" right="80" bottom="60" left="80"/>
+                </padding>
+
+                <TextField fx:id="usernameField"
+                           promptText="USERNAME"
+                           styleClass="luxury-field"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="PASSWORD"
+                               styleClass="luxury-field"/>
+
+                <TextField fx:id="addressField"
+                           promptText="ADDRESS"
+                           styleClass="luxury-field"/>
+
+                <DatePicker fx:id="dobPicker"
+                            promptText="DATE OF BIRTH"
+                            styleClass="luxury-date"/>
+
+                <ComboBox fx:id="genderBox"
+                          promptText="GENDER"
+                          styleClass="luxury-combo"/>
+
+                <TextField fx:id="balanceField"
+                           promptText="INITIAL BALANCE"
+                           styleClass="luxury-field"/>
+
+                <Label fx:id="errorLabel"
+                       textFill="#d6b8b8"
+                       wrapText="true"
+                       styleClass="error-label"/>
+
+                <Button text="CREATE ACCOUNT"
+                        onAction="#handleRegister"
+                        styleClass="main-button"/>
+
+            </VBox>
+
+        </HBox>
+
+    </center>
+
+</BorderPane>

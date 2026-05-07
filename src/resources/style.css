@@ -257,4 +257,99 @@
 .action-button:hover {
     -fx-background-color: #768064;
     -fx-text-fill: #F5F0E8;
+
+
+
+
+
+    /*GUEST REGEISTER*/
+.root {
+    -fx-background-color: #1E2619;
+}
+
+    /* LEFT PANEL */
+
+    .left-panel {
+        -fx-background-color: #2C3424;
+    }
+
+    .main-title {
+        -fx-text-fill: #DADED8;
+        -fx-font-size: 36px;
+        -fx-letter-spacing: 6px;
+    }
+
+    .section-title {
+        -fx-text-fill: #DADED8;
+        -fx-font-size: 22px;
+        -fx-letter-spacing: 4px;
+    }
+
+    .subtitle {
+        -fx-text-fill: #959581;
+        -fx-font-size: 14px;
+    }
+
+    /* RIGHT PANEL */
+
+    .form-panel {
+        -fx-background-color: #1E2619;
+    }
+
+    /* INPUTS */
+
+    .luxury-field,
+    .luxury-date,
+    .luxury-combo {
+
+        -fx-background-color: transparent;
+        -fx-border-color: #4C583E;
+        -fx-border-width: 0 0 1 0;
+
+        -fx-text-fill: #DADED8;
+
+        -fx-font-size: 14px;
+
+        -fx-padding: 12 4 12 4;
+
+        -fx-pref-width: 320px;
+    }
+
+    .luxury-field:focused,
+    .luxury-date:focused,
+    .luxury-combo:focused {
+
+        -fx-border-color: #768064;
+    }
+
+    /* BUTTON */
+
+    .main-button {
+
+        -fx-background-color: transparent;
+
+        -fx-border-color: #768064;
+
+        -fx-border-width: 1;
+
+        -fx-text-fill: #DADED8;
+
+        -fx-padding: 14 40 14 40;
+
+        -fx-letter-spacing: 3px;
+    }
+
+    .main-button:hover {
+
+        -fx-border-color: #DADED8;
+    }
+
+    /* ERROR */
+
+    .error-label {
+
+        -fx-font-size: 13px;
+
+        -fx-text-fill: #d6b8b8;
+    }
 }
