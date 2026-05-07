@@ -38,4 +38,8 @@ public class Navigator {
         stage.show();
     }
 
+    public void exitApp(ActionEvent event) {
+        System.exit(0);
+    }
+
 }
