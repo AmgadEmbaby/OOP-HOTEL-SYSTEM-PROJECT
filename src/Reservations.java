@@ -19,14 +19,6 @@ public class Reservations {
     }
 
     public Reservations(Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method){
-//            throws Exception {
-//        if (!out.isAfter(in)) {
-//            throw new Exception("Check-out must be after check-in.");
-//        }
-
-
-        ReservationsValidation.validateReservation(guest, in, out);
-
         this.typeDesired= roomType;
         this.reservationID=idCounter++;
         this.guest = guest;
@@ -79,6 +71,10 @@ public class Reservations {
 
     public void setRoom(Rooms room) {
         ReservationsValidation.validateRoomAssignment(room, this.checkin, this.checkout);
+        this.room = room;
+    }
+
+    public void setRoomDirect(Rooms room) {
         this.room = room;
     }
 

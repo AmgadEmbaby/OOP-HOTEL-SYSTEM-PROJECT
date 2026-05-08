@@ -1,14 +1,16 @@
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Navigator {
-
+    @FXML private Button receptionistBtn;
     public void guestChoice(ActionEvent event)throws IOException {
         navigateTo(event, "GuestMenu.fxml");
     }
@@ -20,9 +22,7 @@ public class Navigator {
         navigateTo(event, "AdminLogin.fxml");
     }
 
-    public void ReceptionistChoice(ActionEvent event)throws IOException {
-        navigateTo(event, "ReceptionistScreen.fxml");
-    }
+
 
     public void GobackToGuestMenu (ActionEvent event) throws IOException {
         navigateTo(event, "GuestMenu.fxml");
@@ -47,4 +47,16 @@ public class Navigator {
         System.exit(0);
     }
 
+    @FXML
+    private void handleReceptionistChoice(ActionEvent event) {
+        try {
+            // This loads the username/password entry screen
+            Parent root = FXMLLoader.load(getClass().getResource("ReceptionistLogin.fxml"));
+            Stage stage = (Stage) receptionistBtn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
