@@ -24,6 +24,7 @@
 
             <!-- left -->
             <VBox prefWidth="500"
+                  HBox.hgrow="ALWAYS"
                   spacing="18"
                   alignment="CENTER_LEFT"
                   styleClass="left-panel">
@@ -46,6 +47,7 @@
 
             <!-- right -->
             <VBox prefWidth="500"
+                  HBox.hgrow="ALWAYS"
                   spacing="18"
                   alignment="CENTER"
                   styleClass="form-panel">
