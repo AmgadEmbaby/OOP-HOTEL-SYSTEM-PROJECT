@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="600.0" prefWidth="1000.0" styleClass="root" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuestLoginController">
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <VBox prefWidth="500.0" styleClass="left-panel" HBox.hgrow="ALWAYS">
+        <ImageView fitHeight="600.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="false">
+            <Image url="@/luxury_hotel.jpg" />
+        </ImageView>
+    </VBox>
+
+    <VBox alignment="CENTER" prefWidth="500.0" spacing="0" styleClass="form-panel" HBox.hgrow="ALWAYS">
+
+        <HBox alignment="TOP_RIGHT" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <padding><Insets right="20" top="15" /></padding>
+            <Button onAction="#goBack" styleClass="close-button" text="← BACK" />
+        </HBox>
+
+        <VBox alignment="CENTER" spacing="40" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="80" />
+            </padding>
+
+            <VBox alignment="CENTER" spacing="10">
+                <Label styleClass="main-title" text="GUEST PORTAL" />
+                <Label styleClass="subtitle" text="Welcome back to The Five Seasons" />
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="20">
+                <TextField fx:id="usernameField" maxWidth="230.0" prefHeight="26.0" prefWidth="454.0" promptText="Username" styleClass="luxury-field" />
+                <PasswordField fx:id="passwordField" maxWidth="230.0" promptText="Password" styleClass="luxury-field" />
+            </VBox>
+
+            <Label fx:id="errorLabel" maxWidth="320" styleClass="error-label" text="" textAlignment="CENTER" wrapText="true" />
+
+            <VBox alignment="CENTER" spacing="15">
+                <Button maxWidth="150.0" onAction="#handleSignIn" prefWidth="320" styleClass="main-button" text="SIGN IN" />
+
+                <Button maxWidth="150.0" onAction="#createAcc" prefWidth="320" styleClass="role-button" text="CREATE ACCOUNT" />
+            </VBox>
+
+        </VBox>
+    </VBox>
+</HBox>

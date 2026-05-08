@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="GuestDashboardController"
+      prefHeight="700.0" prefWidth="1200.0" styleClass="root">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <VBox prefWidth="320" styleClass="sidebar" spacing="0">
+        <VBox alignment="CENTER" styleClass="sidebar-header" prefHeight="120">
+            <Label text="THE FIVE" styleClass="sidebar-logo" />
+            <Label text="SEASONS" styleClass="sidebar-logo" />
+            <Label text="GUEST PORTAL" styleClass="sidebar-sub" />
+        </VBox>
+
+        <Region prefHeight="1" prefWidth="320" styleClass="sidebar-divider" />
+
+        <VBox VBox.vgrow="ALWAYS" spacing="5" styleClass="sidebar-nav">
+            <padding><Insets top="20" /></padding>
+            <Button text="  ⌂  HOME" onAction="#showHome" styleClass="nav-button" maxWidth="Infinity" />
+            <Button text="  ◈  MY RESERVATIONS" onAction="#showReservations" styleClass="nav-button" maxWidth="Infinity" />
+            <Button text="  ✦  BILLING &amp; WALLET" onAction="#showBilling" styleClass="nav-button" maxWidth="Infinity" />
+        </VBox>
+
+        <VBox alignment="BOTTOM_CENTER" styleClass="sidebar-footer">
+            <Region prefHeight="1" prefWidth="280" styleClass="sidebar-divider" />
+            <padding><Insets bottom="20" top="10" /></padding>
+            <Button text="  ✕  LOGOUT" onAction="#logout" styleClass="logout-button" maxWidth="Infinity" />
+        </VBox>
+    </VBox>
+
+    <StackPane HBox.hgrow="ALWAYS" fx:id="contentArea" styleClass="content-area">
+
+        <VBox fx:id="homePane" spacing="40" alignment="CENTER" style="-fx-background-color: #1B2216;">
+            <padding><Insets top="40" left="80" right="80" bottom="40" /></padding>
+
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="Welcome back," styleClass="welcome-sub" />
+                <Label fx:id="guestNameLabel" text="Guest Name" styleClass="welcome-title" />
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="15">
+                <Label text="BOOK A NEW STAY" styleClass="section-title" />
+                <HBox spacing="20" alignment="CENTER">
+                    <DatePicker fx:id="checkInPicker" promptText="Check-in Date" styleClass="luxury-date" />
+                    <DatePicker fx:id="checkOutPicker" promptText="Check-out Date" styleClass="luxury-date" />
+                    <Button text="SEARCH ROOMS" onAction="#searchRooms" styleClass="main-button" />
+                </HBox>
+                <Label fx:id="searchErrorLabel" styleClass="error-label" text="" />
+            </VBox>
+
+            <HBox spacing="30" alignment="CENTER">
+                <VBox styleClass="stat-card" prefWidth="280" alignment="CENTER" spacing="10">
+                    <Label text="CURRENT BALANCE" styleClass="stat-label" />
+                    <Label fx:id="balanceLabel" text="0.00" styleClass="stat-number" />
+                </VBox>
+
+                <VBox styleClass="stat-card" prefWidth="280" alignment="CENTER" spacing="10">
+                    <Label text="ONGOING STAYS" styleClass="stat-label" />
+                    <Label fx:id="activeStaysLabel" text="0" styleClass="stat-number" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="reservationsPane" spacing="20" alignment="CENTER" visible="false" style="-fx-background-color: #1B2216;">
+            <padding><Insets top="40" left="80" right="80" bottom="40" /></padding>
+
+            <Label text="ALL RESERVATIONS" styleClass="main-title" />
+
+            <ListView fx:id="reservationsList" prefHeight="200" style="-fx-background-color: transparent;" />
+            <Label fx:id="resMessageLabel" styleClass="error-label" text="" />
+
+            <Region prefHeight="1" prefWidth="400" styleClass="gold-line" />
+            <Label text="MANAGE ONGOING STAY" styleClass="section-title" />
+
+            <ComboBox fx:id="activeStayCombo" promptText="Select an Active Reservation..." styleClass="luxury-combo" prefWidth="350" />
+
+            <HBox spacing="15" alignment="CENTER">
+                <ComboBox fx:id="amenityCombo" promptText="Select Amenity" styleClass="luxury-combo" prefWidth="180" />
+                <Button text="ORDER TO ROOM" onAction="#handleOrderAmenity" styleClass="action-button" />
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="CANCEL RESERVATION" onAction="#handleCancel" styleClass="action-button" />
+                <Button text="EXPRESS CHECKOUT" onAction="#handleCheckout" styleClass="action-button" />
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="billingPane" spacing="30" alignment="CENTER" visible="false" style="-fx-background-color: #1B2216;">
+            <padding><Insets top="40" left="80" right="80" bottom="40" /></padding>
+
+            <Label text="BILLING &amp; WALLET" styleClass="main-title" />
+
+            <ListView fx:id="invoicesList" prefHeight="200" style="-fx-background-color: transparent;" />
+            <Label fx:id="billingMessageLabel" styleClass="error-label" text="" />
+
+            <HBox spacing="15" alignment="CENTER">
+                <TextField fx:id="targetInvoiceField" promptText="Invoice ID (e.g., INV-1000)" styleClass="luxury-field" prefWidth="200" />
+                <Button text="PAY ONLINE" onAction="#handlePayInvoice" styleClass="action-button" />
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER">
+                <TextField fx:id="rechargeField" promptText="Amount ($)" styleClass="luxury-field" prefWidth="150" />
+                <Button text="RECHARGE BALANCE" onAction="#handleRecharge" styleClass="action-button" />
+            </HBox>
+        </VBox>
+
+    </StackPane>
+</HBox>

@@ -1,0 +1,221 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ b/.idea/misc.xml	(date 1778194181436)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_25" project-jdk-name="25" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/Rooms.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.time.LocalDate;\r\nimport java.util.ArrayList;\r\n\r\npublic class Rooms {\r\n    private static int RoomNumber = 1;\r\n    private static int RoomCount = 0;\r\n    private final int ActualRoomNumber;\r\n    private int RoomFloor;\r\n    private RoomStatus status;\r\n    private RoomType roomtype;\r\n    private double TotalAmenityCost = 0;\r\n    ArrayList<Amenity> amenities = new ArrayList<>();\r\n    ArrayList<Reservations> reservationsList = new ArrayList<>(); // list of reservations for this one room\r\n\r\n    public enum RoomStatus {\r\n        AVAILABLE,\r\n        OCCUPIED\r\n    }\r\n\r\n    public Rooms() {\r\n        RoomCount++;\r\n        this.ActualRoomNumber = RoomNumber++;\r\n        this.status = RoomStatus.AVAILABLE;\r\n    }\r\n\r\n    public Rooms( int roomFloor, String roomTypeName) {\r\n        RoomCount++;\r\n        this.ActualRoomNumber = RoomNumber++;\r\n\r\n        this.RoomFloor = RoomValidation.validateRoomFloor(roomFloor);\r\n        this.roomtype= RoomValidation.validateRoomTypeName(roomTypeName);  //Database.findRoomType INSIDE validator function\r\n\r\n        this.status = RoomStatus.AVAILABLE;\r\n    }\r\n\r\n\r\n    public int getRoomNumber() {\r\n        return this.ActualRoomNumber;\r\n    }\r\n\r\n    public int getRoomFloor() {\r\n        return RoomFloor;\r\n    }\r\n\r\n    public void setRoomFloor(int roomFloor) {\r\n\r\n        this.RoomFloor = RoomValidation.validateRoomFloor(roomFloor);\r\n\r\n    }\r\n\r\n    public void setStatus(RoomStatus status) {\r\n\r\n        Validator.checkNotNull(status, \"Status cannot be null\");\r\n        this.status = status;\r\n    }\r\n\r\n    public RoomStatus getStatus() {\r\n        return this.status;\r\n    }\r\n\r\n\r\n    public void RoomAvailability() {\r\n        if (this.status == RoomStatus.AVAILABLE) {\r\n            System.out.println(\"Room \" + ActualRoomNumber + \" is available for booking.\");\r\n        }\r\n         else {\r\n            System.out.println(\"Room \" + ActualRoomNumber + \" is already Occupied.\");\r\n        }\r\n    }\r\n\r\n    public void AddAmenity(Amenity Amenity) {\r\n        Validator.checkNotNull(Amenity,\"Amenity cannot be null\" );\r\n        RoomValidation.validateAmenities(this);\r\n\r\n        amenities.add(Amenity);\r\n\r\n        }\r\n\r\n    public void RemoveAmenity(Amenity Amenity){\r\n        amenities.remove(Amenity);\r\n    }\r\n\r\n    public void SetAmenity(String amenityname, boolean isavailable) {\r\n        Validator.checkStringNotEmpty(amenityname, \"Amenity name\");\r\n        for (Amenity amenity : amenities) {\r\n            if (amenity.getAmenityName().equals(amenityname)) {\r\n                amenity.setAvailable(isavailable);\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n\r\n    public void CalculateTotalAmenityCost() {\r\n        TotalAmenityCost =0;\r\n        for (Amenity amenity : amenities) {\r\n            if(amenity.isAvailable()){\r\n                TotalAmenityCost += amenity.getAmenityCost();\r\n            }\r\n\r\n        }\r\n    }\r\n\r\n    public double getTotalAmenityCost() {\r\n        return TotalAmenityCost;\r\n    }\r\n\r\n\r\n\r\n    public ArrayList<Amenity> getAmenities() {\r\n        return amenities;\r\n    }\r\n\r\n    // ----------------------------------------- for validation ---------------------------------------------------\r\n    //checkin is new reservation\r\n    // r.getCheckIn is existing reservation\r\n    public boolean isBooked (LocalDate checkin, LocalDate checkout){\r\n        for (Reservations r : reservationsList) {\r\n            if (checkin.isBefore(r.getCheckout()) && checkout.isAfter(r.getCheckin())) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    //prevents double booking\r\n    public void addReservation(Reservations r){  // to list of reservations of THIS ONE room\r\n        if (isBooked(r.getCheckin(), r.getCheckout())){\r\n            throw new IllegalArgumentException(\"Room Already Booked\");\r\n        }\r\n        reservationsList.add(r);\r\n    }\r\n\r\n\r\n\r\n\r\n    public RoomType getRoomtype() {\r\n        return roomtype;\r\n    }\r\n\r\n    public void setRoomtype(RoomType roomtype) {\r\n        this.roomtype = roomtype;\r\n    }\r\n\r\n\r\n    public void CanStay(int NumberOfGuests) {\r\n        if (this.status == RoomStatus.AVAILABLE) {\r\n            if (NumberOfGuests <= roomtype.getCapacity()) {\r\n                System.out.println(\"Capacity is sufficient.\");\r\n            } else {\r\n                System.out.println(\"Capacity exceeded.\");\r\n            }\r\n        } else {\r\n            System.out.println(\"Room is currently \" + this.status + \" and cannot be assigned.\");\r\n        }\r\n    }\r\n\r\npublic void DisplayRoomInfo(){\r\n        System.out.println(\"-----------------------------\");\r\n        System.out.println(\"       ROOM INFORMATION      \");\r\n        System.out.println(\"-----------------------------\");\r\n\r\n        System.out.println(\"Room Number: \"+ ActualRoomNumber);\r\n        System.out.println(\"Room Floor: \"+RoomFloor);\r\n        System.out.println(\"Status: \" + this.status);\r\n        System.out.println(\"Room Type: \"+roomtype.getTypeName());\r\n        System.out.println(\"Room Description: \"+roomtype.getRoomDescription());\r\n        System.out.println(\"Maximum Capacity: \"+roomtype.getCapacity());\r\n        System.out.println(\"Price Per Night: \"+roomtype.getPricePerNight());\r\n        System.out.print(\"Amenities in the room: \");\r\n        for(Amenity amenity:amenities){\r\n            System.out.print(amenity.getAmenityName() + \" , \");\r\n        }\r\n        System.out.println(\"\\n\");\r\n        System.out.println(\"Total Amenities Cost: $ \"+ TotalAmenityCost);\r\n    }\r\n\r\n\r\n\r\n\r\n}\r\n\r\n}\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Rooms.java b/src/Rooms.java
+--- a/src/Rooms.java	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ b/src/Rooms.java	(date 1778192388982)
+@@ -180,7 +180,7 @@
+ 
+ }
+ 
+-}
++
+ 
+ 
+ 
+Index: .idea/libraries/javafx_sdk_26_0.xml
+===================================================================
+diff --git a/.idea/libraries/javafx_sdk_26_0.xml b/.idea/libraries/javafx_sdk_26_0.xml
+deleted file mode 100644
+--- a/.idea/libraries/javafx_sdk_26_0.xml	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ /dev/null	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
+@@ -1,20 +0,0 @@
+-<component name="libraryTable">
+-  <library name="javafx-sdk-26.0">
+-    <CLASSES />
+-    <JAVADOC />
+-    <SOURCES>
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.base" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.controls" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.fxml" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.graphics" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.media" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.swing" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/javafx.web" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/jdk.jsobject" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/jfx.incubator.input" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/src/jfx.incubator.richtext" />
+-      <root url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1" />
+-    </SOURCES>
+-    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1" recursive="false" type="SOURCES" />
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/lib.xml
+===================================================================
+diff --git a/.idea/libraries/lib.xml b/.idea/libraries/lib.xml
+deleted file mode 100644
+--- a/.idea/libraries/lib.xml	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ /dev/null	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
+@@ -1,10 +0,0 @@
+-<component name="libraryTable">
+-  <library name="lib">
+-    <CLASSES>
+-      <root url="file://$PROJECT_DIR$/../Term 2/OOP/JAVAFX/javafx-sdk-26.0.1/lib" />
+-    </CLASSES>
+-    <JAVADOC />
+-    <SOURCES />
+-    <jarDirectory url="file://$PROJECT_DIR$/../Term 2/OOP/JAVAFX/javafx-sdk-26.0.1/lib" recursive="false" />
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0b9d6561-53f0-4a17-a42e-234c74691cb2\" name=\"Changes\" comment=\"updated version\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <excluded-from-favorite>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"main\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </excluded-from-favorite>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Database\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;mariamsherief&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/AmgadEmbaby/OOP-HOTEL-SYSTEM-PROJECT.git&quot;,\r\n    &quot;accountId&quot;: &quot;6f6942d7-c56d-469c-a936-398424b00fc8&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3CM11CkGL15HutDQDP8kSLaRci9\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"git-widget-placeholder\": \"Room-Types\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"settings.editor.selected.configurable\": \"preferences.JavaFX\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0b9d6561-53f0-4a17-a42e-234c74691cb2\" name=\"Changes\" comment=\"\" />\r\n      <created>1776180407758</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1776180407758</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Created Room-Types branch\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776181840134</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776181840134</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"All amenities that might be in the room with their prices.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776204221786</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776204221786</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"All amenities that might be in the room with their prices.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776213095301</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776213095301</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"updates version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776284030779</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776284030779</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776288016654</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776288016654</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776290880659</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776290880659</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776295141930</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776295141930</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776295365669</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776295365669</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1777037093389</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1777037093389</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"10\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"feature-guests\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Created Room-Types branch\" />\r\n    <MESSAGE value=\"All amenities that might be in the room with their prices.\" />\r\n    <MESSAGE value=\"updates version\" />\r\n    <MESSAGE value=\"updated version\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"updated version\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ b/.idea/workspace.xml	(date 1778201417979)
+@@ -1,7 +1,18 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0b9d6561-53f0-4a17-a42e-234c74691cb2" name="Changes" comment="updated version" />
++    <list default="true" id="0b9d6561-53f0-4a17-a42e-234c74691cb2" name="Changes" comment="updated version">
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_26_0.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/OOP PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP PROJECT.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Rooms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rooms.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -60,15 +71,32 @@
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "Application.Main.executor": "Run",
++    "Application.MainGui.executor": "Run",
+     "ModuleVcsDetector.initialDetectionPerformed": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.git.unshallow": "true",
+     "git-widget-placeholder": "Room-Types",
+     "ignore.virus.scanning.warn.message": "true",
+     "kotlin-language-version-configured": "true",
+-    "settings.editor.selected.configurable": "preferences.JavaFX"
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "project.propDebugger"
+   }
+ }]]></component>
++  <component name="RunManager">
++    <configuration name="MainGui" type="Application" factoryName="Application">
++      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/Java/jdk-26.0.1" />
++      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
++      <option name="MAIN_CLASS_NAME" value="MainGui" />
++      <module name="OOP PROJECT" />
++      <option name="VM_PARAMETERS" value=" --module-path &quot;C:\Users\Mariam Sherief\Downloads\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -156,7 +184,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1777037093389</updated>
+     </task>
+-    <option name="localTasksCounter" value="10" />
++    <task id="LOCAL-00010" summary="updated version">
++      <option name="closed" value="true" />
++      <created>1778190358270</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1778190358270</updated>
++    </task>
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ b/.idea/vcs.xml	(date 1778196257144)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: OOP PROJECT.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/resources\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"lib\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/OOP PROJECT.iml b/OOP PROJECT.iml
+--- a/OOP PROJECT.iml	(revision ba5b1edb88499b3dde5b2b09c35054f08a3e4a04)
++++ b/OOP PROJECT.iml	(date 1778201417963)
+@@ -1,6 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
++  <component name="NewModuleRootManager">
++    <output url="file://$MODULE_DIR$/out/production/OOP-HOTEL-SYSTEM-PROJECT" />
++    <output-test url="file://$MODULE_DIR$/out/test/OOP-HOTEL-SYSTEM-PROJECT" />
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
+       <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
+@@ -8,6 +10,16 @@
+     </content>
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="lib" level="project" />
++    <orderEntry type="library" name="javafx.base" level="project" />
++    <orderEntry type="library" name="javafx.controls" level="project" />
++    <orderEntry type="library" name="javafx.fxml" level="project" />
++    <orderEntry type="library" name="javafx.graphics" level="project" />
++    <orderEntry type="library" name="javafx.media" level="project" />
++    <orderEntry type="library" name="javafx.swing" level="project" />
++    <orderEntry type="library" name="javafx.web" level="project" />
++    <orderEntry type="library" name="javafx-swt" level="project" />
++    <orderEntry type="library" name="jdk.jsobject" level="project" />
++    <orderEntry type="library" name="jfx.incubator.input" level="project" />
++    <orderEntry type="library" name="jfx.incubator.richtext" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
