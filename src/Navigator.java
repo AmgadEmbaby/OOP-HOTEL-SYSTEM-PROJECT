@@ -28,6 +28,9 @@ public class Navigator {
         navigateTo(event, "GuestMenu.fxml");
     }
 
+    public void ReceptionistChoice(ActionEvent event) throws IOException{
+        navigateTo(event, "ReceptionistLogin.fxml");
+    }
 
     public void navigateTo(ActionEvent event, String fxmlFile) throws IOException {
         // Use getClass() to load the FXML relative to the current class
