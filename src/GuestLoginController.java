@@ -29,10 +29,25 @@ public class GuestLoginController extends Navigator {
             errorLabel.setStyle("-fx-text-fill: #768064;");
             errorLabel.setText("Login Successful! Welcome " + loggedInGuest.getUserName());
 
-            try{
-                navigateTo(event,"GuestDashboard.fxml");
+            try {
+
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("GuestDashboard.fxml"));
+                Parent root = loader.load();
+
+
+                GuestDashboardController dashboardController = loader.getController();
+                dashboardController.initData(loggedInGuest);
+
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root, 1200, 700)); // The dashboard needs the wider 1200x700 size
+                stage.centerOnScreen();
+                stage.show();
+
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                errorLabel.setText("System Error: Could not load Dashboard.");
             }
 
         } catch (IllegalArgumentException e) {
