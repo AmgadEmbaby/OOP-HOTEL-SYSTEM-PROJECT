@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="EditRoomTypeDialogController"
+      spacing="10"
+      maxWidth="420"
+      minWidth="420"
+      prefWidth="420"
+      maxHeight="-Infinity"
+      VBox.vgrow="NEVER"
+      styleClass="floating-dialog">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <Label text="EDIT ROOM TYPE" styleClass="dialog-title"/>
+    <Region prefHeight="4"/>
+
+    <Label text="ROOM TYPE" styleClass="field-label"/>
+    <Label fx:id="typeNameLabel" text=""
+           style="-fx-text-fill: #d7dfd0; -fx-font-family: 'Montserrat Light';
+                  -fx-font-size: 13px; -fx-padding: 4 0 4 0;"/>
+
+    <Label text="PRICE PER NIGHT ($)" styleClass="field-label"/>
+    <TextField fx:id="priceField" promptText="e.g. 200" styleClass="login-field"/>
+
+    <Label fx:id="errorLabel" text="" styleClass="error-label"/>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <padding><Insets top="10"/></padding>
+        <Button text="SAVE CHANGES" onAction="#confirm" styleClass="action-button"/>
+        <Button text="CANCEL" onAction="#cancel" styleClass="cancel-button"/>
+    </HBox>
+
+</VBox>
