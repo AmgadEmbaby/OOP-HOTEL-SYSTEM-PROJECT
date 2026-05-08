@@ -63,20 +63,26 @@ public class Database {
 
     return availableAmenitiesList;
   }
-  static{
-    //Arguments: Avilable amenties from the start
-    availableAmenitiesList.add(new Amenity("Soft drink",2));
-    availableAmenitiesList.add(new Amenity("Jacuzzi",150));
-    availableAmenitiesList.add(new Amenity("Wifi",10));
-    availableAmenitiesList.add(new Amenity("Tv-subscriptions",100));
-    availableAmenitiesList.add(new Amenity("HouseKeeping",25));
-    availableAmenitiesList.add(new Amenity("Mini Bar",25));
-    availableAmenitiesList.add(new Amenity("Breakfast in Bed",45));
-    availableAmenitiesList.add(new Amenity("Extra Pillows",25));
-    availableAmenitiesList.add(new Amenity("Bath Set",12));
+  static {
+    availableAmenitiesList.add(new Amenity("Soft drink", 2));
+    availableAmenitiesList.add(new Amenity("Jacuzzi", 150));
+    availableAmenitiesList.add(new Amenity("Wifi", 10));
+    availableAmenitiesList.add(new Amenity("Tv-subscriptions", 100));
+    availableAmenitiesList.add(new Amenity("HouseKeeping", 25));
+    availableAmenitiesList.add(new Amenity("Mini Bar", 25));
+    availableAmenitiesList.add(new Amenity("Breakfast in Bed", 45));
+    availableAmenitiesList.add(new Amenity("Extra Pillows", 25));
+    availableAmenitiesList.add(new Amenity("Bath Set", 12));
 
+    // Assign images by name
+    for (Amenity a : availableAmenitiesList) {
+      String path = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
+      if (Database.class.getResourceAsStream(path) != null) {
+        a.setImagePath(path);
+      }
+      // if file not found, constructor already set
+    }
   }
-
 
 
 

@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
-    @FXML private HBox arrivalsContainer;
 
+    @FXML private HBox arrivalsContainer;
     @FXML private Label adminNameLabel;
     @FXML private Label totalRoomsLabel;
     @FXML private Label availableRoomsLabel;
@@ -127,7 +127,26 @@ public class AdminController implements Initializable {
         }
     }
 
-    @FXML private void showAmenities(ActionEvent e) {}
+    @FXML
+    private void showAmenities(ActionEvent a) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("ManageAmenities.fxml")
+            );
+
+            Parent amenitiesView = loader.load();
+
+            // IMPORTANT: keep controller reference (for future refresh)
+            ManageAmenitiesController controller = loader.getController();
+
+            // swap view
+            contentArea.getChildren().setAll(amenitiesView);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML private void showRoomTypes(ActionEvent e) {}
     @FXML private void showGuests(ActionEvent e) {}
     @FXML private void showReservations(ActionEvent e) {}

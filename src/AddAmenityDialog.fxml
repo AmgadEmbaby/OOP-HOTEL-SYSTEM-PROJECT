@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="AddAmenityDialogController"
+      spacing="10"
+      maxWidth="420"
+      minWidth="420"
+      prefWidth="420"
+      maxHeight="-Infinity"
+      VBox.vgrow="NEVER"
+      styleClass="floating-dialog">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <!-- TITLE -->
+    <Label text="ADD NEW AMENITY" styleClass="dialog-title"/>
+
+    <Region prefHeight="4"/>
+
+    <!-- NAME -->
+    <Label text="AMENITY NAME" styleClass="field-label"/>
+    <TextField fx:id="nameField"
+               promptText="e.g. Spa Treatment"
+               styleClass="login-field"/>
+
+    <!-- COST -->
+    <Label text="COST PER USE ($)" styleClass="field-label"/>
+    <TextField fx:id="costField"
+               promptText="e.g. 50"
+               styleClass="login-field"/>
+
+    <!-- IMAGE -->
+    <Label text="IMAGE (OPTIONAL)" styleClass="field-label"/>
+    <Button fx:id="pickImgBtn"
+            text="CHOOSE IMAGE"
+            onAction="#pickImage"
+            styleClass="minimal-button"/>
+    <Label fx:id="imgPathLabel"
+           text="No image selected — fallback will be used"
+           style="-fx-text-fill: rgba(218,222,216,0.45); -fx-font-size: 11px; -fx-font-family: 'Montserrat Light';"/>
+
+    <!-- ERROR -->
+    <Label fx:id="errorLabel" text="" styleClass="error-label"/>
+
+    <!-- BUTTONS -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <padding><Insets top="10"/></padding>
+        <Button text="ADD AMENITY"
+                onAction="#confirm"
+                styleClass="action-button"/>
+        <Button text="CANCEL"
+                onAction="#cancel"
+                styleClass="cancel-button"/>
+    </HBox>
+
+</VBox>
