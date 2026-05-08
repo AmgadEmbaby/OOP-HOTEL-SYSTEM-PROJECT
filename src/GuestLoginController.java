@@ -29,9 +29,11 @@ public class GuestLoginController extends Navigator {
             errorLabel.setStyle("-fx-text-fill: #768064;");
             errorLabel.setText("Login Successful! Welcome " + loggedInGuest.getUserName());
 
-            // TODO: Route the user to the Guest Dashboard screen here
-            // Parent root = FXMLLoader.load(getClass().getResource("GuestDashboard.fxml"));
-            // ... (standard scene switching code)
+            try{
+                navigateTo(event,"GuestDashboard.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         } catch (IllegalArgumentException e) {
             errorLabel.setStyle("-fx-text-fill: #d6b8b8;");

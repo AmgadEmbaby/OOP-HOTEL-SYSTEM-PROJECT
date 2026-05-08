@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="GuestDashboardController"
+      prefHeight="700.0" prefWidth="1200.0" styleClass="root">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <VBox prefWidth="320" styleClass="sidebar" spacing="0">
+
+        <VBox alignment="CENTER" styleClass="sidebar-header" prefHeight="120">
+            <Label text="THE FIVE" styleClass="sidebar-logo" />
+            <Label text="SEASONS" styleClass="sidebar-logo" />
+            <Label text="GUEST PORTAL" styleClass="sidebar-sub" />
+        </VBox>
+
+        <Region prefHeight="1" prefWidth="320" styleClass="sidebar-divider" />
+
+        <VBox VBox.vgrow="ALWAYS" spacing="5" styleClass="sidebar-nav">
+            <padding><Insets top="20" /></padding>
+            <Button text="  ⌂  DASHBOARD" onAction="#showDashboard" styleClass="nav-button" maxWidth="Infinity" />
+
+            <Button text="  ▦  BOOK A ROOM" onAction="#showBookingFlow" styleClass="nav-button" maxWidth="Infinity" />
+
+            <Button text="  ◈  MY RESERVATIONS" onAction="#showMyReservations" styleClass="nav-button" maxWidth="Infinity" />
+
+            <Button text="  ✦  BILLING &amp; INVOICES" onAction="#showBilling" styleClass="nav-button" maxWidth="Infinity" />
+
+            <Button text="  ⇤  EXPRESS CHECKOUT" onAction="#requestCheckout" styleClass="nav-button" maxWidth="Infinity" />
+        </VBox>
+
+        <VBox alignment="BOTTOM_CENTER" styleClass="sidebar-footer">
+            <Region prefHeight="1" prefWidth="280" styleClass="sidebar-divider" />
+            <padding><Insets bottom="20" top="10" /></padding>
+            <Button text="  ✕  LOGOUT" onAction="#logout" styleClass="logout-button" maxWidth="Infinity" />
+        </VBox>
+    </VBox>
+
+    <StackPane HBox.hgrow="ALWAYS" fx:id="contentArea" styleClass="content-area">
+
+        <HBox alignment="TOP_RIGHT" style="-fx-padding: 10 15 0 0;" StackPane.alignment="TOP_RIGHT">
+            <Button text="✕" onAction="#exitApp" styleClass="close-button" />
+        </HBox>
+
+        <VBox fx:id="dashboardHome" spacing="50" alignment="CENTER">
+            <padding><Insets top="40" left="80" right="80" bottom="40" /></padding>
+
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="Welcome back," styleClass="welcome-sub" />
+                <Label fx:id="guestNameLabel" text="Guest Name" styleClass="welcome-title" />
+                <Region prefHeight="1" prefWidth="400" styleClass="gold-line" />
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="15">
+                <Label text="CHECK AVAILABILITY" styleClass="section-title" />
+
+                <HBox spacing="20" alignment="CENTER">
+                    <DatePicker fx:id="checkInPicker" promptText="Check-in Date" styleClass="luxury-date" prefWidth="200" />
+                    <DatePicker fx:id="checkOutPicker" promptText="Check-out Date" styleClass="luxury-date" prefWidth="200" />
+                    <Button text="SEARCH ROOMS" onAction="#searchRooms" styleClass="main-button" />
+                </HBox>
+                <Label fx:id="searchErrorLabel" styleClass="error-label" text="" />
+            </VBox>
+
+            <HBox spacing="30" alignment="CENTER">
+                <VBox styleClass="stat-card" prefWidth="280" prefHeight="140" alignment="CENTER" spacing="10">
+                    <Label text="CURRENT BALANCE" styleClass="stat-label" />
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label text="\$" styleClass="stat-number" style="-fx-font-size: 24px;" />
+                        <Label fx:id="balanceLabel" text="0.00" styleClass="stat-number" />
+                    </HBox>
+                    <Button text="RECHARGE" onAction="#showBilling" styleClass="action-button" />
+                </VBox>
+
+                <VBox styleClass="stat-card" prefWidth="280" prefHeight="140" alignment="CENTER" spacing="10">
+                    <Label text="ACTIVE RESERVATIONS" styleClass="stat-label" />
+                    <Label fx:id="activeStaysLabel" text="0" styleClass="stat-number" />
+                    <Button text="VIEW DETAILS" onAction="#showMyReservations" styleClass="action-button" />
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </StackPane>
+</HBox>

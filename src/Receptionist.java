@@ -17,7 +17,6 @@ public class Receptionist extends Staff {
             } else if (today.isAfter(reservation.getCheckin())) {
                 System.out.println("Guest is late for their check in date");
                 System.out.println("Proceeding with checkin...");
-                //the guest is a bit late but since i found his reservation id in the system then the reservation is still available
             } else {
                 System.out.println("Guest is on time WELCOME");
             }
@@ -74,10 +73,10 @@ public class Receptionist extends Staff {
 
         if (reservation != null) {
 
-//        if (reservation.isCheckedIn()) {
-//            System.out.println("The Guest should initiate checkout from their app first");
-//            return;
-//        }
+        if (reservation.getStatus() != Reservations.ReservationStatus.COMPLETED) {
+            System.out.println("The Guest should initiate checkout from their app first");
+            return;
+       }
 
 
 
