@@ -11,25 +11,9 @@ import java.io.IOException;
 public class GuestMenuController extends Navigator {
 
     @FXML
-    private void openRegister(ActionEvent event) {
+    private void openRegister(ActionEvent event) throws IOException {
 
-        try {
-
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("Register.fxml")
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource())
-                    .getScene()
-                    .getWindow();
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
+        navigateTo(event, "Register.fxml");
     }
 
     @FXML
@@ -45,26 +29,11 @@ public class GuestMenuController extends Navigator {
     }
 
     @FXML
-    private void backToMainMenu(ActionEvent event) {
+    private void backToMainMenu(ActionEvent event) throws IOException {
 
-        try {
-
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("StartScreen.fxml")
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource())
-                    .getScene()
-                    .getWindow();
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
+        navigateTo(event, "StartScreen.fxml");
     }
+
 
 
     @FXML
