@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b9d6561-53f0-4a17-a42e-234c74691cb2" name="Changes" comment="updated version">
-      <change afterPath="$PROJECT_DIR$/src/AmenitiesGuiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RoomsGuiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0b9d6561-53f0-4a17-a42e-234c74691cb2" name="Changes" comment="RoomsGui updates">
+      <change afterPath="$PROJECT_DIR$/src/BookingScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookingScreenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookingSuccessController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/luxury hotel.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AdminScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Guest Login..fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Guest Login..fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GuestMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuestMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Navigator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RoomSelectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RoomSelectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StartScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/StartScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +22,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -95,6 +88,11 @@
     "settings.editor.selected.configurable": "project.propDebugger"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\OOP\OOP-HOTEL-SYSTEM-PROJECT\src" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="MainGui" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/Java/jdk-26.0.1" />
@@ -210,7 +208,23 @@
       <option name="project" value="LOCAL" />
       <updated>1778229751373</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="RoomsGui updates">
+      <option name="closed" value="true" />
+      <created>1778253941315</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1778253941316</updated>
+    </task>
+    <task id="LOCAL-00013" summary="RoomsGui updates">
+      <option name="closed" value="true" />
+      <created>1778253951726</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1778253951726</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,7 +255,8 @@
     <MESSAGE value="All amenities that might be in the room with their prices." />
     <MESSAGE value="updates version" />
     <MESSAGE value="updated version" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated version" />
+    <MESSAGE value="RoomsGui updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="RoomsGui updates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
