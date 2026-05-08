@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="RoomStatusDialogController"
+      spacing="10"
+      maxWidth="420"
+      minWidth="420"
+      prefWidth="420"
+      maxHeight="-Infinity"
+      VBox.vgrow="NEVER"
+      styleClass="floating-dialog">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <Label text="EDIT ROOM STATUS" styleClass="dialog-title"/>
+
+    <Region prefHeight="4"/>
+
+    <!-- ROOM -->
+    <Label text="ROOM" styleClass="field-label"/>
+    <Label fx:id="roomLabel" text="Room" styleClass="login-field"
+           style="-fx-background-color: transparent; -fx-border-color: transparent;
+                  -fx-text-fill: #d7dfd0; -fx-font-size: 13px;
+                  -fx-font-family: 'Montserrat Light'; -fx-padding: 6 0 6 0;"/>
+
+    <!-- STATUS TOGGLE -->
+    <Label text="STATUS" styleClass="field-label"/>
+    <HBox spacing="10">
+        <Button fx:id="availableBtn"
+                text="AVAILABLE"
+                onAction="#setAvailable"
+                styleClass="minimal-button"/>
+        <Button fx:id="occupiedBtn"
+                text="OCCUPIED"
+                onAction="#setOccupied"
+                styleClass="minimal-button"/>
+    </HBox>
+
+    <Label fx:id="statusPreview"
+           text=""
+           style="-fx-text-fill: rgba(218,222,216,0.45); -fx-font-size: 11px;
+                  -fx-font-family: 'Montserrat Light';"/>
+
+    <!-- BUTTONS -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <padding><Insets top="10"/></padding>
+        <Button text="CONFIRM"
+                onAction="#confirm"
+                styleClass="action-button"/>
+        <Button text="CANCEL"
+                onAction="#cancel"
+                styleClass="cancel-button"/>
+    </HBox>
+
+</VBox>

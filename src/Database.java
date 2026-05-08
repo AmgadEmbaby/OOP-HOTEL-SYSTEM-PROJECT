@@ -8,6 +8,7 @@ import java.util.*;
 import java.time.*;
 
 
+
 public class Database {
 
   private static  ArrayList<Guests> guestList= new ArrayList<>();
@@ -62,15 +63,26 @@ public class Database {
 
     return availableAmenitiesList;
   }
-  static{
-    //Arguments: Avilable amenties from the start
-    availableAmenitiesList.add(new Amenity("Soft drink",2));
-    availableAmenitiesList.add(new Amenity("Jacuzzi",150));
-    availableAmenitiesList.add(new Amenity("Wifi",10));
-    availableAmenitiesList.add(new Amenity("Tv-subscriptions",2));
+  static {
+    availableAmenitiesList.add(new Amenity("Soft drink", 2));
+    availableAmenitiesList.add(new Amenity("Jacuzzi", 150));
+    availableAmenitiesList.add(new Amenity("Wifi", 10));
+    availableAmenitiesList.add(new Amenity("Tv-subscriptions", 100));
+    availableAmenitiesList.add(new Amenity("HouseKeeping", 25));
+    availableAmenitiesList.add(new Amenity("Mini Bar", 25));
+    availableAmenitiesList.add(new Amenity("Breakfast in Bed", 45));
+    availableAmenitiesList.add(new Amenity("Extra Pillows", 25));
+    availableAmenitiesList.add(new Amenity("Bath Set", 12));
 
+    // Assign images by name
+    for (Amenity a : availableAmenitiesList) {
+      String path = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
+      if (Database.class.getResourceAsStream(path) != null) {
+        a.setImagePath(path);
+      }
+      // if file not found, constructor already set
+    }
   }
-
 
 
 
@@ -198,7 +210,18 @@ for(Rooms r: Database.getRoomList()) {
 
 
   }
-
+//  static {
+//    // Arguments: roomfloor, roomtype, isAvailable
+//    reservationsList.add(new Reservations(main().guest1, ));
+//    roomList.add(new Rooms(1, "Double"));
+//    roomList.add(new Rooms(2, "Double"));
+//    roomList.add(new Rooms(2, "suite"));
+//    roomList.add(new Rooms(3, "suite"));
+//    //Dummy data for the main run :)
+//
+//
+//  }
+//  Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method
 
   public static boolean isRoomAvailableForDates(Rooms room, LocalDate start, LocalDate end) {
     for (Reservations r : Database.getReservationsList()) {
@@ -395,6 +418,7 @@ for(Rooms r: Database.getRoomList()) {
     if (activityFeed.size() > 25) {
       activityFeed.remove(activityFeed.size() - 1);
     }
+    AdminController.refreshUI();
   }
 
 }
