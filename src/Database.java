@@ -76,10 +76,11 @@ public class Database {
 
     // Assign images by name
     for (Amenity a : availableAmenitiesList) {
-      String path = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
+      String path = "/" + a.getAmenityName().toLowerCase().trim().replace(" ", "_") + ".jpg";
       if (Database.class.getResourceAsStream(path) != null) {
         a.setImagePath(path);
       }
+
       // if file not found, constructor already set
     }
   }

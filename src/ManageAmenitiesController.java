@@ -33,8 +33,7 @@ public class ManageAmenitiesController {
 
     private void assignDefaultImages() {
         for (Amenity a : Database.getamenitiesList()) {
-            if (a.getImagePath() == null || a.getImagePath().equals("/fallback.jpg")) {
-                String guessedPath = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
+            if (a.getImagePath() == null || a.getImagePath().contains("fallback.jpg")) {                String guessedPath = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
                 InputStream is = getClass().getResourceAsStream(guessedPath);
                 if (is != null) {
                     a.setImagePath(guessedPath);
@@ -175,7 +174,6 @@ public class ManageAmenitiesController {
         }
     }
 
-    /** Called by AddAmenityDialogController when the user confirms. */
     public void addAmenityFromDialog(String name, double cost, String imagePath) {
         try {
             Amenity newAmenity = new Amenity(name, cost);

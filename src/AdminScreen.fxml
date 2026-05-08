@@ -15,7 +15,7 @@
       prefWidth="1200.0">
 
    <stylesheets>
-      <URL value="@resources/style.css" />
+      <URL value="@style.css" />
    </stylesheets>
 
    <!-- ================= SIDEBAR ================= -->
@@ -26,7 +26,7 @@
                  preserveRatio="false" opacity="0.25"
                  pickOnBounds="false" mouseTransparent="true"
                  StackPane.alignment="CENTER">
-         <Image url="@resources/velvet.jpg" />
+         <Image url="@velvet.jpg" />
       </ImageView>
 
       <VBox styleClass="sidebar" prefWidth="300" minHeight="800">
@@ -80,7 +80,7 @@
                     pickOnBounds="false"
                     mouseTransparent="true"
                     StackPane.alignment="BOTTOM_RIGHT">
-            <Image url="@resources/botanical.png" />
+            <Image url="@botanical.png" />
          </ImageView>
 
          <!-- Scrollable dashboard -->

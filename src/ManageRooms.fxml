@@ -10,7 +10,7 @@
            fx:controller="ManageRoomsController">
 
     <stylesheets>
-        <URL value="@/style.css"/>
+        <URL value="@style.css"/>
     </stylesheets>
 
     <!-- MAIN CONTENT -->

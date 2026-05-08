@@ -9,7 +9,7 @@
       prefHeight="700.0" prefWidth="1200.0" styleClass="root" spacing="20">
 
     <stylesheets>
-        <URL value="@resources/style.css" />
+        <URL value="@style.css" />
     </stylesheets>
 
     <HBox alignment="TOP_RIGHT">

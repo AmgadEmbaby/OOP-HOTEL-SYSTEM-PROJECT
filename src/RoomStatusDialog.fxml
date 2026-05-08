@@ -16,7 +16,7 @@
       styleClass="floating-dialog">
 
     <stylesheets>
-        <URL value="@/style.css"/>
+        <URL value="@style.css"/>
     </stylesheets>
 
     <Label text="EDIT ROOM STATUS" styleClass="dialog-title"/>
