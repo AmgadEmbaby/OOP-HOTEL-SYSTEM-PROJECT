@@ -31,7 +31,7 @@ public class Navigator {
 
     public void navigateTo(ActionEvent event, String fxmlFile) throws IOException {
         // Use getClass() to load the FXML relative to the current class
-        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+        Parent root = FXMLLoader.load(getClass().getResource("/" + fxmlFile));
 
         // Get the current stage from the event source
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

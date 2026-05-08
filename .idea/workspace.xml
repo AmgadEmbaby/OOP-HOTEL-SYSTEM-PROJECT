@@ -5,29 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b9d6561-53f0-4a17-a42e-234c74691cb2" name="Changes" comment="updated version">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_base.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_controls.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_fxml.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_graphics.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_media.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swing.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jdk_jsobject.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jfx_incubator_input.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jfx_incubator_richtext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_26_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AmenitiesGuiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RoomsGuiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOP PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP PROJECT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Rooms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rooms.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/luxury hotel.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AdminScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Guest Login..fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Guest Login..fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GuestMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuestMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Navigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RoomSelectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RoomSelectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StartScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/StartScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../OOP-HOTEL-SYSTEM-PROJECT\exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -102,7 +100,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/Java/jdk-26.0.1" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="MainGui" />
-      <module name="OOP PROJECT" />
+      <module name="OOP-HOTEL-SYSTEM-PROJECT" />
       <option name="VM_PARAMETERS" value=" --module-path &quot;C:\Users\Mariam Sherief\Downloads\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -204,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778190358270</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="updated version">
+      <option name="closed" value="true" />
+      <created>1778229751373</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1778229751373</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,6 +242,17 @@
     <MESSAGE value="updates version" />
     <MESSAGE value="updated version" />
     <option name="LAST_COMMIT_MESSAGE" value="updated version" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/GuestMenuController.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -29,7 +29,7 @@
                  pickOnBounds="false"
                  mouseTransparent="true"
                  StackPane.alignment="CENTER">
-         <Image url="@velvet.jpg" />
+
       </ImageView>
 
       <!-- Sidebar -->
@@ -81,7 +81,7 @@
                  pickOnBounds="false"
                  mouseTransparent="true"
                  StackPane.alignment="BOTTOM_RIGHT">
-         <Image url="@botanical.png" />
+         <Image url="@Luxury_Hotel.jpg" />
       </ImageView>
 
       <!-- Scrollable dashboard -->
