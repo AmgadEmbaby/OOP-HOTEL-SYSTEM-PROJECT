@@ -147,7 +147,16 @@ public class AdminController implements Initializable {
             e.printStackTrace();
         }
     }
-    @FXML private void showRoomTypes(ActionEvent e) {}
+    @FXML
+    private void showRoomTypes(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageRoomTypes.fxml"));
+            Parent view = loader.load();
+            contentArea.getChildren().setAll(view);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     @FXML private void showGuests(ActionEvent e) {}
     @FXML private void showReservations(ActionEvent e) {}
 

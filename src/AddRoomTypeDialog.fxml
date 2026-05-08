@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="AddRoomTypeDialogController"
+      spacing="10"
+      maxWidth="420"
+      minWidth="420"
+      prefWidth="420"
+      maxHeight="-Infinity"
+      VBox.vgrow="NEVER"
+      styleClass="floating-dialog">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <Label text="ADD NEW ROOM TYPE" styleClass="dialog-title"/>
+    <Region prefHeight="4"/>
+
+    <Label text="TYPE NAME" styleClass="field-label"/>
+    <TextField fx:id="nameField" promptText="e.g. Deluxe" styleClass="login-field"/>
+
+    <Label text="NUMBER OF BEDS" styleClass="field-label"/>
+    <TextField fx:id="bedsField" promptText="e.g. 2" styleClass="login-field"/>
+
+    <Label text="CAPACITY" styleClass="field-label"/>
+    <TextField fx:id="capacityField" promptText="e.g. 3" styleClass="login-field"/>
+
+    <Label text="PRICE PER NIGHT ($)" styleClass="field-label"/>
+    <TextField fx:id="priceField" promptText="e.g. 200" styleClass="login-field"/>
+
+    <Label text="DESCRIPTION" styleClass="field-label"/>
+    <TextField fx:id="descField" promptText="e.g. A spacious room..." styleClass="login-field"/>
+
+    <Label fx:id="errorLabel" text="" styleClass="error-label"/>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <padding><Insets top="10"/></padding>
+        <Button text="CREATE" onAction="#confirm" styleClass="action-button"/>
+        <Button text="CANCEL" onAction="#cancel" styleClass="cancel-button"/>
+    </HBox>
+
+</VBox>
