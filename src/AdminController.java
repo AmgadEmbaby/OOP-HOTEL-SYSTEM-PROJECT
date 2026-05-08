@@ -1,165 +1,149 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
+    @FXML private HBox arrivalsContainer;
 
-    // Dashboard labels
     @FXML private Label adminNameLabel;
     @FXML private Label totalRoomsLabel;
     @FXML private Label availableRoomsLabel;
     @FXML private Label totalGuestsLabel;
     @FXML private Label totalReservationsLabel;
+
     @FXML private VBox homeContent;
     @FXML private VBox activityFeedContainer;
-    // Main content container
     @FXML private StackPane contentArea;
 
+    // This is the inner StackPane wrapping botanical + scrollpane + minimize button
+    // Saving it as one unit means showHome() restores ALL layers at once
+    @FXML private StackPane dashboardNode;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        instance = this;
-
-        loadDashboardStats();
-        loadActivityFeed();
-    }
-
-    // ---------------- DASHBOARD ----------------
-
-    private void loadDashboardStats() {
-
-        adminNameLabel.setText(Database.getAdmin().getName());
-
-        totalRoomsLabel.setText(String.valueOf(Database.getRoomList().size()));
-
-        availableRoomsLabel.setText(String.valueOf(
-                Database.getRoomList().stream()
-                        .filter(r -> r.getStatus() == Rooms.RoomStatus.AVAILABLE)
-                        .count()
-        ));
-
-        totalGuestsLabel.setText(String.valueOf(Database.getGuestList().size()));
-
-        totalReservationsLabel.setText(String.valueOf(Database.getReservationsList().size()));
-    }
-
-    // ---------------- ACTIVITY FEED ----------------
     private static AdminController instance;
 
-    private void loadActivityFeed() {
-        if (activityFeedContainer == null) return;
-        activityFeedContainer.getChildren().clear();
-        for (String activity : Database.getActivityFeed()) {
-            Label label = new Label("· " + activity);
-            label.getStyleClass().add("activity-item");
-            label.setWrapText(true);
-            activityFeedContainer.getChildren().add(label);
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        instance = this;
+        refreshDashboard();
+        loadTonightArrivals();
+    }
+    private void loadTonightArrivals() {
+
+        arrivalsContainer.getChildren().clear();
+
+        for (Reservations r : Database.getReservationsList()) {
+
+            VBox card = new VBox(6);
+
+            card.setPrefWidth(180);
+            card.setMinWidth(180);
+
+            card.setStyle("""
+            -fx-background-color: rgba(255,255,255,0.05);
+            -fx-background-radius: 18;
+            -fx-border-radius: 18;
+            -fx-border-color: rgba(118,128,100,0.18);
+            -fx-padding: 18;
+        """);
+
+            Label guest = new Label(r.getGuest().getUserName());
+            guest.setStyle("""
+            -fx-text-fill: #F3EFE6;
+            -fx-font-size: 18px;
+            -fx-font-family: 'Cinzel';
+        """);
+
+            Label room = new Label("Room " + r.getRoom().getRoomNumber());
+            room.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.65);
+            -fx-font-size: 12px;
+        """);
+
+            card.getChildren().addAll(guest, room);
+
+            arrivalsContainer.getChildren().add(card);
         }
     }
     public void refreshDashboard() {
-        loadDashboardStats();
+        loadStats();
         loadActivityFeed();
     }
 
     public static void refreshUI() {
-        if (instance != null) {
-            instance.refreshDashboard();
+        if (instance != null) instance.refreshDashboard();
+    }
+
+    private void loadStats() {
+        adminNameLabel.setText(Database.getAdmin().getName());
+
+        totalRoomsLabel.setText(String.valueOf(Database.getRoomList().size()));
+
+        long available = Database.getRoomList().stream()
+                .filter(r -> r.getStatus() == Rooms.RoomStatus.AVAILABLE)
+                .count();
+
+        availableRoomsLabel.setText(String.valueOf(available));
+        totalGuestsLabel.setText(String.valueOf(Database.getGuestList().size()));
+        totalReservationsLabel.setText(String.valueOf(Database.getReservationsList().size()));
+    }
+
+    private void loadActivityFeed() {
+        activityFeedContainer.getChildren().clear();
+        for (String a : Database.getActivityFeed()) {
+            Label l = new Label("• " + a);
+            l.getStyleClass().add("activity-item");
+            activityFeedContainer.getChildren().add(l);
         }
     }
-    // ---------------- NAVIGATION ----------------
 
+    // ---------- NAVIGATION ----------
 
     @FXML
-    private void showHome(ActionEvent event) {
+    private void showHome(ActionEvent e) {
+        // Restore the full dashboard (botanical + scroll + minimize) as one unit
+        contentArea.getChildren().setAll(dashboardNode);
+        refreshDashboard();
+    }
+
+    @FXML
+    private void showRooms(ActionEvent e) {
         try {
-
-
-            refreshDashboard();
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(homeContent);
-        } catch (Exception e) {
-            e.printStackTrace();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageRooms.fxml"));
+            Parent view = loader.load();
+            contentArea.getChildren().setAll(view);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
+    @FXML private void showAmenities(ActionEvent e) {}
+    @FXML private void showRoomTypes(ActionEvent e) {}
+    @FXML private void showGuests(ActionEvent e) {}
+    @FXML private void showReservations(ActionEvent e) {}
 
     @FXML
-    private void showRooms(ActionEvent event) {
-        try {
-            Parent roomsView = FXMLLoader.load(getClass().getResource("ManageRooms.fxml"));
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(roomsView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void showAmenities(ActionEvent event) {
-        // later: swap to Amenities view
-    }
-
-    @FXML
-    private void showRoomTypes(ActionEvent event) {
-        // later: swap to RoomTypes view
-    }
-
-    @FXML
-    private void showGuests(ActionEvent event) {
-        // later: read-only view
-    }
-
-    @FXML
-    private void showReservations(ActionEvent event) {
-        // later: read-only view
-    }
-
-    // ---------------- QUICK ACTIONS ----------------
-
-    @FXML
-    private void addRoom(ActionEvent event) {
-        // ONLY navigation or popup trigger
-        // Admin.createRoom() happens inside popup controller later
-    }
-
-    @FXML
-    private void addAmenity(ActionEvent event) {
-        // open form
-    }
-
-    @FXML
-    private void addRoomType(ActionEvent event) {
-        // open form
-    }
-
-    // ---------------- SYSTEM ACTIONS ----------------
-
-    @FXML
-    private void logout(ActionEvent event) throws Exception {
+    private void logout(ActionEvent e) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 600);
-        MainGui.makeDraggable(root, stage);
-        stage.setMaximized(false);
-        stage.setScene(scene);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setScene(new javafx.scene.Scene(root, 1000, 600));
         stage.show();
     }
 
-
     @FXML
-    private void minimizeApp(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setMaximized(false);
+    private void minimizeApp(ActionEvent e) {
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
+
 }

@@ -1,249 +1,199 @@
 import javafx.animation.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.util.Duration;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class ManageRoomsController implements Initializable {
+public class ManageRoomsController {
 
     @FXML private FlowPane roomsContainer;
     @FXML private StackPane dialogOverlay;
-    @FXML private TextField floorField;
-    @FXML private ComboBox<String> roomTypeCombo;
-    @FXML private Label dialogErrorLabel;
 
-    private Admin admin = Database.getAdmin();
+    private final Admin admin = Database.getAdmin();
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadRoomTypes();
+    @FXML
+    public void initialize() {
         loadRooms();
+        hideOverlay();
     }
 
-    private void loadRoomTypes() {
-        roomTypeCombo.getItems().clear();
-        for (RoomType rt : Database.getAvailableRoomTypesList()) {
-            roomTypeCombo.getItems().add(rt.getTypeName());
-        }
-    }
+    // ---------- LOAD ----------
 
     private void loadRooms() {
         roomsContainer.getChildren().clear();
-        for (Rooms room : Database.getRoomList()) {
-            roomsContainer.getChildren().add(createRoomCard(room));
+        for (Rooms r : Database.getRoomList()) {
+            roomsContainer.getChildren().add(createCard(r));
         }
     }
 
-    @FXML
-    private void openAddRoomDialog(ActionEvent event) {
-        dialogErrorLabel.setText("");
-        floorField.clear();
-        roomTypeCombo.getSelectionModel().clearSelection();
+    // ---------- OVERLAY ----------
 
+    private void showOverlay(Parent content) {
+        // CENTER the dialog inside the overlay so it never stretches full height
+        StackPane.setAlignment(content, Pos.CENTER);
+
+        dialogOverlay.setAlignment(Pos.CENTER);
+        dialogOverlay.getChildren().setAll(content);
         dialogOverlay.setVisible(true);
         dialogOverlay.setManaged(true);
 
-        // simple fade in
-        FadeTransition fade = new FadeTransition(Duration.millis(150), dialogOverlay);
-        fade.setFromValue(0);
-        fade.setToValue(1);
-        fade.play();
+        GaussianBlur blur = new GaussianBlur(0);
+        roomsContainer.setEffect(blur);
+
+        new Timeline(
+                new KeyFrame(Duration.millis(180),
+                        new KeyValue(blur.radiusProperty(), 18))
+        ).play();
     }
 
-    @FXML
-    private void closeDialog(ActionEvent event) {
-
+    public void hideOverlay() {
         roomsContainer.setEffect(null);
-
-        FadeTransition fade = new FadeTransition(Duration.millis(150), dialogOverlay);
-        fade.setFromValue(1);
-        fade.setToValue(0);
-
-        fade.setOnFinished(e -> {
-            dialogOverlay.setVisible(false);
-            dialogOverlay.setManaged(false);
-            dialogOverlay.getChildren().clear();
-        });
-
-        fade.play();
-    }
-    private void closeOverlay() {
-
         dialogOverlay.setVisible(false);
         dialogOverlay.setManaged(false);
         dialogOverlay.getChildren().clear();
-
-        if (roomsContainer != null) {
-            roomsContainer.setEffect(null);
-        }
     }
+
+    // ---------- ADD ROOM ----------
 
     @FXML
-    private void createRoom(ActionEvent event) {
+    private void openAddRoomDialog() {
         try {
-            String floorText = floorField.getText().trim();
-            String roomType = roomTypeCombo.getValue();
-
-            if (floorText.isEmpty() || roomType == null) {
-                dialogErrorLabel.setText("Please fill all fields.");
-                return;
-            }
-
-            int floor = Integer.parseInt(floorText);
-            admin.createRoom(floor, roomType);
-
-            hideOverlay();
-            loadRooms();
-
-        } catch (Exception e) {
-            dialogErrorLabel.setText(e.getMessage());
-        }
-    }
-
-    private void deleteRoom(Rooms room) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Room");
-
-        alert.showAndWait().ifPresent(result -> {
-            if (result == ButtonType.OK) {
-                admin.deleteRoom(room.getRoomNumber());
-                loadRooms();
-            }
-        });
-    }
-
-
-    @FXML
-    private void openStatusDialog(Rooms room) {
-        try {
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("RoomStatusDialog.fxml"));
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddRoomDialog.fxml"));
             Parent dialog = loader.load();
 
-            RoomStatusDialogController controller = loader.getController();
+            AddRoomDialogController controller = loader.getController();
+            controller.setParent(this);
 
-            controller.setData(room, () -> {
-                loadRooms();          // refresh UI
-                closeOverlay();       // IMPORTANT FIX (we add this)
-            });
-
-            dialogOverlay.getChildren().setAll(dialog);
-            dialogOverlay.setVisible(true);
-            dialogOverlay.setManaged(true);
-
-            GaussianBlur blur = new GaussianBlur(0);
-            roomsContainer.setEffect(blur);
-
-            FadeTransition fade = new FadeTransition(Duration.millis(180), dialog);
-            fade.setFromValue(0);
-            fade.setToValue(1);
-
-            ScaleTransition scale = new ScaleTransition(Duration.millis(180), dialog);
-            scale.setFromX(0.92);
-            scale.setFromY(0.92);
-            scale.setToX(1);
-            scale.setToY(1);
-
-            Timeline blurAnim = new Timeline(
-                    new KeyFrame(Duration.millis(180),
-                            new KeyValue(blur.radiusProperty(), 18))
-            );
-
-            fade.play();
-            scale.play();
-            blurAnim.play();
+            showOverlay(dialog);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private VBox createRoomCard(Rooms room) {
+    public void createRoomFromDialog(String floorText, String type) {
+        try {
+            int floor = Integer.parseInt(floorText);
+            admin.createRoom(floor, type);
+            Database.addActivity("Room created (Floor " + floor + ")");
+            AdminController.refreshUI();
+            hideOverlay();
+            loadRooms();
+        } catch (Exception e) {
+            System.out.println("Invalid room creation");
+        }
+    }
 
-        VBox card = new VBox();
-        card.getStyleClass().add("room-card");
+    // ---------- ROOM CARDS ----------
+
+    private VBox createCard(Rooms room) {
 
         ImageView imageView = new ImageView();
-        imageView.setFitWidth(320);
-        imageView.setFitHeight(210);
+        imageView.setFitWidth(340);
+        imageView.setFitHeight(200);
         imageView.setPreserveRatio(false);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
 
         String typeName = room.getRoomtype().getTypeName().toLowerCase();
-
         String imagePath = switch (typeName) {
-            case "suite" -> "/suite.jpg";
+            case "suite"  -> "/suite.jpg";
             case "double" -> "/double.jpg";
-            default -> "/single.jpg";
+            default       -> "/single.jpg";
         };
 
         try {
-            Image img = new Image(getClass().getResourceAsStream(imagePath));
-            imageView.setImage(img);
+            imageView.setImage(new Image(getClass().getResourceAsStream(imagePath)));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Missing image: " + imagePath);
         }
 
-        VBox infoSection = new VBox(10);
-        infoSection.setPadding(new Insets(22));
+        Rectangle clip = new Rectangle(340, 200);
+        clip.setArcWidth(26);
+        clip.setArcHeight(26);
+        imageView.setClip(clip);
 
-        Label roomTitle = new Label(room.getRoomtype().getTypeName().toUpperCase());
-        roomTitle.getStyleClass().add("room-card-title");
+        VBox card = new VBox();
+        card.getStyleClass().add("room-card");
+        card.setPrefWidth(340);
+        card.setMaxWidth(340);
+        card.setMinWidth(340);
 
-        Label roomNumber = new Label("ROOM " + room.getRoomNumber());
-        roomNumber.getStyleClass().add("room-card-sub");
+        VBox info = new VBox(8);
+        info.setPadding(new Insets(16, 18, 12, 18));
 
-        Label floor = new Label("Floor " + room.getRoomFloor());
+        Label title = new Label(room.getRoomtype().getTypeName().toUpperCase());
+        title.getStyleClass().add("room-card-title");
+
+        Label num   = new Label("ROOM "  + room.getRoomNumber());
+        Label floor = new Label("FLOOR " + room.getRoomFloor());
+        num.getStyleClass().add("room-card-sub");
         floor.getStyleClass().add("room-card-sub");
 
         Label status = new Label(room.getStatus().toString());
         status.getStyleClass().add(
                 room.getStatus() == Rooms.RoomStatus.AVAILABLE
-                        ? "status-available"
-                        : "status-occupied"
+                        ? "status-available" : "status-occupied"
         );
 
         HBox buttons = new HBox(10);
+        buttons.setPadding(new Insets(8, 0, 0, 0));
 
-        Button editBtn = new Button("EDIT");
-        editBtn.getStyleClass().add("minimal-button");
+        Button edit = new Button("EDIT");
+        Button del  = new Button("DELETE");
+        edit.getStyleClass().add("minimal-button");
+        del.getStyleClass().add("minimal-button-danger");
+        edit.setMaxWidth(Double.MAX_VALUE);
+        del.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(edit, Priority.ALWAYS);
+        HBox.setHgrow(del,  Priority.ALWAYS);
 
-        Button deleteBtn = new Button("DELETE");
-        deleteBtn.getStyleClass().add("minimal-button-danger");
+        edit.setOnAction(e -> openStatusDialog(room));
+        del.setOnAction(e -> {
+            admin.deleteRoom(room.getRoomNumber());
+            Database.addActivity("Deleted Room " + room.getRoomNumber());
+            AdminController.refreshUI();
+            loadRooms();
+        });
 
-        editBtn.setOnAction(e -> openStatusDialog(room));
-        deleteBtn.setOnAction(e -> deleteRoom(room));
-
-        buttons.getChildren().addAll(editBtn, deleteBtn);
-
-        infoSection.getChildren().addAll(
-                roomTitle,
-                roomNumber,
-                floor,
-                status,
-                buttons
-        );
-
-        card.getChildren().addAll(imageView, infoSection);
-
+        buttons.getChildren().addAll(edit, del);
+        info.getChildren().addAll(title, num, floor, status, buttons);
+        card.getChildren().addAll(imageView, info);
         return card;
     }
-    private void hideOverlay() {
-        roomsContainer.setEffect(null);
 
-        dialogOverlay.setVisible(false);
-        dialogOverlay.setManaged(false);
-        dialogOverlay.getChildren().clear();
+    // ---------- STATUS DIALOG ----------
+
+    private void openStatusDialog(Rooms room) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("RoomStatusDialog.fxml"));
+            Parent dialog = loader.load();
+
+            RoomStatusDialogController c = loader.getController();
+            c.setParentController(this);
+            c.setData(room, () -> {
+                Database.addActivity("Room updated");
+                AdminController.refreshUI();
+                loadRooms();
+                hideOverlay();
+            });
+
+            showOverlay(dialog);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshRooms() {
+        loadRooms();
     }
 }

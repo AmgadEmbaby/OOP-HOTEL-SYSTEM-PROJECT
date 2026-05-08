@@ -8,13 +8,21 @@ public class RoomStatusDialogController {
 
     private Rooms room;
     private Runnable onConfirm;
+    private Rooms.RoomStatus selectedStatus;
+    private ManageRoomsController parentController;
 
     public void setData(Rooms room, Runnable onConfirm) {
         this.room = room;
         this.onConfirm = onConfirm;
 
         roomLabel.setText("Room " + room.getRoomNumber());
-        updatePreview(room.getStatus());
+        selectedStatus = room.getStatus();
+        updatePreview(selectedStatus);
+    }
+
+    // Called from ManageRoomsController so cancel can close the overlay
+    public void setParentController(ManageRoomsController parentController) {
+        this.parentController = parentController;
     }
 
     private void updatePreview(Rooms.RoomStatus status) {
@@ -23,27 +31,29 @@ public class RoomStatusDialogController {
 
     @FXML
     private void setAvailable() {
-        room.setStatus(Rooms.RoomStatus.AVAILABLE);
-        updatePreview(Rooms.RoomStatus.AVAILABLE);
+        selectedStatus = Rooms.RoomStatus.AVAILABLE;
+        updatePreview(selectedStatus);
     }
 
     @FXML
     private void setOccupied() {
-        room.setStatus(Rooms.RoomStatus.OCCUPIED);
-        updatePreview(Rooms.RoomStatus.OCCUPIED);
+        selectedStatus = Rooms.RoomStatus.OCCUPIED;
+        updatePreview(selectedStatus);
     }
 
     @FXML
     private void confirm() {
+        room.setStatus(selectedStatus);
+
+        Database.addActivity(
+                "Room " + room.getRoomNumber() + " updated to " + selectedStatus
+        );
+
         if (onConfirm != null) onConfirm.run();
     }
 
     @FXML
     private void cancel() {
-        close();
-    }
-
-    private void close() {
-        //roomLabel.getScene().getWindow().hide();
+        if (parentController != null) parentController.hideOverlay();
     }
 }
