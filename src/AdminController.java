@@ -22,15 +22,15 @@ public class AdminController implements Initializable {
     @FXML private Label availableRoomsLabel;
     @FXML private Label totalGuestsLabel;
     @FXML private Label totalReservationsLabel;
-
+    @FXML private VBox homeContent;
+    @FXML private VBox activityFeedContainer;
     // Main content container
     @FXML private StackPane contentArea;
 
-    // Optional activity feed (if you add it in FXML later)
-    @FXML private VBox activityContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance = this;
 
         loadDashboardStats();
         loadActivityFeed();
@@ -56,34 +56,55 @@ public class AdminController implements Initializable {
     }
 
     // ---------------- ACTIVITY FEED ----------------
+    private static AdminController instance;
 
     private void loadActivityFeed() {
-
-        if (activityContainer == null) return;
-
-        activityContainer.getChildren().clear();
-
+        if (activityFeedContainer == null) return;
+        activityFeedContainer.getChildren().clear();
         for (String activity : Database.getActivityFeed()) {
-
-            Label label = new Label(activity);
-            label.getStyleClass().add("activity-label");
-
-            activityContainer.getChildren().add(label);
+            Label label = new Label("· " + activity);
+            label.getStyleClass().add("activity-item");
+            label.setWrapText(true);
+            activityFeedContainer.getChildren().add(label);
         }
     }
+    public void refreshDashboard() {
+        loadDashboardStats();
+        loadActivityFeed();
+    }
 
+    public static void refreshUI() {
+        if (instance != null) {
+            instance.refreshDashboard();
+        }
+    }
     // ---------------- NAVIGATION ----------------
+
 
     @FXML
     private void showHome(ActionEvent event) {
-        // optionally reset to dashboard view
+        try {
+
+
+            refreshDashboard();
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(homeContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     private void showRooms(ActionEvent event) {
-        // later: swap center content with Rooms view
+        try {
+            Parent roomsView = FXMLLoader.load(getClass().getResource("ManageRooms.fxml"));
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(roomsView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     @FXML
     private void showAmenities(ActionEvent event) {
         // later: swap to Amenities view

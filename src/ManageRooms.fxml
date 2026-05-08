@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ManageRoomsController"
+      spacing="0"
+      styleClass="rooms-view">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <!-- HEADER -->
+    <HBox alignment="CENTER_LEFT" styleClass="view-header" spacing="20">
+        <padding><Insets top="30" right="40" bottom="20" left="40"/></padding>
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="ROOMS" styleClass="view-title"/>
+            <Label text="Manage all hotel rooms" styleClass="view-subtitle"/>
+        </VBox>
+        <Button text="+ ADD ROOM" onAction="#openAddRoomDialog" styleClass="action-button"/>
+    </HBox>
+
+    <!-- DIVIDER -->
+    <Region prefHeight="1" maxWidth="Infinity" style="-fx-background-color: rgba(118,128,100,0.2);"/>
+
+    <!-- ROOMS LIST -->
+    <ScrollPane fitToWidth="true"
+                VBox.vgrow="ALWAYS"
+                hbarPolicy="NEVER"
+                styleClass="scroll-pane">
+
+        <FlowPane fx:id="roomsContainer"
+                  hgap="28"
+                  vgap="28"
+                  prefWrapLength="1200"
+                  alignment="TOP_LEFT"
+                  styleClass="rooms-gallery">
+
+            <padding>
+                <Insets top="40" right="40" bottom="60" left="40"/>
+            </padding>
+
+        </FlowPane>
+
+    </ScrollPane>
+
+    <!-- ADD ROOM DIALOG (hidden by default) -->
+    <StackPane fx:id="dialogOverlay"
+               mouseTransparent="false"
+               style="-fx-background-color: rgba(0,0,0,0.5);"
+               visible="false"
+               managed="false">
+        <VBox styleClass="dialog-box"
+              spacing="20"
+              alignment="TOP_LEFT"
+              maxWidth="400"
+              opacity="0"
+              scaleX="0.92"
+              scaleY="0.92">
+            <padding><Insets top="35" right="35" bottom="35" left="35"/></padding>
+
+            <Label text="ADD NEW ROOM" styleClass="dialog-title"/>
+            <Region prefHeight="1" maxWidth="Infinity" style="-fx-background-color: rgba(118,128,100,0.3);"/>
+
+            <VBox spacing="5">
+                <Label text="FLOOR NUMBER" styleClass="field-label"/>
+                <TextField fx:id="floorField" styleClass="login-field" promptText="e.g. 1"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="ROOM TYPE" styleClass="field-label"/>
+                <ComboBox fx:id="roomTypeCombo" styleClass="combo-field" maxWidth="Infinity"/>
+            </VBox>
+
+            <Label fx:id="dialogErrorLabel" styleClass="error-label" text=""/>
+
+            <HBox spacing="10">
+                <Button text="CREATE ROOM" onAction="#createRoom" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="CANCEL" onAction="#closeDialog" styleClass="cancel-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+
+</VBox>

@@ -253,6 +253,7 @@ for(Rooms r: Database.getRoomList()) {
     if (activityFeed.size() > 25) {
       activityFeed.remove(activityFeed.size() - 1);
     }
+    AdminController.refreshUI();
   }
 
 }

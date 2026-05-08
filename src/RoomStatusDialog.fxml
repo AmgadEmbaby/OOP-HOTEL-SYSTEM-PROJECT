@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="RoomStatusDialogController"
+           styleClass="floating-dialog">
+
+    <VBox spacing="18"
+          maxWidth="360"
+          alignment="CENTER"
+          styleClass="dialog-inner">
+
+        <padding>
+            <Insets top="25" right="25" bottom="25" left="25"/>
+        </padding>
+
+        <!-- TITLE -->
+        <Label fx:id="roomLabel"
+               text="Room"
+               styleClass="dialog-title"/>
+
+        <Separator opacity="0.2"/>
+
+        <!-- STATUS DISPLAY -->
+        <Label fx:id="statusPreview"
+               text="AVAILABLE"
+               style="-fx-font-size: 16px; -fx-text-fill: #d7dfd0;"/>
+
+        <!-- ACTION BUTTONS -->
+        <HBox spacing="12" alignment="CENTER">
+
+            <Button text="AVAILABLE"
+                    onAction="#setAvailable"
+                    styleClass="action-button"/>
+
+            <Button text="OCCUPIED"
+                    onAction="#setOccupied"
+                    styleClass="action-button-danger"/>
+
+        </HBox>
+
+        <!-- CONFIRM -->
+        <HBox spacing="12" alignment="CENTER">
+
+            <Button text="CANCEL"
+                    onAction="#cancel"
+                    styleClass="cancel-button"/>
+
+            <Button text="CONFIRM"
+                    onAction="#confirm"
+                    styleClass="action-button"/>
+
+        </HBox>
+
+    </VBox>
+
+</StackPane>

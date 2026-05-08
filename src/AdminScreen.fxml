@@ -72,6 +72,7 @@
 
    <!-- ================= MAIN CONTENT ================= -->
    <StackPane HBox.hgrow="ALWAYS"
+              fx:id="contentArea"
               styleClass="content-area dashboard-shell">
 
       <!-- BOTANICAL OVERLAY -->
@@ -86,7 +87,7 @@
 
       <!-- Scrollable dashboard -->
       <ScrollPane fitToWidth="true" styleClass="content-area">
-         <VBox spacing="35">
+         <VBox fx:id="homeContent" spacing="35">
             <padding>
                <Insets top="40" right="40" bottom="40" left="40"/>
             </padding>
