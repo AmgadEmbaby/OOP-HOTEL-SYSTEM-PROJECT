@@ -210,18 +210,7 @@ for(Rooms r: Database.getRoomList()) {
 
 
   }
-//  static {
-//    // Arguments: roomfloor, roomtype, isAvailable
-//    reservationsList.add(new Reservations(main().guest1, ));
-//    roomList.add(new Rooms(1, "Double"));
-//    roomList.add(new Rooms(2, "Double"));
-//    roomList.add(new Rooms(2, "suite"));
-//    roomList.add(new Rooms(3, "suite"));
-//    //Dummy data for the main run :)
-//
-//
-//  }
-//  Guests guest, RoomType roomType, LocalDate in, LocalDate out,Invoices.PaymentMethod method
+
 
   public static boolean isRoomAvailableForDates(Rooms room, LocalDate start, LocalDate end) {
     for (Reservations r : Database.getReservationsList()) {
