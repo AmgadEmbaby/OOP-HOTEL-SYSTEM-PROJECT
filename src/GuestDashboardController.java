@@ -189,17 +189,23 @@ public class GuestDashboardController {
     private void searchRooms(ActionEvent event) {
         LocalDate checkIn = checkInPicker.getValue();
         LocalDate checkOut = checkOutPicker.getValue();
-        searchErrorLabel.setText("");
+        searchErrorLabel.setText(""); // Clear old errors
 
         try {
+            // --- 1. STRICT DATE VALIDATION (Using your custom backend!) ---
+            // If the dates are bad, this throws an error and skips straight to the catch block
+            ReservationsValidation.validateReservation(currentGuest, checkIn, checkOut);
+
+            // --- 2. BACKEND SEARCH ---
             Map<RoomType, Integer> availableRooms = currentGuest.ViewAvilableRooms(checkIn, checkOut);
 
             if (availableRooms.isEmpty()) {
                 searchErrorLabel.setStyle("-fx-text-fill: #d6b8b8;");
-                searchErrorLabel.setText("No rooms available for those dates.");
+                searchErrorLabel.setText("We're sorry, no rooms are available for those dates.");
                 return;
             }
 
+            // --- 3. PROCEED TO ROOM SELECTION ---
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/RoomSelection.fxml"));
             Parent root = loader.load();
 
@@ -210,9 +216,16 @@ public class GuestDashboardController {
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
 
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
+            // Catch your specific validation rules (e.g., "Checkin Date cannot be in the past")
             searchErrorLabel.setStyle("-fx-text-fill: #d6b8b8;");
-            searchErrorLabel.setText("Error: Please check your dates.");
+            searchErrorLabel.setText(e.getMessage());
+
+        } catch (Exception e) {
+            // Catch any other unexpected system errors
+            searchErrorLabel.setStyle("-fx-text-fill: #d6b8b8;");
+            searchErrorLabel.setText("System Error: Could not load available rooms.");
+            e.printStackTrace();
         }
     }
 

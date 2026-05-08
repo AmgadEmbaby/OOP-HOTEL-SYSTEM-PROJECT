@@ -182,7 +182,7 @@ for(Rooms r: Database.getRoomList()) {
     Guests guest1 = new Guests("Nour", "Cairo", LocalDate.of(2000, 5, 10), "pass123", Guests.Gender.female);
     Guests guest2 = new Guests("Halla", "Tanta", LocalDate.of(1999, 3, 15), "pass456", Guests.Gender.female);
     Guests guest3 = new Guests("Amgad", "Cairo", LocalDate.of(2001, 8, 20), "pass789", Guests.Gender.male); // Added Amgad for you!
-
+    guest3.setBalance(1000.0);
     guestList.add(guest1);
     guestList.add(guest2);
     guestList.add(guest3);
