@@ -17,21 +17,18 @@ public class GuestDashboardController {
     @FXML private VBox reservationsPane;
     @FXML private VBox billingPane;
 
-    // --- Home UI ---
     @FXML private Label guestNameLabel;
     @FXML private Label balanceLabel;
-    @FXML private Label activeStaysLabel; // RESTORED
+    @FXML private Label activeStaysLabel;
     @FXML private DatePicker checkInPicker;
     @FXML private DatePicker checkOutPicker;
     @FXML private Label searchErrorLabel;
 
-    // --- Reservations UI ---
     @FXML private ListView<String> reservationsList;
-    @FXML private ComboBox<String> activeStayCombo; // UPGRADED: No more typing IDs
+    @FXML private ComboBox<String> activeStayCombo;
     @FXML private ComboBox<String> amenityCombo;
     @FXML private Label resMessageLabel;
 
-    // --- Billing UI ---
     @FXML private ListView<String> invoicesList;
     @FXML private TextField targetInvoiceField;
     @FXML private TextField rechargeField;
@@ -43,7 +40,6 @@ public class GuestDashboardController {
         this.currentGuest = guest;
         guestNameLabel.setText(guest.getUserName());
 
-        // Load amenities into the dropdown
         for (Amenity a : Database.getamenitiesList()) {
             amenityCombo.getItems().add(a.getAmenityName());
         }
@@ -59,12 +55,10 @@ public class GuestDashboardController {
         int activeCount = 0;
 
         for (Reservations res : currentGuest.getGuestReservations()) {
-            // Populate the main list
             String info = "ID: " + res.getReservationID() + " | " + res.getTypeDesired().getTypeName() +
                     " | " + res.getCheckin() + " to " + res.getCheckout() + " | Status: " + res.getStatus();
             reservationsList.getItems().add(info);
 
-            // Populate the "Active Stays" dropdown for easy management
             if (res.getStatus().equals(Reservations.ReservationStatus.CONFIRMED) ||
                     res.getStatus().equals(Reservations.ReservationStatus.PENDING)) {
 
@@ -73,10 +67,8 @@ public class GuestDashboardController {
             }
         }
 
-        // Update the Home Screen counter
         activeStaysLabel.setText(String.valueOf(activeCount));
 
-        // Refresh Invoices
         invoicesList.getItems().clear();
         for (Invoices inv : currentGuest.getGuestInvoices()) {
             String info = inv.getInvoiceId() + " | " + inv.getType() + " | Total: $" +
@@ -85,7 +77,6 @@ public class GuestDashboardController {
         }
     }
 
-    // --- Navigation ---
     @FXML private void showHome() { switchPane(homePane); }
     @FXML private void showReservations() { refreshData(); switchPane(reservationsPane); }
     @FXML private void showBilling() { refreshData(); switchPane(billingPane); }
@@ -98,17 +89,14 @@ public class GuestDashboardController {
         paneToShow.toFront();
     }
 
-    // --- Helper to extract ID from dropdown ---
     private int getSelectedReservationId() throws Exception {
         String selection = activeStayCombo.getValue();
         if (selection == null || selection.isEmpty()) {
             throw new Exception("Please select an active reservation first.");
         }
-        // Splits "101 - SINGLE" to just get "101"
         return Integer.parseInt(selection.split(" - ")[0]);
     }
 
-    // --- Reservation Management ---
     @FXML
     private void handleOrderAmenity() {
         try {
@@ -129,10 +117,15 @@ public class GuestDashboardController {
     private void handleCancel() {
         try {
             int resId = getSelectedReservationId();
-            currentGuest.cancelReservation(resId);
+            boolean success = currentGuest.cancelReservation(resId);
+
+            if (!success) {
+                throw new Exception("Failed to cancel reservation. It may already be cancelled.");
+            }
+
             resMessageLabel.setStyle("-fx-text-fill: #768064;");
             resMessageLabel.setText("Reservation cancelled successfully.");
-            refreshData(); // This will automatically remove it from the dropdown!
+            refreshData();
         } catch (Exception e) {
             resMessageLabel.setStyle("-fx-text-fill: #d6b8b8;");
             resMessageLabel.setText(e.getMessage());
@@ -145,7 +138,7 @@ public class GuestDashboardController {
             int resId = getSelectedReservationId();
             currentGuest.requestCheckout(resId, Invoices.PaymentMethod.ONLINE);
             resMessageLabel.setStyle("-fx-text-fill: #768064;");
-            resMessageLabel.setText("Checkout processed.");
+            resMessageLabel.setText("Checkout processed successfully.");
             refreshData();
         } catch (Exception e) {
             resMessageLabel.setStyle("-fx-text-fill: #d6b8b8;");
@@ -153,7 +146,6 @@ public class GuestDashboardController {
         }
     }
 
-    // --- Billing ---
     @FXML
     private void handlePayInvoice() {
         String invId = targetInvoiceField.getText().trim();
@@ -161,10 +153,15 @@ public class GuestDashboardController {
             billingMessageLabel.setText("Please enter an Invoice ID.");
             return;
         }
-        currentGuest.onlinePaymentForTheOngoingInvoices(invId);
-        billingMessageLabel.setStyle("-fx-text-fill: #768064;");
-        billingMessageLabel.setText("Payment processed.");
-        refreshData();
+        try {
+            currentGuest.onlinePaymentForTheOngoingInvoices(invId);
+            billingMessageLabel.setStyle("-fx-text-fill: #768064;");
+            billingMessageLabel.setText("Payment processed.");
+            refreshData();
+        } catch (Exception e) {
+            billingMessageLabel.setStyle("-fx-text-fill: #d6b8b8;");
+            billingMessageLabel.setText(e.getMessage());
+        }
     }
 
     @FXML
@@ -184,20 +181,16 @@ public class GuestDashboardController {
         }
     }
 
-    // --- Booking ---
     @FXML
     private void searchRooms(ActionEvent event) {
         LocalDate checkIn = checkInPicker.getValue();
         LocalDate checkOut = checkOutPicker.getValue();
-        searchErrorLabel.setText(""); // Clear old errors
+        searchErrorLabel.setText("");
 
         try {
-            // --- 1. STRICT DATE VALIDATION (Using your custom backend!) ---
-            // If the dates are bad, this throws an error and skips straight to the catch block
             ReservationsValidation.validateReservation(currentGuest, checkIn, checkOut);
 
-            // --- 2. BACKEND SEARCH ---
-            Map<RoomType, Integer> availableRooms = currentGuest.ViewAvilableRooms(checkIn, checkOut);
+            Map<RoomType, Integer> availableRooms = Guests.ViewAvilableRooms(checkIn, checkOut);
 
             if (availableRooms.isEmpty()) {
                 searchErrorLabel.setStyle("-fx-text-fill: #d6b8b8;");
@@ -205,7 +198,6 @@ public class GuestDashboardController {
                 return;
             }
 
-            // --- 3. PROCEED TO ROOM SELECTION ---
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/RoomSelection.fxml"));
             Parent root = loader.load();
 
@@ -217,12 +209,10 @@ public class GuestDashboardController {
             stage.show();
 
         } catch (IllegalArgumentException e) {
-            // Catch your specific validation rules (e.g., "Checkin Date cannot be in the past")
             searchErrorLabel.setStyle("-fx-text-fill: #d6b8b8;");
             searchErrorLabel.setText(e.getMessage());
 
         } catch (Exception e) {
-            // Catch any other unexpected system errors
             searchErrorLabel.setStyle("-fx-text-fill: #d6b8b8;");
             searchErrorLabel.setText("System Error: Could not load available rooms.");
             e.printStackTrace();

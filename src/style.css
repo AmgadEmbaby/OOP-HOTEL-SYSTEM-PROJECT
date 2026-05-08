@@ -1,17 +1,17 @@
 /* THE FONT - This exact path is for Resource folders */
 @font-face {
     font-family: "Zaslia";
-    src: url("fonts/Zaslia.otf");
+    src: url("resources/fonts/Zaslia.otf");
 }
 
 @font-face {
     font-family: "Cinzel";
-    src: url("fonts/Cinzel.ttf");
+    src: url("resources/fonts/Cinzel.ttf");
 }
 
 @font-face {
     font-family: "Montserrat Light";
-    src: url("fonts/Montserrat-Light.ttf");
+    src: url("resources/fonts/Montserrat-Light.ttf");
 }
 
 

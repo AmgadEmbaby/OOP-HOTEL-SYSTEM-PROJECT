@@ -22,16 +22,12 @@ public class ManageRoomTypesController {
         hideOverlay();
     }
 
-    // ================= LOAD =================
-
     private void loadRoomTypes() {
         roomTypesContainer.getChildren().clear();
         for (RoomType rt : Database.getAvailableRoomTypesList()) {
             roomTypesContainer.getChildren().add(createCard(rt));
         }
     }
-
-    // ================= CARD =================
 
     private VBox createCard(RoomType rt) {
 
@@ -87,8 +83,6 @@ public class ManageRoomTypesController {
         return card;
     }
 
-    // ================= OVERLAY =================
-
     private void showOverlay(Parent content) {
         StackPane.setAlignment(content, Pos.CENTER);
         if (content instanceof Region r) r.setMaxHeight(Region.USE_PREF_SIZE);
@@ -110,8 +104,6 @@ public class ManageRoomTypesController {
         dialogOverlay.setManaged(false);
         dialogOverlay.getChildren().clear();
     }
-
-    // ================= ADD =================
 
     @FXML
     private void openAddDialog() {
@@ -139,8 +131,6 @@ public class ManageRoomTypesController {
         }
     }
 
-    // ================= EDIT =================
-
     private void openEditDialog(RoomType rt) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRoomTypeDialog.fxml"));
@@ -165,8 +155,6 @@ public class ManageRoomTypesController {
             showError(ex.getMessage());
         }
     }
-
-    // ================= ERROR =================
 
     private void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);

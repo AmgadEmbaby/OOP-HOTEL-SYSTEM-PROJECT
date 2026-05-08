@@ -26,8 +26,6 @@ public class AdminController implements Initializable {
     @FXML private VBox activityFeedContainer;
     @FXML private StackPane contentArea;
 
-    // This is the inner StackPane wrapping botanical + scrollpane + minimize button
-    // Saving it as one unit means showHome() restores ALL layers at once
     @FXML private StackPane dashboardNode;
 
     private static AdminController instance;
@@ -122,7 +120,6 @@ public class AdminController implements Initializable {
 
     @FXML
     private void showHome(ActionEvent e) {
-        // Restore the full dashboard (botanical + scroll + minimize) as one unit
         contentArea.getChildren().setAll(dashboardNode);
         refreshDashboard();
     }
@@ -148,10 +145,6 @@ public class AdminController implements Initializable {
 
             Parent amenitiesView = loader.load();
 
-            // IMPORTANT: keep controller reference (for future refresh)
-            ManageAmenitiesController controller = loader.getController();
-
-            // swap view
             contentArea.getChildren().setAll(amenitiesView);
 
         } catch (Exception e) {

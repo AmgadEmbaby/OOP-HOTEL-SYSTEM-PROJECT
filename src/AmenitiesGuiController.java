@@ -11,28 +11,23 @@ import java.util.ResourceBundle;
 
 public class AmenitiesGuiController implements Initializable {
 
-    // ---- ADD AMENITY ----
     @FXML private TextField amenityNameField;
     @FXML private TextField amenityCostField;
     @FXML private Label amenityNameError;
     @FXML private Label amenityCostError;
     @FXML private Label addAmenityMessage;
 
-    // ---- AMENITIES LIST ----
     @FXML private VBox amenitiesContainer;
     @FXML private Label amenityCountLabel;
 
-    // ---- UPDATE COST ----
     @FXML private ComboBox<String> updateAmenityCombo;
     @FXML private TextField updateCostField;
     @FXML private Label updateCostMessage;
 
-    // ---- TOGGLE AVAILABILITY ----
     @FXML private ComboBox<String> toggleAmenityCombo;
     @FXML private ComboBox<String> availabilityCombo;
     @FXML private Label toggleMessage;
 
-    // ---- DELETE ----
     @FXML private ComboBox<String> deleteAmenityCombo;
     @FXML private Label deleteAmenityMessage;
 
@@ -44,10 +39,6 @@ public class AmenitiesGuiController implements Initializable {
         refreshAllCombos();
         refreshAmenityList();
     }
-
-    // ────────────────────────────────────────────────────
-    //  ADD AMENITY
-    // ────────────────────────────────────────────────────
 
     @FXML
     private void handleAddAmenity(ActionEvent event) {
@@ -90,10 +81,6 @@ public class AmenitiesGuiController implements Initializable {
         }
     }
 
-    // ────────────────────────────────────────────────────
-    //  UPDATE COST
-    // ────────────────────────────────────────────────────
-
     @FXML
     private void handleUpdateCost(ActionEvent event) {
         clearMessages();
@@ -124,10 +111,6 @@ public class AmenitiesGuiController implements Initializable {
         }
     }
 
-    // ────────────────────────────────────────────────────
-    //  TOGGLE AVAILABILITY
-    // ────────────────────────────────────────────────────
-
     @FXML
     private void handleToggleAvailability(ActionEvent event) {
         clearMessages();
@@ -151,10 +134,6 @@ public class AmenitiesGuiController implements Initializable {
         }
     }
 
-    // ────────────────────────────────────────────────────
-    //  DELETE AMENITY
-    // ────────────────────────────────────────────────────
-
     @FXML
     private void handleDeleteAmenity(ActionEvent event) {
         clearMessages();
@@ -176,10 +155,6 @@ public class AmenitiesGuiController implements Initializable {
             deleteAmenityMessage.setText("Error: " + e.getMessage());
         }
     }
-
-    // ────────────────────────────────────────────────────
-    //  HELPERS
-    // ────────────────────────────────────────────────────
 
     private void refreshAllCombos() {
         updateAmenityCombo.getItems().clear();
