@@ -8,7 +8,7 @@ public class Reservations {
     private ReservationStatus status;
     private static int idCounter=1000;
     private int reservationID;
-    private boolean isCheckedIn=false;
+    boolean isCheckedIn=false;
     private Invoices.PaymentMethod method;
 
     @Override
