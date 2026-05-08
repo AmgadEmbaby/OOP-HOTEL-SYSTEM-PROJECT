@@ -4,8 +4,6 @@ public class Amenity {
    private boolean IsAvailable;
     private String imagePath;
 
-    //CONSTRUCTORS
-
     public Amenity(String amenityName , double amenityCost) {
         this.AmenityName = RoomTypeValidation.validateUniqueAmenity(amenityName);
         this.AmenityCost= RoomTypeValidation.validateAmenityCost(amenityCost);
@@ -13,7 +11,6 @@ public class Amenity {
         imagePath = "/fallback.jpg";
     }
 
-    //GETTERS
     public String getAmenityName() {
         return AmenityName;
     }
@@ -28,7 +25,6 @@ public class Amenity {
 
 
 
-    //GETTERS
     public void setAmenityName(String amenityName) {
         AmenityName = RoomTypeValidation.validateAmenityName(amenityName);
     }

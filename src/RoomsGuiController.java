@@ -31,14 +31,11 @@ public class RoomsGuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Populate room type combo
         refreshRoomTypeCombo();
 
-        // Populate status combo
         statusCombo.getItems().setAll(Rooms.RoomStatus.values());
         statusCombo.getSelectionModel().selectFirst();
 
-        // Load room list
         refreshRoomList();
     }
 

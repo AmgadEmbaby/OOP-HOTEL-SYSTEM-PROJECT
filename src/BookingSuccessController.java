@@ -15,7 +15,6 @@ public class BookingSuccessController {
 
     @FXML
     public void initialize() {
-        // runs automatically when FXML loads
     }
 
     public void initData(Guests guest, Reservations reservation, List<Amenity> amenities) {

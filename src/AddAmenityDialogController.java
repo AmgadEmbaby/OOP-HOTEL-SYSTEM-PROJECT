@@ -15,13 +15,9 @@ public class AddAmenityDialogController {
     private ManageAmenitiesController parent;
     private String pickedImagePath = null;
 
-    // ================= WIRING =================
-
     public void setParent(ManageAmenitiesController parent) {
         this.parent = parent;
     }
-
-    // ================= IMAGE PICKER =================
 
     @FXML
     private void pickImage() {
@@ -40,8 +36,6 @@ public class AddAmenityDialogController {
             );
         }
     }
-
-    // ================= CONFIRM =================
 
     @FXML
     private void confirm() {
@@ -62,8 +56,6 @@ public class AddAmenityDialogController {
             errorLabel.setText(ex.getMessage());
         }
     }
-
-    // ================= CANCEL =================
 
     @FXML
     private void cancel() {
