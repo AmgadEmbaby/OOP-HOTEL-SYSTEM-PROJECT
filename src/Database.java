@@ -24,6 +24,8 @@ public class Database {
 
   private static ArrayList<Staff> staffList = new ArrayList<>();
 
+  private static ArrayList<String> activityFeed = new ArrayList<>();
+
   private static Admin admin = new Admin("admin", "Halla", "admin123",   LocalDate.of(1999,5,9), Staff.Role.ADMIN,  8);     //one admin for the whole system
 
   public static Admin getAdmin() {
@@ -85,6 +87,16 @@ public class Database {
 
     return InvoicesList;
   }
+
+
+
+  public static ArrayList<String> getActivityFeed() {
+    return activityFeed;
+  }
+
+
+
+
 
   //helper functions
   public static Rooms findRoom(int roomNumber){
@@ -164,9 +176,17 @@ for(Rooms r: Database.getRoomList()) {
     availableRoomTypesList.add(new RoomType("Suite", 1 , 4, "A large and luxurious room , it has s separate living area with a sofa bed " +
             ",bedroom with a large king size bed and a small kitchen with a mini bar," +
             "it's perfect for a small family or guests who want to have a private and luxurious stay.",  465));
-
   }
+  static {
+    // Arguments: userName, address, dateOfBirth, passWord, gender
+    Guests guest1 = new Guests("Nour", "Cairo", LocalDate.of(2000, 5, 10), "pass123", Guests.Gender.female);
+    Guests guest2 = new Guests("Halla", "Tanta", LocalDate.of(1999, 3, 15), "pass456", Guests.Gender.female);
+    Guests guest3 = new Guests("Amgad", "Cairo", LocalDate.of(2001, 8, 20), "pass789", Guests.Gender.male); // Added Amgad for you!
 
+    guestList.add(guest1);
+    guestList.add(guest2);
+    guestList.add(guest3);
+  }
   static {
     // Arguments: roomfloor, roomtype, isAvailable
     roomList.add(new Rooms(1, "Single"));
@@ -199,6 +219,10 @@ for(Rooms r: Database.getRoomList()) {
 
 
 
+
+
+
+
   public static double calculateReservationTotal(int resID) {
     double grandTotal = 0;
 
@@ -223,6 +247,12 @@ for(Rooms r: Database.getRoomList()) {
 
 
 
+  public static void addActivity(String message) {
+    activityFeed.add(0, message);
 
+    if (activityFeed.size() > 25) {
+      activityFeed.remove(activityFeed.size() - 1);
+    }
+  }
 
 }

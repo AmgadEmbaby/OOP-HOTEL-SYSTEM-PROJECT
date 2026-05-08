@@ -6,7 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class GuestMenuController {
+import java.io.IOException;
+
+public class GuestMenuController extends Navigator {
 
     @FXML
     private void openRegister(ActionEvent event) {
@@ -31,9 +33,15 @@ public class GuestMenuController {
     }
 
     @FXML
-    private void openSignIn(ActionEvent event) {
+    private void openSignIn(ActionEvent event) throws IOException {
+        //navigateTo(event,"GuestLogin.fxml");
 
-        System.out.println("Sign In screen not created yet.");
+        Parent root = FXMLLoader.load(getClass().getResource("Guest login..fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setMaximized(false);
+        stage.setScene(new Scene(root, 1000, 600));
+        stage.show();
+
     }
 
     @FXML
