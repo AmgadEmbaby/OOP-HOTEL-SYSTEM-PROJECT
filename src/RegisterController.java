@@ -63,10 +63,10 @@ public class RegisterController {
 
             guest.setBalance(balance);
 
-            // YOUR VALIDATION
+
             GuestValidation.validateRegister(guest);
 
-            // ADD TO DATABASE
+
             Database.addGuests(guest);
 
             errorLabel.setStyle("-fx-text-fill: #b8d6b8;");
