@@ -15,7 +15,7 @@
       prefWidth="1200.0">
 
    <stylesheets>
-      <URL value="@/style.css"/>
+      <URL value="@style.css"/>
    </stylesheets>
 
    <!-- ================= SIDEBAR ================= -->
@@ -81,7 +81,7 @@
                  pickOnBounds="false"
                  mouseTransparent="true"
                  StackPane.alignment="BOTTOM_RIGHT">
-         <Image url="@Luxury_Hotel.jpg" />
+         <Image url="luxury_hotel.jpg" />
       </ImageView>
 
       <!-- Scrollable dashboard -->
