@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="ManageRoomsController">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <!-- MAIN CONTENT -->
+    <VBox spacing="0" styleClass="rooms-view">
+
+        <!-- HEADER -->
+        <HBox alignment="CENTER_LEFT" styleClass="view-header" spacing="20">
+            <padding><Insets top="30" right="40" bottom="20" left="40"/></padding>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="ROOMS MANAGEMENT" styleClass="view-title"/>
+                <Label text="Manage all hotel rooms" styleClass="view-subtitle"/>
+            </VBox>
+            <Button text="+ ADD ROOM" onAction="#openAddRoomDialog" styleClass="action-button"/>
+        </HBox>
+
+        <!-- DIVIDER -->
+        <Region prefHeight="1" maxWidth="Infinity"
+                style="-fx-background-color: rgba(118,128,100,0.2);"/>
+
+        <!-- ROOMS LIST -->
+        <ScrollPane fitToWidth="true"
+                    VBox.vgrow="ALWAYS"
+                    hbarPolicy="NEVER"
+                    pannable="true"
+                    styleClass="scroll-pane">
+
+            <FlowPane fx:id="roomsContainer"
+                      hgap="30"
+                      vgap="30"
+                      prefWrapLength="1100"
+                      styleClass="rooms-gallery">
+                <padding>
+                    <Insets top="40" right="40" bottom="60" left="40"/>
+                </padding>
+            </FlowPane>
+
+        </ScrollPane>
+    </VBox>
+
+    <!-- OVERLAY — sits on top of everything via StackPane, hidden by default -->
+    <StackPane fx:id="dialogOverlay"
+               visible="false"
+               managed="false"
+               style="-fx-background-color: rgba(0,0,0,0.55);"
+               mouseTransparent="false"/>
+
+</StackPane>

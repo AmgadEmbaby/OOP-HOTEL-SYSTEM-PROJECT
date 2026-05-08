@@ -426,13 +426,21 @@
     -fx-border-color: rgba(118,128,100,0.25);
     -fx-border-width: 0.6;
     -fx-text-fill: rgba(218,222,216,0.70);
-    -fx-font-family: "Cinzel";
+    -fx-font-family: "Montserrat Light";
     -fx-font-size: 10px;
     -fx-letter-spacing: 2px;
     -fx-padding: 8 18;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
     -fx-cursor: hand;
+}
+.minimal-button-selected {
+    -fx-background-color: rgba(90, 140, 90, 0.25);
+    -fx-border-color: rgba(218,222,216,0.18);
+    -fx-border-width: 0.7;
+    -fx-text-fill: #F3EFE6;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
 }
 
 .minimal-button:hover {
