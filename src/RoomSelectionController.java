@@ -78,12 +78,35 @@ public class RoomSelectionController {
         return box;
     }
 
-    // Handles what happens when they click "Select This Suite"
     private void handleRoomSelection(ActionEvent event, RoomType selectedRoom) {
-        System.out.println("Guest selected: " + selectedRoom.getTypeName());
 
-        // TODO: Load the MakeReservation.fxml (Payment Screen) here!
-        // You will use the exact same pattern: Load FXML -> getController() -> pass currentGuest, selectedRoom, checkIn, checkOut -> Switch Scene.
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/BookingScreen.fxml")
+            );
+
+            Parent root = loader.load();
+
+            BookingScreenController controller = loader.getController();
+
+            controller.initData(
+                    currentGuest,
+                    selectedRoom,
+                    checkIn,
+                    checkOut
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene()
+                    .getWindow();
+
+            stage.setScene(new Scene(root, 1200, 700));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
