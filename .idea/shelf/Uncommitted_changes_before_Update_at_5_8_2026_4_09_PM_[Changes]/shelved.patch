@@ -1,0 +1,1084 @@
+Index: src/Navigator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class Navigator {\r\n    @FXML private Button receptionistBtn;\r\n    public void guestChoice(ActionEvent event)throws IOException {\r\n        navigateTo(event, \"GuestMenu.fxml\");\r\n    }\r\n\r\n    public void switchBakcToChoices(ActionEvent event)throws IOException{\r\n        navigateTo(event, \"StartScreen.fxml\");\r\n    }\r\n    public void adminChoice(ActionEvent event) throws IOException {\r\n        navigateTo(event, \"AdminLogin.fxml\");\r\n    }\r\n\r\n\r\n\r\n    public void GobackToGuestMenu (ActionEvent event) throws IOException {\r\n        navigateTo(event, \"GuestMenu.fxml\");\r\n    }\r\n\r\n\r\n    public void navigateTo(ActionEvent event, String fxmlFile) throws IOException {\r\n        // Use getClass() to load the FXML relative to the current class\r\n        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));\r\n\r\n        // Get the current stage from the event source\r\n        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();\r\n\r\n        // Create a new scene and set it on the stage\r\n        Scene scene = new Scene(root);\r\n        stage.setScene(scene);\r\n        stage.show();\r\n        MainGui.makeDraggable(root, stage);\r\n    }\r\n\r\n    public void exitApp(ActionEvent event) {\r\n        System.exit(0);\r\n    }\r\n\r\n    @FXML\r\n    private void handleReceptionistChoice(ActionEvent event) {\r\n        try {\r\n            // This loads the username/password entry screen\r\n            Parent root = FXMLLoader.load(getClass().getResource(\"ReceptionistLogin.fxml\"));\r\n            Stage stage = (Stage) receptionistBtn.getScene().getWindow();\r\n            stage.setScene(new Scene(root));\r\n            stage.show();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Navigator.java b/src/Navigator.java
+--- a/src/Navigator.java	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/src/Navigator.java	(date 1778243856710)
+@@ -31,7 +31,7 @@
+ 
+     public void navigateTo(ActionEvent event, String fxmlFile) throws IOException {
+         // Use getClass() to load the FXML relative to the current class
+-        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
++        Parent root = FXMLLoader.load(getClass().getResource("/" + fxmlFile));
+ 
+         // Get the current stage from the event source
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+Index: src/StartScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import java.net.URL?>\r\n<?import javafx.geometry.Insets?>\r\n\r\n<HBox prefHeight=\"600.0\" prefWidth=\"1000.0\" styleClass=\"root\" xmlns=\"http://javafx.com/javafx/21\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"Navigator\">\r\n   <stylesheets>\r\n      <URL value=\"@/style.css\" />\r\n   </stylesheets>\r\n\r\n   <VBox prefWidth=\"500.0\" HBox.hgrow=\"ALWAYS\">\r\n      <ImageView fitHeight=\"600.0\" fitWidth=\"500.0\" pickOnBounds=\"true\" preserveRatio=\"false\">\r\n         <Image url=\"@/luxury hotel.jpg\" />\r\n      </ImageView>\r\n   </VBox>\r\n\r\n   <VBox alignment=\"TOP_CENTER\" prefWidth=\"500.0\" styleClass=\"content-side\" HBox.hgrow=\"ALWAYS\">\r\n\r\n      <HBox alignment=\"TOP_RIGHT\" HBox.hgrow=\"ALWAYS\" maxWidth=\"Infinity\">\r\n         <Button text=\"✕\" onAction=\"#exitApp\" styleClass=\"close-button\" />\r\n      </HBox>\r\n\r\n      <VBox alignment=\"TOP_CENTER\" spacing=\"34.0\" VBox.vgrow=\"ALWAYS\">\r\n         <padding>\r\n            <Insets top=\"100.0\" />\r\n         </padding>\r\n\r\n         <VBox alignment=\"CENTER\" spacing=\"10\">\r\n            <Label text=\"THE  FIVE  SEASONS\" styleClass=\"main-title\" minWidth=\"-Infinity\"/>\r\n            <Label text=\"Spring • Summer • Autumn • Winter • Experience\" styleClass=\"subtitle\" />\r\n            <Label text=\"Nature provides four; we provide the fifth: a season of pure luxury\"\r\n                   wrapText=\"true\" alignment=\"CENTER\" styleClass=\"explanation-text\"\r\n                   maxWidth=\"300\" textAlignment=\"CENTER\" />\r\n         </VBox>\r\n\r\n\r\n         <VBox alignment=\"CENTER\" spacing=\"15.0\">\r\n            <Button text=\"GUEST\" onAction=\"#guestChoice\" styleClass=\"role-button\" prefWidth=\"200\" />\r\n            <Button fx:id=\"receptionistBtn\" text=\"RECEPTIONIST\" onAction=\"#handleReceptionistChoice\" styleClass=\"role-button\" prefWidth=\"200\" />\r\n            <Button text=\"ADMIN\" onAction=\"#adminChoice\" styleClass=\"role-button\" prefWidth=\"200\" />\r\n         </VBox>\r\n      </VBox>\r\n   </VBox>\r\n</HBox>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/StartScreen.fxml b/src/StartScreen.fxml
+--- a/src/StartScreen.fxml	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/src/StartScreen.fxml	(date 1778243856723)
+@@ -12,7 +12,7 @@
+ 
+    <VBox prefWidth="500.0" HBox.hgrow="ALWAYS">
+       <ImageView fitHeight="600.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="false">
+-         <Image url="@/luxury hotel.jpg" />
++         <Image url="@/Luxury_Hotel.jpg" />
+       </ImageView>
+    </VBox>
+ 
+Index: src/GuestMenu.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import java.net.URL?>\r\n<?import javafx.geometry.Insets?>\r\n<?import javafx.scene.control.Button?>\r\n<?import javafx.scene.control.Label?>\r\n<?import javafx.scene.image.Image?>\r\n<?import javafx.scene.image.ImageView?>\r\n<?import javafx.scene.layout.HBox?>\r\n<?import javafx.scene.layout.Region?>\r\n<?import javafx.scene.layout.VBox?>\r\n\r\n<HBox prefHeight=\"600.0\" prefWidth=\"1000.0\" styleClass=\"root\" xmlns=\"http://javafx.com/javafx/26\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"GuestMenuController\">\r\n\r\n    <stylesheets>\r\n        <URL value=\"@/style.css\" />\r\n    </stylesheets>\r\n\r\n    <!-- LEFT IMAGE -->\r\n\r\n    <VBox prefWidth=\"500.0\" HBox.hgrow=\"ALWAYS\">\r\n\r\n        <ImageView fitHeight=\"600.0\" fitWidth=\"500.0\" preserveRatio=\"false\">\r\n\r\n            <Image url=\"@/luxury hotel.jpg\" />\r\n\r\n        </ImageView>\r\n\r\n    </VBox>\r\n\r\n    <!-- RIGHT CONTENT -->\r\n\r\n    <VBox alignment=\"TOP_CENTER\" prefWidth=\"500.0\" styleClass=\"content-side\" HBox.hgrow=\"ALWAYS\">\r\n\r\n        <!-- TOP BAR -->\r\n\r\n        <HBox alignment=\"TOP_RIGHT\" maxWidth=\"Infinity\">\r\n         <Button onAction=\"#goBack\" styleClass=\"close-button\" text=\"← BACK\" />\r\n\r\n        </HBox>\r\n\r\n        <!-- CENTER CONTENT -->\r\n\r\n        <VBox alignment=\"CENTER\" spacing=\"34.0\" VBox.vgrow=\"ALWAYS\">\r\n\r\n            <padding>\r\n                <Insets top=\"100.0\" />\r\n            </padding>\r\n\r\n            <!-- TITLES -->\r\n\r\n            <VBox alignment=\"CENTER\" spacing=\"10\">\r\n\r\n                <Label styleClass=\"main-title\" text=\"GUEST PORTAL\" />\r\n\r\n                <Label styleClass=\"subtitle\" text=\"Reservations • Luxury • Comfort\" />\r\n\r\n                <Label maxWidth=\"300\" styleClass=\"explanation-text\" text=\"Continue your experience with The Five Seasons.\" textAlignment=\"CENTER\" wrapText=\"true\" />\r\n\r\n            </VBox>\r\n\r\n            <!-- BUTTONS -->\r\n\r\n            <VBox alignment=\"CENTER\" spacing=\"18\">\r\n\r\n                <Button onAction=\"#openSignIn\" prefWidth=\"220\" styleClass=\"role-button\" text=\"SIGN IN\" />\r\n\r\n                <Button onAction=\"#openRegister\" prefWidth=\"220\" styleClass=\"role-button\" text=\"REGISTER\" />\r\n\r\n            </VBox>\r\n\r\n        </VBox>\r\n\r\n        <Region VBox.vgrow=\"ALWAYS\" />\r\n\r\n    </VBox>\r\n\r\n</HBox>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GuestMenu.fxml b/src/GuestMenu.fxml
+--- a/src/GuestMenu.fxml	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/src/GuestMenu.fxml	(date 1778243856733)
+@@ -22,7 +22,7 @@
+ 
+         <ImageView fitHeight="600.0" fitWidth="500.0" preserveRatio="false">
+ 
+-            <Image url="@/luxury hotel.jpg" />
++            <Image url="@/Luxury_Hotel.jpg" />
+ 
+         </ImageView>
+ 
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"NullableNotNullManager\">\r\n    <option name=\"myDefaultNullable\" value=\"org.jetbrains.annotations.Nullable\" />\r\n    <option name=\"myDefaultNotNull\" value=\"org.jetbrains.annotations.NotNull\" />\r\n    <option name=\"myOrdered\" value=\"false\" />\r\n    <option name=\"myNullables\">\r\n      <value>\r\n        <list size=\"16\">\r\n          <item index=\"0\" class=\"java.lang.String\" itemvalue=\"org.jspecify.annotations.Nullable\" />\r\n          <item index=\"1\" class=\"java.lang.String\" itemvalue=\"org.jetbrains.annotations.Nullable\" />\r\n          <item index=\"2\" class=\"java.lang.String\" itemvalue=\"android.annotation.Nullable\" />\r\n          <item index=\"3\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.Nullable\" />\r\n          <item index=\"4\" class=\"java.lang.String\" itemvalue=\"com.android.annotations.Nullable\" />\r\n          <item index=\"5\" class=\"java.lang.String\" itemvalue=\"android.support.annotation.Nullable\" />\r\n          <item index=\"6\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.RecentlyNullable\" />\r\n          <item index=\"7\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.qual.Nullable\" />\r\n          <item index=\"8\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NullableDecl\" />\r\n          <item index=\"9\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NullableType\" />\r\n          <item index=\"10\" class=\"java.lang.String\" itemvalue=\"org.eclipse.jdt.annotation.Nullable\" />\r\n          <item index=\"11\" class=\"java.lang.String\" itemvalue=\"edu.umd.cs.findbugs.annotations.Nullable\" />\r\n          <item index=\"12\" class=\"java.lang.String\" itemvalue=\"jakarta.annotation.Nullable\" />\r\n          <item index=\"13\" class=\"java.lang.String\" itemvalue=\"javax.annotation.Nullable\" />\r\n          <item index=\"14\" class=\"java.lang.String\" itemvalue=\"javax.annotation.CheckForNull\" />\r\n          <item index=\"15\" class=\"java.lang.String\" itemvalue=\"org.springframework.lang.Nullable\" />\r\n        </list>\r\n      </value>\r\n    </option>\r\n    <option name=\"myNotNulls\">\r\n      <value>\r\n        <list size=\"16\">\r\n          <item index=\"0\" class=\"java.lang.String\" itemvalue=\"org.jspecify.annotations.NonNull\" />\r\n          <item index=\"1\" class=\"java.lang.String\" itemvalue=\"org.jetbrains.annotations.NotNull\" />\r\n          <item index=\"2\" class=\"java.lang.String\" itemvalue=\"android.annotation.NonNull\" />\r\n          <item index=\"3\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.NonNull\" />\r\n          <item index=\"4\" class=\"java.lang.String\" itemvalue=\"com.android.annotations.NonNull\" />\r\n          <item index=\"5\" class=\"java.lang.String\" itemvalue=\"android.support.annotation.NonNull\" />\r\n          <item index=\"6\" class=\"java.lang.String\" itemvalue=\"androidx.annotation.RecentlyNonNull\" />\r\n          <item index=\"7\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.qual.NonNull\" />\r\n          <item index=\"8\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NonNullDecl\" />\r\n          <item index=\"9\" class=\"java.lang.String\" itemvalue=\"org.checkerframework.checker.nullness.compatqual.NonNullType\" />\r\n          <item index=\"10\" class=\"java.lang.String\" itemvalue=\"org.eclipse.jdt.annotation.NonNull\" />\r\n          <item index=\"11\" class=\"java.lang.String\" itemvalue=\"edu.umd.cs.findbugs.annotations.NonNull\" />\r\n          <item index=\"12\" class=\"java.lang.String\" itemvalue=\"jakarta.annotation.Nonnull\" />\r\n          <item index=\"13\" class=\"java.lang.String\" itemvalue=\"javax.annotation.Nonnull\" />\r\n          <item index=\"14\" class=\"java.lang.String\" itemvalue=\"lombok.NonNull\" />\r\n          <item index=\"15\" class=\"java.lang.String\" itemvalue=\"org.springframework.lang.NonNull\" />\r\n        </list>\r\n      </value>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_25\" default=\"true\" project-jdk-name=\"openjdk-25\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/.idea/misc.xml	(date 1778245183909)
+@@ -3,53 +3,53 @@
+   <component name="NullableNotNullManager">
+     <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
+     <option name="myDefaultNotNull" value="org.jetbrains.annotations.NotNull" />
+-    <option name="myOrdered" value="false" />
++    <option name="myOrdered" value="true" />
+     <option name="myNullables">
+       <value>
+         <list size="16">
+-          <item index="0" class="java.lang.String" itemvalue="org.jspecify.annotations.Nullable" />
+-          <item index="1" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+-          <item index="2" class="java.lang.String" itemvalue="android.annotation.Nullable" />
+-          <item index="3" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
+-          <item index="4" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
+-          <item index="5" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
+-          <item index="6" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
+-          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
+-          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
+-          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
+-          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
+-          <item index="11" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
+-          <item index="12" class="java.lang.String" itemvalue="jakarta.annotation.Nullable" />
+-          <item index="13" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+-          <item index="14" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+-          <item index="15" class="java.lang.String" itemvalue="org.springframework.lang.Nullable" />
++          <item index="0" class="java.lang.String" itemvalue="org.springframework.lang.Nullable" />
++          <item index="1" class="java.lang.String" itemvalue="org.jspecify.annotations.Nullable" />
++          <item index="2" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
++          <item index="3" class="java.lang.String" itemvalue="android.annotation.Nullable" />
++          <item index="4" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
++          <item index="5" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
++          <item index="6" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
++          <item index="7" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
++          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
++          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
++          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
++          <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
++          <item index="12" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
++          <item index="13" class="java.lang.String" itemvalue="jakarta.annotation.Nullable" />
++          <item index="14" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
++          <item index="15" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+         </list>
+       </value>
+     </option>
+     <option name="myNotNulls">
+       <value>
+         <list size="16">
+-          <item index="0" class="java.lang.String" itemvalue="org.jspecify.annotations.NonNull" />
+-          <item index="1" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+-          <item index="2" class="java.lang.String" itemvalue="android.annotation.NonNull" />
+-          <item index="3" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
+-          <item index="4" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
+-          <item index="5" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
+-          <item index="6" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
+-          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
+-          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
+-          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+-          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
+-          <item index="11" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+-          <item index="12" class="java.lang.String" itemvalue="jakarta.annotation.Nonnull" />
+-          <item index="13" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+-          <item index="14" class="java.lang.String" itemvalue="lombok.NonNull" />
+-          <item index="15" class="java.lang.String" itemvalue="org.springframework.lang.NonNull" />
++          <item index="0" class="java.lang.String" itemvalue="org.springframework.lang.NonNull" />
++          <item index="1" class="java.lang.String" itemvalue="org.jspecify.annotations.NonNull" />
++          <item index="2" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
++          <item index="3" class="java.lang.String" itemvalue="android.annotation.NonNull" />
++          <item index="4" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
++          <item index="5" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
++          <item index="6" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
++          <item index="7" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
++          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
++          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
++          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
++          <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
++          <item index="12" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
++          <item index="13" class="java.lang.String" itemvalue="jakarta.annotation.Nonnull" />
++          <item index="14" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
++          <item index="15" class="java.lang.String" itemvalue="lombok.NonNull" />
+         </list>
+       </value>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_25" default="true" project-jdk-name="openjdk-25" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_25" project-jdk-name="26" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/RoomSelectionController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.layout.FlowPane;\r\nimport javafx.scene.layout.VBox;\r\nimport javafx.stage.Stage;\r\nimport java.time.LocalDate;\r\nimport java.util.Map;\r\n\r\npublic class RoomSelectionController {\r\n\r\n    @FXML private FlowPane roomContainer;\r\n    @FXML private Label datesLabel;\r\n\r\n    private Guests currentGuest;\r\n    private LocalDate checkIn;\r\n    private LocalDate checkOut;\r\n\r\n    // This receives the data from the Dashboard\r\n    public void initData(Guests guest, Map<RoomType, Integer> availableRooms, LocalDate checkIn, LocalDate checkOut) {\r\n        this.currentGuest = guest;\r\n        this.checkIn = checkIn;\r\n        this.checkOut = checkOut;\r\n\r\n        datesLabel.setText(\"FOR \" + checkIn + \" TO \" + checkOut);\r\n\r\n        // Dynamically build a box for every room type in the Map\r\n        for (Map.Entry<RoomType, Integer> entry : availableRooms.entrySet()) {\r\n            RoomType room = entry.getKey();\r\n            int countLeft = entry.getValue();\r\n\r\n            // Create the Box\r\n            VBox roomCard = createRoomBox(room, countLeft);\r\n\r\n            // Add the Box to the screen\r\n            roomContainer.getChildren().add(roomCard);\r\n        }\r\n    }\r\n\r\n    // This method physically constructs the UI boxes using your CSS classes\r\n    private VBox createRoomBox(RoomType room, int roomsLeft) {\r\n        VBox box = new VBox(15);\r\n        box.getStyleClass().add(\"stat-card\");\r\n        box.setPrefWidth(320);\r\n        box.setPrefHeight(250);\r\n        box.setAlignment(javafx.geometry.Pos.CENTER);\r\n\r\n        // 1. Room Name\r\n        Label nameLabel = new Label(room.getTypeName().toUpperCase());\r\n        nameLabel.getStyleClass().add(\"stat-number\"); // Big text\r\n\r\n        // 2. Capacity & Beds\r\n        Label detailsLabel = new Label(room.getCapacity() + \" Guests • \" + room.getNumberOfBeds() + \" Beds\");\r\n        detailsLabel.getStyleClass().add(\"stat-label\"); // Small green text\r\n\r\n        // 3. Price\r\n        Label priceLabel = new Label(\"$\" + room.getPricePerNight() + \" / Night\");\r\n        priceLabel.setStyle(\"-fx-text-fill: #959581; -fx-font-family: 'Montserrat Light';\");\r\n\r\n        // 4. Availability Warning\r\n        Label availabilityLabel = new Label(\"Only \" + roomsLeft + \" left!\");\r\n        availabilityLabel.setStyle(\"-fx-text-fill: #8B3A3A; -fx-font-family: 'Cinzel'; -fx-font-size: 10px;\");\r\n\r\n        // 5. Select Button\r\n        Button selectBtn = new Button(\"SELECT THIS SUITE\");\r\n        selectBtn.getStyleClass().add(\"action-button\");\r\n\r\n        // When clicked, go to the final Reservation/Payment screen\r\n        selectBtn.setOnAction(e -> handleRoomSelection(e, room));\r\n\r\n        // Add all elements to the box\r\n        box.getChildren().addAll(nameLabel, detailsLabel, priceLabel, availabilityLabel, selectBtn);\r\n        return box;\r\n    }\r\n\r\n    // Handles what happens when they click \"Select This Suite\"\r\n    private void handleRoomSelection(ActionEvent event, RoomType selectedRoom) {\r\n        System.out.println(\"Guest selected: \" + selectedRoom.getTypeName());\r\n\r\n        // TODO: Load the MakeReservation.fxml (Payment Screen) here!\r\n        // You will use the exact same pattern: Load FXML -> getController() -> pass currentGuest, selectedRoom, checkIn, checkOut -> Switch Scene.\r\n    }\r\n\r\n    @FXML\r\n    private void goBack(ActionEvent event) throws Exception {\r\n        // Return to Dashboard and pass the guest back so it knows who is logged in!\r\n        FXMLLoader loader = new FXMLLoader(getClass().getResource(\"/GuestDashboard.fxml\"));\r\n        Parent root = loader.load();\r\n\r\n        GuestDashboardController dashboard = loader.getController();\r\n        dashboard.initData(currentGuest); // Give the dashboard the guest data back\r\n\r\n        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();\r\n        stage.setScene(new Scene(root, 1200, 700));\r\n        stage.show();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/RoomSelectionController.java b/src/RoomSelectionController.java
+--- a/src/RoomSelectionController.java	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/src/RoomSelectionController.java	(date 1778243856745)
+@@ -9,6 +9,8 @@
+ import javafx.scene.layout.FlowPane;
+ import javafx.scene.layout.VBox;
+ import javafx.stage.Stage;
++
++import java.io.IOException;
+ import java.time.LocalDate;
+ import java.util.Map;
+ 
+@@ -83,20 +85,21 @@
+         System.out.println("Guest selected: " + selectedRoom.getTypeName());
+ 
+         // TODO: Load the MakeReservation.fxml (Payment Screen) here!
+-        // You will use the exact same pattern: Load FXML -> getController() -> pass currentGuest, selectedRoom, checkIn, checkOut -> Switch Scene.
++
+     }
+ 
+     @FXML
+     private void goBack(ActionEvent event) throws Exception {
+-        // Return to Dashboard and pass the guest back so it knows who is logged in!
++
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GuestDashboard.fxml"));
+         Parent root = loader.load();
+ 
+         GuestDashboardController dashboard = loader.getController();
+-        dashboard.initData(currentGuest); // Give the dashboard the guest data back
++        dashboard.initData(currentGuest);
+ 
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+         stage.setScene(new Scene(root, 1200, 700));
+         stage.show();
+     }
++
+ }
+\ No newline at end of file
+Index: src/AdminController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.layout.StackPane;\r\nimport javafx.scene.layout.VBox;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.net.URL;\r\nimport java.util.ResourceBundle;\r\n\r\npublic class AdminController implements Initializable {\r\n\r\n    // Dashboard labels\r\n    @FXML private Label adminNameLabel;\r\n    @FXML private Label totalRoomsLabel;\r\n    @FXML private Label availableRoomsLabel;\r\n    @FXML private Label totalGuestsLabel;\r\n    @FXML private Label totalReservationsLabel;\r\n\r\n    // Main content container\r\n    @FXML private StackPane contentArea;\r\n\r\n    // Optional activity feed (if you add it in FXML later)\r\n    @FXML private VBox activityContainer;\r\n\r\n    @Override\r\n    public void initialize(URL url, ResourceBundle resourceBundle) {\r\n\r\n        loadDashboardStats();\r\n        loadActivityFeed();\r\n    }\r\n\r\n    // ---------------- DASHBOARD ----------------\r\n\r\n    private void loadDashboardStats() {\r\n\r\n        adminNameLabel.setText(Database.getAdmin().getName());\r\n\r\n        totalRoomsLabel.setText(String.valueOf(Database.getRoomList().size()));\r\n\r\n        availableRoomsLabel.setText(String.valueOf(\r\n                Database.getRoomList().stream()\r\n                        .filter(r -> r.getStatus() == Rooms.RoomStatus.AVAILABLE)\r\n                        .count()\r\n        ));\r\n\r\n        totalGuestsLabel.setText(String.valueOf(Database.getGuestList().size()));\r\n\r\n        totalReservationsLabel.setText(String.valueOf(Database.getReservationsList().size()));\r\n    }\r\n\r\n    // ---------------- ACTIVITY FEED ----------------\r\n\r\n    private void loadActivityFeed() {\r\n\r\n        if (activityContainer == null) return;\r\n\r\n        activityContainer.getChildren().clear();\r\n\r\n        for (String activity : Database.getActivityFeed()) {\r\n\r\n            Label label = new Label(activity);\r\n            label.getStyleClass().add(\"activity-label\");\r\n\r\n            activityContainer.getChildren().add(label);\r\n        }\r\n    }\r\n\r\n    // ---------------- NAVIGATION ----------------\r\n\r\n    @FXML\r\n    private void showHome(ActionEvent event) {\r\n        // optionally reset to dashboard view\r\n    }\r\n\r\n    @FXML\r\n    private void showRooms(ActionEvent event) {\r\n        // later: swap center content with Rooms view\r\n    }\r\n\r\n    @FXML\r\n    private void showAmenities(ActionEvent event) {\r\n        // later: swap to Amenities view\r\n    }\r\n\r\n    @FXML\r\n    private void showRoomTypes(ActionEvent event) {\r\n        // later: swap to RoomTypes view\r\n    }\r\n\r\n    @FXML\r\n    private void showGuests(ActionEvent event) {\r\n        // later: read-only view\r\n    }\r\n\r\n    @FXML\r\n    private void showReservations(ActionEvent event) {\r\n        // later: read-only view\r\n    }\r\n\r\n    // ---------------- QUICK ACTIONS ----------------\r\n\r\n    @FXML\r\n    private void addRoom(ActionEvent event) {\r\n        // ONLY navigation or popup trigger\r\n        // Admin.createRoom() happens inside popup controller later\r\n    }\r\n\r\n    @FXML\r\n    private void addAmenity(ActionEvent event) {\r\n        // open form\r\n    }\r\n\r\n    @FXML\r\n    private void addRoomType(ActionEvent event) {\r\n        // open form\r\n    }\r\n\r\n    // ---------------- SYSTEM ACTIONS ----------------\r\n\r\n    @FXML\r\n    private void logout(ActionEvent event) throws Exception {\r\n        Parent root = FXMLLoader.load(getClass().getResource(\"StartScreen.fxml\"));\r\n        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();\r\n        Scene scene = new Scene(root, 1000, 600);\r\n        MainGui.makeDraggable(root, stage);\r\n        stage.setMaximized(false);\r\n        stage.setScene(scene);\r\n        stage.show();\r\n    }\r\n\r\n\r\n    @FXML\r\n    private void minimizeApp(ActionEvent event) {\r\n        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();\r\n        stage.setMaximized(false);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/AdminController.java b/src/AdminController.java
+--- a/src/AdminController.java	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/src/AdminController.java	(date 1778244143715)
+@@ -1,144 +1,75 @@
++
+ import javafx.fxml.FXML;
+ import javafx.fxml.Initializable;
+-import javafx.scene.control.Button;
+ import javafx.scene.control.Label;
+ import javafx.scene.layout.StackPane;
+-import javafx.scene.layout.VBox;
+ import javafx.event.ActionEvent;
+ import javafx.fxml.FXMLLoader;
+ import javafx.scene.Node;
+ import javafx.scene.Parent;
+ import javafx.scene.Scene;
+ import javafx.stage.Stage;
+-
+ import java.net.URL;
+ import java.util.ResourceBundle;
+ 
+-public class AdminController implements Initializable {
++
++
++
++    public class AdminController implements Initializable {
+ 
+-    // Dashboard labels
+-    @FXML private Label adminNameLabel;
+-    @FXML private Label totalRoomsLabel;
+-    @FXML private Label availableRoomsLabel;
+-    @FXML private Label totalGuestsLabel;
+-    @FXML private Label totalReservationsLabel;
+-
+-    // Main content container
+-    @FXML private StackPane contentArea;
++        @FXML private Label adminNameLabel;
++        @FXML private Label totalRoomsLabel;
++        @FXML private Label availableRoomsLabel;
++        @FXML private Label totalGuestsLabel;
++        @FXML private Label totalReservationsLabel;
++        @FXML private StackPane contentArea;
+ 
+-    // Optional activity feed (if you add it in FXML later)
+-    @FXML private VBox activityContainer;
+-
+-    @Override
+-    public void initialize(URL url, ResourceBundle resourceBundle) {
+-
+-        loadDashboardStats();
+-        loadActivityFeed();
+-    }
+-
+-    // ---------------- DASHBOARD ----------------
+-
+-    private void loadDashboardStats() {
+-
+-        adminNameLabel.setText(Database.getAdmin().getName());
++        @Override
++        public void initialize(URL url, ResourceBundle resourceBundle) {
++            // Set admin name
++            adminNameLabel.setText(Database.getAdmin().getName());
+ 
+-        totalRoomsLabel.setText(String.valueOf(Database.getRoomList().size()));
+-
+-        availableRoomsLabel.setText(String.valueOf(
+-                Database.getRoomList().stream()
+-                        .filter(r -> r.getStatus() == Rooms.RoomStatus.AVAILABLE)
+-                        .count()
+-        ));
+-
+-        totalGuestsLabel.setText(String.valueOf(Database.getGuestList().size()));
+-
+-        totalReservationsLabel.setText(String.valueOf(Database.getReservationsList().size()));
+-    }
++            // Set stats
++            totalRoomsLabel.setText(String.valueOf(Database.getRoomList().size()));
++            availableRoomsLabel.setText(String.valueOf(
++                    Database.getRoomList().stream()
++                            .filter(r -> r.getStatus() == Rooms.RoomStatus.AVAILABLE)
++                            .count()
++            ));
++            totalGuestsLabel.setText(String.valueOf(Database.getGuestList().size()));
++            totalReservationsLabel.setText(String.valueOf(Database.getReservationsList().size()));
++        }
+ 
+-    // ---------------- ACTIVITY FEED ----------------
+-
+-    private void loadActivityFeed() {
+-
+-        if (activityContainer == null) return;
+-
+-        activityContainer.getChildren().clear();
+-
+-        for (String activity : Database.getActivityFeed()) {
+-
+-            Label label = new Label(activity);
+-            label.getStyleClass().add("activity-label");
+-
+-            activityContainer.getChildren().add(label);
+-        }
+-    }
+-
+-    // ---------------- NAVIGATION ----------------
+-
+-    @FXML
+-    private void showHome(ActionEvent event) {
+-        // optionally reset to dashboard view
+-    }
+-
+-    @FXML
+-    private void showRooms(ActionEvent event) {
+-        // later: swap center content with Rooms view
+-    }
+-
+-    @FXML
+-    private void showAmenities(ActionEvent event) {
+-        // later: swap to Amenities view
+-    }
+-
+-    @FXML
+-    private void showRoomTypes(ActionEvent event) {
+-        // later: swap to RoomTypes view
+-    }
+-
+-    @FXML
+-    private void showGuests(ActionEvent event) {
+-        // later: read-only view
+-    }
+-
+-    @FXML
+-    private void showReservations(ActionEvent event) {
+-        // later: read-only view
+-    }
+-
+-    // ---------------- QUICK ACTIONS ----------------
+-
+-    @FXML
+-    private void addRoom(ActionEvent event) {
+-        // ONLY navigation or popup trigger
+-        // Admin.createRoom() happens inside popup controller later
+-    }
+-
+-    @FXML
+-    private void addAmenity(ActionEvent event) {
+-        // open form
+-    }
+-
+-    @FXML
+-    private void addRoomType(ActionEvent event) {
+-        // open form
+-    }
+-
+-    // ---------------- SYSTEM ACTIONS ----------------
++        @FXML private void showHome(ActionEvent event) {}
++        @FXML private void showRooms(ActionEvent event) {}
++        @FXML private void showAmenities(ActionEvent event) {}
++        @FXML private void showRoomTypes(ActionEvent event) {}
++        @FXML private void showGuests(ActionEvent event) {}
++        @FXML private void showReservations(ActionEvent event) {}
+ 
+-    @FXML
+-    private void logout(ActionEvent event) throws Exception {
+-        Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+-        Scene scene = new Scene(root, 1000, 600);
+-        MainGui.makeDraggable(root, stage);
+-        stage.setMaximized(false);
+-        stage.setScene(scene);
+-        stage.show();
+-    }
++        @FXML
++        private void logout(ActionEvent event) throws Exception {
++            Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
++            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
++            Scene scene = new Scene(root, 1000, 600);
++            MainGui.makeDraggable(root, stage);
++            stage.setMaximized(false);
++            stage.setScene(scene);
++            stage.show();
++        }
+ 
+ 
+-    @FXML
+-    private void minimizeApp(ActionEvent event) {
+-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+-        stage.setMaximized(false);
++
++
++
++
++        @FXML
++        private void minimizeApp(ActionEvent event) {
++            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
++            stage.setMaximized(false);
++        }
+     }
+-}
+\ No newline at end of file
++
++
++
++
+Index: src/AdminScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import java.net.URL?>\r\n<?import javafx.geometry.Insets?>\r\n\r\n<?import javafx.scene.image.ImageView?>\r\n<?import javafx.scene.image.Image?>\r\n<HBox xmlns=\"http://javafx.com/javafx/21\"\r\n      xmlns:fx=\"http://javafx.com/fxml/1\"\r\n      fx:controller=\"AdminController\"\r\n      styleClass=\"root\"\r\n      prefHeight=\"800.0\"\r\n      prefWidth=\"1200.0\">\r\n\r\n   <stylesheets>\r\n      <URL value=\"@/style.css\"/>\r\n   </stylesheets>\r\n\r\n   <!-- ================= SIDEBAR ================= -->\r\n   <StackPane prefWidth=\"300\" minHeight=\"800\" style=\"-fx-background-color: linear-gradient(to bottom, #0E160B, #121B0E, #162012); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 30, 0.2, 4, 0);\">\r\n\r\n      <!-- Velvet texture overlay -->\r\n      <ImageView fitWidth=\"300\"\r\n                 fitHeight=\"1400\"\r\n                 preserveRatio=\"false\"\r\n                 opacity=\"0.25\"\r\n                 pickOnBounds=\"false\"\r\n                 mouseTransparent=\"true\"\r\n                 StackPane.alignment=\"CENTER\">\r\n         <Image url=\"@velvet.jpg\" />\r\n      </ImageView>\r\n\r\n      <!-- Sidebar -->\r\n      <VBox styleClass=\"sidebar\" prefWidth=\"300\" minHeight=\"800\">\r\n\r\n         <!-- Logo -->\r\n         <VBox alignment=\"CENTER\" styleClass=\"sidebar-header\" spacing=\"5\">\r\n            <Label text=\"THE FIVE\" styleClass=\"sidebar-logo\"/>\r\n            <Label text=\"SEASONS\" styleClass=\"sidebar-logo\"/>\r\n            <Label text=\"ADMIN PANEL\" styleClass=\"sidebar-sub\"/>\r\n         </VBox>\r\n\r\n         <Region prefHeight=\"20\"/>\r\n\r\n         <!-- Navigation -->\r\n         <VBox spacing=\"6\" styleClass=\"sidebar-nav\">\r\n            <Label text=\"OVERVIEW\" styleClass=\"sidebar-section\"/>\r\n            <Button text=\"Dashboard\" styleClass=\"nav-button\" onAction=\"#showHome\"/>\r\n            <Region prefHeight=\"10\"/>\r\n            <Label text=\"MANAGEMENT\" styleClass=\"sidebar-section\"/>\r\n            <Button text=\"Rooms\" styleClass=\"nav-button\" onAction=\"#showRooms\"/>\r\n            <Button text=\"Amenities\" styleClass=\"nav-button\" onAction=\"#showAmenities\"/>\r\n            <Button text=\"Room Types\" styleClass=\"nav-button\" onAction=\"#showRoomTypes\"/>\r\n            <Region prefHeight=\"10\"/>\r\n            <Label text=\"MONITORING\" styleClass=\"sidebar-section\"/>\r\n            <Button text=\"Reservations\" styleClass=\"nav-button\" onAction=\"#showReservations\"/>\r\n            <Button text=\"Guests\" styleClass=\"nav-button\" onAction=\"#showGuests\"/>\r\n         </VBox>\r\n\r\n         <Region VBox.vgrow=\"ALWAYS\"/>\r\n\r\n         <!-- Logout -->\r\n         <VBox styleClass=\"sidebar-footer\" VBox.vgrow=\"NEVER\">\r\n            <padding><Insets bottom=\"30\" top=\"10\" left=\"10\" right=\"10\"/></padding>\r\n            <Button text=\"Logout\" styleClass=\"logout-button\" onAction=\"#logout\" maxWidth=\"Infinity\"/>\r\n         </VBox>\r\n\r\n      </VBox>\r\n   </StackPane>\r\n\r\n   <!-- ================= MAIN CONTENT ================= -->\r\n   <StackPane HBox.hgrow=\"ALWAYS\"\r\n              styleClass=\"content-area dashboard-shell\">\r\n\r\n      <!-- BOTANICAL OVERLAY -->\r\n      <ImageView fitWidth=\"500\"\r\n                 preserveRatio=\"true\"\r\n                 opacity=\"0.10\"\r\n                 pickOnBounds=\"false\"\r\n                 mouseTransparent=\"true\"\r\n                 StackPane.alignment=\"BOTTOM_RIGHT\">\r\n         <Image url=\"@botanical.png\" />\r\n      </ImageView>\r\n\r\n      <!-- Scrollable dashboard -->\r\n      <ScrollPane fitToWidth=\"true\" styleClass=\"content-area\">\r\n         <VBox spacing=\"35\">\r\n            <padding>\r\n               <Insets top=\"40\" right=\"40\" bottom=\"40\" left=\"40\"/>\r\n            </padding>\r\n\r\n            <!-- ========== HERO SECTION ========== -->\r\n            <VBox spacing=\"8\">\r\n               <Label text=\"Good Evening,\" styleClass=\"welcome-sub\"/>\r\n               <Label fx:id=\"adminNameLabel\" text=\"Admin\" styleClass=\"welcome-title\"/>\r\n               <Label text=\"The Five Seasons is operating smoothly today.\" styleClass=\"subtitle\"/>\r\n            </VBox>\r\n\r\n            <!-- ========== STATUS STRIP ========== -->\r\n            <HBox spacing=\"22\">\r\n               <VBox styleClass=\"stat-card\" alignment=\"CENTER\" prefWidth=\"200\">\r\n                  <Label text=\"ROOMS\" styleClass=\"stat-label\"/>\r\n                  <Label fx:id=\"totalRoomsLabel\" text=\"0\" styleClass=\"stat-number\"/>\r\n               </VBox>\r\n               <VBox styleClass=\"stat-card\" alignment=\"CENTER\" prefWidth=\"200\">\r\n                  <Label text=\"AVAILABLE\" styleClass=\"stat-label\"/>\r\n                  <Label fx:id=\"availableRoomsLabel\" text=\"0\" styleClass=\"stat-number\"/>\r\n               </VBox>\r\n               <VBox styleClass=\"stat-card\" alignment=\"CENTER\" prefWidth=\"200\">\r\n                  <Label text=\"GUESTS\" styleClass=\"stat-label\"/>\r\n                  <Label fx:id=\"totalGuestsLabel\" text=\"0\" styleClass=\"stat-number\"/>\r\n               </VBox>\r\n               <VBox styleClass=\"stat-card\" alignment=\"CENTER\" prefWidth=\"200\">\r\n                  <Label text=\"RESERVATIONS\" styleClass=\"stat-label\"/>\r\n                  <Label fx:id=\"totalReservationsLabel\" text=\"0\" styleClass=\"stat-number\"/>\r\n               </VBox>\r\n            </HBox>\r\n\r\n            <!-- ========== TONIGHT ARRIVALS ========== -->\r\n            <VBox spacing=\"10\">\r\n               <Label text=\"TONIGHT'S ARRIVALS\" styleClass=\"section-title\"/>\r\n               <ScrollPane fitToHeight=\"true\" hbarPolicy=\"ALWAYS\" vbarPolicy=\"NEVER\">\r\n                  <HBox fx:id=\"arrivalsContainer\" spacing=\"15\">\r\n                     <padding>\r\n                        <Insets top=\"10\" right=\"10\" bottom=\"10\" left=\"10\"/>\r\n                     </padding>\r\n                  </HBox>\r\n               </ScrollPane>\r\n            </VBox>\r\n\r\n            <!-- ========== ACTIVITY FEED ========== -->\r\n            <VBox spacing=\"10\">\r\n               <Label text=\"ACTIVITY FEED\" styleClass=\"section-title\"/>\r\n               <VBox fx:id=\"activityFeedContainer\" spacing=\"8\"/>\r\n            </VBox>\r\n\r\n            <!-- ========== QUICK ACTIONS ========== -->\r\n            <VBox spacing=\"10\">\r\n               <Label text=\"QUICK ACTIONS\" styleClass=\"section-title\"/>\r\n               <HBox spacing=\"10\">\r\n                  <Button text=\"+ Room\" styleClass=\"action-button\" onAction=\"#showRooms\"/>\r\n                  <Button text=\"+ Amenity\" styleClass=\"action-button\" onAction=\"#showAmenities\"/>\r\n                  <Button text=\"+ Room Type\" styleClass=\"action-button\" onAction=\"#showRoomTypes\"/>\r\n               </HBox>\r\n            </VBox>\r\n\r\n         </VBox>\r\n      </ScrollPane>\r\n\r\n      <!-- Minimize button ON TOP -->\r\n      <HBox alignment=\"TOP_RIGHT\"\r\n            StackPane.alignment=\"TOP_RIGHT\"\r\n            style=\"-fx-padding: 15 20 0 0;\"\r\n            mouseTransparent=\"false\">\r\n         <Button text=\"—\"\r\n                 onAction=\"#minimizeApp\"\r\n                 styleClass=\"window-button\"/>\r\n      </HBox>\r\n\r\n   </StackPane>\r\n\r\n</HBox>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/AdminScreen.fxml b/src/AdminScreen.fxml
+--- a/src/AdminScreen.fxml	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/src/AdminScreen.fxml	(date 1778243856757)
+@@ -29,7 +29,7 @@
+                  pickOnBounds="false"
+                  mouseTransparent="true"
+                  StackPane.alignment="CENTER">
+-         <Image url="@velvet.jpg" />
++
+       </ImageView>
+ 
+       <!-- Sidebar -->
+@@ -81,7 +81,7 @@
+                  pickOnBounds="false"
+                  mouseTransparent="true"
+                  StackPane.alignment="BOTTOM_RIGHT">
+-         <Image url="@botanical.png" />
++         <Image url="@Luxury_Hotel.jpg" />
+       </ImageView>
+ 
+       <!-- Scrollable dashboard -->
+@@ -161,4 +161,4 @@
+ 
+    </StackPane>
+ 
+-</HBox>
+\ No newline at end of file
++</HBox>
+Index: src/RoomsGuiController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/RoomsGuiController.java b/src/RoomsGuiController.java
+new file mode 100644
+--- /dev/null	(date 1778243856798)
++++ b/src/RoomsGuiController.java	(date 1778243856798)
+@@ -0,0 +1,216 @@
++import javafx.fxml.FXML;
++import javafx.fxml.Initializable;
++import javafx.geometry.Insets;
++import javafx.scene.control.*;
++import javafx.scene.layout.*;
++import javafx.event.ActionEvent;
++
++import java.net.URL;
++import java.util.ResourceBundle;
++
++public class RoomsGuiController implements Initializable {
++
++    // ---- ADD ROOM ----
++    @FXML private TextField floorField;
++    @FXML private ComboBox<String> roomTypeCombo;
++    @FXML private Label floorError;
++    @FXML private Label roomTypeError;
++    @FXML private Label addRoomMessage;
++
++    // ---- ROOMS LIST ----
++    @FXML private VBox roomsContainer;
++    @FXML private Label roomCountLabel;
++
++    // ---- UPDATE STATUS ----
++    @FXML private TextField updateRoomNumberField;
++    @FXML private ComboBox<Rooms.RoomStatus> statusCombo;
++    @FXML private Label updateStatusMessage;
++
++    // ---- DELETE ----
++    @FXML private TextField deleteRoomNumberField;
++    @FXML private Label deleteRoomMessage;
++
++    @Override
++    public void initialize(URL url, ResourceBundle resourceBundle) {
++
++        // Populate room type combo
++        refreshRoomTypeCombo();
++
++        // Populate status combo
++        statusCombo.getItems().setAll(Rooms.RoomStatus.values());
++        statusCombo.getSelectionModel().selectFirst();
++
++        // Load room list
++        refreshRoomList();
++    }
++
++    // ────────────────────────────────────────────────────
++    //  ADD ROOM
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleAddRoom(ActionEvent event) {
++        clearMessages();
++
++        String floorText = floorField.getText().trim();
++        String selectedType = roomTypeCombo.getValue();
++
++        boolean valid = true;
++
++        if (floorText.isEmpty()) {
++            floorError.setText("Floor is required.");
++            valid = false;
++        }
++
++        int floor = 0;
++        if (valid) {
++            try {
++                floor = Integer.parseInt(floorText);
++            } catch (NumberFormatException e) {
++                floorError.setText("Enter a valid floor number.");
++                valid = false;
++            }
++        }
++
++        if (selectedType == null || selectedType.isEmpty()) {
++            roomTypeError.setText("Select a room type.");
++            valid = false;
++        }
++
++        if (!valid) return;
++
++        try {
++            Database.getAdmin().createRoom(floor, selectedType);
++            addRoomMessage.setStyle("-fx-text-fill: #768064;");
++            addRoomMessage.setText("✓  Room successfully added.");
++            floorField.clear();
++            roomTypeCombo.getSelectionModel().clearSelection();
++            refreshRoomList();
++        } catch (Exception e) {
++            addRoomMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  UPDATE STATUS
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleUpdateStatus(ActionEvent event) {
++        clearMessages();
++
++        String numText = updateRoomNumberField.getText().trim();
++        Rooms.RoomStatus newStatus = statusCombo.getValue();
++
++        if (numText.isEmpty() || newStatus == null) {
++            updateStatusMessage.setText("Room number and status are required.");
++            return;
++        }
++
++        try {
++            int roomNumber = Integer.parseInt(numText);
++            Database.getAdmin().updateAvailability(newStatus, roomNumber);
++            updateStatusMessage.setStyle("-fx-text-fill: #768064;");
++            updateStatusMessage.setText("✓  Room " + roomNumber + " status updated to " + newStatus + ".");
++            updateRoomNumberField.clear();
++            refreshRoomList();
++        } catch (NumberFormatException e) {
++            updateStatusMessage.setText("Enter a valid room number.");
++        } catch (Exception e) {
++            updateStatusMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  DELETE ROOM
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleDeleteRoom(ActionEvent event) {
++        clearMessages();
++
++        String numText = deleteRoomNumberField.getText().trim();
++
++        if (numText.isEmpty()) {
++            deleteRoomMessage.setText("Room number is required.");
++            return;
++        }
++
++        try {
++            int roomNumber = Integer.parseInt(numText);
++            Database.getAdmin().deleteRoom(roomNumber);
++            deleteRoomMessage.setStyle("-fx-text-fill: #768064;");
++            deleteRoomMessage.setText("✓  Room " + roomNumber + " removed.");
++            deleteRoomNumberField.clear();
++            refreshRoomList();
++        } catch (NumberFormatException e) {
++            deleteRoomMessage.setText("Enter a valid room number.");
++        } catch (Exception e) {
++            deleteRoomMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  HELPERS
++    // ────────────────────────────────────────────────────
++
++    private void refreshRoomTypeCombo() {
++        roomTypeCombo.getItems().clear();
++        for (RoomType rt : Database.getAvailableRoomTypesList()) {
++            roomTypeCombo.getItems().add(rt.getTypeName());
++        }
++    }
++
++    private void refreshRoomList() {
++
++        roomsContainer.getChildren().clear();
++        int count = Database.getRoomList().size();
++        roomCountLabel.setText(count + (count == 1 ? " ROOM" : " ROOMS"));
++
++        for (Rooms room : Database.getRoomList()) {
++
++            HBox row = new HBox();
++            row.getStyleClass().add("activity-item");
++            row.setPadding(new Insets(14, 16, 14, 16));
++            row.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
++
++            String typeName = (room.getRoomtype() != null) ? room.getRoomtype().getTypeName() : "—";
++            String amenityCount = room.getAmenities().size() + " attached";
++            boolean available = room.getStatus() == Rooms.RoomStatus.AVAILABLE;
++
++            Label numLbl   = styledLabel("# " + room.getRoomNumber(), 100, "#DADED8");
++            Label floorLbl = styledLabel("Floor " + room.getRoomFloor(), 100, "#959581");
++            Label typeLbl  = styledLabel(typeName, 200, "#DADED8");
++            Label statusLbl = styledLabel(
++                    available ? "AVAILABLE" : "OCCUPIED", 150,
++                    available ? "#768064" : "#8B6060"
++            );
++            Label amenityLbl = styledLabel(amenityCount, 120, "#959581");
++
++            row.getChildren().addAll(numLbl, floorLbl, typeLbl, statusLbl, amenityLbl);
++            roomsContainer.getChildren().add(row);
++        }
++
++        if (count == 0) {
++            Label empty = new Label("No rooms yet. Add one above.");
++            empty.getStyleClass().add("explanation-text");
++            empty.setPadding(new Insets(20, 16, 20, 16));
++            roomsContainer.getChildren().add(empty);
++        }
++    }
++
++    private Label styledLabel(String text, double width, String color) {
++        Label lbl = new Label(text);
++        lbl.setPrefWidth(width);
++        lbl.setStyle("-fx-text-fill: " + color + "; -fx-font-family: 'Montserrat Light'; -fx-font-size: 12px;");
++        return lbl;
++    }
++
++    private void clearMessages() {
++        floorError.setText("");
++        roomTypeError.setText("");
++        addRoomMessage.setText("");
++        updateStatusMessage.setText("");
++        deleteRoomMessage.setText("");
++    }
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0b9d6561-53f0-4a17-a42e-234c74691cb2\" name=\"Changes\" comment=\"updated version\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_base.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_controls.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_fxml.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_graphics.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_media.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_swing.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_swt.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/javafx_web.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/jdk_jsobject.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/jfx_incubator_input.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/jfx_incubator_richtext.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/javafx_sdk_26_0.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/lib.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/OOP PROJECT.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/OOP PROJECT.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Rooms.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Rooms.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <excluded-from-favorite>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"main\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </excluded-from-favorite>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Room-Types\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;mariamsherief&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/AmgadEmbaby/OOP-HOTEL-SYSTEM-PROJECT.git&quot;,\r\n    &quot;accountId&quot;: &quot;6f6942d7-c56d-469c-a936-398424b00fc8&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3CM11CkGL15HutDQDP8kSLaRci9\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"Application.MainGui.executor\": \"Run\",\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"RoomsGui\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"project.propDebugger\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"MainGui\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" value=\"$PROJECT_DIR$/../../Program Files/Java/jdk-26.0.1\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainGui\" />\r\n      <module name=\"OOP PROJECT\" />\r\n      <option name=\"VM_PARAMETERS\" value=\" --module-path &quot;C:\\Users\\Mariam Sherief\\Downloads\\openjfx-26.0.1_windows-x64_bin-sdk\\javafx-sdk-26.0.1\\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0b9d6561-53f0-4a17-a42e-234c74691cb2\" name=\"Changes\" comment=\"\" />\r\n      <created>1776180407758</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1776180407758</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Created Room-Types branch\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776181840134</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776181840134</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"All amenities that might be in the room with their prices.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776204221786</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776204221786</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"All amenities that might be in the room with their prices.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776213095301</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776213095301</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"updates version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776284030779</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776284030779</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776288016654</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776288016654</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776290880659</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776290880659</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776295141930</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776295141930</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1776295365669</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1776295365669</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1777037093389</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1777037093389</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"updated version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778190358270</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778190358270</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"11\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"feature-guests\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Created Room-Types branch\" />\r\n    <MESSAGE value=\"All amenities that might be in the room with their prices.\" />\r\n    <MESSAGE value=\"updates version\" />\r\n    <MESSAGE value=\"updated version\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"updated version\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/.idea/workspace.xml	(date 1778245183917)
+@@ -5,29 +5,26 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="0b9d6561-53f0-4a17-a42e-234c74691cb2" name="Changes" comment="updated version">
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_base.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_controls.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_fxml.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_graphics.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_media.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swing.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_web.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jdk_jsobject.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jfx_incubator_input.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jfx_incubator_richtext.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_26_0.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/AmenitiesGuiController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/RoomsGuiController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/OOP PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP PROJECT.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Rooms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rooms.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/resources/luxury hotel.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/AdminScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminScreen.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/GuestMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuestMenu.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Navigator.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/RoomSelectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RoomSelectionController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/StartScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/StartScreen.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="ExportToHTMLSettings">
++    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../OOP-HOTEL-SYSTEM-PROJECT\exportToHTML" />
+   </component>
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+@@ -80,29 +77,29 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.Main.executor": "Run",
+-    "Application.MainGui.executor": "Run",
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "RoomsGui",
+-    "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "project.propDebugger"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
++    &quot;Application.MainGui.executor&quot;: &quot;Run&quot;,
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;RoomsGui&quot;,
++    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="MainGui" type="Application" factoryName="Application">
+       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/Java/jdk-26.0.1" />
+       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+       <option name="MAIN_CLASS_NAME" value="MainGui" />
+-      <module name="OOP PROJECT" />
++      <module name="OOP-HOTEL-SYSTEM-PROJECT" />
+       <option name="VM_PARAMETERS" value=" --module-path &quot;C:\Users\Mariam Sherief\Downloads\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+@@ -204,7 +201,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1778190358270</updated>
+     </task>
+-    <option name="localTasksCounter" value="11" />
++    <task id="LOCAL-00011" summary="updated version">
++      <option name="closed" value="true" />
++      <created>1778229751373</created>
++      <option name="number" value="00011" />
++      <option name="presentableId" value="LOCAL-00011" />
++      <option name="project" value="LOCAL" />
++      <updated>1778229751373</updated>
++    </task>
++    <option name="localTasksCounter" value="12" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -236,6 +241,17 @@
+     <MESSAGE value="updates version" />
+     <MESSAGE value="updated version" />
+     <option name="LAST_COMMIT_MESSAGE" value="updated version" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/GuestMenuController.java</url>
++          <line>22</line>
++          <option name="timeStamp" value="1" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: OOP-HOTEL-SYSTEM-PROJECT.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/OOP-HOTEL-SYSTEM-PROJECT.iml b/OOP-HOTEL-SYSTEM-PROJECT.iml
+--- a/OOP-HOTEL-SYSTEM-PROJECT.iml	(revision 73148e47c18880ff72513d11cb738f4ae2048bd7)
++++ b/OOP-HOTEL-SYSTEM-PROJECT.iml	(date 1778244283385)
+@@ -1,6 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
++  <component name="NewModuleRootManager">
++    <output url="file://$MODULE_DIR$/out/production/OOP-HOTEL-SYSTEM-PROJECT" />
++    <output-test url="file://$MODULE_DIR$/out/test/OOP-HOTEL-SYSTEM-PROJECT" />
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
+       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+Index: src/AmenitiesGuiController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/AmenitiesGuiController.java b/src/AmenitiesGuiController.java
+new file mode 100644
+--- /dev/null	(date 1778243856767)
++++ b/src/AmenitiesGuiController.java	(date 1778243856767)
+@@ -0,0 +1,245 @@
++import javafx.fxml.FXML;
++import javafx.fxml.Initializable;
++import javafx.geometry.Insets;
++import javafx.geometry.Pos;
++import javafx.scene.control.*;
++import javafx.scene.layout.*;
++import javafx.event.ActionEvent;
++
++import java.net.URL;
++import java.util.ResourceBundle;
++
++public class AmenitiesGuiController implements Initializable {
++
++    // ---- ADD AMENITY ----
++    @FXML private TextField amenityNameField;
++    @FXML private TextField amenityCostField;
++    @FXML private Label amenityNameError;
++    @FXML private Label amenityCostError;
++    @FXML private Label addAmenityMessage;
++
++    // ---- AMENITIES LIST ----
++    @FXML private VBox amenitiesContainer;
++    @FXML private Label amenityCountLabel;
++
++    // ---- UPDATE COST ----
++    @FXML private ComboBox<String> updateAmenityCombo;
++    @FXML private TextField updateCostField;
++    @FXML private Label updateCostMessage;
++
++    // ---- TOGGLE AVAILABILITY ----
++    @FXML private ComboBox<String> toggleAmenityCombo;
++    @FXML private ComboBox<String> availabilityCombo;
++    @FXML private Label toggleMessage;
++
++    // ---- DELETE ----
++    @FXML private ComboBox<String> deleteAmenityCombo;
++    @FXML private Label deleteAmenityMessage;
++
++    @Override
++    public void initialize(URL url, ResourceBundle resourceBundle) {
++        availabilityCombo.getItems().addAll("AVAILABLE", "UNAVAILABLE");
++        availabilityCombo.getSelectionModel().selectFirst();
++
++        refreshAllCombos();
++        refreshAmenityList();
++    }
++
++    // ────────────────────────────────────────────────────
++    //  ADD AMENITY
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleAddAmenity(ActionEvent event) {
++        clearMessages();
++
++        String name = amenityNameField.getText().trim();
++        String costText = amenityCostField.getText().trim();
++        boolean valid = true;
++
++        if (name.isEmpty()) {
++            amenityNameError.setText("Name is required.");
++            valid = false;
++        }
++
++        double cost = 0;
++        if (costText.isEmpty()) {
++            amenityCostError.setText("Cost is required.");
++            valid = false;
++        } else {
++            try {
++                cost = Double.parseDouble(costText);
++            } catch (NumberFormatException e) {
++                amenityCostError.setText("Enter a valid number.");
++                valid = false;
++            }
++        }
++
++        if (!valid) return;
++
++        try {
++            Database.getAdmin().createAmenity(name, cost);
++            addAmenityMessage.setStyle("-fx-text-fill: #768064;");
++            addAmenityMessage.setText("✓  Amenity \"" + name + "\" added successfully.");
++            amenityNameField.clear();
++            amenityCostField.clear();
++            refreshAllCombos();
++            refreshAmenityList();
++        } catch (Exception e) {
++            addAmenityMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  UPDATE COST
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleUpdateCost(ActionEvent event) {
++        clearMessages();
++
++        String selectedName = updateAmenityCombo.getValue();
++        String costText = updateCostField.getText().trim();
++
++        if (selectedName == null) {
++            updateCostMessage.setText("Select an amenity.");
++            return;
++        }
++        if (costText.isEmpty()) {
++            updateCostMessage.setText("Enter a new cost.");
++            return;
++        }
++
++        try {
++            double newCost = Double.parseDouble(costText);
++            Database.getAdmin().updateAmenityCost(newCost, selectedName);
++            updateCostMessage.setStyle("-fx-text-fill: #768064;");
++            updateCostMessage.setText("✓  Cost updated for \"" + selectedName + "\".");
++            updateCostField.clear();
++            refreshAmenityList();
++        } catch (NumberFormatException e) {
++            updateCostMessage.setText("Enter a valid number.");
++        } catch (Exception e) {
++            updateCostMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  TOGGLE AVAILABILITY
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleToggleAvailability(ActionEvent event) {
++        clearMessages();
++
++        String selectedName = toggleAmenityCombo.getValue();
++        String statusValue  = availabilityCombo.getValue();
++
++        if (selectedName == null) {
++            toggleMessage.setText("Select an amenity.");
++            return;
++        }
++
++        try {
++            boolean isAvailable = "AVAILABLE".equals(statusValue);
++            Database.getAdmin().updateAmenityAvailability(isAvailable, selectedName);
++            toggleMessage.setStyle("-fx-text-fill: #768064;");
++            toggleMessage.setText("✓  \"" + selectedName + "\" marked as " + statusValue + ".");
++            refreshAmenityList();
++        } catch (Exception e) {
++            toggleMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  DELETE AMENITY
++    // ────────────────────────────────────────────────────
++
++    @FXML
++    private void handleDeleteAmenity(ActionEvent event) {
++        clearMessages();
++
++        String selectedName = deleteAmenityCombo.getValue();
++
++        if (selectedName == null) {
++            deleteAmenityMessage.setText("Select an amenity to remove.");
++            return;
++        }
++
++        try {
++            Database.getAdmin().deleteAmenity(selectedName);
++            deleteAmenityMessage.setStyle("-fx-text-fill: #768064;");
++            deleteAmenityMessage.setText("✓  Amenity \"" + selectedName + "\" removed.");
++            refreshAllCombos();
++            refreshAmenityList();
++        } catch (Exception e) {
++            deleteAmenityMessage.setText("Error: " + e.getMessage());
++        }
++    }
++
++    // ────────────────────────────────────────────────────
++    //  HELPERS
++    // ────────────────────────────────────────────────────
++
++    private void refreshAllCombos() {
++        updateAmenityCombo.getItems().clear();
++        toggleAmenityCombo.getItems().clear();
++        deleteAmenityCombo.getItems().clear();
++
++        for (Amenity a : Database.getamenitiesList()) {
++            String name = a.getAmenityName();
++            updateAmenityCombo.getItems().add(name);
++            toggleAmenityCombo.getItems().add(name);
++            deleteAmenityCombo.getItems().add(name);
++        }
++    }
++
++    private void refreshAmenityList() {
++        amenitiesContainer.getChildren().clear();
++
++        int count = Database.getamenitiesList().size();
++        amenityCountLabel.setText(count + (count == 1 ? " AMENITY" : " AMENITIES"));
++
++        for (Amenity amenity : Database.getamenitiesList()) {
++
++            HBox row = new HBox();
++            row.getStyleClass().add("activity-item");
++            row.setPadding(new Insets(14, 16, 14, 16));
++            row.setAlignment(Pos.CENTER_LEFT);
++
++            boolean available = amenity.isAvailable();
++            String availText  = available ? "AVAILABLE" : "UNAVAILABLE";
++            String availColor = available ? "#768064" : "#8B6060";
++
++            Label nameLbl  = styledLabel(amenity.getAmenityName(), 260, "#DADED8");
++            Label costLbl  = styledLabel("$ " + String.format("%.2f", amenity.getAmenityCost()), 160, "#959581");
++            Label availLbl = styledLabel(availText, 160, availColor);
++
++            row.getChildren().addAll(nameLbl, costLbl, availLbl);
++            amenitiesContainer.getChildren().add(row);
++        }
++
++        if (count == 0) {
++            Label empty = new Label("No amenities yet. Add one above.");
++            empty.getStyleClass().add("explanation-text");
++            empty.setPadding(new Insets(20, 16, 20, 16));
++            amenitiesContainer.getChildren().add(empty);
++        }
++    }
++
++    private Label styledLabel(String text, double width, String color) {
++        Label lbl = new Label(text);
++        lbl.setPrefWidth(width);
++        lbl.setStyle("-fx-text-fill: " + color + "; -fx-font-family: 'Montserrat Light'; -fx-font-size: 12px;");
++        return lbl;
++    }
++
++    private void clearMessages() {
++        amenityNameError.setText("");
++        amenityCostError.setText("");
++        addAmenityMessage.setText("");
++        updateCostMessage.setText("");
++        toggleMessage.setText("");
++        deleteAmenityMessage.setText("");
++    }
++}
+\ No newline at end of file
