@@ -29,7 +29,7 @@
                    fitWidth="500.0"
                    preserveRatio="false">
 
-            <Image url="@luxury hotel.jpg"/>
+            <Image url="@luxury_hotel.jpg"/>
 
 
         </ImageView>
