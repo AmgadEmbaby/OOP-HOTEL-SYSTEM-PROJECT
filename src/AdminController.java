@@ -64,7 +64,18 @@ public class AdminController implements Initializable {
             -fx-font-family: 'Cinzel';
         """);
 
-            Label room = new Label("Room " + r.getRoom().getRoomNumber());
+            //Label room = new Label("Room " + r.getRoom().getRoomNumber());
+
+            String roomText;
+
+            if (r.getRoom() != null) {
+                roomText = "Room " + r.getRoom().getRoomNumber();
+            } else {
+                roomText = "Room not assigned";
+            }
+
+            Label room = new Label(roomText);
+
             room.setStyle("""
             -fx-text-fill: rgba(218,222,216,0.65);
             -fx-font-size: 12px;
