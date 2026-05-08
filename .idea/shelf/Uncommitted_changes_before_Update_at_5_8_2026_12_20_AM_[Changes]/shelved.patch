@@ -1,9 +1,0 @@
-Index: src/Validation.java
-===================================================================
-diff --git a/src/Validation.java b/src/Validation.java
-deleted file mode 100644
---- a/src/Validation.java	(revision adeb260639369f3b0c5ec9cd1c7f5884d2596da2)
-+++ /dev/null	(revision adeb260639369f3b0c5ec9cd1c7f5884d2596da2)
-@@ -1,2 +0,0 @@
--public class Validation {
--}
