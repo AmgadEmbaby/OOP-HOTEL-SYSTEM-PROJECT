@@ -19,6 +19,8 @@ public class AddAmenityDialogController {
         this.parent = parent;
     }
 
+
+
     @FXML
     private void pickImage() {
         FileChooser fc = new FileChooser();
@@ -36,6 +38,8 @@ public class AddAmenityDialogController {
             );
         }
     }
+
+
 
     @FXML
     private void confirm() {
@@ -56,6 +60,8 @@ public class AddAmenityDialogController {
             errorLabel.setText(ex.getMessage());
         }
     }
+
+
 
     @FXML
     private void cancel() {

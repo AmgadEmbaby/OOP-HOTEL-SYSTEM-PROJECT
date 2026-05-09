@@ -23,14 +23,14 @@
 
     <Region prefHeight="4"/>
 
-    <!-- ROOM -->
+
     <Label text="ROOM" styleClass="field-label"/>
     <Label fx:id="roomLabel" text="Room" styleClass="login-field"
            style="-fx-background-color: transparent; -fx-border-color: transparent;
                   -fx-text-fill: #d7dfd0; -fx-font-size: 13px;
                   -fx-font-family: 'Montserrat Light'; -fx-padding: 6 0 6 0;"/>
 
-    <!-- STATUS TOGGLE -->
+
     <Label text="STATUS" styleClass="field-label"/>
     <HBox spacing="10">
         <Button fx:id="availableBtn"
@@ -48,7 +48,7 @@
            style="-fx-text-fill: rgba(218,222,216,0.45); -fx-font-size: 11px;
                   -fx-font-family: 'Montserrat Light';"/>
 
-    <!-- BUTTONS -->
+
     <HBox spacing="12" alignment="CENTER_LEFT">
         <padding><Insets top="10"/></padding>
         <Button text="CONFIRM"

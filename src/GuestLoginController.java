@@ -57,6 +57,7 @@ public class GuestLoginController extends Navigator {
 
     @FXML
     private void createAcc(ActionEvent event) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 1000, 600));
@@ -65,6 +66,7 @@ public class GuestLoginController extends Navigator {
 
     @FXML
     private void goBack(ActionEvent event) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("GuestMenu.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 1000, 600));

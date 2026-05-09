@@ -21,23 +21,22 @@ public class AdminLoginController {
         @FXML private PasswordField passwordField;
         @FXML private Label errorLabel;
 
-        @FXML
-        private void handleLogin(ActionEvent event) throws Exception {
-            String username = usernameField.getText().trim();
-            String password = passwordField.getText().trim();
+    @FXML
+    private void handleLogin(ActionEvent event) throws Exception {
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        if (Database.authenticateAdmin(username, password)) {
+            Parent root = FXMLLoader.load(getClass().getResource("AdminScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
 
-            if (Database.authenticateAdmin(username, password)) {
-                Parent root = FXMLLoader.load(getClass().getResource("AdminScreen.fxml"));
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setMaximized(true);
-                stage.show();
-                MainGui.makeDraggable(root, stage);
-            } else {
-                errorLabel.setText("Invalid username or password.");
-            }
+        } else {
+            errorLabel.setText("Invalid username or password.");
         }
+    }
 
         @FXML
         private void goBack(ActionEvent event) throws Exception {

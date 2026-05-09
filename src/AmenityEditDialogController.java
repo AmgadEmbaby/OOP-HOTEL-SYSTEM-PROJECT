@@ -17,14 +17,18 @@ public class AmenityEditDialogController {
     private Amenity amenity;
     private String  pickedImagePath = null;
 
+
     public void setParent(ManageAmenitiesController parent) {
         this.parent = parent;
     }
 
+
     public void setAmenity(Amenity a) {
         this.amenity = a;
 
+
         costField.setText(String.valueOf(a.getAmenityCost()));
+
 
         ToggleGroup tg = new ToggleGroup();
         availBtn.setToggleGroup(tg);
@@ -40,6 +44,8 @@ public class AmenityEditDialogController {
             imgPathLabel.setText("Current image set");
         }
     }
+
+
 
     @FXML
     private void pickImage() {
@@ -59,6 +65,8 @@ public class AmenityEditDialogController {
         }
     }
 
+
+
     @FXML
     private void confirm() {
         try {
@@ -71,6 +79,8 @@ public class AmenityEditDialogController {
             errorLabel.setText(ex.getMessage());
         }
     }
+
+
 
     @FXML
     private void cancel() {

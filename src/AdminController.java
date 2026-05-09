@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -40,13 +41,15 @@ public class AdminController implements Initializable {
 
         arrivalsContainer.getChildren().clear();
 
+        int count = 0;
         for (Reservations r : Database.getReservationsList()) {
 
-            VBox card = new VBox(6);
+            if (!r.getCheckin().equals(LocalDate.now())) continue;
+            if (count >= 5) break;
 
+            VBox card = new VBox(6);
             card.setPrefWidth(180);
             card.setMinWidth(180);
-
             card.setStyle("""
             -fx-background-color: rgba(255,255,255,0.05);
             -fx-background-radius: 18;
@@ -62,26 +65,34 @@ public class AdminController implements Initializable {
             -fx-font-family: 'Cinzel';
         """);
 
-            //Label room = new Label("Room " + r.getRoom().getRoomNumber());
-
-            String roomText;
-
-            if (r.getRoom() != null) {
-                roomText = "Room " + r.getRoom().getRoomNumber();
-            } else {
-                roomText = "Room not assigned";
-            }
-
-            Label room = new Label(roomText);
-
-            room.setStyle("""
-            -fx-text-fill: rgba(218,222,216,0.65);
-            -fx-font-size: 12px;
+            Label roomType = new Label(
+                    r.getTypeDesired().getTypeName().toUpperCase()
+            );
+            roomType.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.70);
+            -fx-font-size: 11px;
+            -fx-letter-spacing: 2px;
         """);
 
-            card.getChildren().addAll(guest, room);
+            Label stay = new Label(r.getCheckin() + " → " + r.getCheckout());
+            stay.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.45);
+            -fx-font-size: 11px;
+        """);
 
+            card.getChildren().addAll(guest, roomType, stay);
             arrivalsContainer.getChildren().add(card);
+            count++;
+        }
+
+        if (arrivalsContainer.getChildren().isEmpty()) {
+            Label empty = new Label("No arrivals scheduled for tonight.");
+            empty.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.45);
+            -fx-font-size: 13px;
+            -fx-padding: 20;
+        """);
+            arrivalsContainer.getChildren().add(empty);
         }
     }
     public void refreshDashboard() {
@@ -109,17 +120,21 @@ public class AdminController implements Initializable {
 
     private void loadActivityFeed() {
         activityFeedContainer.getChildren().clear();
+        int count = 0;
         for (String a : Database.getActivityFeed()) {
+            if (count >= 2) break;
             Label l = new Label("• " + a);
             l.getStyleClass().add("activity-item");
             activityFeedContainer.getChildren().add(l);
+            count++;
         }
     }
 
-    // ---------- NAVIGATION ----------
+
 
     @FXML
     private void showHome(ActionEvent e) {
+        // Restore the full dashboard (botanical + scroll + minimize) as one unit
         contentArea.getChildren().setAll(dashboardNode);
         refreshDashboard();
     }
@@ -145,6 +160,10 @@ public class AdminController implements Initializable {
 
             Parent amenitiesView = loader.load();
 
+            // IMPORTANT: keep controller reference (for future refresh)
+            ManageAmenitiesController controller = loader.getController();
+
+            // swap view
             contentArea.getChildren().setAll(amenitiesView);
 
         } catch (Exception e) {
@@ -161,8 +180,31 @@ public class AdminController implements Initializable {
             ex.printStackTrace();
         }
     }
-    @FXML private void showGuests(ActionEvent e) {}
-    @FXML private void showReservations(ActionEvent e) {}
+    @FXML
+    private void showGuests(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageGuests.fxml"));
+            Parent view = loader.load();
+            contentArea.getChildren().setAll(view);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    private void showReservations(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("ManageReservations.fxml")
+            );
+
+            Parent view = loader.load();
+
+            contentArea.getChildren().setAll(view);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     private void logout(ActionEvent e) throws Exception {
