@@ -25,9 +25,8 @@ public class AdminController implements Initializable {
 
     @FXML private VBox homeContent;
     @FXML private VBox activityFeedContainer;
-    @FXML private VBox contentArea;
-    // This is the inner StackPane wrapping botanical + scrollpane + minimize button
-    // Saving it as one unit means showHome() restores ALL layers at once
+    @FXML private StackPane contentArea;
+
     @FXML private StackPane dashboardNode;
 
     private static AdminController instance;
@@ -42,27 +41,15 @@ public class AdminController implements Initializable {
 
         arrivalsContainer.getChildren().clear();
 
-        System.out.println("Reservations count: "
-                + Database.getReservationsList().size());
-
+        int count = 0;
         for (Reservations r : Database.getReservationsList()) {
 
-            System.out.println("Reservation check-in: "
-                    + r.getCheckin());
-
-            System.out.println("Today's date: "
-                    + LocalDate.now());
-
-            // ONLY today's arrivals
-            if (!r.getCheckin().equals(LocalDate.now())) {
-                continue;
-            }
+            if (!r.getCheckin().equals(LocalDate.now())) continue;
+            if (count >= 5) break;
 
             VBox card = new VBox(6);
-
             card.setPrefWidth(180);
             card.setMinWidth(180);
-
             card.setStyle("""
             -fx-background-color: rgba(255,255,255,0.05);
             -fx-background-radius: 18;
@@ -71,10 +58,7 @@ public class AdminController implements Initializable {
             -fx-padding: 18;
         """);
 
-            Label guest = new Label(
-                    r.getGuest().getUserName()
-            );
-
+            Label guest = new Label(r.getGuest().getUserName());
             guest.setStyle("""
             -fx-text-fill: #F3EFE6;
             -fx-font-size: 18px;
@@ -82,50 +66,32 @@ public class AdminController implements Initializable {
         """);
 
             Label roomType = new Label(
-                    r.getTypeDesired()
-                            .getTypeName()
-                            .toUpperCase()
+                    r.getTypeDesired().getTypeName().toUpperCase()
             );
-
             roomType.setStyle("""
             -fx-text-fill: rgba(218,222,216,0.70);
             -fx-font-size: 11px;
             -fx-letter-spacing: 2px;
         """);
 
-            Label stay = new Label(
-                    r.getCheckin()
-                            + " → " +
-                            r.getCheckout()
-            );
-
+            Label stay = new Label(r.getCheckin() + " → " + r.getCheckout());
             stay.setStyle("""
             -fx-text-fill: rgba(218,222,216,0.45);
             -fx-font-size: 11px;
         """);
 
-            card.getChildren().addAll(
-                    guest,
-                    roomType,
-                    stay
-            );
-
+            card.getChildren().addAll(guest, roomType, stay);
             arrivalsContainer.getChildren().add(card);
+            count++;
         }
 
-        // EMPTY STATE
         if (arrivalsContainer.getChildren().isEmpty()) {
-
-            Label empty = new Label(
-                    "No arrivals scheduled for tonight."
-            );
-
+            Label empty = new Label("No arrivals scheduled for tonight.");
             empty.setStyle("""
             -fx-text-fill: rgba(218,222,216,0.45);
             -fx-font-size: 13px;
             -fx-padding: 20;
         """);
-
             arrivalsContainer.getChildren().add(empty);
         }
     }
@@ -154,10 +120,13 @@ public class AdminController implements Initializable {
 
     private void loadActivityFeed() {
         activityFeedContainer.getChildren().clear();
+        int count = 0;
         for (String a : Database.getActivityFeed()) {
+            if (count >= 2) break;
             Label l = new Label("• " + a);
             l.getStyleClass().add("activity-item");
             activityFeedContainer.getChildren().add(l);
+            count++;
         }
     }
 

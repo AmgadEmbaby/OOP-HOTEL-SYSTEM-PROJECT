@@ -73,7 +73,7 @@ public class Database {
       Guests g2 = guestList.get(1);
       Guests g3 = guestList.get(2);
 
-      // Today's arrivals (for dashboard testing)
+
       Reservations r1 = new Reservations(g1,
               availableRoomTypesList.get(0),
               LocalDate.now(),
@@ -90,10 +90,10 @@ public class Database {
       r2.setStatus(Reservations.ReservationStatus.CONFIRMED);
       reservationsList.add(r2);
 
-      // Future reservations
+
       Reservations r3 = new Reservations(g3,
               availableRoomTypesList.get(2),
-              LocalDate.now().plusDays(5),
+              LocalDate.now(),
               LocalDate.now().plusDays(10),
               Invoices.PaymentMethod.CREDIT_CARD);
       r3.setStatus(Reservations.ReservationStatus.CONFIRMED);
@@ -101,7 +101,7 @@ public class Database {
 
       Reservations r4 = new Reservations(g1,
               availableRoomTypesList.get(1),
-              LocalDate.now().plusDays(7),
+              LocalDate.now(),
               LocalDate.now().plusDays(9),
               Invoices.PaymentMethod.ONLINE);
       r4.setStatus(Reservations.ReservationStatus.PENDING);
@@ -109,7 +109,7 @@ public class Database {
 
       Reservations r5 = new Reservations(g2,
               availableRoomTypesList.get(2),
-              LocalDate.now().plusDays(14),
+              LocalDate.now(),
               LocalDate.now().plusDays(18),
               Invoices.PaymentMethod.CASH);
       r5.setStatus(Reservations.ReservationStatus.CONFIRMED);
@@ -118,7 +118,7 @@ public class Database {
       // Past reservations
       Reservations r6 = new Reservations(g3,
               availableRoomTypesList.get(0),
-              LocalDate.now().minusDays(10),
+              LocalDate.now(),
               LocalDate.now().minusDays(7),
               Invoices.PaymentMethod.ONLINE);
       r6.setStatus(Reservations.ReservationStatus.CONFIRMED);
@@ -126,11 +126,21 @@ public class Database {
 
       Reservations r7 = new Reservations(g1,
               availableRoomTypesList.get(2),
-              LocalDate.now().minusDays(5),
+              LocalDate.now(),
               LocalDate.now().minusDays(2),
               Invoices.PaymentMethod.CREDIT_CARD);
       r7.setStatus(Reservations.ReservationStatus.CONFIRMED);
       reservationsList.add(r7);
+
+
+
+      Reservations r8 = new Reservations(g2,
+              availableRoomTypesList.get(1),
+              LocalDate.now(),
+              LocalDate.now().plusDays(3),
+              Invoices.PaymentMethod.CASH);
+      r8.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r8);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -242,7 +252,7 @@ public class Database {
 
   public static void addActivity(String message) {
     activityFeed.add(0, message);
-    if (activityFeed.size() > 25) activityFeed.remove(activityFeed.size() - 1);
+    if (activityFeed.size() > 2) activityFeed.remove(activityFeed.size() - 1);
     AdminController.refreshUI();
   }
 }
