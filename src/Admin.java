@@ -15,7 +15,11 @@ public class Admin extends Staff{
         Rooms room= new Rooms( roomFloor,roomTypeName );
         Database.getRoomList().add(room);
         System.out.println("Room created and added to database sucessfully");
+
+        Database.addActivity( "New " + roomTypeName + "room created on the " + roomFloor +" floor");
     }    //the input is taken in the main(milestone 1) and added to the list by the admin only
+
+
 
 
 
@@ -26,6 +30,7 @@ public class Admin extends Staff{
       DatabaseValidation.validateRoomExists(room);
 
       room.setStatus(status);
+        Database.addActivity("Room " + roomNumber + " status changed to " + status);
 
     }
 
@@ -34,8 +39,11 @@ public class Admin extends Staff{
       Rooms room= Database.findRoom(roomNumber);
 
       DatabaseValidation.validateRoomExists(room);
-     //if(room != null){
-        Database.getRoomList().remove(room); //}
+     if(room != null){
+        Database.getRoomList().remove(room);
+
+         Database.addActivity("Room " + roomNumber + " deleted");
+     }
     }
 
     //------------------------- create,update,delete functions for amenities ------------------

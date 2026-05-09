@@ -12,7 +12,7 @@
 
    <VBox prefWidth="500.0" HBox.hgrow="ALWAYS">
       <ImageView fitHeight="600.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="false">
-         <Image url="@luxury hotel.jpg" />
+         <Image url="@/luxury hotel.jpg" />
       </ImageView>
    </VBox>
 

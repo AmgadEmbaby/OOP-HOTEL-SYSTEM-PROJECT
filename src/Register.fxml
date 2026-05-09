@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700.0" prefWidth="1100.0" styleClass="root" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterController">
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <center>
+
+        <HBox alignment="CENTER">
+
+            <!-- LEFT SIDE -->
+            <VBox alignment="CENTER_LEFT" prefWidth="500" spacing="18" styleClass="left-panel">
+
+                <padding>
+                    <Insets bottom="60" left="70" right="60" top="60" />
+                </padding>
+
+                <Label styleClass="main-title" text="THE FIVE SEASONS" />
+
+                <Label styleClass="section-title" text="REGISTER" />
+
+                <Label styleClass="subtitle" text="A season of pure luxury begins here." wrapText="true" />
+
+            </VBox>
+
+            <!-- RIGHT SIDE -->
+            <VBox alignment="CENTER" prefWidth="500" spacing="18" styleClass="form-panel">
+
+                <padding>
+                    <Insets bottom="60" left="80" right="80" top="60" />
+                </padding>
+
+                <TextField fx:id="usernameField" promptText="USERNAME" styleClass="luxury-field" />
+
+                <PasswordField fx:id="passwordField" promptText="PASSWORD" styleClass="luxury-field" />
+
+                <TextField fx:id="addressField" promptText="ADDRESS" styleClass="luxury-field" />
+
+                <DatePicker fx:id="dobPicker" promptText="DATE OF BIRTH" styleClass="luxury-date" />
+
+                <ComboBox fx:id="genderBox" promptText="GENDER" styleClass="luxury-combo" />
+
+                <TextField fx:id="balanceField" promptText="INITIAL BALANCE" styleClass="luxury-field" />
+
+                <Label fx:id="errorLabel" styleClass="error-label" textFill="#d6b8b8" wrapText="true" />
+
+                <Button onAction="#handleRegister" styleClass="main-button" text="CREATE ACCOUNT" />
+            <HBox alignment="TOP_RIGHT" maxWidth="Infinity">
+               <children>
+                  <Button onAction="#GobackToGuestMenu" styleClass="close-button" text="← BACK" />
+               </children>
+            </HBox>
+
+            </VBox>
+
+        </HBox>
+
+    </center>
+
+</BorderPane>

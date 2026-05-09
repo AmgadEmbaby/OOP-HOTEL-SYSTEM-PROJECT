@@ -10,81 +10,155 @@ import java.time.*;
 
 public class Database {
 
-  private static  ArrayList<Guests> guestList= new ArrayList<>();
-
-  private static  ArrayList<Rooms> roomList= new ArrayList<>();
-
-  private static  ArrayList<Reservations> reservationsList= new ArrayList<>();
-
-  private static  ArrayList<Amenity> availableAmenitiesList = new ArrayList<>();
-
-  private static  ArrayList<RoomType> availableRoomTypesList = new ArrayList<>();
-
-  private static  ArrayList<Invoices> InvoicesList = new ArrayList<>();
-
+  private static ArrayList<Guests> guestList = new ArrayList<>();
+  private static ArrayList<Rooms> roomList = new ArrayList<>();
+  private static ArrayList<Reservations> reservationsList = new ArrayList<>();
+  private static ArrayList<Amenity> availableAmenitiesList = new ArrayList<>();
+  private static ArrayList<RoomType> availableRoomTypesList = new ArrayList<>();
+  private static ArrayList<Invoices> InvoicesList = new ArrayList<>();
   private static ArrayList<Staff> staffList = new ArrayList<>();
+  private static ArrayList<String> activityFeed = new ArrayList<>();
 
-  private static Admin admin = new Admin("admin", "Halla", "admin123",   LocalDate.of(1999,5,9), Staff.Role.ADMIN,  8);     //one admin for the whole system
+  private static Admin admin = new Admin("admin", "Halla", "admin123",
+          LocalDate.of(1999, 5, 9), Staff.Role.ADMIN, 8);
 
-  public static Admin getAdmin() {
-    return admin;
+  // ================= 1. ROOM TYPES =================
+  static {
+    availableRoomTypesList.add(new RoomType("Single", 1, 1,
+            "A room designed for one guest, it offers a small but comfortable space," +
+                    "it's perfect for solo travellers like business guests or short stays.", 70));
+    availableRoomTypesList.add(new RoomType("Double", 2, 2,
+            "A room more spacious than the single and designed for two guests, you can change" +
+                    " the two beds with one king size, it's perfect for friends or couples travelling together.", 125));
+    availableRoomTypesList.add(new RoomType("Suite", 1, 4,
+            "A large and luxurious room, it has a separate living area with a sofa bed," +
+                    " bedroom with a large king size bed and a small kitchen with a mini bar," +
+                    " it's perfect for a small family or guests who want a private and luxurious stay.", 465));
   }
 
-  public static void addGuests(Guests guest){
-    guestList.add(guest);
+  // ================= 2. GUESTS =================
+  static {
+    guestList.add(new Guests("Nour",  "Cairo",      LocalDate.of(2000, 5, 10), "pass123", Guests.Gender.female));
+    guestList.add(new Guests("Halla", "Tanta",      LocalDate.of(1999, 3, 15), "pass456", Guests.Gender.female));
+    guestList.add(new Guests("Amgad", "Cairo",      LocalDate.of(2001, 8, 20), "pass789", Guests.Gender.male));
   }
 
-  public static ArrayList<Guests> getGuestList(){
-
-    return guestList;
+  // ================= 3. ROOMS =================
+  static {
+    roomList.add(new Rooms(1, "Single"));
+    roomList.add(new Rooms(1, "Double"));
+    roomList.add(new Rooms(2, "Double"));
+    roomList.add(new Rooms(2, "Suite"));
+    roomList.add(new Rooms(3, "Suite"));
   }
 
-  public static ArrayList<Staff> getStaffList(){
+  // ================= 4. AMENITIES =================
+  static {
+    availableAmenitiesList.add(new Amenity("Soft drink",      2));
+    availableAmenitiesList.add(new Amenity("Jacuzzi",         150));
+    availableAmenitiesList.add(new Amenity("Wifi",            10));
+    availableAmenitiesList.add(new Amenity("Tv-subscriptions",100));
+    availableAmenitiesList.add(new Amenity("HouseKeeping",    25));
+    availableAmenitiesList.add(new Amenity("Mini Bar",        25));
+    availableAmenitiesList.add(new Amenity("Breakfast in Bed",45));
+    availableAmenitiesList.add(new Amenity("Extra Pillows",   25));
+    availableAmenitiesList.add(new Amenity("Bath Set",        12));
 
-    return staffList;
+    for (Amenity a : availableAmenitiesList) {
+      String path = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
+      if (Database.class.getResourceAsStream(path) != null) {
+        a.setImagePath(path);
+      }
+    }
   }
 
+  // ================= 5. RESERVATIONS =================
+  // ================= 5. RESERVATIONS =================
+  static {
+    try {
+      Guests g1 = guestList.get(0);
+      Guests g2 = guestList.get(1);
+      Guests g3 = guestList.get(2);
 
-  public static ArrayList<Rooms> getRoomList(){
-    return roomList;
+      // Today's arrivals (for dashboard testing)
+      Reservations r1 = new Reservations(g1,
+              availableRoomTypesList.get(0),
+              LocalDate.now(),
+              LocalDate.now().plusDays(2),
+              Invoices.PaymentMethod.ONLINE);
+      r1.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r1);
+
+      Reservations r2 = new Reservations(g2,
+              availableRoomTypesList.get(1),
+              LocalDate.now(),
+              LocalDate.now().plusDays(3),
+              Invoices.PaymentMethod.CASH);
+      r2.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r2);
+
+      // Future reservations
+      Reservations r3 = new Reservations(g3,
+              availableRoomTypesList.get(2),
+              LocalDate.now().plusDays(5),
+              LocalDate.now().plusDays(10),
+              Invoices.PaymentMethod.CREDIT_CARD);
+      r3.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r3);
+
+      Reservations r4 = new Reservations(g1,
+              availableRoomTypesList.get(1),
+              LocalDate.now().plusDays(7),
+              LocalDate.now().plusDays(9),
+              Invoices.PaymentMethod.ONLINE);
+      r4.setStatus(Reservations.ReservationStatus.PENDING);
+      reservationsList.add(r4);
+
+      Reservations r5 = new Reservations(g2,
+              availableRoomTypesList.get(2),
+              LocalDate.now().plusDays(14),
+              LocalDate.now().plusDays(18),
+              Invoices.PaymentMethod.CASH);
+      r5.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r5);
+
+      // Past reservations
+      Reservations r6 = new Reservations(g3,
+              availableRoomTypesList.get(0),
+              LocalDate.now().minusDays(10),
+              LocalDate.now().minusDays(7),
+              Invoices.PaymentMethod.ONLINE);
+      r6.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r6);
+
+      Reservations r7 = new Reservations(g1,
+              availableRoomTypesList.get(2),
+              LocalDate.now().minusDays(5),
+              LocalDate.now().minusDays(2),
+              Invoices.PaymentMethod.CREDIT_CARD);
+      r7.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      reservationsList.add(r7);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
+  // ================= GETTERS =================
 
-  public static ArrayList<Reservations> getReservationsList(){
+  public static Admin getAdmin() { return admin; }
 
-    return reservationsList;
-  }
+  public static ArrayList<Guests> getGuestList() { return guestList; }
 
+  public static ArrayList<Staff> getStaffList() { return staffList; }
 
-  public static ArrayList<Amenity> getamenitiesList(){
+  public static ArrayList<Rooms> getRoomList() { return roomList; }
 
-    return availableAmenitiesList;
-  }
-  static{
-    //Arguments: Avilable amenties from the start
-    availableAmenitiesList.add(new Amenity("Soft drink",2));
-    availableAmenitiesList.add(new Amenity("Jacuzzi",150));
-    availableAmenitiesList.add(new Amenity("Wifi",10));
-    availableAmenitiesList.add(new Amenity("Tv-subscriptions",2));
+  public static ArrayList<Reservations> getReservationsList() { return reservationsList; }
 
-  }
+  public static ArrayList<Amenity> getamenitiesList() { return availableAmenitiesList; }
 
-
-
-
-
-
-
-
-  public static ArrayList<RoomType> getAvailableRoomTypesList(){
-
-    return availableRoomTypesList;
-  }
-
-  public static ArrayList<Invoices> getInvoicesList(){
-
-    return InvoicesList;
-  }
+  public static ArrayList<RoomType> getAvailableRoomTypesList() { return availableRoomTypesList; }
 
   //helper functions
   public static Rooms findRoom(int roomNumber){
@@ -92,62 +166,61 @@ public class Database {
       if(r.getRoomNumber().equals(roomNumber) ){
         return r;
       }
+  public static ArrayList<Invoices> getInvoicesList() { return InvoicesList; }
+
+  public static ArrayList<String> getActivityFeed() { return activityFeed; }
+
+  public static void addGuests(Guests guest) { guestList.add(guest); }
+
+  // ================= FINDERS =================
+
+  public static Rooms findRoom(int roomNumber) {
+    for (Rooms r : roomList) {
+      if (r.getRoomNumber() == roomNumber) return r;
     }
     return null;
   }
 
-
-
-  public static Amenity findAmenity(String amenityName)
-  {
-    for(Amenity a: Database.getamenitiesList()){
-      if(amenityName.equalsIgnoreCase(a.getAmenityName()) ){
-        return a;
-      }
+  public static Amenity findAmenity(String amenityName) {
+    for (Amenity a : availableAmenitiesList) {
+      if (amenityName.equalsIgnoreCase(a.getAmenityName())) return a;
     }
     return null;
   }
-
 
   public static RoomType findRoomType(String name) {
     for (RoomType rt : availableRoomTypesList) {
-      if (rt.getTypeName().equalsIgnoreCase(name)) {
-        return rt;
-      }
+      if (rt.getTypeName().equalsIgnoreCase(name)) return rt;
     }
     return null;
   }
 
   public static Reservations findReservation(int reservationID) {
-    for(Reservations r: Database.getReservationsList()){
-      if(reservationID == r.getReservationID() ){
-        return r;
-      }
+    for (Reservations r : reservationsList) {
+      if (r.getReservationID() == reservationID) return r;
     }
     return null;
   }
 
 
-public static int getAvailableRoomCount(String RoomTypeName, LocalDate desiredReservationDate){
-    //bnshof fe kam room b nafs el requested type  w bn3dhom
-    int roomCount =0;
-for(Rooms r: Database.getRoomList()) {
-  if (r.getRoomtype().getTypeName().equalsIgnoreCase(RoomTypeName)) {
-    roomCount++; //total available physical rooms of this type  in the hotel
-  }
-}
+  public static int getAvailableRoomCount(String roomTypeName, LocalDate desiredDate) {
+    int roomCount = 0;
+    for (Rooms r : roomList) {
+      if (r.getRoomtype().getTypeName().equalsIgnoreCase(roomTypeName)) roomCount++;
+    }
 
-  // we check if teh desired reservation date lies in a period of confirmed reservation
-  int reservedCount=0;
-  for(Reservations rs: getReservationsList()){
-    if(rs.getTypeDesired().getTypeName().equalsIgnoreCase(RoomTypeName) &&( rs.getStatus()== Reservations.ReservationStatus.CONFIRMED||rs.getStatus()== Reservations.ReservationStatus.PENDING)){
-      if(!desiredReservationDate.isBefore(rs.getCheckin() )&& desiredReservationDate.isBefore(rs.getCheckout()) ){
-        reservedCount++;
+    int reservedCount = 0;
+    for (Reservations rs : reservationsList) {
+      if (rs.getTypeDesired().getTypeName().equalsIgnoreCase(roomTypeName) &&
+              (rs.getStatus() == Reservations.ReservationStatus.CONFIRMED ||
+                      rs.getStatus() == Reservations.ReservationStatus.PENDING)) {
+        if (!desiredDate.isBefore(rs.getCheckin()) && desiredDate.isBefore(rs.getCheckout())) {
+          reservedCount++;
+        }
       }
     }
+    return roomCount - reservedCount;
   }
-  return roomCount - reservedCount;
-}
 
 
 //used to ensure en mfesh duplicate bookings since el RESERVED etshal ml enum
@@ -181,15 +254,13 @@ for(Rooms r: Database.getRoomList()) {
 
 
   public static boolean isRoomAvailableForDates(Rooms room, LocalDate start, LocalDate end) {
-    for (Reservations r : Database.getReservationsList()) {
-      //search for this specific room in the future reservations to make sure it's free
+    for (Reservations r : reservationsList) {
       if (r.getRoom() != null && r.getRoom().equals(room) &&
               (r.getStatus() == Reservations.ReservationStatus.CONFIRMED ||
                       r.getStatus() == Reservations.ReservationStatus.PENDING)) {
-
-        // checking for date overlap
-        if (!(end.isBefore(r.getCheckin()) || start.isAfter(r.getCheckout()) || start.equals(r.getCheckout()))) {
-          return false; // There is a clash
+        if (!(end.isBefore(r.getCheckin()) || start.isAfter(r.getCheckout()) ||
+                start.equals(r.getCheckout()))) {
+          return false;
         }
       }
     }
@@ -211,7 +282,7 @@ for(Rooms r: Database.getRoomList()) {
         grandTotal += inv.CalculateTotal();
       }
     }
-    return grandTotal; // this returns the final sum of all Invoices + Taxes
+    return grandTotal;
   }
 
 
@@ -374,4 +445,9 @@ for(Rooms r: Database.getRoomList()) {
   }
 
 
+  public static void addActivity(String message) {
+    activityFeed.add(0, message);
+    if (activityFeed.size() > 25) activityFeed.remove(activityFeed.size() - 1);
+    AdminController.refreshUI();
+  }
 }
