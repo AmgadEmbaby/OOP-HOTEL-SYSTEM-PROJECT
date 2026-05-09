@@ -11,6 +11,7 @@ public class Amenity {
         imagePath = "/fallback.jpg";
     }
 
+    //GETTERS
     public String getAmenityName() {
         return AmenityName;
     }

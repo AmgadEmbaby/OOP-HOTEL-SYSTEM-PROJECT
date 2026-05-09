@@ -25,6 +25,7 @@ public class ManageRoomsController {
         hideOverlay();
     }
 
+
     private void loadRooms() {
         roomsContainer.getChildren().clear();
         for (Rooms r : Database.getRoomList()) {
@@ -32,7 +33,10 @@ public class ManageRoomsController {
         }
     }
 
+
+
     private void showOverlay(Parent content) {
+
         StackPane.setAlignment(content, Pos.CENTER);
 
         dialogOverlay.setAlignment(Pos.CENTER);
@@ -55,6 +59,8 @@ public class ManageRoomsController {
         dialogOverlay.setManaged(false);
         dialogOverlay.getChildren().clear();
     }
+
+
 
     @FXML
     private void openAddRoomDialog() {
@@ -84,6 +90,8 @@ public class ManageRoomsController {
             System.out.println("Invalid room creation");
         }
     }
+
+
 
     private VBox createCard(Rooms room) {
 
@@ -160,6 +168,7 @@ public class ManageRoomsController {
         card.getChildren().addAll(imageView, info);
         return card;
     }
+
 
     private void openStatusDialog(Rooms room) {
         try {

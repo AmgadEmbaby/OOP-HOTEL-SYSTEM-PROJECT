@@ -18,7 +18,7 @@
       <URL value="@style.css" />
    </stylesheets>
 
-   <!-- ================= SIDEBAR ================= -->
+
    <StackPane prefWidth="300" minHeight="800"
               style="-fx-background-color: linear-gradient(to bottom, #0E160B, #121B0E, #162012);">
 
@@ -61,19 +61,14 @@
       </VBox>
    </StackPane>
 
-   <!-- ================= MAIN CONTENT ================= -->
+
    <StackPane HBox.hgrow="ALWAYS"
               fx:id="contentArea"
-              styleClass="content-area dashboard-shell"
-              >
-      <padding>
-         <Insets top="0" right="18" bottom="0" left="0"/>
-      </padding>
+              styleClass="content-area dashboard-shell">
 
-      <StackPane fx:id="dashboardNode"
-                 pickOnBounds="false">
+      <StackPane fx:id="dashboardNode" pickOnBounds="false">
 
-         <!-- Botanical always at the back -->
+
          <ImageView fitWidth="500"
                     preserveRatio="true"
                     opacity="0.10"
@@ -83,110 +78,92 @@
             <Image url="@botanical.png" />
          </ImageView>
 
-         <!-- Scrollable dashboard -->
-         <ScrollPane fitToWidth="true"
-                     hbarPolicy="NEVER"
-                     vbarPolicy="AS_NEEDED"
-                     pannable="true"
-                     fitToHeight="true"
-                     styleClass="scroll-pane">
 
-            <VBox fx:id="homeContent" spacing="35" styleClass="home-root">
-               <padding>
-                  <Insets top="40" right="40" bottom="60" left="40"/>
-               </padding>
+         <VBox spacing="0">
 
-               <!-- HERO -->
-               <VBox spacing="8">
-                  <Label text="Good Evening," styleClass="welcome-sub"/>
-                  <Label fx:id="adminNameLabel" text="Admin" styleClass="welcome-title"/>
-                  <Label text="The Five Seasons is operating smoothly today." styleClass="subtitle"/>
-               </VBox>
-
-               <!-- STATS -->
-               <HBox spacing="22">
-                  <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
-                     <Label text="ROOMS" styleClass="stat-label"/>
-                     <Label fx:id="totalRoomsLabel" text="0" styleClass="stat-number"/>
-                  </VBox>
-                  <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
-                     <Label text="AVAILABLE" styleClass="stat-label"/>
-                     <Label fx:id="availableRoomsLabel" text="0" styleClass="stat-number"/>
-                  </VBox>
-                  <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
-                     <Label text="GUESTS" styleClass="stat-label"/>
-                     <Label fx:id="totalGuestsLabel" text="0" styleClass="stat-number"/>
-                  </VBox>
-                  <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
-                     <Label text="RESERVATIONS" styleClass="stat-label"/>
-                     <Label fx:id="totalReservationsLabel" text="0" styleClass="stat-number"/>
-                  </VBox>
-               </HBox>
-
-               <!-- TONIGHT'S ARRIVALS -->
-               <!--
-                  FIX: Removed fitToHeight="true" — it was forcing the ScrollPane to
-                  match its content height, which disabled horizontal scrolling.
-                  fitToWidth should be false on a horizontal scroller so cards
-                  can overflow naturally and the scrollbar appears.
-               -->
-               <VBox spacing="10">
-                  <Label text="TONIGHT'S ARRIVALS" styleClass="section-title"/>
-                  <ScrollPane
-                          fitToWidth="false"
-                          fitToHeight="false"
-                          hbarPolicy="AS_NEEDED"
-                          vbarPolicy="NEVER"
-                          prefHeight="145"
-                          minHeight="145"
-                          maxHeight="145"
-                          styleClass="scroll-pane">
-                     <HBox fx:id="arrivalsContainer" spacing="15">
-                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-                     </HBox>
-                  </ScrollPane>
-               </VBox>
-
-               <!-- ACTIVITY FEED -->
-               <!--
-                  FIX: The ScrollPane was already set up correctly in FXML.
-                  The scrollbar was likely being hidden by CSS on .scroll-pane
-                  that set -fx-vbar-policy or visibility to never/hidden.
-                  The inline style below overrides any CSS rule that hides the
-                  scrollbar thumb/track so it is always visible when needed.
-                  prefHeight is kept at 180 so the section stays compact.
-               -->
-               <VBox spacing="10">
-                  <Label text="ACTIVITY FEED" styleClass="section-title"/>
-                  <ScrollPane
-                          fitToWidth="true"
-                          hbarPolicy="NEVER"
-                          vbarPolicy="AS_NEEDED"
-                          minHeight="180"
-                          prefHeight="180"
-                          maxHeight="180"
-                          styleClass="scroll-pane"
-                          style="-fx-vbar-policy: as-needed;">
-                     <VBox fx:id="activityFeedContainer" spacing="0">
-                        <padding><Insets top="4" right="8" bottom="4" left="8"/></padding>
-                     </VBox>
-                  </ScrollPane>
-               </VBox>
-
-               <!-- QUICK ACTIONS -->
-               <VBox spacing="10">
-                  <Label text="QUICK ACTIONS" styleClass="section-title"/>
-                  <HBox spacing="10">
-                     <Button text="+ Room" styleClass="action-button" onAction="#showRooms"/>
-                     <Button text="+ Amenity" styleClass="action-button" onAction="#showAmenities"/>
-                     <Button text="+ Room Type" styleClass="action-button" onAction="#showRoomTypes"/>
-                  </HBox>
-               </VBox>
-
+            <VBox spacing="8" styleClass="view-header">
+               <padding><Insets top="40" right="40" bottom="20" left="40"/></padding>
+               <Label text="Good Evening," styleClass="welcome-sub"/>
+               <Label fx:id="adminNameLabel" text="Admin" styleClass="welcome-title"/>
+               <Label text="The Five Seasons is operating smoothly today." styleClass="subtitle"/>
             </VBox>
-         </ScrollPane>
 
-         <!-- Minimize always on top -->
+            <Region prefHeight="1" maxWidth="Infinity"
+                    style="-fx-background-color: rgba(118,128,100,0.2);"/>
+
+
+            <ScrollPane fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        pannable="false"
+                        styleClass="scroll-pane">
+
+               <VBox fx:id="homeContent" spacing="35" styleClass="home-root">
+                  <padding>
+                     <Insets top="40" right="40" bottom="60" left="40"/>
+                  </padding>
+
+                  <HBox spacing="22">
+                     <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
+                        <Label text="ROOMS" styleClass="stat-label"/>
+                        <Label fx:id="totalRoomsLabel" text="0" styleClass="stat-number"/>
+                     </VBox>
+                     <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
+                        <Label text="AVAILABLE" styleClass="stat-label"/>
+                        <Label fx:id="availableRoomsLabel" text="0" styleClass="stat-number"/>
+                     </VBox>
+                     <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
+                        <Label text="GUESTS" styleClass="stat-label"/>
+                        <Label fx:id="totalGuestsLabel" text="0" styleClass="stat-number"/>
+                     </VBox>
+                     <VBox styleClass="stat-card" alignment="CENTER" prefWidth="200">
+                        <Label text="RESERVATIONS" styleClass="stat-label"/>
+                        <Label fx:id="totalReservationsLabel" text="0" styleClass="stat-number"/>
+                     </VBox>
+                  </HBox>
+
+
+                  <VBox spacing="10">
+                     <Label text="SOME OF TONIGHT'S ARRIVALS" styleClass="section-title"/>
+                     <ScrollPane
+                             fitToWidth="false"
+                             fitToHeight="false"
+                             hbarPolicy="AS_NEEDED"
+                             vbarPolicy="NEVER"
+                             prefHeight="160"
+                             minHeight="160"
+                             maxHeight="160"
+                             styleClass="scroll-pane">
+                        <HBox fx:id="arrivalsContainer" spacing="15" minHeight="130">
+                           <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                        </HBox>
+                     </ScrollPane>
+                  </VBox>
+
+
+                  <VBox spacing="10">
+                     <Label text="ACTIVITY FEED -  Showing The Last Two Edits in the System" styleClass="section-title"/>
+                     <ScrollPane
+                             fitToWidth="true"
+                             fitToHeight="false"
+                             hbarPolicy="NEVER"
+                             vbarPolicy="AS_NEEDED"
+                             minHeight="180"
+                             prefHeight="180"
+                             maxHeight="180"
+                             styleClass="scroll-pane">
+                        <VBox fx:id="activityFeedContainer" spacing="0">
+                           <padding><Insets top="4" right="8" bottom="4" left="8"/></padding>
+                        </VBox>
+                     </ScrollPane>
+                  </VBox>
+
+               </VBox>
+            </ScrollPane>
+         </VBox>
+
+
          <HBox alignment="TOP_RIGHT"
                StackPane.alignment="TOP_RIGHT"
                style="-fx-padding: 15 20 0 0;"

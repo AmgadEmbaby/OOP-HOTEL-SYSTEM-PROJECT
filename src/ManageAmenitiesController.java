@@ -20,6 +20,8 @@ public class ManageAmenitiesController {
     @FXML private FlowPane amenitiesContainer;
     @FXML private StackPane dialogOverlay;
 
+
+
     @FXML
     public void initialize() {
         assignDefaultImages();
@@ -27,9 +29,12 @@ public class ManageAmenitiesController {
         hideOverlay();
     }
 
+
+
     private void assignDefaultImages() {
         for (Amenity a : Database.getamenitiesList()) {
-            if (a.getImagePath() == null || a.getImagePath().contains("fallback.jpg")) {                String guessedPath = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
+            if (a.getImagePath() == null || a.getImagePath().equals("/fallback.jpg")) {
+                String guessedPath = "/" + a.getAmenityName().toLowerCase().trim() + ".jpg";
                 InputStream is = getClass().getResourceAsStream(guessedPath);
                 if (is != null) {
                     a.setImagePath(guessedPath);
@@ -38,12 +43,15 @@ public class ManageAmenitiesController {
         }
     }
 
+
+
     private void loadAmenities() {
         amenitiesContainer.getChildren().clear();
         for (Amenity a : Database.getamenitiesList()) {
             amenitiesContainer.getChildren().add(createCard(a));
         }
     }
+
 
     private VBox createCard(Amenity a) {
         ImageView img = new ImageView();
@@ -97,6 +105,8 @@ public class ManageAmenitiesController {
         return card;
     }
 
+
+
     private void loadImage(ImageView iv, String path) {
         if (path != null && !path.isEmpty()) {
             InputStream is = getClass().getResourceAsStream(path);
@@ -116,7 +126,10 @@ public class ManageAmenitiesController {
         if (fb != null) iv.setImage(new Image(fb));
     }
 
+
+
     private void showOverlay(Parent content) {
+        // Prevent the dialog from stretching full height inside the StackPane
         content.setStyle(content.getStyle() != null ? content.getStyle() : "");
         StackPane.setAlignment(content, Pos.CENTER);
         if (content instanceof Region r) {
@@ -144,6 +157,8 @@ public class ManageAmenitiesController {
         dialogOverlay.getChildren().clear();
     }
 
+
+
     @FXML
     private void openAddAmenityDialog() {
         try {
@@ -158,6 +173,7 @@ public class ManageAmenitiesController {
             e.printStackTrace();
         }
     }
+
 
     public void addAmenityFromDialog(String name, double cost, String imagePath) {
         try {
@@ -175,6 +191,8 @@ public class ManageAmenitiesController {
         }
     }
 
+
+
     private void openEditAmenityDialog(Amenity a) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AmenityEditDialog.fxml"));
@@ -190,6 +208,7 @@ public class ManageAmenitiesController {
         }
     }
 
+
     public void updateAmenityFromDialog(Amenity a, double newCost, boolean available, String imagePath) {
         a.setAmenityCost(newCost);
         a.setAvailable(available);
@@ -201,6 +220,7 @@ public class ManageAmenitiesController {
         hideOverlay();
         loadAmenities();
     }
+
 
     public void refresh() {
         loadAmenities();
