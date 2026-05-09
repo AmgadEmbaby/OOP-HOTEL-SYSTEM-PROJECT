@@ -19,24 +19,24 @@
         <URL value="@/style.css"/>
     </stylesheets>
 
-    <!-- TITLE -->
+
     <Label text="ADD NEW AMENITY" styleClass="dialog-title"/>
 
     <Region prefHeight="4"/>
 
-    <!-- NAME -->
+
     <Label text="AMENITY NAME" styleClass="field-label"/>
     <TextField fx:id="nameField"
                promptText="e.g. Spa Treatment"
                styleClass="login-field"/>
 
-    <!-- COST -->
+
     <Label text="COST PER USE ($)" styleClass="field-label"/>
     <TextField fx:id="costField"
                promptText="e.g. 50"
                styleClass="login-field"/>
 
-    <!-- IMAGE -->
+
     <Label text="IMAGE (OPTIONAL)" styleClass="field-label"/>
     <Button fx:id="pickImgBtn"
             text="CHOOSE IMAGE"
@@ -46,10 +46,10 @@
            text="No image selected — fallback will be used"
            style="-fx-text-fill: rgba(218,222,216,0.45); -fx-font-size: 11px; -fx-font-family: 'Montserrat Light';"/>
 
-    <!-- ERROR -->
+
     <Label fx:id="errorLabel" text="" styleClass="error-label"/>
 
-    <!-- BUTTONS -->
+
     <HBox spacing="12" alignment="CENTER_LEFT">
         <padding><Insets top="10"/></padding>
         <Button text="ADD AMENITY"

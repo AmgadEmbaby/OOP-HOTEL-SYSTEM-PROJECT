@@ -13,7 +13,6 @@ import java.io.IOException;
 
 public class GuestLoginController extends Navigator {
 
-    // 1. Grab the UI elements from the FXML
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
@@ -29,9 +28,7 @@ public class GuestLoginController extends Navigator {
             errorLabel.setStyle("-fx-text-fill: #768064;");
             errorLabel.setText("Login Successful! Welcome " + loggedInGuest.getUserName());
 
-            // TODO: Route the user to the Guest Dashboard screen here
-            // Parent root = FXMLLoader.load(getClass().getResource("GuestDashboard.fxml"));
-            // ... (standard scene switching code)
+
 
         } catch (IllegalArgumentException e) {
             errorLabel.setStyle("-fx-text-fill: #d6b8b8;");
@@ -41,7 +38,7 @@ public class GuestLoginController extends Navigator {
 
     @FXML
     private void createAcc(ActionEvent event) throws Exception {
-        // Switch to the Registration Screen
+
         Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 1000, 600));
@@ -50,7 +47,7 @@ public class GuestLoginController extends Navigator {
 
     @FXML
     private void goBack(ActionEvent event) throws Exception {
-        // Return to Start Screen
+
         Parent root = FXMLLoader.load(getClass().getResource("GuestMenu.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 1000, 600));

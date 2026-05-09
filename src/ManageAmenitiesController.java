@@ -20,7 +20,7 @@ public class ManageAmenitiesController {
     @FXML private FlowPane amenitiesContainer;
     @FXML private StackPane dialogOverlay;
 
-    // ================= INIT =================
+
 
     @FXML
     public void initialize() {
@@ -29,7 +29,7 @@ public class ManageAmenitiesController {
         hideOverlay();
     }
 
-    // ================= ASSIGN DEFAULT IMAGES =================
+
 
     private void assignDefaultImages() {
         for (Amenity a : Database.getamenitiesList()) {
@@ -43,7 +43,7 @@ public class ManageAmenitiesController {
         }
     }
 
-    // ================= LOAD =================
+
 
     private void loadAmenities() {
         amenitiesContainer.getChildren().clear();
@@ -52,7 +52,6 @@ public class ManageAmenitiesController {
         }
     }
 
-    // ================= CARD =================
 
     private VBox createCard(Amenity a) {
         ImageView img = new ImageView();
@@ -106,7 +105,7 @@ public class ManageAmenitiesController {
         return card;
     }
 
-    // ================= IMAGE LOADER =================
+
 
     private void loadImage(ImageView iv, String path) {
         if (path != null && !path.isEmpty()) {
@@ -127,7 +126,7 @@ public class ManageAmenitiesController {
         if (fb != null) iv.setImage(new Image(fb));
     }
 
-    // ================= OVERLAY =================
+
 
     private void showOverlay(Parent content) {
         // Prevent the dialog from stretching full height inside the StackPane
@@ -158,7 +157,7 @@ public class ManageAmenitiesController {
         dialogOverlay.getChildren().clear();
     }
 
-    // ================= ADD AMENITY =================
+
 
     @FXML
     private void openAddAmenityDialog() {
@@ -175,7 +174,7 @@ public class ManageAmenitiesController {
         }
     }
 
-    /** Called by AddAmenityDialogController when the user confirms. */
+
     public void addAmenityFromDialog(String name, double cost, String imagePath) {
         try {
             Amenity newAmenity = new Amenity(name, cost);
@@ -192,7 +191,7 @@ public class ManageAmenitiesController {
         }
     }
 
-    // ================= EDIT AMENITY =================
+
 
     private void openEditAmenityDialog(Amenity a) {
         try {
@@ -209,7 +208,7 @@ public class ManageAmenitiesController {
         }
     }
 
-    /** Called by AmenityEditDialogController when the user saves. */
+
     public void updateAmenityFromDialog(Amenity a, double newCost, boolean available, String imagePath) {
         a.setAmenityCost(newCost);
         a.setAvailable(available);
@@ -222,7 +221,6 @@ public class ManageAmenitiesController {
         loadAmenities();
     }
 
-    // ================= REFRESH =================
 
     public void refresh() {
         loadAmenities();

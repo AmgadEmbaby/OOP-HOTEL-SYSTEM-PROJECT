@@ -13,10 +13,10 @@
         <URL value="@/style.css"/>
     </stylesheets>
 
-    <!-- MAIN CONTENT -->
+
     <VBox spacing="0" styleClass="rooms-view">
 
-        <!-- HEADER -->
+
         <HBox alignment="CENTER_LEFT" styleClass="view-header" spacing="20">
             <padding><Insets top="30" right="40" bottom="20" left="40"/></padding>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
@@ -26,11 +26,11 @@
             <Button text="+ ADD ROOM" onAction="#openAddRoomDialog" styleClass="action-button"/>
         </HBox>
 
-        <!-- DIVIDER -->
+
         <Region prefHeight="1" maxWidth="Infinity"
                 style="-fx-background-color: rgba(118,128,100,0.2);"/>
 
-        <!-- ROOMS LIST -->
+
         <ScrollPane fitToWidth="true"
                     VBox.vgrow="ALWAYS"
                     hbarPolicy="NEVER"
@@ -50,7 +50,7 @@
         </ScrollPane>
     </VBox>
 
-    <!-- OVERLAY — sits on top of everything via StackPane, hidden by default -->
+
     <StackPane fx:id="dialogOverlay"
                visible="false"
                managed="false"

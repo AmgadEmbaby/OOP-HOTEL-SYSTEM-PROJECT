@@ -28,7 +28,7 @@ public class ManageGuestsController {
         loadGuests(allGuests);
     }
 
-    // ================= LOAD =================
+
 
     private void loadGuests(List<Guests> list) {
         guestsContainer.getChildren().clear();
@@ -37,11 +37,11 @@ public class ManageGuestsController {
         }
     }
 
-    // ================= GUEST ROW (profile strip) =================
+
 
     private HBox createRow(Guests g) {
 
-        // Avatar circle with first letter
+
         Label avatar = new Label(g.getUserName().substring(0, 1).toUpperCase());
         avatar.setStyle("""
             -fx-background-color: rgba(90,140,90,0.20);
@@ -57,7 +57,7 @@ public class ManageGuestsController {
             -fx-border-width: 1;
         """);
 
-        // Name + city
+
         Label name = new Label(g.getUserName().toUpperCase());
         name.setStyle("""
             -fx-font-family: 'Cinzel';
@@ -78,7 +78,7 @@ public class ManageGuestsController {
         nameBox.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(nameBox, Priority.ALWAYS);
 
-        // Reservation count badge
+
         long resCount = Database.getReservationsList().stream()
                 .filter(r -> r.getGuest().getUserName()
                         .equalsIgnoreCase(g.getUserName()))
@@ -132,7 +132,6 @@ public class ManageGuestsController {
         return row;
     }
 
-    // ================= PROFILE DETAILS =================
 
     private void showProfile(Guests g) {
         avatarLabel.setText(g.getUserName().substring(0, 1).toUpperCase());
@@ -148,7 +147,7 @@ public class ManageGuestsController {
                 .count();
         detailReservations.setText(resCount + " reservations");
 
-        // Load reservation mini-list
+
         guestReservationsContainer.getChildren().clear();
         for (Reservations r : Database.getReservationsList()) {
             if (r.getGuest().getUserName().equalsIgnoreCase(g.getUserName())) {
@@ -168,7 +167,7 @@ public class ManageGuestsController {
         }
     }
 
-    // ================= MINI RESERVATION ROW =================
+
 
     private HBox createMiniResRow(Reservations r) {
         Label type = new Label(r.getTypeDesired().getTypeName().toUpperCase());
@@ -205,7 +204,7 @@ public class ManageGuestsController {
         return row;
     }
 
-    // ================= FILTER =================
+
 
     @FXML
     private void filterGuests() {

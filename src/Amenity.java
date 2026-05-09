@@ -5,7 +5,6 @@ public class Amenity {
     private String imagePath;
 
     //CONSTRUCTORS
-
     public Amenity(String amenityName , double amenityCost) {
         this.AmenityName = RoomTypeValidation.validateUniqueAmenity(amenityName);
         this.AmenityCost= RoomTypeValidation.validateAmenityCost(amenityCost);

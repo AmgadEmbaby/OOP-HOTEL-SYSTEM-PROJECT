@@ -22,7 +22,7 @@ public class ManageRoomTypesController {
         hideOverlay();
     }
 
-    // ================= LOAD =================
+
 
     private void loadRoomTypes() {
         roomTypesContainer.getChildren().clear();
@@ -31,7 +31,7 @@ public class ManageRoomTypesController {
         }
     }
 
-    // ================= CARD =================
+
 
     private VBox createCard(RoomType rt) {
 
@@ -87,7 +87,7 @@ public class ManageRoomTypesController {
         return card;
     }
 
-    // ================= OVERLAY =================
+
 
     private void showOverlay(Parent content) {
         StackPane.setAlignment(content, Pos.CENTER);
@@ -111,7 +111,7 @@ public class ManageRoomTypesController {
         dialogOverlay.getChildren().clear();
     }
 
-    // ================= ADD =================
+
 
     @FXML
     private void openAddDialog() {
@@ -139,7 +139,7 @@ public class ManageRoomTypesController {
         }
     }
 
-    // ================= EDIT =================
+
 
     private void openEditDialog(RoomType rt) {
         try {
@@ -166,7 +166,6 @@ public class ManageRoomTypesController {
         }
     }
 
-    // ================= ERROR =================
 
     private void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);

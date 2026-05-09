@@ -17,23 +17,19 @@ public class AmenityEditDialogController {
     private Amenity amenity;
     private String  pickedImagePath = null;
 
-    // ================= WIRING =================
 
     public void setParent(ManageAmenitiesController parent) {
         this.parent = parent;
     }
 
-    /**
-     * Called by ManageAmenitiesController right after load()
-     * to inject the amenity whose data we are editing.
-     */
+
     public void setAmenity(Amenity a) {
         this.amenity = a;
 
-        // Pre-fill fields
+
         costField.setText(String.valueOf(a.getAmenityCost()));
 
-        // Wire the two toggle buttons as a group
+
         ToggleGroup tg = new ToggleGroup();
         availBtn.setToggleGroup(tg);
         unavailBtn.setToggleGroup(tg);
@@ -41,7 +37,6 @@ public class AmenityEditDialogController {
         if (a.isAvailable()) availBtn.setSelected(true);
         else                 unavailBtn.setSelected(true);
 
-        // Show current image state
         String currentPath = a.getImagePath();
         if (currentPath == null || currentPath.equals("/fallback.jpg")) {
             imgPathLabel.setText("Using fallback image");
@@ -50,7 +45,7 @@ public class AmenityEditDialogController {
         }
     }
 
-    // ================= IMAGE PICKER =================
+
 
     @FXML
     private void pickImage() {
@@ -70,7 +65,7 @@ public class AmenityEditDialogController {
         }
     }
 
-    // ================= CONFIRM =================
+
 
     @FXML
     private void confirm() {
@@ -85,7 +80,7 @@ public class AmenityEditDialogController {
         }
     }
 
-    // ================= CANCEL =================
+
 
     @FXML
     private void cancel() {

@@ -14,7 +14,7 @@
 
     <VBox spacing="0" styleClass="rooms-view">
 
-        <!-- HEADER -->
+
         <HBox alignment="CENTER_LEFT" styleClass="view-header" spacing="20">
             <padding><Insets top="30" right="40" bottom="20" left="40"/></padding>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
@@ -26,10 +26,10 @@
         <Region prefHeight="1" maxWidth="Infinity"
                 style="-fx-background-color: rgba(118,128,100,0.2);"/>
 
-        <!-- SPLIT -->
+
         <HBox spacing="0" VBox.vgrow="ALWAYS">
 
-            <!-- LEFT: LIST -->
+
             <VBox spacing="12" prefWidth="420" minWidth="420"
                   style="-fx-border-color: rgba(118,128,100,0.2); -fx-border-width: 0 1 0 0;">
                 <padding><Insets top="24" right="20" bottom="24" left="40"/></padding>
@@ -52,7 +52,7 @@
                 </ScrollPane>
             </VBox>
 
-            <!-- RIGHT: DETAILS -->
+
             <VBox fx:id="detailsPanel" spacing="14" HBox.hgrow="ALWAYS">
                 <padding><Insets top="24" right="40" bottom="24" left="40"/></padding>
 

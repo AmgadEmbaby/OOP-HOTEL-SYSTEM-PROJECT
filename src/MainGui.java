@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle; // Add this import
+import javafx.stage.StageStyle;
 
 public class MainGui extends Application {
 
@@ -36,7 +36,7 @@ public class MainGui extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
         Scene scene = new Scene(root, 1000, 600);
 
-        // This removes the top white bar and "X" buttons
+        // remocing el white bar el fo'
         stage.initStyle(StageStyle.UNDECORATED);
 
         stage.setScene(scene);

@@ -19,12 +19,12 @@
         <URL value="@/style.css"/>
     </stylesheets>
 
-    <!-- TITLE -->
+
     <Label text="EDIT AMENITY" styleClass="dialog-title"/>
 
     <Region prefHeight="4"/>
 
-    <!-- COST -->
+
     <Label text="COST PER USE ($)" styleClass="field-label"/>
     <TextField fx:id="costField" styleClass="login-field"/>
 
@@ -39,7 +39,7 @@
                       styleClass="toggle-button"/>
     </HBox>
 
-    <!-- IMAGE -->
+
     <Label text="IMAGE (OPTIONAL)" styleClass="field-label"/>
     <Button fx:id="pickImgBtn"
             text="CHANGE IMAGE"
@@ -49,10 +49,10 @@
            text="Current image set"
            style="-fx-text-fill: rgba(218,222,216,0.45); -fx-font-size: 11px; -fx-font-family: 'Montserrat Light';"/>
 
-    <!-- ERROR -->
+
     <Label fx:id="errorLabel" text="" styleClass="error-label"/>
 
-    <!-- BUTTONS -->
+
     <HBox spacing="12" alignment="CENTER_LEFT">
         <padding><Insets top="10"/></padding>
         <Button text="SAVE CHANGES"

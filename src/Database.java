@@ -15,7 +15,6 @@ public class Database {
   private static Admin admin = new Admin("admin", "Halla", "admin123",
           LocalDate.of(1999, 5, 9), Staff.Role.ADMIN, 8);
 
-  // ================= 1. ROOM TYPES =================
   static {
     availableRoomTypesList.add(new RoomType("Single", 1, 1,
             "A room designed for one guest, it offers a small but comfortable space," +
@@ -29,14 +28,14 @@ public class Database {
                     " it's perfect for a small family or guests who want a private and luxurious stay.", 465));
   }
 
-  // ================= 2. GUESTS =================
+
   static {
     guestList.add(new Guests("Nour",  "Cairo",      LocalDate.of(2000, 5, 10), "pass123", Guests.Gender.female));
     guestList.add(new Guests("Halla", "Tanta",      LocalDate.of(1999, 3, 15), "pass456", Guests.Gender.female));
     guestList.add(new Guests("Amgad", "Cairo",      LocalDate.of(2001, 8, 20), "pass789", Guests.Gender.male));
   }
 
-  // ================= 3. ROOMS =================
+
   static {
     roomList.add(new Rooms(1, "Single"));
     roomList.add(new Rooms(1, "Double"));
@@ -45,7 +44,7 @@ public class Database {
     roomList.add(new Rooms(3, "Suite"));
   }
 
-  // ================= 4. AMENITIES =================
+
   static {
     availableAmenitiesList.add(new Amenity("Soft drink",      2));
     availableAmenitiesList.add(new Amenity("Jacuzzi",         150));
@@ -65,8 +64,7 @@ public class Database {
     }
   }
 
-  // ================= 5. RESERVATIONS =================
-  // ================= 5. RESERVATIONS =================
+
   static {
     try {
       Guests g1 = guestList.get(0);
@@ -115,7 +113,6 @@ public class Database {
       r5.setStatus(Reservations.ReservationStatus.CONFIRMED);
       reservationsList.add(r5);
 
-      // Past reservations
       Reservations r6 = new Reservations(g3,
               availableRoomTypesList.get(0),
               LocalDate.now(),
@@ -147,7 +144,7 @@ public class Database {
     }
   }
 
-  // ================= GETTERS =================
+
 
   public static Admin getAdmin() { return admin; }
 
@@ -169,7 +166,7 @@ public class Database {
 
   public static void addGuests(Guests guest) { guestList.add(guest); }
 
-  // ================= FINDERS =================
+
 
   public static Rooms findRoom(int roomNumber) {
     for (Rooms r : roomList) {
@@ -199,7 +196,6 @@ public class Database {
     return null;
   }
 
-  // ================= BUSINESS LOGIC =================
 
   public static int getAvailableRoomCount(String roomTypeName, LocalDate desiredDate) {
     int roomCount = 0;

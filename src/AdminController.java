@@ -130,7 +130,7 @@ public class AdminController implements Initializable {
         }
     }
 
-    // ---------- NAVIGATION ----------
+
 
     @FXML
     private void showHome(ActionEvent e) {

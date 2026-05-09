@@ -16,7 +16,7 @@
         <URL value="@/style.css" />
     </stylesheets>
 
-    <!-- LEFT IMAGE -->
+
 
     <VBox prefWidth="500.0" HBox.hgrow="ALWAYS">
 
@@ -28,18 +28,18 @@
 
     </VBox>
 
-    <!-- RIGHT CONTENT -->
+
 
     <VBox alignment="TOP_CENTER" prefWidth="500.0" styleClass="content-side" HBox.hgrow="ALWAYS">
 
-        <!-- TOP BAR -->
+
 
         <HBox alignment="TOP_RIGHT" maxWidth="Infinity">
          <Button onAction="#goBack" styleClass="close-button" text="← BACK" />
 
         </HBox>
 
-        <!-- CENTER CONTENT -->
+
 
         <VBox alignment="CENTER" spacing="34.0" VBox.vgrow="ALWAYS">
 
@@ -47,7 +47,7 @@
                 <Insets top="100.0" />
             </padding>
 
-            <!-- TITLES -->
+
 
             <VBox alignment="CENTER" spacing="10">
 
@@ -59,7 +59,6 @@
 
             </VBox>
 
-            <!-- BUTTONS -->
 
             <VBox alignment="CENTER" spacing="18">
 

@@ -32,7 +32,7 @@ public class AdminLoginController {
             stage.setScene(scene);
             stage.setMaximized(true);
             stage.show();
-            // NO makeDraggable here
+
         } else {
             errorLabel.setText("Invalid username or password.");
         }

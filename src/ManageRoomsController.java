@@ -25,7 +25,6 @@ public class ManageRoomsController {
         hideOverlay();
     }
 
-    // ---------- LOAD ----------
 
     private void loadRooms() {
         roomsContainer.getChildren().clear();
@@ -34,10 +33,10 @@ public class ManageRoomsController {
         }
     }
 
-    // ---------- OVERLAY ----------
+
 
     private void showOverlay(Parent content) {
-        // CENTER the dialog inside the overlay so it never stretches full height
+
         StackPane.setAlignment(content, Pos.CENTER);
 
         dialogOverlay.setAlignment(Pos.CENTER);
@@ -61,7 +60,7 @@ public class ManageRoomsController {
         dialogOverlay.getChildren().clear();
     }
 
-    // ---------- ADD ROOM ----------
+
 
     @FXML
     private void openAddRoomDialog() {
@@ -92,7 +91,7 @@ public class ManageRoomsController {
         }
     }
 
-    // ---------- ROOM CARDS ----------
+
 
     private VBox createCard(Rooms room) {
 
@@ -170,7 +169,6 @@ public class ManageRoomsController {
         return card;
     }
 
-    // ---------- STATUS DIALOG ----------
 
     private void openStatusDialog(Rooms room) {
         try {

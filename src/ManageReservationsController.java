@@ -25,7 +25,7 @@ public class ManageReservationsController {
         loadReservations(allReservations);
     }
 
-    // ================= LOAD =================
+
 
     private void loadReservations(List<Reservations> list) {
         reservationsContainer.getChildren().clear();
@@ -34,7 +34,7 @@ public class ManageReservationsController {
         }
     }
 
-    // ================= ROW CARD =================
+
 
     private VBox createRow(Reservations r) {
         Label guest = new Label(r.getGuest().getUserName().toUpperCase());
@@ -95,7 +95,7 @@ public class ManageReservationsController {
         return row;
     }
 
-    // ================= DETAILS =================
+
 
     private void showDetails(Reservations r) {
         detailGuest.setText(r.getGuest().getUserName());
@@ -105,7 +105,7 @@ public class ManageReservationsController {
         detailPayment.setText(r.getMethod().toString());
     }
 
-    // ================= FILTER =================
+
 
     @FXML
     private void filterReservations() {
@@ -127,7 +127,7 @@ public class ManageReservationsController {
         loadReservations(filtered);
     }
 
-    // ================= REFRESH =================
+
 
     public void refresh() {
         allReservations.clear();
