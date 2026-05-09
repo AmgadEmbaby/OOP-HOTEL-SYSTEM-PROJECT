@@ -66,7 +66,6 @@ public class Database {
   }
 
   // ================= 5. RESERVATIONS =================
-  // ================= 5. RESERVATIONS =================
   static {
     try {
       Guests g1 = guestList.get(0);
@@ -147,6 +146,14 @@ public class Database {
     }
   }
 
+
+  //receptionist
+  static{
+    staffList.add(new Receptionist("ahmed", "ahmed mohamed", "ahmed123*",
+            LocalDate.of(2000, 1, 1),Staff.Role.RECEPTIONIST,8));
+    staffList.add(new Receptionist("nourhan", "nourhan ali", "nourhan123*",
+            LocalDate.of(1998, 6, 12), Staff.Role.RECEPTIONIST,5));
+  }
   // ================= GETTERS =================
 
   public static Admin getAdmin() { return admin; }
@@ -254,5 +261,20 @@ public class Database {
     activityFeed.add(0, message);
     if (activityFeed.size() > 2) activityFeed.remove(activityFeed.size() - 1);
     AdminController.refreshUI();
+  }
+
+  private static Staff loggedInStaff;
+
+  public static void setLoggedInStaff(Staff staff) {
+    loggedInStaff = staff;
+
+    // Optional: Log who just signed in for debugging
+    if (staff != null) {
+      System.out.println("DEBUG: Session started for " + staff.getName() + " (" + staff.getRole() + ")");
+    }
+  }
+
+  public static Staff getLoggedInStaff() {
+    return loggedInStaff;
   }
 }

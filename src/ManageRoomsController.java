@@ -158,7 +158,7 @@ public class ManageRoomsController {
 
         edit.setOnAction(e -> openStatusDialog(room));
         del.setOnAction(e -> {
-            admin.deleteRoom(room.getRoomNumber());
+            admin.deleteRoom(Integer.parseInt(room.getRoomNumber()));
             Database.addActivity("Deleted Room " + room.getRoomNumber());
             AdminController.refreshUI();
             loadRooms();
