@@ -34,8 +34,8 @@ public class Rooms {
     }
 
 
-    public int getRoomNumber() {
-        return this.ActualRoomNumber;
+    public String getRoomNumber() {
+        return String.valueOf((this.ActualRoomNumber));
     }
 
     public int getRoomFloor() {

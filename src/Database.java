@@ -89,7 +89,7 @@ public class Database {
   //helper functions
   public static Rooms findRoom(int roomNumber){
     for(Rooms r: Database.getRoomList()){
-      if(r.getRoomNumber()==roomNumber ){
+      if(r.getRoomNumber().equals(roomNumber) ){
         return r;
       }
     }
@@ -315,14 +315,13 @@ for(Rooms r: Database.getRoomList()) {
             LocalDate.now().plusDays(10), LocalDate.now().plusDays(14),
             Invoices.PaymentMethod.CASH);
 
-
-    // R6 — ON-TIME checkout (checkout = today) , no fine
-    Reservations r6 = new Reservations(guest6, single,
-            LocalDate.now().minusDays(3), LocalDate.now(),
-            Invoices.PaymentMethod.ONLINE);
+// R6
+    Reservations r6 = new Reservations(guest1, single, LocalDate.now().minusDays(2), LocalDate.now(), Invoices.PaymentMethod.CREDIT_CARD);
     r6.setStatus(Reservations.ReservationStatus.CONFIRMED);
-    r6.setRoomDirect(room101);
+    r6.setRoom(room101);
     room101.setStatus(Rooms.RoomStatus.OCCUPIED);
+    reservationsList.add(r6);
+    System.out.println("TEST CHECK-OUT ID: " + r6.getReservationID());
 
     // R7 — LATE checkout (checkout was yesterday) , 100 fine
     Reservations r7 = new Reservations(guest7, doble,
@@ -364,7 +363,15 @@ for(Rooms r: Database.getRoomList()) {
     System.out.println("R8 (Early, Suite+amenities, $70 fine): " + r8.getReservationID());
     System.out.println("===================================");
   }
+  private static Staff loggedInStaff;
 
+  public static void setLoggedInStaff(Staff staff) {
+    loggedInStaff = staff;
+  }
+
+  public static Staff getLoggedInStaff() {
+    return loggedInStaff;
+  }
 
 
 }
