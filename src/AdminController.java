@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -42,7 +43,21 @@ public class AdminController implements Initializable {
 
         arrivalsContainer.getChildren().clear();
 
+        System.out.println("Reservations count: "
+                + Database.getReservationsList().size());
+
         for (Reservations r : Database.getReservationsList()) {
+
+            System.out.println("Reservation check-in: "
+                    + r.getCheckin());
+
+            System.out.println("Today's date: "
+                    + LocalDate.now());
+
+            // ONLY today's arrivals
+            if (!r.getCheckin().equals(LocalDate.now())) {
+                continue;
+            }
 
             VBox card = new VBox(6);
 
@@ -57,22 +72,62 @@ public class AdminController implements Initializable {
             -fx-padding: 18;
         """);
 
-            Label guest = new Label(r.getGuest().getUserName());
+            Label guest = new Label(
+                    r.getGuest().getUserName()
+            );
+
             guest.setStyle("""
             -fx-text-fill: #F3EFE6;
             -fx-font-size: 18px;
             -fx-font-family: 'Cinzel';
         """);
 
-            Label room = new Label("Room " + r.getRoom().getRoomNumber());
-            room.setStyle("""
-            -fx-text-fill: rgba(218,222,216,0.65);
-            -fx-font-size: 12px;
+            Label roomType = new Label(
+                    r.getTypeDesired()
+                            .getTypeName()
+                            .toUpperCase()
+            );
+
+            roomType.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.70);
+            -fx-font-size: 11px;
+            -fx-letter-spacing: 2px;
         """);
 
-            card.getChildren().addAll(guest, room);
+            Label stay = new Label(
+                    r.getCheckin()
+                            + " → " +
+                            r.getCheckout()
+            );
+
+            stay.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.45);
+            -fx-font-size: 11px;
+        """);
+
+            card.getChildren().addAll(
+                    guest,
+                    roomType,
+                    stay
+            );
 
             arrivalsContainer.getChildren().add(card);
+        }
+
+        // EMPTY STATE
+        if (arrivalsContainer.getChildren().isEmpty()) {
+
+            Label empty = new Label(
+                    "No arrivals scheduled for tonight."
+            );
+
+            empty.setStyle("""
+            -fx-text-fill: rgba(218,222,216,0.45);
+            -fx-font-size: 13px;
+            -fx-padding: 20;
+        """);
+
+            arrivalsContainer.getChildren().add(empty);
         }
     }
     public void refreshDashboard() {
@@ -158,7 +213,21 @@ public class AdminController implements Initializable {
         }
     }
     @FXML private void showGuests(ActionEvent e) {}
-    @FXML private void showReservations(ActionEvent e) {}
+    @FXML
+    private void showReservations(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("ManageReservations.fxml")
+            );
+
+            Parent view = loader.load();
+
+            contentArea.getChildren().setAll(view);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     private void logout(ActionEvent e) throws Exception {
