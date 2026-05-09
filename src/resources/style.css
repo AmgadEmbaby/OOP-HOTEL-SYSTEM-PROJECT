@@ -594,3 +594,15 @@
 .home-root {
     -fx-background-color: transparent;
 }
+.scroll-pane:horizontal .scroll-bar {
+    -fx-pref-height: 8;
+}
+
+.scroll-pane:horizontal .scroll-bar .thumb {
+    -fx-background-color: rgba(118,128,100,0.50);
+    -fx-background-radius: 10;
+}
+.scroll-pane > .scroll-bar:vertical {
+    -fx-pref-width: 8;
+    -fx-padding: 0 4 0 0;
+}
