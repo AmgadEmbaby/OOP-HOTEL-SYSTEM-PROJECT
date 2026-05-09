@@ -33,15 +33,21 @@ public class MainGui extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Cinzel.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("/fonts/Montserrat-Light.ttf"), 12);
 
-        Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
-        Scene scene = new Scene(root, 1000, 600);
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+            Scene scene = new Scene(root, 1000, 600);
+            stage.initStyle(StageStyle.UNDECORATED);
 
-        // This removes the top white bar and "X" buttons
-        stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.show();
+            makeDraggable(root, stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-        stage.setScene(scene);
-        stage.show();
-        makeDraggable(root, stage);
+
+
+
     }
 
     public static void main(String[] args) {
