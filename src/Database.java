@@ -73,73 +73,51 @@ public class Database {
       Guests g3 = guestList.get(2);
 
 
-      Reservations r1 = new Reservations(g1,
-              availableRoomTypesList.get(0),
-              LocalDate.now(),
-              LocalDate.now().plusDays(2),
-              Invoices.PaymentMethod.ONLINE);
+
+// ================= CHECK-IN TEST CASES =================
+
+// R1: Standard Confirmed Check-In (Ready to move into a room)
+      Reservations r1 = new Reservations(guestList.get(0), availableRoomTypesList.get(0),
+              LocalDate.now(), LocalDate.now().plusDays(2), Invoices.PaymentMethod.CREDIT_CARD);
       r1.setStatus(Reservations.ReservationStatus.CONFIRMED);
       reservationsList.add(r1);
 
-      Reservations r2 = new Reservations(g2,
-              availableRoomTypesList.get(1),
-              LocalDate.now(),
-              LocalDate.now().plusDays(3),
-              Invoices.PaymentMethod.CASH);
-      r2.setStatus(Reservations.ReservationStatus.CONFIRMED);
+// R2: Pending Payment (Test the "Confirm Payment" button logic)
+      Reservations r2 = new Reservations(guestList.get(1), availableRoomTypesList.get(1),
+              LocalDate.now(), LocalDate.now().plusDays(3), Invoices.PaymentMethod.CASH);
+      r2.setStatus(Reservations.ReservationStatus.PENDING);
       reservationsList.add(r2);
 
-
-      Reservations r3 = new Reservations(g3,
-              availableRoomTypesList.get(2),
-              LocalDate.now(),
-              LocalDate.now().plusDays(10),
-              Invoices.PaymentMethod.CREDIT_CARD);
-      r3.setStatus(Reservations.ReservationStatus.CONFIRMED);
+// R3: Cancelled Case (Test how your search handles non-active bookings)
+      Reservations r3 = new Reservations(guestList.get(0), availableRoomTypesList.get(0),
+              LocalDate.now(), LocalDate.now().plusDays(1), Invoices.PaymentMethod.CASH);
+      r3.setStatus(Reservations.ReservationStatus.CANCELLED);
       reservationsList.add(r3);
 
-      Reservations r4 = new Reservations(g1,
-              availableRoomTypesList.get(1),
-              LocalDate.now(),
-              LocalDate.now().plusDays(9),
-              Invoices.PaymentMethod.ONLINE);
-      r4.setStatus(Reservations.ReservationStatus.PENDING);
+
+// ================= CHECK-OUT TEST CASES =================
+
+// R4: Standard Check-Out (Guest is currently in the room)
+      Reservations r4 = new Reservations(guestList.get(1), availableRoomTypesList.get(0),
+              LocalDate.now().minusDays(3), LocalDate.now(), Invoices.PaymentMethod.CREDIT_CARD);
+      r4.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      r4.setRoom(roomList.get(0)); // Link to Room 101
+      roomList.get(0).setStatus(Rooms.RoomStatus.OCCUPIED);
       reservationsList.add(r4);
 
-      Reservations r5 = new Reservations(g2,
-              availableRoomTypesList.get(2),
-              LocalDate.now(),
-              LocalDate.now().plusDays(18),
-              Invoices.PaymentMethod.CASH);
+// R5: Late Check-Out (Penalty Case - 1 day late)
+      Reservations r5 = new Reservations(guestList.get(0), availableRoomTypesList.get(1),
+              LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), Invoices.PaymentMethod.CASH);
       r5.setStatus(Reservations.ReservationStatus.CONFIRMED);
+      r5.setRoom(roomList.get(1)); // Link to Room 102
+      roomList.get(1).setStatus(Rooms.RoomStatus.OCCUPIED);
       reservationsList.add(r5);
 
-      // Past reservations
-      Reservations r6 = new Reservations(g3,
-              availableRoomTypesList.get(0),
-              LocalDate.now(),
-              LocalDate.now().minusDays(7),
-              Invoices.PaymentMethod.ONLINE);
-      r6.setStatus(Reservations.ReservationStatus.CONFIRMED);
+// R6: Already Finished (Test a historical record)
+      Reservations r6 = new Reservations(guestList.get(1), availableRoomTypesList.get(2),
+              LocalDate.now().minusDays(10), LocalDate.now().minusDays(7), Invoices.PaymentMethod.CREDIT_CARD);
+      r6.setStatus(Reservations.ReservationStatus.COMPLETED);
       reservationsList.add(r6);
-
-      Reservations r7 = new Reservations(g1,
-              availableRoomTypesList.get(2),
-              LocalDate.now(),
-              LocalDate.now().minusDays(2),
-              Invoices.PaymentMethod.CREDIT_CARD);
-      r7.setStatus(Reservations.ReservationStatus.CONFIRMED);
-      reservationsList.add(r7);
-
-
-
-      Reservations r8 = new Reservations(g2,
-              availableRoomTypesList.get(1),
-              LocalDate.now(),
-              LocalDate.now().plusDays(3),
-              Invoices.PaymentMethod.CASH);
-      r8.setStatus(Reservations.ReservationStatus.CONFIRMED);
-      reservationsList.add(r8);
 
     } catch (Exception e) {
       e.printStackTrace();

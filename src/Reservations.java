@@ -11,6 +11,7 @@ public class Reservations {
     private boolean isCheckedIn=false;
     private Invoices.PaymentMethod method;
 
+
     @Override
     public String toString() {
         return "Reservation ID: " + this.reservationID;
@@ -36,6 +37,10 @@ public class Reservations {
 
     public void setCheckout(LocalDate checkout) {
         this.checkout = checkout;
+    }
+
+    public RoomType getRoomType() {
+        return typeDesired;
     }
 
     public enum ReservationStatus {
