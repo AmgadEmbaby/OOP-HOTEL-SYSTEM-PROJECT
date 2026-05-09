@@ -36,7 +36,7 @@ public class Navigator {
 
         Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
         // Use getClass() to load the FXML relative to the current class
-        Parent root = FXMLLoader.load(getClass().getResource("/" + fxmlFile));
+        root = FXMLLoader.load(getClass().getResource("/" + fxmlFile));
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
