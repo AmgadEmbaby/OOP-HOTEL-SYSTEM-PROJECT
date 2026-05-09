@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+
+<StackPane fx:id="rootPane" alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CheckOutViewController">
+
+    <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="false"
+               fitWidth="${rootPane.width}" fitHeight="${rootPane.height}">
+        <image>
+            <Image url="@/images/hotel_bg.jpg.png" />
+        </image>
+        <effect>
+            <BoxBlur width="15" height="15" iterations="3" />
+        </effect>
+    </ImageView>
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+        <VBox alignment="CENTER" spacing="35" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets top="40" bottom="40" left="20" right="150"/>
+            </padding>
+
+            <VBox alignment="CENTER" spacing="5">
+                <Label text="GUEST DEPARTURE" style="-fx-text-fill: #768064; -fx-letter-spacing: 4px; -fx-font-family: 'Cinzel'; -fx-font-size: 12px;"/>
+                <Label text="CHECK-OUT DESK" style="-fx-font-family: 'Zaslia'; -fx-font-size: 54px; -fx-text-fill: #DADED8;"/>
+            </VBox>
+
+            <VBox maxWidth="650" spacing="20" alignment="CENTER"
+                  style="-fx-background-color: rgba(20, 26, 17, 0.95); -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: rgba(212, 175, 55, 0.5); -fx-border-width: 1.5;">
+                <padding><Insets top="30" bottom="30" left="40" right="40"/></padding>
+                <effect>
+                    <DropShadow color="rgba(212, 175, 55, 0.3)" radius="20" spread="0.4" />
+                </effect>
+
+                <Label text="RESERVATION IDENTIFIER" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 10px; -fx-text-fill: #768064; -fx-letter-spacing: 2px;"/>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <TextField fx:id="reservationIdField" promptText="ENTER ID (e.g. 1000)" HBox.hgrow="ALWAYS"
+                               style="-fx-background-color: rgba(0,0,0,0.4); -fx-text-fill: white; -fx-border-color: rgba(118,128,100,0.3); -fx-padding: 10; -fx-font-family: 'Cinzel';"/>
+                    <Button text="VALIDATE" onAction="#handleValidate"
+                            style="-fx-background-color: rgba(212, 175, 55, 0.05); -fx-border-color: #d4af37; -fx-border-width: 1; -fx-border-radius: 5; -fx-text-fill: #d4af37; -fx-font-family: 'Cinzel'; -fx-cursor: hand; -fx-pref-width: 120; -fx-pref-height: 40;">
+                        <effect>
+                            <DropShadow color="black" radius="5" offsetX="2" offsetY="2" />
+                        </effect>
+                    </Button>
+                </HBox>
+                <Label fx:id="messageLabel" visible="false" managed="false" style="-fx-font-family: 'Montserrat'; -fx-font-size: 11px;"/>
+            </VBox>
+
+            <VBox fx:id="reservationInfoBox" visible="false" managed="false" maxWidth="650" spacing="0" alignment="CENTER"
+                  style="-fx-background-color: rgba(20, 26, 17, 0.95); -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: rgba(212, 175, 55, 0.5); -fx-border-width: 1.5;">
+                <effect>
+                    <DropShadow color="rgba(212, 175, 55, 0.3)" radius="20" spread="0.4" />
+                </effect>
+
+                <!-- GUEST HEADER -->
+                <VBox alignment="CENTER" spacing="8" style="-fx-padding: 30 40 25 40; -fx-border-color: transparent transparent rgba(212,175,55,0.15) transparent; -fx-border-width: 0 0 1 0;">
+                    <Label fx:id="guestNameLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 26px; -fx-text-fill: #DADED8;"/>
+                    <HBox alignment="CENTER" spacing="12">
+                        <Label text="🛌" style="-fx-font-size: 16px;"/>
+                        <Label fx:id="roomNumberLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 13px; -fx-text-fill: #d4af37;"/>
+                        <Label text="·" style="-fx-text-fill: rgba(212,175,55,0.4); -fx-font-size: 16px;"/>
+                        <Label fx:id="roomTypeLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 13px; -fx-text-fill: #768064;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- STAY DURATION BANNER -->
+                <HBox alignment="CENTER" spacing="20"
+                      style="-fx-background-color: rgba(212,175,55,0.06); -fx-padding: 18 40; -fx-border-color: transparent transparent rgba(212,175,55,0.15) transparent; -fx-border-width: 0 0 1 0;">
+                    <VBox alignment="CENTER" spacing="3">
+                        <Label text="CHECK-IN" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 9px; -fx-text-fill: #768064; -fx-letter-spacing: 2px;"/>
+                        <Label fx:id="checkInDateLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 13px; -fx-text-fill: #DADED8;"/>
+                    </VBox>
+                    <Label text="📅" style="-fx-font-size: 20px;"/>
+                    <Label text="——————" style="-fx-text-fill: rgba(212,175,55,0.3); -fx-font-size: 12px;"/>
+                    <Label text="✈" style="-fx-text-fill: #d4af37; -fx-font-size: 18px;"/>
+                    <Label text="——————" style="-fx-text-fill: rgba(212,175,55,0.3); -fx-font-size: 12px;"/>
+                    <VBox alignment="CENTER" spacing="3">
+                        <Label text="CHECK-OUT" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 9px; -fx-text-fill: #768064; -fx-letter-spacing: 2px;"/>
+                        <Label fx:id="checkOutDateLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 13px; -fx-text-fill: #DADED8;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- BILLING BREAKDOWN -->
+                <VBox spacing="0" style="-fx-padding: 25 40 0 40;">
+
+                    <HBox alignment="CENTER_LEFT" style="-fx-padding: 12 0; -fx-border-color: transparent transparent rgba(255,255,255,0.05) transparent; -fx-border-width: 0 0 1 0;">
+                        <Label text="STAY COST" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 10px; -fx-text-fill: #768064; -fx-letter-spacing: 1px;" HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="stayCostLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 14px; -fx-text-fill: #DADED8;"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" style="-fx-padding: 12 0; -fx-border-color: transparent transparent rgba(255,255,255,0.05) transparent; -fx-border-width: 0 0 1 0;">
+                        <Label text="AMENITIES" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 10px; -fx-text-fill: #768064; -fx-letter-spacing: 1px;" HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="amenityFeesLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 14px; -fx-text-fill: #DADED8;"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" style="-fx-padding: 12 0; -fx-border-color: transparent transparent rgba(212,175,55,0.2) transparent; -fx-border-width: 0 0 1 0;">
+                        <Label text="FINES" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 10px; -fx-text-fill: #768064; -fx-letter-spacing: 1px;" HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="finesLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 14px; -fx-text-fill: #ff6b6b;"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" style="-fx-padding: 18 0 25 0;">
+                        <Label text="TOTAL DUE" style="-fx-font-family: 'Cinzel'; -fx-font-size: 11px; -fx-text-fill: #d4af37; -fx-letter-spacing: 2px;" HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="totalLabel" style="-fx-font-family: 'Cinzel'; -fx-font-size: 22px; -fx-text-fill: #d4af37;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- PAYMENT + BUTTON -->
+                <VBox spacing="12" alignment="CENTER"
+                      style="-fx-background-color: rgba(0,0,0,0.25); -fx-padding: 25 40 30 40; -fx-background-radius: 0 0 25 25;">
+                    <Label text="PAYMENT METHOD" style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 9px; -fx-text-fill: #768064; -fx-letter-spacing: 2px;"/>
+                    <ComboBox fx:id="paymentMethodComboBox" prefWidth="400" prefHeight="42" promptText="SELECT METHOD"
+                              style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-border-color: rgba(212,175,55,0.3); -fx-border-radius: 5; -fx-font-family: 'Cinzel';"/>
+                    <Button text="FINALIZE  &amp;  SETTLE" onAction="#handleFinalize" prefWidth="400" prefHeight="48"
+                            style="-fx-background-color: #d4af37; -fx-text-fill: #141a11; -fx-font-weight: bold; -fx-font-family: 'Cinzel'; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand; -fx-letter-spacing: 2px;">
+                        <effect>
+                            <DropShadow color="rgba(212,175,55,0.6)" radius="15" spread="0.2"/>
+                        </effect>
+                    </Button>
+                </VBox>
+
+            </VBox>
+
+            <VBox fx:id="successBox" visible="false" managed="false" alignment="CENTER" spacing="15"
+                  style="-fx-background-color: rgba(20, 26, 17, 0.95); -fx-padding: 40; -fx-background-radius: 20; -fx-border-color: #A5D6A7; -fx-border-width: 1;">
+                <Label text="✔" style="-fx-text-fill: #A5D6A7; -fx-font-size: 50;" />
+                <Label text="DEPARTURE SUCCESSFUL" style="-fx-text-fill: white; -fx-font-family: 'Cinzel'; -fx-font-size: 18;" />
+                <Label fx:id="farewellLabel" style="-fx-text-fill: #768064; -fx-font-family: 'Montserrat';" textAlignment="CENTER" wrapText="true"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</StackPane>

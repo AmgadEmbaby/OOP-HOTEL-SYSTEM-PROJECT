@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="files to be submiited">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/files to be submiited.zip!/" />
+      <root url="file://$PROJECT_DIR$/../uni/semester 2/javafx-sdk-26.0.1/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../uni/semester 2/javafx-sdk-26.0.1/lib" recursive="false" />
+  </library>
+</component>

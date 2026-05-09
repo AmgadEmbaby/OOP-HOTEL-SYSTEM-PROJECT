@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="ViewRoomsController">
+
+    <stylesheets>
+        <URL value="@/style.css"/>
+    </stylesheets>
+
+    <!-- BACKGROUND IMAGE (same as CheckOutView) -->
+    <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="false"
+               fitWidth="${rootPane.width}" fitHeight="${rootPane.height}">
+        <image>
+            <Image url="@/images/hotel_bg.jpg.png"/>
+        </image>
+        <effect>
+            <BoxBlur width="15" height="15" iterations="3"/>
+        </effect>
+    </ImageView>
+
+    <!-- MAIN CONTENT -->
+    <VBox spacing="0" styleClass="rooms-view">
+
+        <!-- HEADER -->
+        <HBox alignment="CENTER_LEFT" styleClass="view-header" spacing="20">
+            <padding><Insets top="30" right="40" bottom="20" left="40"/></padding>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="ROOM DIRECTORY"
+                       style="-fx-font-family: 'Zaslia'; -fx-font-size: 38px; -fx-text-fill: #DADED8;"/>
+                <Label text="BROWSE &amp; INSPECT HOTEL ROOMS"
+                       style="-fx-font-family: 'Cinzel'; -fx-font-size: 10px; -fx-text-fill: #768064; -fx-letter-spacing: 3px;"/>
+            </VBox>
+        </HBox>
+
+        <!-- DIVIDER -->
+        <Region prefHeight="1" maxWidth="Infinity"
+                style="-fx-background-color: rgba(212,175,55,0.25);"/>
+
+        <!-- FILTER BAR -->
+        <HBox alignment="CENTER_LEFT" spacing="16"
+              style="-fx-background-color: rgba(20,26,17,0.85); -fx-padding: 18 40 18 40; -fx-border-color: transparent transparent rgba(212,175,55,0.12) transparent; -fx-border-width: 0 0 1 0;">
+
+            <!-- Search Field -->
+            <TextField fx:id="searchField"
+                       promptText="🔍  SEARCH ROOM NUMBER..."
+                       prefWidth="240"
+                       style="-fx-background-color: rgba(0,0,0,0.45); -fx-text-fill: #DADED8; -fx-prompt-text-fill: #768064; -fx-border-color: rgba(118,128,100,0.35); -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 10 14; -fx-font-family: 'Cinzel'; -fx-font-size: 11px;"/>
+
+            <Region prefWidth="10"/>
+            <Label text="FILTER BY"
+                   style="-fx-font-family: 'Montserrat Light'; -fx-font-size: 9px; -fx-text-fill: #768064; -fx-letter-spacing: 2px;"/>
+
+            <!-- Type Filter -->
+            <ComboBox fx:id="typeFilter"
+                      promptText="ROOM TYPE"
+                      prefWidth="160" prefHeight="40"
+                      style="-fx-background-color: rgba(0,0,0,0.45); -fx-text-fill: #DADED8; -fx-border-color: rgba(118,128,100,0.35); -fx-border-radius: 6; -fx-font-family: 'Cinzel'; -fx-font-size: 11px;"/>
+
+            <!-- Status Filter -->
+            <ComboBox fx:id="statusFilter"
+                      promptText="STATUS"
+                      prefWidth="160" prefHeight="40"
+                      style="-fx-background-color: rgba(0,0,0,0.45); -fx-text-fill: #DADED8; -fx-border-color: rgba(118,128,100,0.35); -fx-border-radius: 6; -fx-font-family: 'Cinzel'; -fx-font-size: 11px;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Results Count -->
+            <Label fx:id="resultsLabel"
+                   text="ALL ROOMS"
+                   style="-fx-font-family: 'Cinzel'; -fx-font-size: 10px; -fx-text-fill: #d4af37; -fx-letter-spacing: 1px;"/>
+
+            <!-- Clear Filters -->
+            <Button text="CLEAR"
+                    onAction="#clearFilters"
+                    style="-fx-background-color: transparent; -fx-border-color: rgba(118,128,100,0.4); -fx-border-radius: 5; -fx-text-fill: #768064; -fx-font-family: 'Cinzel'; -fx-font-size: 10px; -fx-cursor: hand; -fx-padding: 8 16;"/>
+        </HBox>
+
+        <!-- ROOMS GRID -->
+        <ScrollPane fitToWidth="true"
+                    VBox.vgrow="ALWAYS"
+                    hbarPolicy="NEVER"
+                    pannable="true"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+
+            <FlowPane fx:id="roomsContainer"
+                      hgap="30"
+                      vgap="30"
+                      prefWrapLength="1100"
+                      styleClass="rooms-gallery">
+                <padding>
+                    <Insets top="40" right="40" bottom="60" left="40"/>
+                </padding>
+            </FlowPane>
+
+        </ScrollPane>
+    </VBox>
+
+    <!-- DETAIL OVERLAY -->
+    <StackPane fx:id="dialogOverlay"
+               visible="false"
+               managed="false"
+               style="-fx-background-color: rgba(0,0,0,0.65);"
+               mouseTransparent="false"/>
+
+</StackPane>
