@@ -61,7 +61,7 @@ public class CheckInViewController {
         Rooms assignedRoom = null;
         for (Rooms r : Database.getRoomList()) {
             if (r.getRoomNumber().equals(roomNum)) {
-                // Update the room status in the central database
+                // update the room status in the central database
                 r.setStatus(Rooms.RoomStatus.OCCUPIED);
                 assignedRoom = r;
                 break;

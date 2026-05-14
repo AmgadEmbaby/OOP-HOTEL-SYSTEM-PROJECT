@@ -7,12 +7,13 @@ import java.io.IOException;
 
 public class ReceptionistDashboardController {
 
-    // This matches the fx:id="contentArea" in your FXML center
+// as if I am telling the program " look at the FXML file , find the box named "contentArea" and let me control it here .
     @FXML private StackPane contentArea;
 
     // This runs automatically when the dashboard opens
     // Inside ReceptionistDashboardController.java
     @FXML private Label receptionistNameLabel;
+    //these variables are created to store the screens in memory so they load when clicked
     private Parent checkInView;
     private Parent checkOutView;
     private Parent ViewRooms;
@@ -63,7 +64,7 @@ public class ReceptionistDashboardController {
             stage.setMaximized(false); // Disable full screen
             stage.setWidth(1000);      // Set back to your original width
             stage.setHeight(600);     // Set back to your original height
-            stage.centerOnScreen();    // Optional: centers the window nicely
+            stage.centerOnScreen();
 
             // 4. Switch the scene
             stage.getScene().setRoot(root);

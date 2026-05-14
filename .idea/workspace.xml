@@ -1,30 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f643dd6-cc85-48e9-9ffb-22fac3037b48" name="Changes" comment="C">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/files_to_be_submiited.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_09_05_2026_5_44_am_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_09_05_2026_5_44_am_[Changes]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_09_05_2026_5_44_am__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_09_05_2026_5_44_am__Changes_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_09_05_2026_5_45_am_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_09_05_2026_5_45_am__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OOP-HOTEL-SYSTEM-PROJECT.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CheckInView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CheckInViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CheckOutView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CheckOutViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Guests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainDashboardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ReceptionistDashboard.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ReceptionistDashboardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ReceptionistLogin.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ReceptionistLoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserSession.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ViewRooms.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ViewRoomsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/hotel_bg.jpg.png" afterDir="false" />
+    <list default="true" id="8f643dd6-cc85-48e9-9ffb-22fac3037b48" name="Changes" comment="final">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,11 +126,20 @@
       <option name="project" value="LOCAL" />
       <updated>1778297689731</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="final">
+      <option name="closed" value="true" />
+      <created>1778299440471</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778299440471</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="C" />
-    <option name="LAST_COMMIT_MESSAGE" value="C" />
+    <MESSAGE value="final" />
+    <option name="LAST_COMMIT_MESSAGE" value="final" />
   </component>
 </project>
